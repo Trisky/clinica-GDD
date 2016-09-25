@@ -15,6 +15,13 @@ namespace ClinicaFrba.Pedir_Turno
         public Form1()
         {
             InitializeComponent();
+
+            //monthCalendar1.
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
         }
     }
 }
