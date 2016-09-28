@@ -48,10 +48,45 @@ select distinct Plan_Med_Codigo,Plan_Med_Descripcion,Plan_Med_Precio_Bono_Consul
 from GD2C2016.gd_esquema.Maestra
 --===========================================================================================================
 --===========================================================================================================
---4 copio especialidades
-insert GRUPOSA.Especialidades
-select distinct Especialidad_Codigo,Especialidad_Descripcion
-from gd_esquema.Maestra
+/* 4 - ABM Especialidades Medicas */
+
+USE GD2C2016
+BEGIN TRANSACTION
+	
+	DECLARE @espe_cod 			NUMERIC(18,0)
+	DECLARE @espe_desc			VARCHAR(255)
+	DECLARE @espe_tipo_cod 		NUMERIC(18,0)
+	DECLARE @espe_tipo_desc		VARCHAR(255)
+
+	DECLARE Cur_Especialidades CURSOR FOR
+	
+		SELECT DISTINCT(especialidad_codigo), especialidad_descripcion, tipo_especialidad_codigo, tipo_especialidad_descripcion 
+		FROM gd_esquema.Maestra
+		WHERE especialidad_codigo IS NOT NULL
+		ORDER BY 1 ASC
+
+	OPEN Cur_Especialidades 
+		
+		FETCH Cur_Especialidades INTO @espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc
+		WHILE (@@FETCH_STATUS = 0)
+
+			BEGIN	
+
+				INSERT INTO [GRUPOSA].[Especialidades]
+				([Especialidad_Cod],[Especialidad_Desc],[Especialidad_Tipo_Cod],[Especialidad_Tipo_Desc])
+		   		VALUES
+				(@espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc);
+					
+				FETCH NEXT FROM Cur_Especialidades INTO @espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc
+			END
+		
+
+	CLOSE Cur_Especialidades
+
+	DEALLOCATE Cur_Especialidades
+	
+COMMIT TRANSACTION
+
 --===========================================================================================================
 --===========================================================================================================
 --5 tipos de documento
