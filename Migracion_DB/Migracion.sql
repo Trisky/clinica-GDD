@@ -93,16 +93,16 @@ BEGIN TRANSACTION
 	DECLARE @espe_tipo_cod 		NUMERIC(18,0)
 	DECLARE @espe_tipo_desc		VARCHAR(255)
 
-	DECLARE Cur_PlanesMedicos CURSOR FOR
+	DECLARE Cur_Especialidades CURSOR FOR
 	
 		SELECT DISTINCT(especialidad_codigo), especialidad_descripcion, tipo_especialidad_codigo, tipo_especialidad_descripcion 
 		FROM gd_esquema.Maestra
 		WHERE especialidad_codigo IS NOT NULL
 		ORDER BY 1 ASC
 
-	OPEN Cur_PlanesMedicos 
+	OPEN Cur_Especialidades 
 		
-		FETCH Cur_PlanesMedicos INTO @espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc
+		FETCH Cur_Especialidades INTO @espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc
 		WHILE (@@FETCH_STATUS = 0)
 
 			BEGIN	
@@ -112,13 +112,13 @@ BEGIN TRANSACTION
 		   		VALUES
 				(@espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc);
 					
-				FETCH NEXT FROM Cur_PlanesMedicos INTO @espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc
+				FETCH NEXT FROM Cur_Especialidades INTO @espe_cod, @espe_desc, @espe_tipo_cod, @espe_tipo_desc
 			END
 		
 
-	CLOSE Cur_PlanesMedicos
+	CLOSE Cur_Especialidades
 
-	DEALLOCATE Cur_PlanesMedicos
+	DEALLOCATE Cur_Especialidades
 	
 COMMIT TRANSACTION
 
