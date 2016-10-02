@@ -1,9 +1,12 @@
 --===========================================================================================================
 --===========================================================================================================		   
-CREATE SEQUENCE GRUPOSA.SQ_ID_USUARIO  
+CREATE SEQUENCE GRUPOSA.SQ_ID_MEDICO
     START WITH 1   
     INCREMENT BY 1;  
 
+CREATE SEQUENCE GRUPOSA.SQ_ID_PACIENTE
+    START WITH 1   
+    INCREMENT BY 1;  
 --===========================================================================================================
 --===========================================================================================================
 --INSERT TIPOS DE DOCUMENTO
@@ -22,6 +25,24 @@ INSERT INTO [GRUPOSA].[TipoDocumento]
      VALUES
            ('LC')
 
+--===========================================================================================================
+--===========================================================================================================
+--INSERT TIPO ROL
+
+INSERT GRUPOSA.[Rol] 
+	([Rol_Codigo],[Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
+VALUES 
+	(CAST(0 AS NUMERIC(18, 0)),N'Administrador',0,1)
+
+INSERT GRUPOSA.[Rol] 
+	([Rol_Codigo],[Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
+VALUES 
+	(CAST(1 AS NUMERIC(18, 0)),N'Paciente',0,0)
+
+INSERT GRUPOSA.[Rol] 
+	([Rol_Codigo],[Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
+VALUES 
+	(CAST(2 AS NUMERIC(18, 0)),N'Medico',0,0)
 
 --===========================================================================================================
 --===========================================================================================================
@@ -107,7 +128,126 @@ COMMIT TRANSACTION
 
 --===========================================================================================================
 --===========================================================================================================
-		   
+--/* Medicos */
+
+USE GD2C2016
+BEGIN TRANSACTION
+	
+	ALTER TABLE [GRUPOSA].[Medicos] NOCHECK  CONSTRAINT [FK_Medicos_HorariosAtencion]
+	
+	DECLARE @medi_id					VARCHAR(255)
+	DECLARE @medi_nom					VARCHAR(255)
+	DECLARE @medi_apell					VARCHAR(255)
+	DECLARE @medi_tipodni				NUMERIC(18,0)
+	DECLARE @medi_dni			 		NUMERIC(18,0)
+	DECLARE @medi_direccion				VARCHAR(255)
+	DECLARE @medi_mail 					VARCHAR(255)
+	DECLARE @medi_telefono				NUMERIC(18,0)
+	DECLARE @medi_fecha_nac				DATE
+	DECLARE @medi_usuario 				VARCHAR(255)
+	DECLARE @var						NUMERIC(18,0)
+
+	DECLARE Cur_Medicos CURSOR FOR
+		
+		SELECT medico_nombre, medico_apellido, medico_dni, medico_direccion, medico_fecha_nac, medico_mail, medico_telefono 
+		FROM gd_esquema.Maestra 
+		WHERE medico_nombre IS NOT NULL
+		GROUP BY medico_nombre, medico_apellido, medico_dni, medico_direccion, medico_fecha_nac, medico_mail, medico_telefono
+		
+		SELECT @medi_tipodni = Tipo_Doc_Cod FROM GRUPOSA.TIPODOCUMENTO
+		WHERE TIPO_DOC_COD = 1;
+		
+	OPEN Cur_Medicos 
+		
+		FETCH Cur_Medicos INTO @medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_fecha_nac, @medi_mail, @medi_telefono
+				
+		WHILE (@@FETCH_STATUS = 0)
+		
+			BEGIN	
+				
+				SET @var = NEXT VALUE FOR GRUPOSA.SQ_ID_MEDICO
+				SET @medi_id = RIGHT(replicate('0',5) + CAST(@var AS VARCHAR(5)),5)
+				SET @medi_usuario = LOWER(@medi_nom) + '_' + LOWER(@medi_apell) + '.' + 'clinica_frba'
+					 
+					INSERT INTO [GRUPOSA].[Medicos]
+					   ([Medi_Id],[Medi_Nombre],[Medi_Apellido],[Medi_TipoDocumento],[Medi_Dni],
+						[Medi_Direccion],[Medi_Mail],[Medi_Telefono],[Medi_Fecha_Nac],[Medi_Usuario])
+					VALUES
+					   (@medi_id, @medi_nom, @medi_apell, @medi_tipodni, @medi_dni, 
+						@medi_direccion, @medi_mail, @medi_telefono, @medi_fecha_nac, @medi_usuario);
+
+				FETCH NEXT FROM Cur_Medicos INTO @medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_fecha_nac, @medi_mail, 
+				@medi_telefono
+			END
+
+	CLOSE Cur_Medicos
+
+	DEALLOCATE Cur_Medicos
+	ALTER TABLE [GRUPOSA].[Medicos] CHECK  CONSTRAINT [FK_Medicos_HorariosAtencion]
+	
+COMMIT TRANSACTION
+
+--===========================================================================================================
+--===========================================================================================================
+--/* Pacientes */
+USE GD2C2016
+BEGIN TRANSACTION
+
+	DECLARE @paci_id					VARCHAR(255)
+	DECLARE @paci_nom					VARCHAR(255)
+	DECLARE @paci_apell					VARCHAR(255)
+	DECLARE @paci_tipodni				NUMERIC(18,0)
+	DECLARE @paci_dni			 		NUMERIC(18,0)
+	DECLARE @paci_direccion				VARCHAR(255)
+	DECLARE @paci_tel					NUMERIC(18,0)
+	DECLARE @paci_mail 					VARCHAR(255)
+	DECLARE @paci_fecha_nac				DATE
+	DECLARE @paci_plan_medi				NUMERIC(18,0)
+	DECLARE @paci_usuario 				VARCHAR(255)
+	DECLARE @var1						NUMERIC(18,0)
+
+	DECLARE Cur_Pacientes CURSOR FOR
+		
+		SELECT paciente_nombre, paciente_apellido, paciente_dni, paciente_direccion,
+			   paciente_telefono, paciente_mail, paciente_fecha_nac, plan_med_codigo
+		FROM gd_esquema.maestra
+		GROUP by paciente_nombre,paciente_apellido,paciente_dni,paciente_direccion,paciente_telefono,
+				 paciente_mail,paciente_fecha_nac,plan_med_codigo
+
+		SELECT @paci_tipodni = Tipo_Doc_Cod FROM GRUPOSA.TIPODOCUMENTO
+		WHERE TIPO_DOC_COD = 1;
+		
+	OPEN Cur_Pacientes 
+		
+		FETCH Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
+				
+		WHILE (@@FETCH_STATUS = 0)
+		
+			BEGIN	
+				
+				SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
+				SET @paci_id = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)),5)
+				SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell) + '.' + 'clinica_frba'
+					 
+					INSERT INTO [GRUPOSA].[Pacientes]
+					   ([Paci_Id],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
+						[Paci_Direccion],[Paci_Mail],[Paci_Telefono],[Paci_Fecha_Nac],[Paci_Usuario], [FK_Plan_Medico_Codigo])
+					VALUES
+					   (@paci_id, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
+						@paci_direccion, @paci_mail, @paci_tel, @paci_fecha_nac, @paci_usuario, @paci_plan_medi);
+
+				FETCH NEXT FROM Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
+			END
+
+	CLOSE Cur_Pacientes
+
+	DEALLOCATE Cur_Pacientes
+	
+COMMIT TRANSACTION
+
+/*
+--===========================================================================================================
+--===========================================================================================================		   
 --1 creacion usuarios pacientes
 DECLARE @fecha DATETIME
 
@@ -149,101 +289,5 @@ SELECT DISTINCT GRUPOSA.ObtenerUserName(Medico_Nombre,Medico_Apellido,Medico_Fec
 FROM GD2C2016.gd_esquema.Maestra 
 Where Medico_Dni is not null 
 
---===========================================================================================================
---===========================================================================================================
---/* Medicos */
-USE GD2C2016
-BEGIN TRANSACTION
-	
-	DECLARE @medi_nom					VARCHAR(255)
-	DECLARE @medi_apell					VARCHAR(255)
-	DECLARE @medi_dni			 		NUMERIC(18,0)
-	DECLARE @medi_direccion				VARCHAR(255)
-	DECLARE @medi_mail 					VARCHAR(255)
-	DECLARE @medi_telefono				NUMERIC(18,0)
-	DECLARE @medi_fecha_nac				DATE
-	DECLARE @medi_especialidad			NUMERIC (18,0)
-	DECLARE @medi_tipodni				VARCHAR(255)
-	DECLARE @medi_usuario 				NUMERIC(18,0)
-	DECLARE @var1						NUMERIC(18,0)
 
-	DECLARE Cur_Medicos CURSOR FOR
-	
-		SELECT medico_nombre, medico_apellido, medico_dni, medico_direccion, medico_fecha_nac, medico_mail, medico_telefono, especialidad_codigo  
-		FROM gd_esquema.Maestra 
-		WHERE medico_nombre IS NOT NULL
-		GROUP BY medico_nombre, medico_apellido, medico_dni, medico_direccion, medico_fecha_nac, medico_mail, medico_telefono, especialidad_codigo
-	
-	OPEN Cur_Medicos 
-		
-		FETCH Cur_Medicos INTO @medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_fecha_nac, @medi_mail, @medi_telefono, @medi_especialidad
-				
-		WHILE (@@FETCH_STATUS = 0)
-		
-			BEGIN	
-
-				SET @medi_usuario = NEXT VALUE FOR GRUPOSA.SQ_ID_USUARIO
-				
-				INSERT INTO [GRUPOSA].[Medicos]
-						   ([Medi_Nombre],[Medi_Apellido],[Medi_Dni],[Medi_Direccion],[Medi_Mail],[Medi_Telefono],[Medi_Fecha_Nac]
-						   ,[FK_Medico_Especialidad],[Medi_Usuario])
-					 VALUES
-						   (@medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_mail, @medi_telefono, @medi_fecha_nac, @medi_especialidad, 
-						  cast(@medi_usuario as varchar(10)));
-
-				FETCH NEXT FROM Cur_Medicos INTO @medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_fecha_nac, @medi_mail, 
-				@medi_telefono, @medi_especialidad
-			END
-
-	CLOSE Cur_Medicos
-
-	DEALLOCATE Cur_Medicos
-	
-COMMIT TRANSACTION
-
-
-
---===========================================================================================================
---===========================================================================================================
---6 tipos de rol
-
-INSERT GRUPOSA.[Rol] (
-	[Rol_Codigo]
-	,[Rol_Nombre]
-	,[Rol_Estado]
-	,[Rol_Es_Administrador]
-	)
-VALUES (
-	CAST(0 AS NUMERIC(18, 0))
-	,N'Administrador'
-	,0
-	,1
-	)
-	go
-INSERT GRUPOSA.[Rol] (
-	[Rol_Codigo]
-	,[Rol_Nombre]
-	,[Rol_Estado]
-	,[Rol_Es_Administrador]
-	)
-VALUES (
-	CAST(1 AS NUMERIC(18, 0))
-	,N'Paciente'
-	,0
-	,0
-	)
-	go
-INSERT GRUPOSA.[Rol] (
-	[Rol_Codigo]
-	,[Rol_Nombre]
-	,[Rol_Estado]
-	,[Rol_Es_Administrador]
-	)
-VALUES (
-	CAST(2 AS NUMERIC(18, 0))
-	,N'Medico'
-	,0
-	,0
-	)
-GO
-
+*/
