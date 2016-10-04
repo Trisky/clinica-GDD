@@ -176,6 +176,11 @@ BEGIN TRANSACTION
 					   (@medi_id, @medi_nom, @medi_apell, @medi_tipodni, @medi_dni, 
 						@medi_direccion, @medi_mail, @medi_telefono, @medi_fecha_nac, @medi_usuario);
 
+					INSERT INTO [GRUPOSA].[Usuario]
+						(Usuario_Username,Usuario_Password,Usuario_Inhabilitado,Usuario_Intentos_Fallidos,Usuario_Fecha_Creacion,Usuario_Fecha_Ultima_Modificacion)
+					VALUES
+					(@medi_usuario,'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','FALSE',0,'20160101 00:00:00 AM','20160101 00:00:00 AM')
+
 				FETCH NEXT FROM Cur_Medicos INTO @medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_fecha_nac, @medi_mail, 
 				@medi_telefono
 			END
