@@ -1,3 +1,7 @@
+--
+--Rev 1.0 - Agrego la migracion para las tablas consultas, turnos, horarios, medico-especialidad, roles-usuario
+--
+
 --===========================================================================================================
 --===========================================================================================================		   
 CREATE SEQUENCE GRUPOSA.SQ_ID_MEDICO
@@ -7,6 +11,7 @@ CREATE SEQUENCE GRUPOSA.SQ_ID_MEDICO
 CREATE SEQUENCE GRUPOSA.SQ_ID_PACIENTE
     START WITH 1   
     INCREMENT BY 1;  
+	
 --===========================================================================================================
 --===========================================================================================================
 --INSERT TIPOS DE DOCUMENTO
@@ -282,8 +287,9 @@ BEGIN TRANSACTION
 	ALTER TABLE [GRUPOSA].[TURNOS] NOCHECK  CONSTRAINT [FK_Turnos_Consultas]
 	ALTER TABLE [GRUPOSA].[TURNOS] NOCHECK  CONSTRAINT [FK_Turnos_TiposCancelacion]
 
-	INSERT INTO [GRUPOSA].[TURNOS] ([Turn_Numero],[Turn_Fecha], [Turn_Paciente_Id],[Turn_Medico_Id],[Turn_cancelado],[Turn_CanceladoPorAfiliado])
-	SELECT DISTINCT(GDM.TURNO_NUMERO), GDM.TURNO_FECHA, PAC.PACI_ID, MED.MEDI_ID , 0, 0
+	INSERT INTO [GRUPOSA].[TURNOS] 
+		([Turn_Numero],[Turn_Fecha], [Turn_Paciente_Id],[Turn_Medico_Id],[Turn_cancelado],[Turn_CanceladoPorAfiliado], [Turn_FK_Consulta])
+	SELECT DISTINCT(GDM.TURNO_NUMERO), GDM.TURNO_FECHA, PAC.PACI_ID, MED.MEDI_ID , 0, 0, 1
 	FROM GD_ESQUEMA.MAESTRA AS GDM, GRUPOSA.PACIENTES AS PAC, GRUPOSA.MEDICOS AS MED
 	WHERE GDM.MEDICO_DNI = MED.MEDI_DNI
 	AND PAC.PACI_DNI = GDM.PACIENTE_DNI
@@ -293,7 +299,59 @@ BEGIN TRANSACTION
 	
 COMMIT TRANSACTION
 
+--===========================================================================================================
+--===========================================================================================================
+--/* Consultas */
 
+USE GD2C2016
+BEGIN TRANSACTION
+
+	INSERT INTO [GRUPOSA].[CONSULTAS] ([Cons_Sintomas], [Cons_Enfermedades])
+	SELECT DISTINCT(consulta_enfermedades), consulta_sintomas 
+	FROM gd_esquema.maestra
+	WHERE consulta_enfermedades IS NOT NULL
+	GROUP BY consulta_enfermedades, consulta_sintomas
+	
+COMMIT TRANSACTION
+
+--===========================================================================================================
+--===========================================================================================================
+--/* Roles-Usuario */
+
+USE GD2C2016
+BEGIN TRANSACTION
+
+	ALTER TABLE [GRUPOSA].[ROLESUSUARIO] NOCHECK  CONSTRAINT [FK_Usuario_RolesUsuario]
+
+	INSERT INTO [GRUPOSA].[ROLESUSUARIO] ([RolUsu_Usuario_Username], [RolUsu_Rol_Codigo])
+	SELECT DISTINCT(MED.Medi_Usuario), ROL.Rol_Codigo FROM GRUPOSA.Medicos AS MED, GRUPOSA.Rol AS ROL
+	WHERE LOWER(ROL.Rol_Nombre) = LOWER('MEDICO')
+	
+	INSERT INTO [GRUPOSA].[ROLESUSUARIO] ([RolUsu_Usuario_Username], [RolUsu_Rol_Codigo])
+	SELECT DISTINCT(PAC.Paci_Usuario), ROL.Rol_Codigo FROM GRUPOSA.Pacientes AS PAC, GRUPOSA.Rol AS ROL
+	WHERE LOWER(ROL.Rol_Nombre) = LOWER('PACIENTE')
+	
+	ALTER TABLE [GRUPOSA].[ROLESUSUARIO] CHECK  CONSTRAINT [FK_Usuario_RolesUsuario]
+			
+COMMIT TRANSACTION
+
+--===========================================================================================================
+--===========================================================================================================
+--/* HORARIOS-Usuario */
+
+USE GD2C2016
+BEGIN TRANSACTION
+	
+	INSERT INTO [GRUPOSA].[HorariosAtencion] ([Hora_Inicio],[Hora_Fin],[Horario_FK_Medico_Usuario])
+	SELECT CAST(DATEPART(HOUR,MIN(TURN_FECHA)) AS CHAR(1))+':'+CAST(DATEPART(MINUTE,MIN(TURN_FECHA)) AS CHAR(1)) + '0' AS HORA_ENTRADA,
+		   CAST(DATEPART(HOUR,MAX(TURN_FECHA)) AS CHAR(2))+':'+CAST(DATEPART(MINUTE,MAX(TURN_FECHA)) AS CHAR(2)) AS HORA_SALIDA,
+		   MED.Medi_Usuario
+		   FROM GRUPOSA.TURNOS AS TUR, GRUPOSA.Medicos AS MED
+		   WHERE TUR.Turn_Medico_Id = MED.Medi_Id
+	GROUP BY Medi_Usuario
+	ORDER BY 3;
+		
+COMMIT TRANSACTION
 
 
 /*
