@@ -44,6 +44,26 @@ namespace ClinicaFrba.Helpers
             }
         }
 
+
+        /// <summary>
+        /// Ejecuta un storeprocedure con una lista de parametros
+        /// </summary>
+        /// <param name="nombreStoreProcedure"></param>
+        /// <param name="parametros"></param>
+        /// <returns></returns>
+        public DataTable EjecutarProcedureCompleto(string nombreStoreProcedure, Dictionary<string, string> parametros)
+        {
+            return EjecutarProcedureCompleto(nombreStoreProcedure, parametros,null, new DateTime());
+        }
+
+        /// <summary>
+        /// Ejecuta un store procedure con una lista de parametros y parametro adicional de tipo datetime
+        /// </summary>
+        /// <param name="nombreStoreProcedure"></param>
+        /// <param name="parametros"></param>
+        /// <param name="nombreParametroFecha"></param>
+        /// <param name="parametroDos"></param>
+        /// <returns></returns>
         public DataTable EjecutarProcedureCompleto(string nombreStoreProcedure, Dictionary<string, string> parametros, string nombreParametroFecha, DateTime parametroDos)
         {
             try

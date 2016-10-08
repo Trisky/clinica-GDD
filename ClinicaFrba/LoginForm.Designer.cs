@@ -90,7 +90,7 @@
             // 
             this.PasswordTextBox.Location = new System.Drawing.Point(149, 160);
             this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.PasswordChar = '*';
+            this.PasswordTextBox.PasswordChar = '@';
             this.PasswordTextBox.Size = new System.Drawing.Size(292, 29);
             this.PasswordTextBox.TabIndex = 5;
             this.PasswordTextBox.Text = "asd";
