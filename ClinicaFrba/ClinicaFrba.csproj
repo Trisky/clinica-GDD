@@ -46,7 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Conexion.cs" />
-    <Compile Include="Logica\Roles\Rol.cs" />
+    <Compile Include="Logica\Entidades\UsuarioLogeado.cs" />
+    <Compile Include="Logica\RolesYFuncionabilidad\Funcionalidad.cs" />
+    <Compile Include="Logica\RolesYFuncionabilidad\Rol.cs" />
+    <Compile Include="Logica\TipoUsuarioEnum.cs" />
     <Compile Include="UI\Abm Afiliado\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

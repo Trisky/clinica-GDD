@@ -26,23 +26,24 @@ namespace ClinicaFrba.Logica.Roles
         }
 
 
-        public List<Rol> ObtenerRoles(Dictionary<string, object> filtros)
-        {
-            try
-            {
-                DataTable dtRoles = new DataTable();
-                Conexion = new Conexion();
-                XDocument filtrosXml = UtilDatos.ArmarFiltrosXml(filtros);
-                dtRoles = coneccion.EjecutarProcedure("Sp_ObtenerRoles", filtrosXml, "@filtrosXml");
-                List<Rol> lstRoles = MapearDataTableLista(dtRoles);
+        //public List<Rol> ObtenerRoles(Dictionary<string, object> filtros)
+        //{
+        //    try
+        //    {
+        //        //DataTable dtRoles = new DataTable();
+        //        ////Conexion = new Conexion();
+        //        ////XDocument filtrosXml = UtilDatos.ArmarFiltrosXml(filtros);
+        //        //dtRoles = coneccion.EjecutarProcedure("Sp_ObtenerRoles", filtrosXml, "@filtrosXml");
+        //        //List<Rol> lstRoles = MapearDataTableLista(dtRoles);
 
-                return lstRoles;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+
+        //        return lstRoles;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
 
 
