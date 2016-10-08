@@ -146,7 +146,7 @@ BEGIN TRANSACTION
 	DECLARE @medi_fecha_nac				DATE
 	DECLARE @medi_usuario 				VARCHAR(255)
 	DECLARE @var						NUMERIC(18,0)
-
+	
 	DECLARE Cur_Medicos CURSOR FOR
 		
 		SELECT medico_nombre, medico_apellido, medico_dni, medico_direccion, medico_fecha_nac, medico_mail, medico_telefono 
@@ -168,7 +168,7 @@ BEGIN TRANSACTION
 				SET @var = NEXT VALUE FOR GRUPOSA.SQ_ID_MEDICO
 				SET @medi_id = RIGHT(replicate('0',5) + CAST(@var AS VARCHAR(5)),5)
 				SET @medi_usuario = LOWER(@medi_nom) + '_' + LOWER(@medi_apell) + '.' + 'clinica_frba'
-					 
+				
 					INSERT INTO [GRUPOSA].[Medicos]
 					   ([Medi_Id],[Medi_Nombre],[Medi_Apellido],[Medi_TipoDocumento],[Medi_Dni],
 						[Medi_Direccion],[Medi_Mail],[Medi_Telefono],[Medi_Fecha_Nac],[Medi_Usuario])
@@ -179,8 +179,9 @@ BEGIN TRANSACTION
 					INSERT INTO [GRUPOSA].[Usuario]
 						(Usuario_Username,Usuario_Password,Usuario_Inhabilitado,Usuario_Intentos_Fallidos,Usuario_Fecha_Creacion,Usuario_Fecha_Ultima_Modificacion)
 					VALUES
-					(@medi_usuario,'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','FALSE',0,'20160101 00:00:00 AM','20160101 00:00:00 AM')
-
+						(@medi_usuario,'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','FALSE',0,
+						 '20160101 00:00:00 AM','20160101 00:00:00 AM');
+					
 				FETCH NEXT FROM Cur_Medicos INTO @medi_nom, @medi_apell, @medi_dni, @medi_direccion, @medi_fecha_nac, @medi_mail, 
 				@medi_telefono
 			END
@@ -249,6 +250,51 @@ BEGIN TRANSACTION
 	DEALLOCATE Cur_Pacientes
 	
 COMMIT TRANSACTION
+
+--===========================================================================================================
+--===========================================================================================================
+--/* Medicos-Especialidades */
+USE GD2C2016
+BEGIN TRANSACTION
+
+	ALTER TABLE [GRUPOSA].[MedicoEspecialidad] NOCHECK  CONSTRAINT [FK_MedEspe_Medico]
+	ALTER TABLE [GRUPOSA].[MedicoEspecialidad] NOCHECK  CONSTRAINT [FK_MedEspe_Espe]
+
+	INSERT INTO [GRUPOSA].[MedicoEspecialidad] ([medespe_medi_id],[medespe_espe_cod])
+	SELECT DISTINCT(esp.espe_cod), med.medi_id FROM gd_esquema.Maestra AS gdm, gruposa.medicos AS med, gruposa.especialidades AS esp
+	WHERE gdm.medico_nombre IS NOT NULL
+	AND esp.espe_cod = gdm.especialidad_codigo
+	AND med.medi_dni = gdm.medico_dni
+
+	
+	ALTER TABLE [GRUPOSA].[MedicoEspecialidad] CHECK  CONSTRAINT [FK_MedEspe_Medico]
+	ALTER TABLE [GRUPOSA].[MedicoEspecialidad] CHECK  CONSTRAINT [FK_MedEspe_Espe]
+	
+COMMIT TRANSACTION
+
+--===========================================================================================================
+--===========================================================================================================
+--/* Turnos */
+
+USE GD2C2016
+BEGIN TRANSACTION
+
+	ALTER TABLE [GRUPOSA].[TURNOS] NOCHECK  CONSTRAINT [FK_Turnos_Consultas]
+	ALTER TABLE [GRUPOSA].[TURNOS] NOCHECK  CONSTRAINT [FK_Turnos_TiposCancelacion]
+
+	INSERT INTO [GRUPOSA].[TURNOS] ([Turn_Numero],[Turn_Fecha], [Turn_Paciente_Id],[Turn_Medico_Id],[Turn_cancelado],[Turn_CanceladoPorAfiliado])
+	SELECT DISTINCT(GDM.TURNO_NUMERO), GDM.TURNO_FECHA, PAC.PACI_ID, MED.MEDI_ID , 0, 0
+	FROM GD_ESQUEMA.MAESTRA AS GDM, GRUPOSA.PACIENTES AS PAC, GRUPOSA.MEDICOS AS MED
+	WHERE GDM.MEDICO_DNI = MED.MEDI_DNI
+	AND PAC.PACI_DNI = GDM.PACIENTE_DNI
+
+	ALTER TABLE [GRUPOSA].[TURNOS] CHECK  CONSTRAINT [FK_Turnos_Consultas]
+	ALTER TABLE [GRUPOSA].[TURNOS] CHECK  CONSTRAINT [FK_Turnos_TiposCancelacion]
+	
+COMMIT TRANSACTION
+
+
+
 
 /*
 --===========================================================================================================
