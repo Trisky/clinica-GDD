@@ -9,22 +9,51 @@ using System.Configuration;
 
 namespace ClinicaFrba.Helpers
 {
-    class Conexion
+    public class Conexion
     {
-        public string cadenaConexion { get; set; }
+
+        public SqlConnection Connector { get; set; }
+        public SqlCommand Command { get; set; }
+
 
         public Conexion()
         {
-            cadenaConexion = "ConexionClinica";
+            var connectionString = ConfigurationManager.ConnectionStrings["clinica"].ConnectionString;
+            Connector = new SqlConnection(connectionString);
+             
         }
+
+        /// <summary>
+        /// Recibe un comando sql, lo ejecuta en el servidorSQL y devuelve la tabla que devuelve este. 
+        /// Si el server no devuelve nada, devuelve tabla vacia.
+        /// Sirve para select, update, delete.
+        /// Ver ejemplo en la clase LogInHelper para ver como usarlo.
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public DataTable ExecConsulta(SqlCommand cmd)
+        {
+            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            {
+                Connector.Open();
+
+                DataTable dataTable = new DataTable();
+                da.Fill(dataTable);
+                Connector.Close();
+                return dataTable;
+            }
+        }
+
+
+        [Obsolete]
         public DataTable EjecutarConsultaSql(string consultaSql)
         {
-            
-        DataTable miDataTable = new DataTable();
+
+            DataTable miDataTable = new DataTable();
             try
             {
-                
-                SqlConnection conexionSql = new SqlConnection(cadenaConexion);
+
+                SqlConnection conexionSql = Connector;
                 SqlCommand cmd = new SqlCommand();
 
                 cmd.CommandText = consultaSql;
@@ -43,79 +72,6 @@ namespace ClinicaFrba.Helpers
                 throw ex;
             }
         }
-
-
-        /// <summary>
-        /// Ejecuta un storeprocedure con una lista de parametros
-        /// </summary>
-        /// <param name="nombreStoreProcedure"></param>
-        /// <param name="parametros"></param>
-        /// <returns></returns>
-        public DataTable EjecutarProcedureCompleto(string nombreStoreProcedure, Dictionary<string, string> parametros)
-        {
-            return EjecutarProcedureCompleto(nombreStoreProcedure, parametros,null, new DateTime());
-        }
-
-        /// <summary>
-        /// Ejecuta un store procedure con una lista de parametros y parametro adicional de tipo datetime
-        /// </summary>
-        /// <param name="nombreStoreProcedure"></param>
-        /// <param name="parametros"></param>
-        /// <param name="nombreParametroFecha"></param>
-        /// <param name="parametroDos"></param>
-        /// <returns></returns>
-        public DataTable EjecutarProcedureCompleto(string nombreStoreProcedure, Dictionary<string, string> parametros, string nombreParametroFecha, DateTime parametroDos)
-        {
-            try
-            {
-                SqlParameter sqlparam;
-                DataTable miDataTable = new DataTable();
-                
-                using (SqlConnection con = new SqlConnection(cadenaConexion))
-                {
-                    using (SqlCommand cmd = new SqlCommand(ObjetoConEsquema(nombreStoreProcedure)))
-                    {
-                        cmd.Connection = con;
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        foreach (var item in parametros)
-                        {
-                            sqlparam = new SqlParameter();
-                            sqlparam.ParameterName = item.Key;
-                            sqlparam.SqlDbType = SqlDbType.Int;
-                            sqlparam.Value = item.Value;
-                            cmd.Parameters.Add(sqlparam);
-                        }
-
-                        if (parametroDos != null && nombreParametroFecha != "") //agrego la fecha si no es null
-                        {
-                            cmd.Parameters.Add(new SqlParameter()
-                            {
-                                ParameterName = nombreParametroFecha,
-                                SqlDbType = SqlDbType.DateTime,
-                                Value = parametroDos
-                            });
-                        }
-
-
-                        con.Open();
-                        miDataTable.Load(cmd.ExecuteReader());
-                        con.Close();
-                    }
-                }
-                return miDataTable;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-        }
-        private string ObjetoConEsquema(string nombreObjetoDb)
-        {
-            string esquema = cadenaConexion;
-            return string.Format("{0}.{1}", esquema, nombreObjetoDb);
-        }
+        
     }
 }

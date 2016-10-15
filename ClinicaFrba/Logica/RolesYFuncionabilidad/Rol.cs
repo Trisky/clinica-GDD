@@ -9,7 +9,7 @@ using ClinicaFrba.Helpers;
 
 namespace ClinicaFrba.Logica.Roles
 {
-    class Rol
+    public class Rol
     {
         public int Codigo { get; set; }
         public string Nombre { get; set; }

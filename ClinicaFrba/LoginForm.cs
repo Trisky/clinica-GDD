@@ -1,5 +1,6 @@
 ﻿using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.UI;
+using ClinicaFrba.UI.MenuPrincipal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,8 +45,8 @@ namespace ClinicaFrba
         {
             try
             {
-                UsuarioLogeado u = new UsuarioLogeado();
-                usuarioLogeado = u.GetUsuario(usernameTextBox.Text, PasswordTextBox.Text);
+                LogInHelper helper = new LogInHelper();
+                usuarioLogeado = helper.GetUsuario(usernameTextBox.Text, PasswordTextBox.Text);
 
 
                 if(usuarioLogeado.Inhabilitado == true)
@@ -54,12 +55,11 @@ namespace ClinicaFrba
                     return;
                 }
 
-
-                MenuPrincipal menu = new MenuPrincipal(this, usuarioLogeado);
+                SelecionFuncionalidad seleccion = new SelecionFuncionalidad(usuarioLogeado);
             }
             catch(Exception)
             {
-                MessageBox.Show("Ocurrió un error al intentar realizar el logueo. Por favor, intente nuevamente.", "Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al intentar realizar el logueo. Esta andando el SQL server?", "Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception();
             }
 
@@ -67,6 +67,11 @@ namespace ClinicaFrba
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
