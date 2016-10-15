@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba.Logica.Roles
 {
-    class Funcionalidad
+    public class Funcionalidad
     {
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
