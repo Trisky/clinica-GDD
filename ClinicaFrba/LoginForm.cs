@@ -47,9 +47,13 @@ namespace ClinicaFrba
             {
                 LogInHelper helper = new LogInHelper();
                 usuarioLogeado = helper.GetUsuario(usernameTextBox.Text, PasswordTextBox.Text);
+                if(usuarioLogeado == null)
+                {
+                    MessageBox.Show("Combinacion de Usuario/password incorrecta", " Login erroneo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-
-                if(usuarioLogeado.Inhabilitado == true)
+                if (usuarioLogeado.Inhabilitado == true)
                 {
                     MessageBox.Show("El usuario [" + usernameTextBox.Text + "] se encuentra Inhabilitado para usar el sistema. Por favor comuniquese con el Administrador del sistema.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
@@ -57,9 +61,10 @@ namespace ClinicaFrba
 
                 SelecionFuncionalidad seleccion = new SelecionFuncionalidad(usuarioLogeado);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 MessageBox.Show("Ocurrió un error al intentar realizar el logueo. Esta andando el SQL server?", "Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
                 throw new Exception();
             }
 
