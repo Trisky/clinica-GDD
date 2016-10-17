@@ -46,6 +46,8 @@ namespace ClinicaFrba.Logica.Entidades
             //5- me fijo que haya traido uno solo por las dudas
             if (usuarios.Rows.Count > 1)
                 throw new Exception("mas de un usuario encontrado");
+            if (usuarios.Rows.Count == 0)
+                return null;
             //6- mapeo la row a la clase  UsuarioLogeado
             return MapearDataTableLista(usuarios);
 
