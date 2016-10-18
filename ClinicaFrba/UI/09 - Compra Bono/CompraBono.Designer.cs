@@ -47,6 +47,7 @@
             this.buttonComprar.TabIndex = 1;
             this.buttonComprar.Text = "Comprar";
             this.buttonComprar.UseVisualStyleBackColor = true;
+            this.buttonComprar.Click += new System.EventHandler(this.buttonComprar_Click);
             // 
             // textBoxPrecio
             // 
@@ -108,6 +109,7 @@
             this.numericUpDownCantidad.Name = "numericUpDownCantidad";
             this.numericUpDownCantidad.Size = new System.Drawing.Size(174, 29);
             this.numericUpDownCantidad.TabIndex = 9;
+            this.numericUpDownCantidad.ValueChanged += new System.EventHandler(this.numericUpDownCantidad_ValueChanged);
             // 
             // CompraBono
             // 
