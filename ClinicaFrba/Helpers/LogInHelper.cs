@@ -30,8 +30,8 @@ namespace ClinicaFrba.Logica.Entidades
         {
             string passEncriptada = Encriptador.Encriptar(passwordIngresada);
             //1- defino la query con los @parametros
-            const string query = "select * from GRUPOSA.Usuario where Usuario_Username= @username and Usuario_Password= @password";
-
+            //const string query = "select * from GRUPOSA.Usuario where Usuario_Username= '@username' and Usuario_Password= '@password'";
+             string query = "select * from GRUPOSA.Usuario where Usuario_Username = '"+usuarioIngresado+"' and Usuario_Password = '"+passEncriptada+"'";
             //2- creo la conexion con la db
             Conexion conexion = new Conexion();
 
