@@ -18,7 +18,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             InitializeComponent();
             usuario = user;
-
+            Show();
         }
 
         private void label1_Click(object sender, EventArgs e)
