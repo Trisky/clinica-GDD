@@ -20,9 +20,15 @@ namespace ClinicaFrba.Logica.Entidades
         public DateTime FechaUltimaModificacion { get;  set; }
         public int CantidadIntentosFallidos { get;  set; }
         public bool Inhabilitado { get;  set; }
+        public int GrupoFamiliar { get; set; }
 
         public List<Rol> Roles { get; set; }
         public List<Funcionalidad> FuncionalidadesRolSeleccionado { get; set; }
+
+        public UsuarioLogeado()
+        {
+            GrupoFamiliar = 0;
+        }
 
 
         public List<Rol> GetRoles()
