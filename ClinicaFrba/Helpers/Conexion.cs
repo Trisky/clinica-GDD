@@ -11,10 +11,8 @@ namespace ClinicaFrba.Helpers
 {
     public class Conexion
     {
-
         public SqlConnection Connector { get; set; }
         public SqlCommand Command { get; set; }
-
 
         public Conexion()
         {
@@ -26,8 +24,10 @@ namespace ClinicaFrba.Helpers
         /// <summary>
         /// Recibe un comando sql, lo ejecuta en el servidorSQL y devuelve la tabla que devuelve este. 
         /// Si el server no devuelve nada, devuelve tabla vacia.
-        /// Sirve para select, update, delete.
-        /// Ver ejemplo en la clase LogInHelper para ver como usarlo.
+        /// Sirve para select, update, delete y
+        /// 
+        /// Para store procedures  hay que usar el CrearComandoStoreProcedure antes!
+        /// Ver ejemplo en la clase LogInHelper para ver como usarlo y panra SP en comprarBono
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns></returns>
@@ -44,6 +44,20 @@ namespace ClinicaFrba.Helpers
             }
         }
 
+        /// <summary>
+        /// Crea un SqlCommand para storeProcedure, despues para ejecutarlo llamo a ExecConsulta(comando);
+        /// </summary>
+        /// <param name="nombreStoreProcedure"></param>
+        /// <returns></returns>
+        public SqlCommand CrearComandoStoreProcedure(string nombreStoreProcedure)
+        {
+            SqlCommand cmd = new SqlCommand(nombreStoreProcedure, Connector);
+            cmd.CommandType = CommandType.StoredProcedure;
+            return cmd;
+
+        }
+
+
 
         [Obsolete]
         public DataTable EjecutarConsultaSql(string consultaSql)
@@ -52,19 +66,14 @@ namespace ClinicaFrba.Helpers
             DataTable miDataTable = new DataTable();
             try
             {
-
                 SqlConnection conexionSql = Connector;
                 SqlCommand cmd = new SqlCommand();
-
                 cmd.CommandText = consultaSql;
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = conexionSql;
-
                 conexionSql.Open();
-
                 miDataTable.Load(cmd.ExecuteReader());
                 conexionSql.Close();
-
                 return miDataTable;
             }
             catch (Exception ex)
@@ -72,6 +81,6 @@ namespace ClinicaFrba.Helpers
                 throw ex;
             }
         }
-        
+
     }
 }
