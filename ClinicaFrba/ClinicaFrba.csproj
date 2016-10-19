@@ -53,28 +53,28 @@
     <Compile Include="Logica\Entidades\UsuarioLogeado.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Funcionalidad.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Rol.cs" />
-    <Compile Include="UI\Abm Afiliado\Form1.cs">
+    <Compile Include="UI\04 - Abm Afiliado\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Abm Afiliado\Form1.Designer.cs">
+    <Compile Include="UI\04 - Abm Afiliado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Abm Especialidades Medicas\Form1.cs">
+    <Compile Include="UI\06 - Abm Especialidades Medicas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Abm Especialidades Medicas\Form1.Designer.cs">
+    <Compile Include="UI\06 - Abm Especialidades Medicas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Abm Planes\Form1.cs">
+    <Compile Include="UI\07 - Abm Planes\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Abm Planes\Form1.Designer.cs">
+    <Compile Include="UI\07 - Abm Planes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Abm Profesional\Form1.cs">
+    <Compile Include="UI\05 - Abm Profesional\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Abm Profesional\Form1.Designer.cs">
+    <Compile Include="UI\05 - Abm Profesional\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmRol\ListaDeRoles.cs">
@@ -83,16 +83,16 @@
     <Compile Include="UI\AbmRol\ListaDeRoles.Designer.cs">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Cancelar Atencion\Form1.cs">
+    <Compile Include="UI\13 - Cancelar Atencion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Cancelar Atencion\Form1.Designer.cs">
+    <Compile Include="UI\13 - Cancelar Atencion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Compra Bono\CompraBono.cs">
+    <Compile Include="UI\09 - Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Compra Bono\CompraBono.Designer.cs">
+    <Compile Include="UI\09 - Compra Bono\CompraBono.Designer.cs">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
@@ -101,10 +101,10 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Listados\Form1.cs">
+    <Compile Include="UI\14 - Listados\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Listados\Form1.Designer.cs">
+    <Compile Include="UI\14 - Listados\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmRol\SelecionFuncionalidad.cs">
@@ -113,30 +113,30 @@
     <Compile Include="UI\AbmRol\SelecionFuncionalidad.Designer.cs">
       <DependentUpon>SelecionFuncionalidad.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Pedir Turno\Form1.cs">
+    <Compile Include="UI\10 - Pedir Turno\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Pedir Turno\Form1.Designer.cs">
+    <Compile Include="UI\10 - Pedir Turno\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Registrar Agenta Medico\Form1.cs">
+    <Compile Include="UI\08 - Registrar Agenta Medico\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Registrar Agenta Medico\Form1.Designer.cs">
+    <Compile Include="UI\08 - Registrar Agenta Medico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Registro Llegada\Form1.cs">
+    <Compile Include="UI\11 - Registro Llegada\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Registro Llegada\Form1.Designer.cs">
+    <Compile Include="UI\11 - Registro Llegada\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Registro Resultado\Form1.cs">
+    <Compile Include="UI\12 - Registro Resultado\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Registro Resultado\Form1.Designer.cs">
+    <Compile Include="UI\12 - Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="LoginForm.resx">
@@ -157,10 +157,10 @@
     <EmbeddedResource Include="UI\AbmRol\SelecionFuncionalidad.resx">
       <DependentUpon>SelecionFuncionalidad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Compra Bono\CompraBono.resx">
+    <EmbeddedResource Include="UI\09 - Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Pedir Turno\Form1.resx">
+    <EmbeddedResource Include="UI\10 - Pedir Turno\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
