@@ -49,10 +49,13 @@
             this.comboBoxPlanMedico = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxTipoDni = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.buttonCrearFamiliar = new System.Windows.Forms.Button();
             this.buttonGuardarModificacion = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +71,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(140, 238);
+            this.label3.Location = new System.Drawing.Point(139, 274);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 25);
             this.label3.TabIndex = 3;
@@ -77,7 +80,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 325);
+            this.label4.Location = new System.Drawing.Point(29, 361);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(159, 25);
             this.label4.TabIndex = 4;
@@ -95,7 +98,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(99, 283);
+            this.label7.Location = new System.Drawing.Point(98, 319);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 25);
             this.label7.TabIndex = 7;
@@ -104,7 +107,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(132, 369);
+            this.label8.Location = new System.Drawing.Point(131, 405);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 25);
             this.label8.TabIndex = 8;
@@ -155,7 +158,7 @@
             // 
             // textBoxMail
             // 
-            this.textBoxMail.Location = new System.Drawing.Point(195, 238);
+            this.textBoxMail.Location = new System.Drawing.Point(194, 274);
             this.textBoxMail.MaxLength = 240;
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(417, 29);
@@ -163,7 +166,7 @@
             // 
             // textBoxTelefono
             // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(192, 283);
+            this.textBoxTelefono.Location = new System.Drawing.Point(191, 319);
             this.textBoxTelefono.MaxLength = 244;
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(420, 29);
@@ -171,7 +174,7 @@
             // 
             // dateTimePickerFechaNacimiento
             // 
-            this.dateTimePickerFechaNacimiento.Location = new System.Drawing.Point(192, 325);
+            this.dateTimePickerFechaNacimiento.Location = new System.Drawing.Point(191, 361);
             this.dateTimePickerFechaNacimiento.Name = "dateTimePickerFechaNacimiento";
             this.dateTimePickerFechaNacimiento.Size = new System.Drawing.Size(420, 29);
             this.dateTimePickerFechaNacimiento.TabIndex = 22;
@@ -179,7 +182,7 @@
             // radioButtonMasculino
             // 
             this.radioButtonMasculino.AutoSize = true;
-            this.radioButtonMasculino.Location = new System.Drawing.Point(195, 369);
+            this.radioButtonMasculino.Location = new System.Drawing.Point(194, 405);
             this.radioButtonMasculino.Name = "radioButtonMasculino";
             this.radioButtonMasculino.Size = new System.Drawing.Size(126, 29);
             this.radioButtonMasculino.TabIndex = 23;
@@ -190,7 +193,7 @@
             // radioButtonFemenino
             // 
             this.radioButtonFemenino.AutoSize = true;
-            this.radioButtonFemenino.Location = new System.Drawing.Point(359, 367);
+            this.radioButtonFemenino.Location = new System.Drawing.Point(358, 403);
             this.radioButtonFemenino.Name = "radioButtonFemenino";
             this.radioButtonFemenino.Size = new System.Drawing.Size(129, 29);
             this.radioButtonFemenino.TabIndex = 24;
@@ -201,7 +204,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(71, 420);
+            this.label5.Location = new System.Drawing.Point(70, 456);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(115, 25);
             this.label5.TabIndex = 25;
@@ -210,7 +213,7 @@
             // comboBoxEstadoCivil
             // 
             this.comboBoxEstadoCivil.FormattingEnabled = true;
-            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(193, 420);
+            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(192, 456);
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(419, 32);
             this.comboBoxEstadoCivil.TabIndex = 26;
@@ -219,7 +222,7 @@
             // comboBoxPlanMedico
             // 
             this.comboBoxPlanMedico.FormattingEnabled = true;
-            this.comboBoxPlanMedico.Location = new System.Drawing.Point(193, 471);
+            this.comboBoxPlanMedico.Location = new System.Drawing.Point(192, 507);
             this.comboBoxPlanMedico.Name = "comboBoxPlanMedico";
             this.comboBoxPlanMedico.Size = new System.Drawing.Size(419, 32);
             this.comboBoxPlanMedico.TabIndex = 27;
@@ -228,7 +231,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(67, 478);
+            this.label9.Location = new System.Drawing.Point(66, 514);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(119, 25);
             this.label9.TabIndex = 28;
@@ -236,8 +239,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.comboBoxTipoDni);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxDNI);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label1);
@@ -265,6 +271,41 @@
             this.groupBox1.Text = "Crear Afiliado";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(95, 224);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 25);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "tipo DNI";
+            // 
+            // comboBoxTipoDni
+            // 
+            this.comboBoxTipoDni.FormattingEnabled = true;
+            this.comboBoxTipoDni.Location = new System.Drawing.Point(195, 224);
+            this.comboBoxTipoDni.Name = "comboBoxTipoDni";
+            this.comboBoxTipoDni.Size = new System.Drawing.Size(416, 32);
+            this.comboBoxTipoDni.TabIndex = 31;
+            this.comboBoxTipoDni.SelectedIndexChanged += new System.EventHandler(this.comboBoxTipoDni_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(132, 174);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 25);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "DNI";
+            // 
+            // textBoxDNI
+            // 
+            this.textBoxDNI.Location = new System.Drawing.Point(195, 174);
+            this.textBoxDNI.MaxLength = 244;
+            this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.Size = new System.Drawing.Size(420, 29);
+            this.textBoxDNI.TabIndex = 30;
+            // 
             // buttonCrearFamiliar
             // 
             this.buttonCrearFamiliar.Location = new System.Drawing.Point(306, 823);
@@ -285,23 +326,17 @@
             this.buttonGuardarModificacion.Text = "Guardar Modificacion";
             this.buttonGuardarModificacion.UseVisualStyleBackColor = true;
             this.buttonGuardarModificacion.Visible = false;
+            this.buttonGuardarModificacion.Click += new System.EventHandler(this.buttonGuardarModificacion_Click);
             // 
-            // label2
+            // label12
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(132, 174);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 25);
-            this.label2.TabIndex = 29;
-            this.label2.Text = "DNI";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(195, 174);
-            this.textBox1.MaxLength = 244;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(420, 29);
-            this.textBox1.TabIndex = 30;
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(98, 594);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(433, 25);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Falta hacer lo de los sexos cuando buscas un afi";
             // 
             // AbmAfiliadoCrear
             // 
@@ -345,6 +380,9 @@
         private System.Windows.Forms.Button buttonCrearFamiliar;
         private System.Windows.Forms.Button buttonGuardarModificacion;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxDNI;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBoxTipoDni;
+        private System.Windows.Forms.Label label12;
     }
 }

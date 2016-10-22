@@ -17,6 +17,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
     {
         public List<int> Especialidades { get; set; }
         public bool estaModificando { get; set; }
+        public int IDAfiliado { get; set; }
         public AbmAfiliadoCrear()
         {
             Inicializar();
@@ -38,19 +39,28 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
 
         /// <summary>
-        /// Para modificar un usuario
+        /// Para modificar un afiliado
         /// </summary>
         /// <param name="dt"></param>
         public AbmAfiliadoCrear(DataGridViewRow dr)
         {
-            var cells = dr.Cells;
-            textBoxNombre.Text = cells[1].ToString();
-            textBoxApellido.Text = cells[2].ToString();
-            
-
+            Inicializar();
             estaModificando = true;
             groupBox1.Text = "modificar usuario";
 
+            var cells = dr.Cells;
+            IDAfiliado = Convert.ToInt32(cells[0].Value.ToString());
+            textBoxNombre.Text = cells[1].Value.ToString();
+            textBoxApellido.Text = cells[2].Value.ToString();
+            comboBoxTipoDni.SelectedValue = cells[3].Value.ToString();
+            textBoxDNI.Text = cells[4].Value.ToString();
+            textBoxDireccion.Text = cells[5].Value.ToString();
+            textBoxTelefono.Text = cells[6].Value.ToString();
+            textBoxMail.Text = cells[7].Value.ToString();
+            dateTimePickerFechaNacimiento.Value = Convert.ToDateTime(cells[8].Value.ToString()) ;
+            comboBoxPlanMedico.SelectedValue = cells[9].Value.ToString();
+            //comboBoxEstadoCivil.SelectedValue = cells[] TODO
+            
         }
         private void Inicializar()
         {
@@ -58,6 +68,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             ComboBoxManager cb = new ComboBoxManager();
             comboBoxEstadoCivil = cb.CrearEstadoCivil(comboBoxEstadoCivil);
             comboBoxPlanMedico = cb.CrearPlanesMedicos(comboBoxPlanMedico);
+            comboBoxTipoDni = cb.CrearTiposDni(comboBoxTipoDni);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -100,11 +111,14 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         {
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_crearAfiliado");
+
+            //sexo
             if (radioButtonMasculino.Checked)
                 cmd.Parameters.Add("sexo", SqlDbType.NVarChar).Value = 1;
             else
                 cmd.Parameters.Add("sexo", SqlDbType.NVarChar).Value = 0;
-
+            // fin sexo
+            cmd.Parameters.Add("IDafiliado", SqlDbType.NVarChar).Value = IDAfiliado;
             cmd.Parameters.Add("nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
             cmd.Parameters.Add("apellido", SqlDbType.VarChar).Value = textBoxApellido.Text;
             cmd.Parameters.Add("direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;
@@ -112,7 +126,8 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd.Parameters.Add("estadoCivil", SqlDbType.NVarChar).Value = comboBoxEstadoCivil.SelectedValue;
             cmd.Parameters.Add("planMedico", SqlDbType.NVarChar).Value = comboBoxPlanMedico.SelectedValue;
             cmd.Parameters.Add("fechaNacimiento", SqlDbType.DateTime).Value = dateTimePickerFechaNacimiento.Value;
-
+            cmd.Parameters.Add("tipoDni", SqlDbType.NVarChar).Value = comboBoxTipoDni.SelectedValue;
+            cmd.Parameters.Add("dni", SqlDbType.NVarChar).Value = textBoxDNI.Text;
             con.ExecConsulta(cmd);
         }
 
@@ -129,7 +144,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             }
             if (comboBoxPlanMedico.SelectedValue.Equals(-1))
             {
-                MessageBox.Show("¡error, elija pan medico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("¡error, elija plan medico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             return true;
@@ -173,6 +188,18 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             {
                 //do something else
             }
+
+        }
+
+        private void buttonGuardarModificacion_Click(object sender, EventArgs e)
+        {
+            if (!Validar())
+                return;
+
+        }
+
+        private void comboBoxTipoDni_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

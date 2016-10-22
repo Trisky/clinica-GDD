@@ -5,10 +5,8 @@ cosas que necesito en la DB:
 ================================================================================
 1- sp_crearAfiliado
 
-"sexo", SqlDbType.NVarChar
-0= masculino
-1=femenino
 
+"IDAfiliado", SqlDbType.NVarChar // te lo mando con un 0 porque lo generas vos (?)
 "nombre", SqlDbType.VarChar).Value
  "apellido", SqlDbType.VarChar).Value 
 "direccion", SqlDbType.VarChar).Value 
@@ -19,8 +17,41 @@ cosas que necesito en la DB:
 2=divorciado
 3=viudo
 4-concubinato
+"sexo", SqlDbType.NVarChar
+0= masculino
+1=femenino
 "planMedico", SqlDbType.NVarChar
 "fechaNacimiento", SqlDbType.DateTime
+"dni", SqlDbType.NVarChar
+"tipoDni", SqlDbType.NVarChar
+1=dni
+2=pasap	
+3=LC
+
 
 ================================================================================
 ================================================================================
+2- sp_modificarAfiliado
+
+"IDAfiliado", SqlDbType.NVarChar // te mando el ID para que lo encuentres facil
+"nombre", SqlDbType.VarChar).Value
+ "apellido", SqlDbType.VarChar).Value 
+"direccion", SqlDbType.VarChar).Value 
+"email", SqlDbType.VarChar).Value 
+"estadoCivil", SqlDbType.NVarChar
+0=soltero
+1=casado
+2=divorciado
+3=viudo
+4-concubinato
+"sexo", SqlDbType.NVarChar
+0= masculino
+1=femenino
+"planMedico", SqlDbType.NVarChar
+"fechaNacimiento", SqlDbType.DateTime
+"dni", SqlDbType.NVarChar
+"tipoDni", SqlDbType.NVarChar
+1=dni
+2=pasap	
+3=LC
+

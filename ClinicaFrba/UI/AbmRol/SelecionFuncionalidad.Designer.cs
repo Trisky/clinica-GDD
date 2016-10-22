@@ -34,8 +34,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonGo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxRol
@@ -97,11 +100,32 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Ahora ya esta logeado, elija que va a hacer hoy:";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Location = new System.Drawing.Point(755, 82);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(564, 475);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "admin Tools - se supone que esto no lo veo el usuario";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(78, 48);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(362, 47);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "alta - baja - modificacion afiliados";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // SelecionFuncionalidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 608);
+            this.ClientSize = new System.Drawing.Size(1380, 608);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonGo);
             this.Controls.Add(this.groupBox2);
@@ -110,6 +134,7 @@
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,5 +147,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonGo;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
     }
 }

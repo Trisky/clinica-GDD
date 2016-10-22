@@ -18,14 +18,17 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         public AbmAfiliadoListar()
         {
             InitializeComponent();
+            Show();
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Conexion con = new Conexion();
             SqlCommand cmd =  con.CrearComandoQuery("SELECT * FROM [GD2C2016].[GRUPOSA].[Pacientes]");
 
             DataTable dt = con.ExecConsulta(cmd);
+            textBoxCantidadEncontrada.Text = dt.Rows.Count.ToString();
+            
             //dgListado.DataSource = null;
             //dgListado.ColumnCount = 4;
             //dgListado.AutoGenerateColumns = false;
@@ -48,6 +51,18 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             var a = dgListado.SelectedRows[0];
             AbmAfiliadoCrear afi = new AbmAfiliadoCrear(a);
+            afi.Show();
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            AbmAfiliadoCrear abm = new AbmAfiliadoCrear();
+            abm.Show();
+        }
+
+        private void btnSeleccionar_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
