@@ -108,7 +108,7 @@
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.label1);
             this.Name = "LoginForm";
-            this.Text = "Form1";
+            this.Text = "RegistroAgendaMedica";
             this.ResumeLayout(false);
             this.PerformLayout();
 

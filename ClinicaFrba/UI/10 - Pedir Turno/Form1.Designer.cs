@@ -53,8 +53,8 @@
             this.ClientSize = new System.Drawing.Size(831, 576);
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.dateTimePicker1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "RegistroAgendaMedica";
+            this.Text = "RegistroAgendaMedica";
             this.ResumeLayout(false);
 
         }

@@ -131,7 +131,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "SelecionFuncionalidad";
-            this.Text = "Form1";
+            this.Text = "RegistroAgendaMedica";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
