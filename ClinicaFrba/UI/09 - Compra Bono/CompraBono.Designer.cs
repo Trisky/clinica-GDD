@@ -125,7 +125,7 @@
             this.Controls.Add(this.textBoxPrecio);
             this.Controls.Add(this.buttonComprar);
             this.Name = "CompraBono";
-            this.Text = "Form1";
+            this.Text = "RegistroAgendaMedica";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
