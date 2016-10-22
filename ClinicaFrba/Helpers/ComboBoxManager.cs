@@ -30,7 +30,7 @@ namespace ClinicaFrba.Helpers
             lstEstadoCivil.Add(new EstadoCivil("Divorciado", 2));
             lstEstadoCivil.Add(new EstadoCivil("Viudo", 3));
             lstEstadoCivil.Add(new EstadoCivil("Concubinato", 4));
-            lstEstadoCivil.Add(new EstadoCivil("SELECCIONE", 5));
+            lstEstadoCivil.Add(new EstadoCivil("-SELECCIONE-", 5));
 
             combo.DataSource = lstEstadoCivil;
             combo.ValueMember = "valor";
@@ -48,7 +48,7 @@ namespace ClinicaFrba.Helpers
         public ComboBox CrearPlanesMedicos(ComboBox combo)
         {
             Conexion con = new Conexion();
-            const string query = "select * from SELECT * FROM [GD2C2016].[GRUPOSA].[PlanesMedicos]";
+            const string query = "SELECT * FROM [GD2C2016].[GRUPOSA].[PlanesMedicos]";
             SqlCommand cmd =  con.CrearComandoQuery(query);
             DataTable  dt = con.ExecConsulta(cmd);
             DataRow row = dt.NewRow();
@@ -59,7 +59,21 @@ namespace ClinicaFrba.Helpers
             combo.ValueMember = "Plan_Codigo";
             combo.DataSource = dt;
 
-
+            return combo;
+        }
+        public ComboBox CrearTiposDni(ComboBox combo)
+        {
+            Conexion con = new Conexion();
+            const string query = "SELECT * FROM [GD2C2016].[GRUPOSA].[TipoDocumento]";
+            SqlCommand cmd = con.CrearComandoQuery(query);
+            DataTable dt = con.ExecConsulta(cmd);
+            DataRow row = dt.NewRow();
+            row["Tipo_Doc_Cod"] = -1;
+            row["Tipo_Doc_Desc"] = "--SELECCIONE--";
+            dt.Rows.InsertAt(row, 0);
+            combo.DisplayMember = "Tipo_Doc_Desc";
+            combo.ValueMember = "Tipo_Doc_Cod";
+            combo.DataSource = dt;
             return combo;
         }
     }
