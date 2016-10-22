@@ -46,35 +46,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ComboBoxManager.cs" />
     <Compile Include="Helpers\Conexion.cs" />
     <Compile Include="Helpers\Encriptador.cs" />
+    <Compile Include="Helpers\EstadoCivil.cs" />
     <Compile Include="Helpers\TipoUsuarioEnum.cs" />
     <Compile Include="Helpers\LogInHelper.cs" />
     <Compile Include="Logica\Entidades\UsuarioLogeado.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Funcionalidad.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Rol.cs" />
-    <Compile Include="UI\04 - Abm Afiliado\Form1.cs">
+    <Compile Include="UI\04 - Abm Afiliado\AbmAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\04 - Abm Afiliado\Form1.Designer.cs">
+    <Compile Include="UI\04 - Abm Afiliado\AbmAfiliado.Designer.cs">
+      <DependentUpon>AbmAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\04 - Abm Afiliado\AbmAfiliadoCrear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\04 - Abm Afiliado\AbmAfiliadoCrear.Designer.cs">
+      <DependentUpon>AbmAfiliadoCrear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\04 - Abm Afiliado\AbmAfiliadoListar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\04 - Abm Afiliado\AbmAfiliadoListar.Designer.cs">
+      <DependentUpon>AbmAfiliadoListar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalEdicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalEdicion.Designer.cs">
+      <DependentUpon>AbmProfesionalEdicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalListado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalListado.Designer.cs">
+      <DependentUpon>AbmProfesionalListado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\EspecialidadesHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\EspecialidadesHandler.Designer.cs">
+      <DependentUpon>EspecialidadesHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\06 - Abm Especialidades Medicas NOHACER\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\06 - Abm Especialidades Medicas NOHACER\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\06 - Abm Especialidades Medicas\Form1.cs">
+    <Compile Include="UI\07 - Abm Planes NOHACER\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\06 - Abm Especialidades Medicas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\07 - Abm Planes\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\07 - Abm Planes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\05 - Abm Profesional\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\05 - Abm Profesional\Form1.Designer.cs">
+    <Compile Include="UI\07 - Abm Planes NOHACER\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmRol\ListaDeRoles.cs">
@@ -139,6 +165,24 @@
     <Compile Include="UI\12 - Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormulariosBase\FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\FormBase.Designer.cs">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\FormularioEdicionBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\FormularioEdicionBase.Designer.cs">
+      <DependentUpon>FormularioEdicionBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\FormularioListadoBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormulariosBase\FormularioListadoBase.Designer.cs">
+      <DependentUpon>FormularioListadoBase.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,6 +195,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\04 - Abm Afiliado\AbmAfiliadoCrear.resx">
+      <DependentUpon>AbmAfiliadoCrear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\04 - Abm Afiliado\AbmAfiliadoListar.resx">
+      <DependentUpon>AbmAfiliadoListar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,6 +212,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\10 - Pedir Turno\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormulariosBase\EspecialidadesHandler.resx">
+      <DependentUpon>EspecialidadesHandler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormulariosBase\FormularioListadoBase.resx">
+      <DependentUpon>FormularioListadoBase.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

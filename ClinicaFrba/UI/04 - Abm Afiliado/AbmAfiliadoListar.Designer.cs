@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Abm_Profesional
+﻿namespace ClinicaFrba.UI._04___Abm_Afiliado
 {
-    partial class Form1
+    partial class AbmAfiliadoListar
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.gbFiltros.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // AbmAfiliadoListar
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(1998, 866);
+            this.Name = "AbmAfiliadoListar";
+            this.Text = "AbmAfiliadoListar";
+            this.gbFiltros.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

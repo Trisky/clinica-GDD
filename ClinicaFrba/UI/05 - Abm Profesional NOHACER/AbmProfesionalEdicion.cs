@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.FormulariosBase;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Profesional
+namespace ClinicaFrba.UI._05___Abm_Profesional
 {
-    public partial class Form1 : Form
+    public partial class AbmProfesionalEdicion : FormularioEdicionBase
     {
-        public Form1()
+        public AbmProfesionalEdicion()
         {
             InitializeComponent();
         }

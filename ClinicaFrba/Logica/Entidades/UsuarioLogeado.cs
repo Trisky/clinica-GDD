@@ -30,7 +30,6 @@ namespace ClinicaFrba.Logica.Entidades
             GrupoFamiliar = 0;
         }
 
-
         public List<Rol> GetRoles()
         {
             throw new NotImplementedException();
