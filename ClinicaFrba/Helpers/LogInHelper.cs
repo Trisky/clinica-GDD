@@ -36,7 +36,7 @@ namespace ClinicaFrba.Logica.Entidades
             Conexion conexion = new Conexion();
 
             //3- creo el comando SQL y le asigno los parametros que hice con @
-            SqlCommand comando = new SqlCommand(query, conexion.Connector);
+            SqlCommand comando = conexion.CrearComandoQuery(query);
             comando.Parameters.Add("@username", SqlDbType.VarChar, 50).Value = usuarioIngresado;
             comando.Parameters.Add("@password", SqlDbType.VarChar, 50).Value = passEncriptada;
 

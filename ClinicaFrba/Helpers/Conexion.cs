@@ -33,15 +33,23 @@ namespace ClinicaFrba.Helpers
         /// <returns></returns>
         public DataTable ExecConsulta(SqlCommand cmd)
         {
-            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            try
             {
-                Connector.Open();
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    Connector.Open();
 
-                DataTable dataTable = new DataTable();
-                da.Fill(dataTable);
-                Connector.Close();
-                return dataTable;
+                    DataTable dataTable = new DataTable();
+                    da.Fill(dataTable);
+                    Connector.Close();
+                    return dataTable;
+                }
             }
+            catch
+            {
+                throw new Exception("query error");
+            }
+            
         }
 
         /// <summary>
@@ -55,6 +63,11 @@ namespace ClinicaFrba.Helpers
             cmd.CommandType = CommandType.StoredProcedure;
             return cmd;
 
+        }
+        public SqlCommand CrearComandoQuery(string query)
+        {
+            SqlCommand cmd = new SqlCommand(query, Connector);
+            return cmd;
         }
 
 

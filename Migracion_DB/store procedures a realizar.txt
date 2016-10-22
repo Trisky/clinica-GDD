@@ -1,0 +1,26 @@
+cosas que necesito en la DB:
+
+
+================================================================================
+================================================================================
+1- sp_crearAfiliado
+
+"sexo", SqlDbType.NVarChar
+0= masculino
+1=femenino
+
+"nombre", SqlDbType.VarChar).Value
+ "apellido", SqlDbType.VarChar).Value 
+"direccion", SqlDbType.VarChar).Value 
+"email", SqlDbType.VarChar).Value 
+"estadoCivil", SqlDbType.NVarChar
+0=soltero
+1=casado
+2=divorciado
+3=viudo
+4-concubinato
+"planMedico", SqlDbType.NVarChar
+"fechaNacimiento", SqlDbType.DateTime
+
+================================================================================
+================================================================================
