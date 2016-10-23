@@ -1,9 +1,8 @@
 /* ***** Object:  Schema [GRUPOSA] ******************************************************* */
-/* USE GD2C2016  
+USE GD2C2016  
 GO  
 CREATE SCHEMA GRUPOSA  
 GO  
- */
 
 /* ***** Object:  STORES_PROCEDURES [GRUPOSA].[Rol] ***************************************************/
 GO
@@ -28,6 +27,39 @@ AS
 			SET Rol_Estado = 1
 			WHERE Rol_Codigo = @rolCodigo
 		END
+GO
+GO
+CREATE PROCEDURE sp_crearAfiliado
+	@paci_matricula VARCHAR(250),
+	@paci_nom VARCHAR(250),
+	@paci_apell VARCHAR(250),
+	@paci_tipodni NUMERIC (18,0),
+	@paci_dni NUMERIC (18,0),
+	@paci_direccion VARCHAR(250), 
+	@paci_tel NUMERIC (18,0), 
+	@paci_mail VARCHAR(250), 
+	@paci_fecha_nac DATE, 
+	@paci_sexo VARCHAR(250), 
+	@paci_estado_civil NUMERIC (18,0),
+	@paci_plan_medi NUMERIC (18,0),
+	@paci_cant_fam NUMERIC (18,0)
+AS   
+	DECLARE @var1 NUMERIC (18,0);
+	DECLARE @paci_usuario VARCHAR(255);
+	
+	SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
+	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + '01', 5)
+	SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell)
+					 
+	INSERT INTO [GRUPOSA].[Paciente]
+	   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
+		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
+		[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario])
+	VALUES
+	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
+		@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_sexo, @paci_estado_civil, 
+		@paci_plan_medi, @paci_cant_fam, @paci_usuario);
+						
 GO
 GO
 CREATE PROCEDURE sp_bajaLogica
@@ -77,7 +109,30 @@ AS
 	WHERE Paci.Paci_Usuario = @usuario
 	
 	INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
-	VALUES (@usuario, @viejoPlan, @nuevoPlan, @motivo, GETDATE())
+	VALUES (@usuario, @viejoPlan, @nuevoPlan, @motivo, GETDATE());
+	
+	UPDATE GRUPOSA.Paciente 
+	SET Paci_Plan_Med_Cod_FK = @nuevoPlan
+	WHERE Paci_Usuario = @usuario;
+	
+GO
+GO
+CREATE PROCEDURE sp_modificarAfiliado
+    @afiliadoId VARCHAR(250),
+	@nuevaDireccion VARCHAR(250),
+	@nuevoEmail VARCHAR(250),
+	@nuevoEstadoCivil VARCHAR (250),
+	@nuevoPlanMedico VARCHAR(250)
+AS   
+	
+	DECLARE @usuarioPaci VARCHAR(255);
+	
+	UPDATE GRUPOSA.Paciente
+	SET Paci_Direccion = ISNULL(@nuevaDireccion,Paci_Direccion),
+		Paci_Mail = ISNULL(@nuevoEmail, Paci_Mail),
+		Paci_Estado_Civil = ISNULL(@nuevoEstadoCivil, Paci_Estado_Civil),
+		Paci_Plan_Med_Cod_FK = ISNULL(@nuevoPlanMedico, Paci_Plan_Med_Cod_FK)
+	WHERE @afiliadoId = Paci_Matricula;
 		
 GO
 GO
@@ -270,6 +325,26 @@ CREATE TABLE [GRUPOSA].[HorariosAtencion]
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]	
 		
+/* ***** Object:  Table [GRUPOSA].[Funcionalidad]    Script Date: 9/22/2016 9:54:02 AM ******/
+CREATE TABLE [GRUPOSA].[Funcionalidad]
+	(
+		[Func_Codigo] 	[NUMERIC](18, 0) IDENTITY NOT NULL,
+		[Func_Desc] 	[VARCHAR](250) NULL,
+		
+		CONSTRAINT [PK_Funcionalidad] PRIMARY KEY CLUSTERED ( [Func_Codigo] ASC	)
+		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+
+/* ***** Object:  Table [GRUPOSA].[FuncionalidadesRol]    Script Date: 9/22/2016 9:54:02 AM ******/
+CREATE TABLE [GRUPOSA].[FuncionalidadesRol]
+	(
+		[FuncRol_Rol_Codigo] [NUMERIC](18, 0) NOT NULL,
+		[FuncRol_Func_Codigo] [NUMERIC](18, 0) NOT NULL,
+		
+		CONSTRAINT [PK_FuncRol] PRIMARY KEY CLUSTERED ([FuncRol_Rol_Codigo] ASC,[FuncRol_Func_Codigo] ASC )
+		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+
 
 USE GD2C2016
 BEGIN TRANSACTION
@@ -284,6 +359,22 @@ BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[TipoDocumento] (Tipo_Doc_Desc)
 		VALUES ('LC')
 		
+		--Funcionalidades
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Crear')
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Modificar')
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Borrar') 
+		
+		--FuncionalidadesRol
+		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
+		VALUES (1,1)
+		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
+		VALUES (1,2)
+		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
+		VALUES (1,3)
+
 		--Roles 
 		INSERT INTO GRUPOSA.[Rol] ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
 		VALUES ('Administrador',0,1)
@@ -351,8 +442,8 @@ BEGIN TRANSACTION
 			BEGIN	
 				
 				SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
-				SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var AS VARCHAR(5)) + '01', 5)
-				SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell)
+				SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + '01', 8)
+				SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell) + '.' + 'clinica_frba'
 					 
 					INSERT INTO [GRUPOSA].[Paciente]
 					   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
@@ -405,8 +496,8 @@ BEGIN TRANSACTION
 			BEGIN	
 				
 			SET @var = NEXT VALUE FOR GRUPOSA.SQ_ID_MEDICO
-			SET @medi_id = RIGHT(replicate('0',5) + CAST(@var AS VARCHAR(5)) + '01', 5)
-			SET @medi_usuario = LOWER(@medi_nom) + '_' + LOWER(@medi_apell) + '.' + @medi_id
+			SET @medi_id = RIGHT(replicate('0',5) + CAST(@var AS VARCHAR(5)) + '01', 8)
+			SET @medi_usuario = LOWER(@medi_nom) + '_' + LOWER(@medi_apell) + '.' +  'clinica_frba'
 					
 					INSERT INTO [GRUPOSA].[Medico]
 					   ([Medi_Id],[Medi_Nombre],[Medi_Apellido],[Medi_TipoDocumento],[Medi_Dni],
@@ -426,8 +517,8 @@ BEGIN TRANSACTION
 COMMIT TRANSACTION
 	
 	
-	/*Datos*/
-	BEGIN TRANSACTION
+/*Datos*/
+BEGIN TRANSACTION
 		
 		BEGIN
 		--Usuarios Medicos y Pacientes
@@ -471,4 +562,5 @@ COMMIT TRANSACTION
 		AND ME.MEDI_APELLIDO = MA.MEDICO_APELLIDO
 		GROUP BY MA.ESPECIALIDAD_CODIGO, ME.MEDI_ID
 		END
+
 COMMIT TRANSACTION
