@@ -239,7 +239,7 @@ CREATE TABLE [GRUPOSA].[FuncionalidadesRol]
 
 CREATE TABLE [GRUPOSA].[RolesUsuario]
 	(
-		[RolUsu_Rol_Codigo] 				[VARCHAR](255) NOT NULL,
+		[RolUsu_Rol_Codigo] 				[NUMERIC](18, 0) NOT NULL,
 		[RolUsu_Usuario_Username] 			[VARCHAR](255) NOT NULL,
 	
 		CONSTRAINT [PK_RolUsu] PRIMARY KEY CLUSTERED ( [RolUsu_Rol_Codigo] ASC, [RolUsu_Usuario_Username] ASC )
@@ -289,7 +289,7 @@ CREATE TABLE [GRUPOSA].[Paciente]
 		[Paci_Mail] 			[VARCHAR](250) NULL,
 		[Paci_Fecha_Nac] 		[DATE] NOT NULL,
 		[Paci_Sexo]				[VARCHAR] (250) NULL,
-		[Paci_Estado_Civil]		[NUMERIC] (18,0) DEFAULT 1,		
+		[Paci_Estado_Civil]		[NUMERIC] (18,0) NOT NULL,		
 		[Paci_Plan_Med_Cod_FK] 	[NUMERIC](18, 0) NULL,
 		[Paci_Cant_Familiares] 	[NUMERIC](18, 0) NULL,
 		[Paci_Usuario] 			[VARCHAR] (255) NOT NULL,
@@ -564,7 +564,7 @@ BEGIN TRANSACTION
 						[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario])
 					VALUES
 					   (@paci_matricula, @paci_nom, @paci_apell, 1, @paci_dni, 
-						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 0, @paci_plan_medi, 0, @paci_usuario);
+						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 1, @paci_plan_medi, 0, @paci_usuario);
 
 				FETCH NEXT FROM Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
 			END
@@ -657,7 +657,7 @@ BEGIN TRANSACTION
 		AND ro.Rol_Nombre = 'Afiliado Paciente';
 		
 	--MedicosEspecialidad
-		INSERT INTO [GRUPOSA].[MedicoEspecialidad] ([medespe_medi_id],[medespe_espe_cod])
+		INSERT INTO [GRUPOSA].[MedicoEspecialidad] ([medespe_espe_cod],[medespe_medi_id])
 		SELECT DISTINCT(esp.espe_cod), med.medi_id FROM gd_esquema.Maestra AS gdm, gruposa.medico AS med, gruposa.especialidades AS esp
 		WHERE gdm.medico_nombre IS NOT NULL
 		AND esp.espe_cod = gdm.especialidad_codigo
@@ -723,4 +723,65 @@ BEGIN TRANSACTION
 		WHERE M.Consulta_Enfermedades IS NOT NULL
 	END
 		
+COMMIT TRANSACTION
+
+--------------------------------------------------------------------------------------------------------------------------------------
+------------CONSTRAINT
+BEGIN TRANSACTION
+
+	ALTER TABLE GRUPOSA.Medico ADD CONSTRAINT FK_Medico_TipoDocumento FOREIGN KEY
+	(Medi_TipoDocumento) REFERENCES GRUPOSA.TipoDocumento (Tipo_Doc_Cod) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+		
+	ALTER TABLE GRUPOSA.HorariosAtencion ADD CONSTRAINT FK_HorariosAtencion_Medico FOREIGN KEY
+	(Hora_Medico_Id_FK) REFERENCES GRUPOSA.Medico (Medi_Id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	--PREVIO A AGREGAR UN REGISTRO A MEDICOS DEBE INGESARSE USUARIO
+	ALTER TABLE GRUPOSA.Medico ADD CONSTRAINT FK_Medico_Usuario FOREIGN KEY
+	(Medi_Usuario) REFERENCES GRUPOSA.Usuario (Usuario_Username) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Auditoria_Plan ADD CONSTRAINT FK_Auditoria_Plan_PlanesMedicos FOREIGN KEY
+	(Auditoria_Plan_Nuevo) REFERENCES GRUPOSA.PlanesMedicos (Plan_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Auditoria_Login ADD CONSTRAINT FK_Auditoria_Login_Usuario FOREIGN KEY
+	(Auditoria_Login_Usuario_Username) REFERENCES GRUPOSA.Usuario (Usuario_Username) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Bonos ADD CONSTRAINT FK_Bonos_Paciente FOREIGN KEY
+	(Bono_Paci_Id) REFERENCES GRUPOSA.Paciente (Paci_Matricula) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.MedicoEspecialidad ADD CONSTRAINT FK_MedicoEspecialidad_Especialidades FOREIGN KEY
+	(MedEspe_Espe_Cod) REFERENCES GRUPOSA.Especialidades (Espe_Cod) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+		
+	ALTER TABLE GRUPOSA.MedicoEspecialidad ADD CONSTRAINT FK_MedicoEspecialidad_Medico FOREIGN KEY
+	(MedEspe_Medi_Id) REFERENCES GRUPOSA.Medico (Medi_Id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.TurnosCancelacion ADD CONSTRAINT FK_TurnosCancelacion_Turnos FOREIGN KEY
+	(Cancelacion_Turno_Id) REFERENCES GRUPOSA.Turnos (Turn_Numero) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+		
+	ALTER TABLE GRUPOSA.TurnosCancelacion ADD CONSTRAINT FK_TurnosCancelacion_TiposCancelacion FOREIGN KEY
+	(Cancelacion_Tipo) REFERENCES GRUPOSA.TiposCancelacion (TipoCancelacion_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Turnos ADD CONSTRAINT FK_Turnos_Paciente FOREIGN KEY
+	(Turn_Paciente_Id) REFERENCES GRUPOSA.Paciente (Paci_Matricula) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Turnos ADD CONSTRAINT FK_Turnos_Medico 
+	FOREIGN KEY (Turn_Medico_Id) REFERENCES GRUPOSA.Medico (Medi_Id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+		
+	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_PlanesMedicos FOREIGN KEY
+	(Paci_Plan_Med_Cod_FK) REFERENCES GRUPOSA.PlanesMedicos (Plan_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_EstadoCivil FOREIGN KEY
+	(Paci_Estado_Civil) REFERENCES GRUPOSA.EstadoCivil (EstadoCivil_Id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_Usuario FOREIGN KEY 
+	(Paci_Usuario) REFERENCES GRUPOSA.Usuario (Usuario_Username) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_TipoDocumento 
+	FOREIGN KEY (Paci_TipoDocumento) REFERENCES GRUPOSA.TipoDocumento (Tipo_Doc_Cod) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+		
+	ALTER TABLE GRUPOSA.FuncionalidadesRol ADD CONSTRAINT FK_FuncionalidadesRol_Funcionalidad1 FOREIGN KEY
+	(FuncRol_Func_Codigo) REFERENCES GRUPOSA.Funcionalidad (Func_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.FuncionalidadesRol ADD CONSTRAINT FK_FuncionalidadesRol_Rol FOREIGN KEY
+	(FuncRol_Rol_Codigo) REFERENCES GRUPOSA.Rol (Rol_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
 COMMIT TRANSACTION
