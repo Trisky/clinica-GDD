@@ -22,6 +22,17 @@ namespace ClinicaFrba.Helpers
         }
 
         /// <summary>
+        /// ideal para cuando queres mandar una query q es solo un string sin parametros.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public DataTable SimpleQuery(string query)
+        {
+            SqlCommand cmd = CrearComandoQuery(query);
+            return ExecConsulta(cmd);
+        }
+
+        /// <summary>
         /// Recibe un comando sql, lo ejecuta en el servidorSQL y devuelve la tabla que devuelve este. 
         /// Si el server no devuelve nada, devuelve tabla vacia.
         /// Sirve para select, update, delete y
@@ -59,7 +70,8 @@ namespace ClinicaFrba.Helpers
         /// <returns></returns>
         public SqlCommand CrearComandoStoreProcedure(string nombreStoreProcedure)
         {
-            SqlCommand cmd = new SqlCommand(nombreStoreProcedure, Connector);
+            string nombre = "GRUPOSA." + nombreStoreProcedure;
+            SqlCommand cmd = new SqlCommand(nombre, Connector);
             cmd.CommandType = CommandType.StoredProcedure;
             return cmd;
 

@@ -31,14 +31,14 @@ namespace ClinicaFrba.Logica.Entidades
             string passEncriptada = Encriptador.Encriptar(passwordIngresada);
             //1- defino la query con los @parametros
             //const string query = "select * from GRUPOSA.Usuario where Usuario_Username= '@username' and Usuario_Password= '@password'";
-             string query = "select * from GRUPOSA.Usuario where Usuario_Username = '"+usuarioIngresado+"' and Usuario_Password = '"+passEncriptada+"'";
+             string query = "select * from GRUPOSA.Usuario where Usuario_Username = '"+usuarioIngresado+"'";
             //2- creo la conexion con la db
             Conexion conexion = new Conexion();
 
             //3- creo el comando SQL y le asigno los parametros que hice con @
             SqlCommand comando = conexion.CrearComandoQuery(query);
-            comando.Parameters.Add("@username", SqlDbType.VarChar, 50).Value = usuarioIngresado;
-            comando.Parameters.Add("@password", SqlDbType.VarChar, 50).Value = passEncriptada;
+            //comando.Parameters.Add("@username", SqlDbType.VarChar, 50).Value = usuarioIngresado;
+            //comando.Parameters.Add("@password", SqlDbType.VarChar, 50).Value = passEncriptada;
 
             //4- hago la consulta a la db y me devuelve una tabla.
             DataTable usuarios = conexion.ExecConsulta(comando);
@@ -48,28 +48,67 @@ namespace ClinicaFrba.Logica.Entidades
                 throw new Exception("mas de un usuario encontrado");
             if (usuarios.Rows.Count == 0)
                 return null;
+            
             //6- mapeo la row a la clase  UsuarioLogeado
-            return MapearDataTableLista(usuarios);
+             UsuarioLogeado user = MapearDataTableLista(usuarios);
+
+            //7 me fijo si esta inhabilitado
+            if (user.Inhabilitado)
+            {
+                MessageBox.Show("este usuario esta inhabilitado para iniciar sesion", "inhabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+            // 8 chequeo password
+            if (user.password != passEncriptada)
+            {
+                IncrementarIntentosFallidos(user);
+                return null;
+            }
+            return user;
 
         }
-        
+
+        private void IncrementarIntentosFallidos(UsuarioLogeado user)
+        {
+            if(user.CantidadIntentosFallidos == 2)
+            {
+                sumarIntento(user.UserName);
+                inhabilitarUsuario(user.UserName);
+            }
+            sumarIntento(user.UserName);
+
+        }
+
+        private void sumarIntento(string userName)
+        {
+            Conexion con = new Conexion();
+            throw new NotImplementedException();
+        }
+
+        private void inhabilitarUsuario(string userName)
+        {
+            throw new NotImplementedException();
+
+        }
 
         private UsuarioLogeado MapearDataTableLista(DataTable dtUsuarios)
         {
             List<UsuarioLogeado> lstUsuarios = new List<UsuarioLogeado>();
             try
             {
+                
                 lstUsuarios = (from x in dtUsuarios.AsEnumerable()
                                select new UsuarioLogeado
                                {
                                    UserName = Convert.ToString(x["Usuario_Username"] ?? string.Empty),
                                    password = Convert.ToString(x["Usuario_Password"] ?? string.Empty),
-                                   PreguntaSecreta = Convert.ToString(x["Usuario_Pregunta_Secreta"] ?? string.Empty),
-                                   RespuestaSecreta = Convert.ToString(x["Usuario_Respuesta_Secreta"] ?? string.Empty),
-                                   FechaCreacion = Convert.ToDateTime(Convert.ToString(x["Usuario_Fecha_Creacion"] ?? string.Empty)),
-                                   FechaUltimaModificacion = (x["Usuario_Fecha_Ultima_Modificacion"] == DBNull.Value || Convert.ToDateTime(x["Usuario_Fecha_Ultima_Modificacion"]) == SqlDateTime.MinValue.Value) ? DateTime.MinValue : Convert.ToDateTime(Convert.ToString(x["Usuario_Fecha_Ultima_Modificacion"])),
-                                   CantidadIntentosFallidos = Convert.ToInt32(Convert.ToString(x["Usuario_Intentos_Fallidos"])),
-                                   Inhabilitado = Convert.ToBoolean(x["Usuario_Inhabilitado"])
+                                   //PreguntaSecreta = Convert.ToString(x["Usuario_Pregunta_Secreta"] ?? string.Empty),
+                                   //RespuestaSecreta = Convert.ToString(x["Usuario_Respuesta_Secreta"] ?? string.Empty),
+                                   //FechaCreacion = Convert.ToDateTime(Convert.ToString(x["Usuario_Fecha_Creacion"] ?? string.Empty)),
+                                   //FechaUltimaModificacion = (x["Usuario_Fecha_Ultima_Modificacion"] == DBNull.Value || Convert.ToDateTime(x["Usuario_Fecha_Ultima_Modificacion"]) == SqlDateTime.MinValue.Value) ? DateTime.MinValue : Convert.ToDateTime(Convert.ToString(x["Usuario_Fecha_Ultima_Modificacion"])),
+                                   //CantidadIntentosFallidos = Convert.ToInt32(Convert.ToString(x["Usuario_Intentos_Fallidos"])),
+                                   Inhabilitado = Convert.ToBoolean(x["Usuario_Habilitado"])
+                                   
                                }).ToList();
 
                 lstUsuarios = lstUsuarios.GroupBy(a => a.UserName).Select(g => g.First()).ToList();
