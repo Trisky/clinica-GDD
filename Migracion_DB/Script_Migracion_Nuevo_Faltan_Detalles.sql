@@ -6,7 +6,7 @@ GO
 
 /* ***** Object:  STORES_PROCEDURES [GRUPOSA].[Rol] ***************************************************/
 GO
-CREATE PROCEDURE sp_eliminarRol
+CREATE PROCEDURE [GRUPOSA].[sp_eliminarRol]
     @rolCodigo NUMERIC(18,0)
 AS   
     DECLARE @estadoActual NUMERIC (18,0)
@@ -29,7 +29,7 @@ AS
 		END
 GO
 GO
-CREATE PROCEDURE sp_crearAfiliado
+CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_matricula VARCHAR(250),
 	@paci_nom VARCHAR(250),
 	@paci_apell VARCHAR(250),
@@ -62,7 +62,7 @@ AS
 						
 GO
 GO
-CREATE PROCEDURE sp_bajaLogica
+CREATE PROCEDURE [GRUPOSA].[sp_bajaLogica]
     @usuario VARCHAR(250)
 AS   
     DECLARE @estadoActual BIT
@@ -83,7 +83,7 @@ AS
 		END
 GO
 GO
-CREATE PROCEDURE sp_turnosUsuarioBaja
+CREATE PROCEDURE [GRUPOSA].[sp_turnosUsuarioBaja]
     @usuario VARCHAR(250)
 AS   
     
@@ -97,7 +97,7 @@ AS
 	
 GO
 GO
-CREATE PROCEDURE sp_cambioDePlan
+CREATE PROCEDURE [GRUPOSA].[sp_cambioDePlan]
     @usuario VARCHAR(250),
 	@nuevoPlan [NUMERIC] (18,0),
 	@motivo VARCHAR (250)
@@ -117,7 +117,7 @@ AS
 	
 GO
 GO
-CREATE PROCEDURE sp_modificarAfiliado
+CREATE PROCEDURE [GRUPOSA].[sp_modificarAfiliado]
     @afiliadoId VARCHAR(250),
 	@nuevaDireccion VARCHAR(250),
 	@nuevoEmail VARCHAR(250),
