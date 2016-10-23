@@ -6,20 +6,18 @@ GO
 
 /* ***** Object:  STORES_PROCEDURES [GRUPOSA].[Rol] ***************************************************/
 GO
-CREATE PROCEDURE sp_eliminarRol
+CREATE PROCEDURE [GRUPOSA].sp_eliminarRol
     @rolCodigo NUMERIC(18,0)
 AS   
     DECLARE @estadoActual NUMERIC (18,0)
 		
 	SELECT  @estadoActual = Rol_Estado FROM GRUPOSA.[Rol] WHERE Rol_Codigo = @rolCodigo
 	
-	
 	IF (@estadoActual = 1 ) 
-		
 		BEGIN
-		UPDATE GRUPOSA.[Rol] 
-		SET Rol_Estado = 0
-		WHERE Rol_Codigo = @rolCodigo
+			UPDATE GRUPOSA.[Rol] 
+			SET Rol_Estado = 0
+			WHERE Rol_Codigo = @rolCodigo
 		END
 	ELSE
 		BEGIN
@@ -29,7 +27,7 @@ AS
 		END
 GO
 GO
-CREATE PROCEDURE sp_crearAfiliado
+CREATE PROCEDURE [GRUPOSA].sp_crearAfiliado
 	@paci_matricula VARCHAR(250),
 	@paci_nom VARCHAR(250),
 	@paci_apell VARCHAR(250),
@@ -42,13 +40,14 @@ CREATE PROCEDURE sp_crearAfiliado
 	@paci_sexo VARCHAR(250), 
 	@paci_estado_civil NUMERIC (18,0),
 	@paci_plan_medi NUMERIC (18,0),
-	@paci_cant_fam NUMERIC (18,0)
+	@paci_cant_fam NUMERIC (18,0),
+	@paci_tipoFamiliar VARCHAR(250)
 AS   
 	DECLARE @var1 NUMERIC (18,0);
 	DECLARE @paci_usuario VARCHAR(255);
 	
 	SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
-	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + '01', 5)
+	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + @paci_tipoFamiliar, 5)
 	SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell)
 					 
 	INSERT INTO [GRUPOSA].[Paciente]
@@ -62,7 +61,7 @@ AS
 						
 GO
 GO
-CREATE PROCEDURE sp_bajaLogica
+CREATE PROCEDURE [GRUPOSA].sp_bajaLogica
     @usuario VARCHAR(250)
 AS   
     DECLARE @estadoActual BIT
@@ -83,7 +82,7 @@ AS
 		END
 GO
 GO
-CREATE PROCEDURE sp_turnosUsuarioBaja
+CREATE PROCEDURE [GRUPOSA].sp_turnosUsuarioBaja
     @usuario VARCHAR(250)
 AS   
     
@@ -93,16 +92,15 @@ AS
 	WHERE Paci.Paci_Usuario = @usuario
 	
 	DELETE FROM GRUPOSA.Turnos
-	WHERE Turn_Paciente_Id = @matricula
-	
+	WHERE Turn_Paciente_Id IN (SELECT SUBSTRING(Paci_Matricula,1,6) FROM GRUPOSA.Paciente Paci
+							   WHERE Paci.Paci_Usuario = @usuario)	
 GO
 GO
-CREATE PROCEDURE sp_cambioDePlan
+CREATE PROCEDURE [GRUPOSA].sp_cambioDePlan
     @usuario VARCHAR(250),
 	@nuevoPlan [NUMERIC] (18,0),
 	@motivo VARCHAR (250)
 AS   
-    
 	DECLARE @viejoPlan [NUMERIC] (18,0);
 	
 	SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
@@ -117,14 +115,13 @@ AS
 	
 GO
 GO
-CREATE PROCEDURE sp_modificarAfiliado
+CREATE PROCEDURE [GRUPOSA].sp_modificarAfiliado
     @afiliadoId VARCHAR(250),
 	@nuevaDireccion VARCHAR(250),
 	@nuevoEmail VARCHAR(250),
 	@nuevoEstadoCivil VARCHAR (250),
 	@nuevoPlanMedico VARCHAR(250)
 AS   
-	
 	DECLARE @usuarioPaci VARCHAR(255);
 	
 	UPDATE GRUPOSA.Paciente
@@ -132,8 +129,7 @@ AS
 		Paci_Mail = ISNULL(@nuevoEmail, Paci_Mail),
 		Paci_Estado_Civil = ISNULL(@nuevoEstadoCivil, Paci_Estado_Civil),
 		Paci_Plan_Med_Cod_FK = ISNULL(@nuevoPlanMedico, Paci_Plan_Med_Cod_FK)
-	WHERE @afiliadoId = Paci_Matricula;
-		
+	WHERE @afiliadoId = Paci_Matricula;	
 GO
 GO
 CREATE FUNCTION [GRUPOSA].fnc_cantidadDeRolesUsuario ( @usuario varchar(255) ) 
@@ -149,7 +145,20 @@ BEGIN
 	RETURN @ret;  
     END
 GO
-	
+GO
+CREATE FUNCTION [GRUPOSA].fnc_AfiliadoActivo ( @usuario varchar(255) ) 
+RETURNS BIT
+AS  
+BEGIN 
+    DECLARE @ret BIT;
+			
+    SELECT  @ret = Usuario_Habilitado    
+    FROM GRUPOSA.Usuario AS US   
+    WHERE US.Usuario_Username = @usuario
+
+	RETURN @ret;  
+    END
+GO	
 /* ***** Object:  Table [GRUPOSA].[Rol] ************************************************** */
 
 CREATE SEQUENCE GRUPOSA.SQ_ID_MEDICO
@@ -547,10 +556,13 @@ BEGIN TRANSACTION
 		WHERE gdm.medico_nombre IS NOT NULL
 		AND esp.espe_cod = gdm.especialidad_codigo
 		AND med.medi_dni = gdm.medico_dni;
-				
+		END
+		
+		BEGIN
 		INSERT INTO [GRUPOSA].[HorariosAtencion]
-           ([Hora_Inicio],[Hora_Fin],[Hora_Medico_Id_FK],[Hora_Especialidad])
-		SELECT RIGHT(REPLICATE('0',2) + RTRIM(CAST(DATEPART(HOUR,MIN(MA.TURNO_FECHA)) AS CHAR(2))),2)
+           ([Hora_Dia],[Hora_Inicio],[Hora_Fin],[Hora_Medico_Id_FK],[Hora_Especialidad])
+			SELECT DATENAME(WEEKDAY,  ROW_NUMBER() OVER(ORDER BY (SELECT 1))) AS HORA_DIA,
+			   RIGHT(REPLICATE('0',2) + RTRIM(CAST(DATEPART(HOUR,MIN(MA.TURNO_FECHA)) AS CHAR(2))),2)
 			   + ':' + 
 			   RIGHT(REPLICATE('0',2) + RTRIM(CAST(DATEPART(MINUTE,MIN(MA.TURNO_FECHA)) AS CHAR(2))),2) AS HORA_ENTRADA,
 			   RIGHT(REPLICATE('0',2) + RTRIM(CAST(DATEPART(HOUR,MAX(MA.TURNO_FECHA)) AS CHAR(2))),2)
@@ -562,5 +574,18 @@ BEGIN TRANSACTION
 		AND ME.MEDI_APELLIDO = MA.MEDICO_APELLIDO
 		GROUP BY MA.ESPECIALIDAD_CODIGO, ME.MEDI_ID
 		END
-
+		
+		BEGIN
+		
+			UPDATE GRUPOSA.HorariosAtencion
+			SET HORA_DIA = 'Miercoles'
+			WHERE HORA_DIA = 'Domingo'
+			
+			UPDATE GRUPOSA.HorariosAtencion
+			SET Hora_Inicio = '09:00',
+				Hora_Fin = '15:00'
+			WHERE HORA_DIA = 'Sábado'
+		
+		END
+		
 COMMIT TRANSACTION
