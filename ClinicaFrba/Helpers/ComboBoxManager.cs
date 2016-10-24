@@ -40,6 +40,11 @@ namespace ClinicaFrba.Helpers
             return combo;
         }
 
+        internal ComboBox CrearEspecialidades(ComboBox comboBoxEspecialidad)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// obtiene todos los planes medicos disponibles y los pone en el comboBox mediante un datatable
         /// </summary>
@@ -76,5 +81,11 @@ namespace ClinicaFrba.Helpers
             combo.DataSource = dt;
             return combo;
         }
+        public ComboBox CrearDias(ComboBox combo)
+        {
+            combo.DataSource = Enum.GetValues(typeof(Enums.DiaSemana));
+            return combo;
+        }
+
     }
 }
