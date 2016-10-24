@@ -94,7 +94,8 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    //do something else
+                    MessageBox.Show("Creacion de afiliado finalizada", "pariente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Dispose();
                 }
 
             }

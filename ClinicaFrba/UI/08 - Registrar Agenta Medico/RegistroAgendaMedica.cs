@@ -23,8 +23,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             InitializeComponent();
             ComboBoxManager cm = new ComboBoxManager();
             comboBoxDia = cm.CrearDias(comboBoxDia);
-
-
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -33,7 +31,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             DataTable dt = GetAgendaDeldia(diaSeleccionado);
             comboBoxDia.Enabled = false; // por las dudas.
             buttonNuevoHorario.Enabled = true;
-
         }
 
         private DataTable GetAgendaDeldia(string diaSeleccionado)
@@ -41,8 +38,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoQuery(@"SELECT [Hora_Inicio] ,[Hora_Fin]
                                                     FROM[GD2C2016].[GRUPOSA].[HorariosAtencion]
-                                                    where Hora_dia = '@dia' and
-                                                    Horario_FK_Medico_Usuario = '@medico'");
+                                                    where Hora_dia = @dia and
+                                                    Horario_FK_Medico_Usuario = @medico");
             cmd.Parameters.Add("@dia", SqlDbType.NVarChar).Value = diaSeleccionado;
             cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = medicoActualUsername;
             DataTable dt = con.ExecConsulta(cmd);
@@ -54,6 +51,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void buttonNuevoHorario_Click(object sender, EventArgs e)
         {
             groupBoxNuevoHorario.Enabled = true;
+            groupBoxSeleccionDia.Enabled = false;
 
         }
 
@@ -91,6 +89,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
 
             //ahora que ya se que es valido, lo mando a la base --> TODO
+
+
+            //por ultimo, escondo el grupo de crear horario y muestro el inicial
+            groupBoxNuevoHorario.Enabled = false;
+            groupBoxSeleccionDia.Enabled = true;
 
         }
 

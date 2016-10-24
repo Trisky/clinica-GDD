@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace ClinicaFrba.Helpers
 {
@@ -59,6 +60,7 @@ namespace ClinicaFrba.Helpers
             catch
             {
                 throw new Exception("query error");
+                MessageBox.Show("Error al ejecutar la query", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -81,7 +83,10 @@ namespace ClinicaFrba.Helpers
             SqlCommand cmd = new SqlCommand(query, Connector);
             return cmd;
         }
-
+        public string ConWildCard(string original)
+        {
+            return "%" + original + "%";
+        }
 
 
         [Obsolete]

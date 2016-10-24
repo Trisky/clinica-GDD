@@ -23,10 +23,22 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
          private void btnBuscar_Click(object sender, EventArgs e)
         {
+            DataTable dt;
             Conexion con = new Conexion();
-            SqlCommand cmd =  con.CrearComandoQuery("SELECT * FROM [GD2C2016].[GRUPOSA].[Pacientes]");
+            if(textBoxApellido.Text == ""  && textBoxNombre.Text == "")
+                dt = con.SimpleQuery("SELECT * FROM [GD2C2016].[GRUPOSA].[Paciente]");
+            else
+            {
+                string q = @"SELECT * FROM [GD2C2016].[GRUPOSA].[Paciente]
+                             where paci_nombre like @paci_nom and
+                                   paci_apellido like @paci_ape";
+                SqlCommand cmd = con.CrearComandoQuery(q);
+                cmd.Parameters.Add(new SqlParameter("@paci_nom", con.ConWildCard(textBoxNombre.Text)));
+                cmd.Parameters.Add(new SqlParameter("@paci_ape", con.ConWildCard(textBoxApellido.Text)));
 
-            DataTable dt = con.ExecConsulta(cmd);
+                dt = con.ExecConsulta(cmd);
+            }
+
             textBoxCantidadEncontrada.Text = dt.Rows.Count.ToString();
             
             //dgListado.DataSource = null;
@@ -45,6 +57,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             //dgListado.Columns[3].DataPropertyName = "InhabilitadoString";
             //dgListado.Columns[3].Width = 157;
             dgListado.DataSource = dt;
+            dgListado.Columns[4].Name = "tipo DNI";
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
