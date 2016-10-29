@@ -55,7 +55,6 @@
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.buttonCrearFamiliar = new System.Windows.Forms.Button();
             this.buttonGuardarModificacion = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -239,7 +238,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.comboBoxTipoDni);
             this.groupBox1.Controls.Add(this.label2);
@@ -301,10 +299,11 @@
             // textBoxDNI
             // 
             this.textBoxDNI.Location = new System.Drawing.Point(195, 174);
-            this.textBoxDNI.MaxLength = 244;
+            this.textBoxDNI.MaxLength = 20;
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(420, 29);
             this.textBoxDNI.TabIndex = 30;
+            this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // buttonCrearFamiliar
             // 
@@ -327,16 +326,6 @@
             this.buttonGuardarModificacion.UseVisualStyleBackColor = true;
             this.buttonGuardarModificacion.Visible = false;
             this.buttonGuardarModificacion.Click += new System.EventHandler(this.buttonGuardarModificacion_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(98, 594);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(433, 25);
-            this.label12.TabIndex = 33;
-            this.label12.Text = "Falta hacer lo de los sexos cuando buscas un afi";
             // 
             // AbmAfiliadoCrear
             // 
@@ -383,6 +372,5 @@
         private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBoxTipoDni;
-        private System.Windows.Forms.Label label12;
     }
 }

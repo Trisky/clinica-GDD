@@ -69,7 +69,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             //ahora que ya se que es valido, lo mando a la base --> TODO
             Conexion con = new Conexion();
             //TODO
-            con.CrearComandoQuery("INSERT INTO horarios (tipo, motivo, persona, turno) VALUES (@horaInicio, @horaFin, @id, @turno)")
+            con.CrearComandoQuery("INSERT INTO horarios (tipo, motivo, persona, turno) VALUES (@horaInicio, @horaFin, @id, @turno)");
 
 
             //por ultimo, escondo el grupo de crear horario y muestro el inicial

@@ -28,7 +28,7 @@ namespace ClinicaFrba.Logica.Entidades
 
         public UsuarioLogeado GetUsuario(string usuarioIngresado, string passwordIngresada)
         {
-            string passEncriptada = Encriptador.Encriptar(passwordIngresada);
+            string passEncriptada = StaticUtils.Encriptar(passwordIngresada);
             //1- defino la query con los @parametros
             //const string query = "select * from GRUPOSA.Usuario where Usuario_Username= '@username' and Usuario_Password= '@password'";
              string query = "select * from GRUPOSA.Usuario where Usuario_Username = '"+usuarioIngresado+"'";

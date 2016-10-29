@@ -19,10 +19,12 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public bool estaModificando { get; set; }
         public int IDAfiliado { get; set; }
         public AbmAfiliadoCrear()
+
         {
             Inicializar();
             IDAfiliado = 0;
             estaModificando = false;
+            
         }
 
         public AbmAfiliadoCrear(bool esPariente, object planMedico)
@@ -152,6 +154,11 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 MessageBox.Show("¡error, elija plan medico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
+            if(StaticUtils.EsSoloNumerico(textBoxDNI.Text))
+            {
+                MessageBox.Show("¡DNI debe ser numerico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             return true;
 
         }
@@ -204,6 +211,16 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         }
 
         private void comboBoxTipoDni_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDNI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
         }
