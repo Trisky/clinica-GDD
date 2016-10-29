@@ -42,6 +42,19 @@ namespace ClinicaFrba.Helpers
 
         internal ComboBox CrearEspecialidades(ComboBox comboBoxEspecialidad)
         {
+            Conexion con = new Conexion();
+            const string query = "SELECT * FROM [GD2C2016].[GRUPOSA].[Especialidades]";
+            SqlCommand cmd = con.CrearComandoQuery(query);
+            DataTable dt = con.ExecConsulta(cmd);
+            DataRow row = dt.NewRow();
+            row["Espe_Cod"] = -1;
+            row["Espe_Desc"] = "--SELECCIONE--";
+            dt.Rows.InsertAt(row, 0);
+            comboBoxEspecialidad.DisplayMember = "Espe_Desc";
+            comboBoxEspecialidad.ValueMember = "Espe_Cod";
+            comboBoxEspecialidad.DataSource = dt;
+
+            return comboBoxEspecialidad; 
             throw new NotImplementedException();
         }
 
@@ -85,6 +98,25 @@ namespace ClinicaFrba.Helpers
         {
             combo.DataSource = Enum.GetValues(typeof(TipoUsuarioEnum.DiaSemana));
             return combo;
+        }
+
+        internal ComboBox ListarMedicos(string especialidad, ComboBox comboBoxEspecialidad)
+        {
+            
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_medicosEspecialidad");
+            cmd.Parameters.Add("@id_especialidad", SqlDbType.NVarChar).Value = especialidad;
+            DataTable dt = con.ExecConsulta(cmd);
+            DataRow row = dt.NewRow();
+            row["MedEspe_Espe_Cod"] = -1;
+            row["medico"] = "--SELECCIONE--";
+            dt.Rows.InsertAt(row, 0);
+            comboBoxEspecialidad.DisplayMember = "medico";
+            comboBoxEspecialidad.ValueMember = "MedEspe_Espe_Cod";
+            comboBoxEspecialidad.DataSource = dt;
+
+            return comboBoxEspecialidad;
+            throw new NotImplementedException();
         }
 
     }

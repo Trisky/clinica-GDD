@@ -151,11 +151,11 @@
     <Compile Include="UI\AbmRol\SelecionFuncionalidad.Designer.cs">
       <DependentUpon>SelecionFuncionalidad.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\10 - Pedir Turno\Form1.cs">
+    <Compile Include="UI\10 - Pedir Turno\abmPedirTurno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\10 - Pedir Turno\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\10 - Pedir Turno\abmPedirTurno.Designer.cs">
+      <DependentUpon>abmPedirTurno.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -222,8 +222,8 @@
     <EmbeddedResource Include="UI\09 - Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\10 - Pedir Turno\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="UI\10 - Pedir Turno\abmPedirTurno.resx">
+      <DependentUpon>abmPedirTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormulariosBase\EspecialidadesHandler.resx">
       <DependentUpon>EspecialidadesHandler.cs</DependentUpon>

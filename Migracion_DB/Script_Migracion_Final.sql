@@ -192,6 +192,19 @@ AS
 						
 GO
 
+--sp_medicosEspecialidad: Devuelve el nombre de los medicos de la especialidad recibida.
+CREATE PROCEDURE [GRUPOSA].[sp_medicosEspecialidad] (@id_especialidad NUMERIC(18,0))
+AS
+BEGIN
+	
+	SELECT Esp.MedEspe_Espe_Cod, UPPER(Med.Medi_Nombre+' ' + Med.Medi_Apellido) AS medico 
+	FROM GRUPOSA.MedicoEspecialidad Esp, GRUPOSA.Medico Med 
+	WHERE Esp.MedEspe_Espe_Cod = @id_especialidad
+	AND Esp.MedEspe_Medi_Id = Med.Medi_Id;
+	
+END
+GO 
+
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 
