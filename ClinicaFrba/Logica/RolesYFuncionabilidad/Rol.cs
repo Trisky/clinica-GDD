@@ -17,38 +17,11 @@ namespace ClinicaFrba.Logica.Roles
         public char Estado { get; set; }
         public char EsAdmin { get; set; }
         public string EstadoString { get; set; }
-        private Conexion coneccion;
 
         public Rol()
         {
             //El listado total de funcionalidades del sistema es fijo y no varía
             this.Funcionalidades = new List<Funcionalidad>();
         }
-
-
-        //public List<Rol> ObtenerRoles(Dictionary<string, object> filtros)
-        //{
-        //    try
-        //    {
-        //        //DataTable dtRoles = new DataTable();
-        //        ////Conexion = new Conexion();
-        //        ////XDocument filtrosXml = UtilDatos.ArmarFiltrosXml(filtros);
-        //        //dtRoles = coneccion.EjecutarProcedure("Sp_ObtenerRoles", filtrosXml, "@filtrosXml");
-        //        //List<Rol> lstRoles = MapearDataTableLista(dtRoles);
-
-
-        //        return lstRoles;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-
-
-
-
-
     }
 }

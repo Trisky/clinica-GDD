@@ -97,6 +97,10 @@
     <Compile Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.Designer.cs">
       <DependentUpon>ListarAgendaProfesional.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AbmRol\RolEditar.cs" />
+    <Compile Include="UI\AbmRol\RolEditar.Designer.cs">
+      <DependentUpon>RolEditar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormulariosBase\EspecialidadesHandler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AbmRol\RolEditar.resx">
+      <DependentUpon>RolEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\SelecionFuncionalidad.resx">
       <DependentUpon>SelecionFuncionalidad.cs</DependentUpon>
