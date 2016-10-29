@@ -10,6 +10,8 @@ namespace ClinicaFrba.Logica.Entidades
 {
     public class UsuarioLogeado
     {
+        public string MedicoMatricula { get; set; }
+        public string PacienteMatricula { get; set; }
         public string UserName { get; set; }
         public string password { get; set; }
         public TipoUsuarioEnum TipoUsuario { get; set; }

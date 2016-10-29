@@ -64,8 +64,46 @@ namespace ClinicaFrba.Logica.Entidades
                 IncrementarIntentosFallidos(user);
                 return null;
             }
+            asociarUsuarioConMedico(user);
+            asociarUsuarioConPaciente(user);
             return user;
 
+        }
+
+        internal void asociarUsuarioConPaciente(UsuarioLogeado usuarioLogeado)
+        {
+            Conexion con = new Conexion();
+            string s = @"SELECT [Medi_Id]
+                        FROM [GD2C2016].[GRUPOSA].[Medico]
+                        where Medi_Usuario = @username";
+            SqlCommand cmd =  con.CrearComandoQuery(s);
+            cmd.Parameters.Add(new SqlParameter("@username", usuarioLogeado.UserName));
+            DataTable dt = con.ExecConsulta(cmd);
+            usuarioLogeado.PacienteMatricula = getUniqueValueFrom(dt);
+
+
+        }
+        public void asociarUsuarioConMedico(UsuarioLogeado usuarioLogeado)
+        {
+            string s = @"SELECT  [Medi_Id]
+                        FROM [GD2C2016].[GRUPOSA].[Medico]
+                        where Medi_Usuario = @username";
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoQuery(s);
+            cmd.Parameters.Add(new SqlParameter("@username", usuarioLogeado.UserName));
+            DataTable dt = con.ExecConsulta(cmd);
+            usuarioLogeado.MedicoMatricula = getUniqueValueFrom(dt);
+
+        }
+
+        public string getUniqueValueFrom(DataTable d)
+        {
+            string field = d.Rows[0].Field<string>(0);
+            if(field == null)
+            {
+                return "0";
+            }
+            return field;
         }
 
         private void IncrementarIntentosFallidos(UsuarioLogeado user)
