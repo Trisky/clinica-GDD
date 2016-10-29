@@ -205,6 +205,25 @@ BEGIN
 END
 GO 
 
+--sp_turnosMedicosDisponibles: Devuelve los turnos disponibles del dia.
+CREATE PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR(255), @especialidad VARCHAR(255),@id_medico VARCHAR(255))
+AS
+BEGIN
+
+SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
+WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA
+							WHERE TU.Turn_Medico_Id = @id_medico
+							AND TU.Turn_Especialidad = @especialidad
+							AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
+							AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
+							AND TU.Turn_Especialidad = HA.Hora_Especialidad)
+
+AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
+					 WHERE HI.Hora_Medico_Id_FK = @id_medico
+					 AND HI.Hora_Especialidad = @especialidad)
+
+GO 
+
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -413,6 +432,7 @@ CREATE TABLE [GRUPOSA].[Turnos]
 		[Turn_Fecha] [DATETIME] NULL,
 		[Turn_Paciente_Id] [VARCHAR](255) NULL,
 		[Turn_Medico_Id] [VARCHAR](255) NULL,
+		[Turn_Especialidad] [VARCHAR] (255) NULL,
 
 		CONSTRAINT [PK_Turnos] PRIMARY KEY CLUSTERED ( [Turn_Numero] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -459,6 +479,11 @@ CREATE TABLE [GRUPOSA].[Bonos]
 		CONSTRAINT [PK_Bonos] PRIMARY KEY CLUSTERED ( [Bono_Id] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
+
+CREATE TABLE [GRUPOSA].[TurnosDisponible](
+	[HORA_TURNO] [time](7) NULL
+) ON [PRIMARY]
+GO
 	
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -695,8 +720,8 @@ BEGIN TRANSACTION
 	END
 	
 	BEGIN
-		INSERT INTO [GRUPOSA].[Turnos] ([Turn_Numero],[Turn_Fecha],[Turn_Paciente_Id],[Turn_Medico_Id])
-		SELECT DISTINCT(gdm.turno_numero), gdm.turno_fecha, pac.paci_matricula, med.medi_id
+		INSERT INTO [GRUPOSA].[Turnos] ([Turn_Numero],[Turn_Fecha],[Turn_Paciente_Id],[Turn_Medico_Id], [Turn_Especialidad])
+		SELECT DISTINCT(gdm.turno_numero), gdm.turno_fecha, pac.paci_matricula, med.medi_id, gdm.Especialidad_Codigo
 		FROM gd_esquema.maestra AS gdm, gruposa.paciente AS pac, gruposa.medico AS med
 		WHERE gdm.medico_dni = med.medi_dni
 		AND pac.paci_dni = gdm.paciente_dni
@@ -735,7 +760,27 @@ BEGIN TRANSACTION
 		FROM gd_esquema.Maestra M
 		WHERE M.Consulta_Enfermedades IS NOT NULL
 	END
+	
+	BEGIN TRANSACTION
+
+	DECLARE @hora_fin TIME;
+	DECLARE @hora TIME;
+
+	SET @hora = CAST('08:00' AS TIME)
+	SET @hora_fin = CAST ('20:00' AS TIME)
+
+	WHILE (@hora <= @hora_fin) 
+	BEGIN 
+
+		INSERT INTO GRUPOSA.turnosdisponible (HORA_TURNO)
+		VALUES(@hora)	
 		
+		SET @hora = DATEADD(mi,30,@hora);
+		
+	END
+
+	COMMIT TRANSACTION
+
 COMMIT TRANSACTION
 
 --------------------------------------------------------------------------------------------------------------------------------------
