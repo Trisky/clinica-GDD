@@ -83,7 +83,7 @@ namespace ClinicaFrba.Helpers
         }
         public ComboBox CrearDias(ComboBox combo)
         {
-            combo.DataSource = Enum.GetValues(typeof(Enums.DiaSemana));
+            combo.DataSource = Enum.GetValues(typeof(TipoUsuarioEnum.DiaSemana));
             return combo;
         }
 
