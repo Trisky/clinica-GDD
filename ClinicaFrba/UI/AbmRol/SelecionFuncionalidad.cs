@@ -1,4 +1,5 @@
 ﻿using ClinicaFrba.Logica.Entidades;
+using ClinicaFrba.Pedir_Turno;
 using ClinicaFrba.UI._04___Abm_Afiliado;
 using ClinicaFrba.UI._05___Abm_Profesional;
 using System;
@@ -69,6 +70,11 @@ namespace ClinicaFrba.UI.MenuPrincipal
         private void button1_Click_1(object sender, EventArgs e)
         {
             AbmAfiliadoListar afi = new AbmAfiliadoListar();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PedirTurno turnos = new PedirTurno(); 
         }
     }
 }

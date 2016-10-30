@@ -24,14 +24,70 @@ namespace ClinicaFrba.Pedir_Turno
         public PedirTurno()
         {
             InitializeComponent();
+            Show();
+            ComboBoxManager listaEspecialidades = new ComboBoxManager();
+            cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
+            monthCalendar1.MaxSelectionCount = 1;
 
-            ComboBoxManager cb = new ComboBoxManager();
-
-            cmbBoxListadoEspecialidades = cb.CrearEspecialidades(cmbBoxListadoEspecialidades);
-
- 
-     
         }
+
+        private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string especialidad;
+            especialidad = cmbBoxListadoEspecialidades.SelectedValue.ToString();
+            ComboBoxManager comboMed = new ComboBoxManager();
+            cmbMedicos = comboMed.ListarMedicos(especialidad, cmbMedicos);
+
+        }
+
+        private void btnPedirTurno(object sender, EventArgs e)
+        {
+            String especialidadSeleccionada = cmbBoxListadoEspecialidades.SelectedValue.ToString();
+            String idMedico = cmbMedicos.SelectedValue.ToString();
+            String diaSeleccionado = monthCalendar1.SelectionRange.Start.ToString();
+
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosMedicosDisponibles");
+            cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
+            cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado;
+            cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
+            DataTable dTurnos = con.ExecConsulta(cmd);
+            Show();
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        private void PedirTurno_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbAfiliado_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+
+
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -49,52 +105,20 @@ namespace ClinicaFrba.Pedir_Turno
         {
         }
 
-        private void tbAfiliado_TextChanged(object sender, EventArgs e)
+        private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            btnBuscarTurnos.Text = "Buscar Turnos";
-            using (ListarAgendaProfesional agenda = new ListarAgendaProfesional(usuarioLogeado))
-            {
 
-            }
-        }
 
-        private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string especialidad;
-            especialidad = cmbBoxListadoEspecialidades.SelectedValue.ToString();
-            ComboBoxManager combomed = new ComboBoxManager();
-
-            cmbMedicos = combomed.ListarMedicos(especialidad, cmbMedicos);
-
-        }
-
-                
-        /*
-        private void btnBuscarTurno_Click(object sender, EventArgs e)
-        {
-            using (FrmAgendaConsultar frm = new FrmAgendaConsultar(2))
-            {
-                frm.ShowDialog(this);
-
-                if (frm.TurnoSeleccionado != null)
-                {
-                    this._turno = frm.TurnoSeleccionado;
-                    this.textBox1.Text = _turno.ToString();
-                    this.btnAceptar.Enabled = true;
-                }
-
-            */
         }
        
     }
+       
+}
 
 

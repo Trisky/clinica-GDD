@@ -208,21 +208,32 @@ GO
 --sp_turnosMedicosDisponibles: Devuelve los turnos disponibles del dia.
 CREATE PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR(255), @especialidad VARCHAR(255),@id_medico VARCHAR(255))
 AS
+DECLARE @mediId VARCHAR(255);
+DECLARE @mediEspecialidad VARCHAR(255);
+
 BEGIN
+
+SELECT  @mediEspecialidad = MEDESP.MedEspe_Espe_Cod, @mediId = MEDESP.MedEspe_Medi_Id 
+FROM GRUPOSA.MedicoEspecialidad MEDESP, GRUPOSA.Especialidades ESP,GRUPOSA.Medico MED
+WHERE ESP.Espe_Desc = @especialidad
+AND MEDESP.MedEspe_Espe_Cod = ESP.Espe_COD
+AND UPPER(MED.Medi_Nombre + ' ' + MED.Medi_Apellido) = @id_medico
+AND MEDESP.MedEspe_Medi_Id = MED.Medi_Id ;
 
 SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
 WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA
-							WHERE TU.Turn_Medico_Id = @id_medico
-							AND TU.Turn_Especialidad = @especialidad
+							WHERE TU.Turn_Medico_Id = @mediId
+							AND TU.Turn_Especialidad = @mediEspecialidad
 							AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
 							AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
 							AND TU.Turn_Especialidad = HA.Hora_Especialidad)
 
 AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
-					 WHERE HI.Hora_Medico_Id_FK = @id_medico
-					 AND HI.Hora_Especialidad = @especialidad)
+					 WHERE HI.Hora_Medico_Id_FK = @mediId
+					 AND HI.Hora_Especialidad = @mediEspecialidad)
 
-GO 
+ 
+END
 
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------

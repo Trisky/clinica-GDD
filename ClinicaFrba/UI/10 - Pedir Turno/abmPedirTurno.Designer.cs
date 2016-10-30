@@ -58,7 +58,7 @@
             this.btnBuscarTurnos.TabIndex = 2;
             this.btnBuscarTurnos.Text = "BuscarTurno";
             this.btnBuscarTurnos.UseVisualStyleBackColor = true;
-            this.btnBuscarTurnos.Click += new System.EventHandler(this.button1_Click);
+            this.btnBuscarTurnos.Click += new System.EventHandler(this.btnPedirTurno);
             // 
             // label2
             // 
@@ -125,6 +125,7 @@
             this.cmbMedicos.Name = "cmbMedicos";
             this.cmbMedicos.Size = new System.Drawing.Size(164, 21);
             this.cmbMedicos.TabIndex = 14;
+            this.cmbMedicos.SelectedIndexChanged += new System.EventHandler(this.cmbMedicos_SelectedIndexChanged);
             // 
             // textBox2
             // 
@@ -147,6 +148,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(328, 150);
             this.dataGridView1.TabIndex = 16;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // PedirTurno
             // 
@@ -167,6 +169,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PedirTurno";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.PedirTurno_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
