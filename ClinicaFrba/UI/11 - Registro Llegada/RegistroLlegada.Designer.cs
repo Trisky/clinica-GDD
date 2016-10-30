@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Registro_Llegada
 {
-    partial class Form1
+    partial class RegistroLlegada
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.gbFiltros.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // RegistroLlegada
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(2054, 691);
+            this.Name = "RegistroLlegada";
             this.Text = "Form1";
+            this.gbFiltros.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
