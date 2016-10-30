@@ -34,7 +34,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.groupBoxLlegada = new System.Windows.Forms.GroupBox();
+            this.buttonSeleccionParaTurno = new System.Windows.Forms.Button();
             this.gbFiltros.SuspendLayout();
+            this.groupBoxLlegada.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
@@ -116,11 +119,33 @@
             this.textBoxApellido.Size = new System.Drawing.Size(302, 29);
             this.textBoxApellido.TabIndex = 5;
             // 
+            // groupBoxLlegada
+            // 
+            this.groupBoxLlegada.Controls.Add(this.buttonSeleccionParaTurno);
+            this.groupBoxLlegada.Enabled = false;
+            this.groupBoxLlegada.Location = new System.Drawing.Point(1511, 12);
+            this.groupBoxLlegada.Name = "groupBoxLlegada";
+            this.groupBoxLlegada.Size = new System.Drawing.Size(502, 270);
+            this.groupBoxLlegada.TabIndex = 23;
+            this.groupBoxLlegada.TabStop = false;
+            this.groupBoxLlegada.Text = "Seleccione afiliado para turnos";
+            // 
+            // buttonSeleccionParaTurno
+            // 
+            this.buttonSeleccionParaTurno.Location = new System.Drawing.Point(82, 197);
+            this.buttonSeleccionParaTurno.Name = "buttonSeleccionParaTurno";
+            this.buttonSeleccionParaTurno.Size = new System.Drawing.Size(355, 67);
+            this.buttonSeleccionParaTurno.TabIndex = 0;
+            this.buttonSeleccionParaTurno.Text = "Darle un turno para hoy a este afiliado";
+            this.buttonSeleccionParaTurno.UseVisualStyleBackColor = true;
+            this.buttonSeleccionParaTurno.Click += new System.EventHandler(this.buttonSeleccionParaTurno_Click);
+            // 
             // AbmAfiliadoListar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2025, 887);
+            this.Controls.Add(this.groupBoxLlegada);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxCantidadEncontrada);
             this.Name = "AbmAfiliadoListar";
@@ -132,8 +157,10 @@
             this.Controls.SetChildIndex(this.btnSeleccionar, 0);
             this.Controls.SetChildIndex(this.textBoxCantidadEncontrada, 0);
             this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.groupBoxLlegada, 0);
             this.gbFiltros.ResumeLayout(false);
             this.gbFiltros.PerformLayout();
+            this.groupBoxLlegada.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,5 +174,7 @@
         private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBoxLlegada;
+        private System.Windows.Forms.Button buttonSeleccionParaTurno;
     }
 }

@@ -11,12 +11,12 @@ namespace ClinicaFrba.Helpers
         public enum TipoUsuario { PACIENTE = 0, MEDICO = 1, ADMIN = 2 };
         public enum DiaSemana
         {
-            LUNES = 1,
-            MARTES = 2,
-            MIERCOLES = 3,
-            JUEVES = 4,
-            VIERNES = 5,
-            SABADO = 6
+            LUNES = 6,
+            MARTES = 7,
+            MIERCOLES = 8,
+            JUEVES = 3,
+            VIERNES = 4,
+            SABADO = 5
         }
     }
 }
