@@ -52,7 +52,7 @@ namespace ClinicaFrba.Pedir_Turno
             cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado;
             cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
             DataTable dTurnos = con.ExecConsulta(cmd);
-            Show();
+            dataGridView1.DataSource = dTurnos;
 
         }
         

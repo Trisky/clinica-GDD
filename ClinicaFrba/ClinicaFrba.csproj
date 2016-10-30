@@ -91,12 +91,6 @@
     <Compile Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.Designer.cs">
       <DependentUpon>CrearNuevoHorario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.Designer.cs">
-      <DependentUpon>ListarAgendaProfesional.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\AbmRol\RolEditar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,9 +209,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.resx">
       <DependentUpon>CrearNuevoHorario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.resx">
-      <DependentUpon>ListarAgendaProfesional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
