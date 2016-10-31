@@ -3,14 +3,8 @@ using ClinicaFrba.Helpers;
 using ClinicaFrba.Logica.Entidades;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using static ClinicaFrba.Helpers.TipoUsuarioEnum;
 
 namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
@@ -50,9 +44,9 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoQuery(@"SELECT *
                                                          FROM [GD2C2016].[GRUPOSA].[HorariosAtencion]
-                                                        where Hora_dia = datename(weekday,4)
-                                                        and Hora_Medico_Id_FK = @medico");
-            cmd.Parameters.Add("@dia", SqlDbType.NVarChar).Value = diaSeleccionado;
+                                                            where Hora_dia = datename(weekday,@dia)
+                                                            and Hora_Medico_Id_FK = @medico");
+            cmd.Parameters.Add("@dia", SqlDbType.Int).Value = diaSeleccionado;
             cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = usuarioLogeado.MedicoMatricula;
             DataTable dt = con.ExecConsulta(cmd);
             return dt;

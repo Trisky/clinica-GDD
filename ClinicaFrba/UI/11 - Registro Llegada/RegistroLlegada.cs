@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Registro_Llegada
+namespace ClinicaFrba.UI._11___Registro_Llegada
 {
     public partial class RegistroLlegada : FormBase
     {
@@ -20,16 +20,33 @@ namespace ClinicaFrba.Registro_Llegada
         public RegistroLlegada()
         {
             InitializeComponent();
-            pedidorTurnos = new PedirTurno();
+            
             abmAfiliado = new AbmAfiliadoListar(this);
         }
 
-        internal void ElTurnoEsPara(DataGridViewRow dr)
+        public void ElTurnoEsPara(DataGridViewRow dr)
         {
             var cells = dr.Cells;
-            var nombre = cells[1].Value.ToString();
-            var apellido = cells[2].Value.ToString();
-            var IDAfiliado = cells[0].Value.ToString();
+            pacienteNombreLabel.Text = cells[1].Value.ToString();
+            pacienteApellidoLabel.Text = cells[2].Value.ToString();
+            idPacienteLabel.Text = cells[0].Value.ToString();
+        }
+
+        public void TurnoSeleccionado(string nombreMedico, string hora)
+        {
+            MessageBox.Show("El turno para el paciente con" + nombreMedico + "a las" + hora + "fue programado correctamente"
+                , "Operación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnMedicoHora_Click(object sender, EventArgs e)
+        {
+            DateTime date = DateTime.Now;
+            pedidorTurnos = new PedirTurno(this,idPacienteLabel.Text,date);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

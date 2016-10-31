@@ -12,23 +12,42 @@ using System.Data.SqlClient;
 using ClinicaFrba.Helpers;
 using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.UI._08___Registrar_Agenta_Medico;
-
+using ClinicaFrba.UI._11___Registro_Llegada;
 
 namespace ClinicaFrba.Pedir_Turno
 {
 
     public partial class PedirTurno : FormBase
     {
-        public UsuarioLogeado usuarioLogeado { get; set; }
+        private string userName;
 
         public PedirTurno()
+        {
+            Init();
+        }
+
+        private void Init()
         {
             InitializeComponent();
             Show();
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
             monthCalendar1.MaxSelectionCount = 1;
+        }
 
+        /// <summary>
+        /// Para cuando tengo que registrar una llegada en el hospital.
+        /// </summary>
+        /// <param name="regLlegada"></param>
+        /// <param name="username"></param>
+        public PedirTurno(RegistroLlegada regLlegada, string username,DateTime dia)
+        {
+            userName = username;
+            monthCalendar1.SelectionStart = dia;
+            monthCalendar1.SelectionEnd = dia;
+            monthCalendar1.Enabled = false;
+            //FALTA HACER ESTO, ale no toques este metodo.
+            Init();
         }
 
         private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,7 +56,6 @@ namespace ClinicaFrba.Pedir_Turno
             especialidad = cmbBoxListadoEspecialidades.SelectedValue.ToString();
             ComboBoxManager comboMed = new ComboBoxManager();
             cmbMedicos = comboMed.ListarMedicos(especialidad, cmbMedicos);
-
         }
 
         private void btnPedirTurno(object sender, EventArgs e)
@@ -54,6 +72,11 @@ namespace ClinicaFrba.Pedir_Turno
             DataTable dTurnos = con.ExecConsulta(cmd);
             dataGridView1.DataSource = dTurnos;
 
+
+            //si no hay medicos, le aviso al usuario.
+            if(dTurnos.Rows.Count == 0)
+                MessageBox.Show("No existen medicos de la especialidad elegida que atiendan en ese horario"
+                , "Sin medicos", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         
         
