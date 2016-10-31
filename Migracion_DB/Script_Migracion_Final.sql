@@ -237,6 +237,7 @@ END
 GO
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
+BEGIN TRANSACTION
 
 CREATE SEQUENCE GRUPOSA.SQ_ID_MEDICO
 	START WITH 1   
@@ -246,6 +247,7 @@ CREATE SEQUENCE GRUPOSA.SQ_ID_PACIENTE
 	START WITH 1   
 	INCREMENT BY 1; 
 
+COMMIT TRANSACTION
 ----------------------------------CREATE TABLES----------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 CREATE TABLE [GRUPOSA].[Rol]
@@ -679,9 +681,7 @@ BEGIN TRANSACTION
 COMMIT TRANSACTION
 
 /*Datos*/
-BEGIN TRANSACTION
-		
-	BEGIN
+	BEGIN TRANSACTION
 	--Usuarios Medicos y Pacientes
 		INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Intentos_Fallidos], [Usuario_Habilitado])
 		SELECT DISTINCT(paci.Paci_Usuario), '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , 0,0 
@@ -690,7 +690,9 @@ BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Intentos_Fallidos], [Usuario_Habilitado])
 		SELECT DISTINCT(medi.Medi_Usuario), '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , 0,0 
 		FROM GRUPOSA.Medico medi;
-	
+	COMMIT TRANSACTION
+
+	BEGIN TRANSACTION
 	--EstadoCivil
 		INSERT INTO [GRUPOSA].[EstadoCivil] ([EstadoCivil_Desc])
 		VALUES ('Soltero'),('Casado'),('Viudo'),('Divorciado')
@@ -704,16 +706,19 @@ BEGIN TRANSACTION
 		SELECT DISTINCT(paci_usuario), ro.Rol_Codigo FROM GRUPOSA.paciente AS paci, gruposa.rol AS ro
 		WHERE paci.paci_usuario IS NOT NULL
 		AND ro.Rol_Nombre = 'Afiliado Paciente';
-		
+	
+	COMMIT TRANSACTION
+	
+	BEGIN TRANSACTION	
 	--MedicosEspecialidad
 		INSERT INTO [GRUPOSA].[MedicoEspecialidad] ([medespe_espe_cod],[medespe_medi_id])
 		SELECT DISTINCT(esp.espe_cod), med.medi_id FROM gd_esquema.Maestra AS gdm, gruposa.medico AS med, gruposa.especialidades AS esp
 		WHERE gdm.medico_nombre IS NOT NULL
 		AND esp.espe_cod = gdm.especialidad_codigo
 		AND med.medi_dni = gdm.medico_dni;
-	END
+	COMMIT TRANSACTION
 		
-	BEGIN
+	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[HorariosAtencion]
            ([Hora_Dia],[Hora_Inicio],[Hora_Fin],[Hora_Medico_Id_FK],[Hora_Especialidad])
 			SELECT DATENAME(WEEKDAY,  ROW_NUMBER() OVER(ORDER BY (SELECT 1))) AS HORA_DIA,
@@ -728,17 +733,17 @@ BEGIN TRANSACTION
 		WHERE ESPECIALIDAD_DESCRIPCION IS NOT NULL
 		AND ME.MEDI_APELLIDO = MA.MEDICO_APELLIDO
 		GROUP BY MA.ESPECIALIDAD_CODIGO, ME.MEDI_ID
-	END
+	COMMIT TRANSACTION
 	
-	BEGIN
+	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[Turnos] ([Turn_Numero],[Turn_Fecha],[Turn_Paciente_Id],[Turn_Medico_Id], [Turn_Especialidad])
 		SELECT DISTINCT(gdm.turno_numero), gdm.turno_fecha, pac.paci_matricula, med.medi_id, gdm.Especialidad_Codigo
 		FROM gd_esquema.maestra AS gdm, gruposa.paciente AS pac, gruposa.medico AS med
 		WHERE gdm.medico_dni = med.medi_dni
 		AND pac.paci_dni = gdm.paciente_dni
-	END
-	
-	BEGIN
+	COMMIT TRANSACTION
+
+	BEGIN TRANSACTION
 		
 			UPDATE GRUPOSA.HorariosAtencion
 			SET HORA_DIA = 'Miercoles'
@@ -749,9 +754,9 @@ BEGIN TRANSACTION
 				Hora_Fin = '15:00'
 			WHERE HORA_DIA = 'Sábado'
 		
-	END
+	COMMIT TRANSACTION
 	
-	BEGIN
+	BEGIN TRANSACTION
 	
 		INSERT INTO [GRUPOSA].[Bonos] 
 		([Bono_Paci_Id],[Bono_Plan],[Bono_Fecha_Compra_Usado],[Bono_Fecha_Impresion],[Bono_Consulta_Numero],[Bono_Numero_GrupoFamiliar])
@@ -763,14 +768,14 @@ BEGIN TRANSACTION
 		SET bono_expirado = 1
 		WHERE bono_fecha_compra_usado IS NOT NULL;	
 	
-	END
+	COMMIT TRANSACTION
 	
-	BEGIN
+	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Fecha],[Cons_Enfermedades],[Cons_Sintomas])
 		SELECT M.Turno_Numero, M.Bono_Consulta_Numero, M.Compra_Bono_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
 		FROM gd_esquema.Maestra M
 		WHERE M.Consulta_Enfermedades IS NOT NULL
-	END
+	COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
 
@@ -791,8 +796,6 @@ BEGIN TRANSACTION
 	END
 
 	COMMIT TRANSACTION
-
-COMMIT TRANSACTION
 
 --------------------------------------------------------------------------------------------------------------------------------------
 ------------CONSTRAINT
