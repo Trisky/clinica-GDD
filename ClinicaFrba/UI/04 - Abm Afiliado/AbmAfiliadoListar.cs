@@ -10,18 +10,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaFrba.UI._11___Registro_Llegada;
 
 namespace ClinicaFrba.UI._04___Abm_Afiliado
 {
     public partial class AbmAfiliadoListar : FormulariosBase.FormularioListadoBase
     {
+        private RegistroLlegada registroLlegada;
+
         public AbmAfiliadoListar()
         {
             InitializeComponent();
             Show();
         }
 
-         private void btnBuscar_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Se utiliza para cuando esta ventana es una sub funcionalidad del registro de llegadas
+        /// </summary>
+        /// <param name="registroLlegada"></param>
+        public AbmAfiliadoListar(RegistroLlegada registroLlegada)
+        {
+            this.registroLlegada = registroLlegada;
+            InitializeComponent();
+            groupBoxLlegada.Enabled = true;
+
+            Show();
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             DataTable dt;
             Conexion con = new Conexion();
@@ -76,6 +93,20 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonSeleccionParaTurno_Click(object sender, EventArgs e)
+        {
+            var a = dgListado.SelectedRows[0];
+            if (a!= null)
+            {
+                registroLlegada.ElTurnoEsPara(a);
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un afiliado", "Afiliado ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            }
+            
         }
     }
 }
