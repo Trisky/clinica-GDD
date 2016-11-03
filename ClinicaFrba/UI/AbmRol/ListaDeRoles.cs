@@ -21,14 +21,13 @@ namespace ClinicaFrba.AbmRol
     {
 
         private List<Rol> lstRoles;
-
-
-
         public ListaDeRoles()
         {
             InitializeComponent();
             Show();
         }
+
+
 
         private List<Rol> MapearDataTableLista(DataTable dtRoles)
         {
@@ -73,6 +72,8 @@ namespace ClinicaFrba.AbmRol
 
         }
 
+
+
         private void button_Modificar(object sender, EventArgs e)
         {
 
@@ -96,7 +97,6 @@ namespace ClinicaFrba.AbmRol
             DataGridViewRow miFilaSeleccionada = dataGridView1.SelectedRows[0];
             int codigoRol = Convert.ToInt32(miFilaSeleccionada.Cells[0].Value);
 
-
             string q = @"UPDATE [GD2C2016].[GRUPOSA].[Rol]
                          SET Rol_Estado = 1
                          WHERE Rol_Codigo = @codigoRol";
@@ -110,12 +110,6 @@ namespace ClinicaFrba.AbmRol
         {
             dataGridView1.DataSource = null;
             nombreRol.Text = string.Empty;
-
-            if (dataGridView1.Rows.Count < 1)
-            {
-                buttonEliminar.Enabled = false;
-                buttonModificar.Enabled = false;
-            }
         }
         private void button_Busqueda(object sender, EventArgs e)
         {

@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkedListFuncionalidades = new System.Windows.Forms.CheckedListBox();
+            this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.checkBoxInhabilitar = new System.Windows.Forms.CheckBox();
             this.checkBoxAdmin = new System.Windows.Forms.CheckBox();
             this.gcAccion.SuspendLayout();
@@ -69,22 +69,22 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Funcionalidades:";
             // 
-            // checkedListBox1
+            // checkedListFuncionalidades
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(130, 79);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(385, 154);
-            this.checkedListBox1.TabIndex = 7;
-            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
+            this.checkedListFuncionalidades.FormattingEnabled = true;
+            this.checkedListFuncionalidades.Location = new System.Drawing.Point(130, 79);
+            this.checkedListFuncionalidades.Name = "checkedListFuncionalidades";
+            this.checkedListFuncionalidades.Size = new System.Drawing.Size(385, 154);
+            this.checkedListFuncionalidades.TabIndex = 7;
+            this.checkedListFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
-            // textBox1
+            // textBoxNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(130, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(385, 20);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxNombre.Location = new System.Drawing.Point(130, 25);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(385, 20);
+            this.textBoxNombre.TabIndex = 8;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // checkBoxInhabilitar
             // 
@@ -115,8 +115,8 @@
             this.ClientSize = new System.Drawing.Size(532, 380);
             this.Controls.Add(this.checkBoxAdmin);
             this.Controls.Add(this.checkBoxInhabilitar);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.textBoxNombre);
+            this.Controls.Add(this.checkedListFuncionalidades);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "RolEditar";
@@ -124,8 +124,8 @@
             this.Controls.SetChildIndex(this.gcAccion, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.checkedListBox1, 0);
-            this.Controls.SetChildIndex(this.textBox1, 0);
+            this.Controls.SetChildIndex(this.checkedListFuncionalidades, 0);
+            this.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.Controls.SetChildIndex(this.checkBoxInhabilitar, 0);
             this.Controls.SetChildIndex(this.checkBoxAdmin, 0);
             this.gcAccion.ResumeLayout(false);
@@ -138,8 +138,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckedListBox checkedListFuncionalidades;
+        private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.CheckBox checkBoxInhabilitar;
         private System.Windows.Forms.CheckBox checkBoxAdmin;
     }
