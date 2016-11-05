@@ -48,14 +48,14 @@
             this.comboBoxEstadoCivil = new System.Windows.Forms.ComboBox();
             this.comboBoxPlanMedico = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxCrear = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxTipoDni = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.buttonCrearFamiliar = new System.Windows.Forms.Button();
             this.buttonGuardarModificacion = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxCrear.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -236,38 +236,38 @@
             this.label9.TabIndex = 28;
             this.label9.Text = "Plan medico";
             // 
-            // groupBox1
+            // groupBoxCrear
             // 
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.comboBoxTipoDni);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxDNI);
-            this.groupBox1.Controls.Add(this.textBoxNombre);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.comboBoxPlanMedico);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBoxEstadoCivil);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.radioButtonFemenino);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.radioButtonMasculino);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.dateTimePickerFechaNacimiento);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.textBoxTelefono);
-            this.groupBox1.Controls.Add(this.textBoxApellido);
-            this.groupBox1.Controls.Add(this.textBoxMail);
-            this.groupBox1.Controls.Add(this.textBoxDireccion);
-            this.groupBox1.Location = new System.Drawing.Point(55, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(695, 682);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Crear Afiliado";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBoxCrear.Controls.Add(this.label10);
+            this.groupBoxCrear.Controls.Add(this.comboBoxTipoDni);
+            this.groupBoxCrear.Controls.Add(this.label2);
+            this.groupBoxCrear.Controls.Add(this.textBoxDNI);
+            this.groupBoxCrear.Controls.Add(this.textBoxNombre);
+            this.groupBoxCrear.Controls.Add(this.label9);
+            this.groupBoxCrear.Controls.Add(this.label1);
+            this.groupBoxCrear.Controls.Add(this.comboBoxPlanMedico);
+            this.groupBoxCrear.Controls.Add(this.label3);
+            this.groupBoxCrear.Controls.Add(this.comboBoxEstadoCivil);
+            this.groupBoxCrear.Controls.Add(this.label4);
+            this.groupBoxCrear.Controls.Add(this.label5);
+            this.groupBoxCrear.Controls.Add(this.label6);
+            this.groupBoxCrear.Controls.Add(this.radioButtonFemenino);
+            this.groupBoxCrear.Controls.Add(this.label7);
+            this.groupBoxCrear.Controls.Add(this.radioButtonMasculino);
+            this.groupBoxCrear.Controls.Add(this.label8);
+            this.groupBoxCrear.Controls.Add(this.dateTimePickerFechaNacimiento);
+            this.groupBoxCrear.Controls.Add(this.label11);
+            this.groupBoxCrear.Controls.Add(this.textBoxTelefono);
+            this.groupBoxCrear.Controls.Add(this.textBoxApellido);
+            this.groupBoxCrear.Controls.Add(this.textBoxMail);
+            this.groupBoxCrear.Controls.Add(this.textBoxDireccion);
+            this.groupBoxCrear.Location = new System.Drawing.Point(55, 12);
+            this.groupBoxCrear.Name = "groupBoxCrear";
+            this.groupBoxCrear.Size = new System.Drawing.Size(695, 682);
+            this.groupBoxCrear.TabIndex = 29;
+            this.groupBoxCrear.TabStop = false;
+            this.groupBoxCrear.Text = "Crear Afiliado";
+            this.groupBoxCrear.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label10
             // 
@@ -334,12 +334,12 @@
             this.ClientSize = new System.Drawing.Size(803, 873);
             this.Controls.Add(this.buttonGuardarModificacion);
             this.Controls.Add(this.buttonCrearFamiliar);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxCrear);
             this.Controls.Add(this.buttonCrearAfiliado);
             this.Name = "AbmAfiliadoCrear";
             this.Text = "AbmAfiliadoCrear";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxCrear.ResumeLayout(false);
+            this.groupBoxCrear.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -365,7 +365,7 @@
         private System.Windows.Forms.ComboBox comboBoxEstadoCivil;
         private System.Windows.Forms.ComboBox comboBoxPlanMedico;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxCrear;
         private System.Windows.Forms.Button buttonCrearFamiliar;
         private System.Windows.Forms.Button buttonGuardarModificacion;
         private System.Windows.Forms.Label label2;
