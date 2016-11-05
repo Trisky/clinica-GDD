@@ -74,7 +74,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
 
         private void button2_Click(object sender, EventArgs e)
         {
-            PedirTurno turnos = new PedirTurno(); 
+            PedirTurno turnos = new PedirTurno(usuario); 
         }
     }
 }

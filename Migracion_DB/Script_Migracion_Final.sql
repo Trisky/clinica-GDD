@@ -63,7 +63,6 @@ AS
 GO
 ------------------------------------------------------------------------------------------------
 --sp_confirmacionTurno: Confirma un turno y se añade a la base.
-
 GO
 CREATE PROCEDURE [GRUPOSA].[sp_confirmacionTurno]
     @fecha 			VARCHAR (250),
@@ -74,15 +73,18 @@ CREATE PROCEDURE [GRUPOSA].[sp_confirmacionTurno]
 AS   
 	DECLARE @turno NUMERIC (18,0);
 	DECLARE @fecha_confirmada DATETIME;
+	DECLARE @paciente_id VARCHAR(250);
 	
 	BEGIN
 	
-	SET @fecha_confirmada = CONCAT(CAST(@fecha AS DATE), CAST(@hora AS TIME))	
+	SELECT @fecha_confirmada = CAST(@fecha AS DATETIME) + CAST(@hora AS DATETIME )
 	SELECT @turno = MAX(Turn_Numero) + 1 FROM GRUPOSA.Turnos;
-
+	SELECT @paciente_id = Paci_Matricula FROM GRUPOSA.Paciente WHERE Paci_Usuario = @paciente;
+	
+	
 	INSERT INTO [GRUPOSA].[Turnos]
            ([Turn_Numero],[Turn_Fecha],[Turn_Paciente_Id],[Turn_Medico_Id],[Turn_Especialidad])
-    VALUES(@turno, @fecha_confirmada, @paciente, @medico, @especialidad)
+    VALUES(@turno, @fecha_confirmada, @paciente_id, @medico, @especialidad)
 	
 	END 
 GO
@@ -290,7 +292,8 @@ WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turn
 
 AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
 					 WHERE HI.Hora_Medico_Id_FK = @id_medico
-					 AND HI.Hora_Especialidad = @especialidad)
+					 AND HI.Hora_Especialidad = @especialidad
+					 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
 
 END
 GO

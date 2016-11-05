@@ -26,9 +26,10 @@ namespace ClinicaFrba.Pedir_Turno
         private string especialidad;
         private string rangoHorario;
 
-        public PedirTurno()
+        public PedirTurno(UsuarioLogeado user)
         {
             Init();
+            UsuarioLogueado = user;
         }
 
         private void Init()
@@ -132,7 +133,17 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            rangoHorario = dataGridView1.CurrentCell.ToString();
+            rangoHorario = dataGridView1.SelectedCells[0].Value.ToString();
+            
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //selecciona toda la fila al tocar cualquier col.
+            if (e.RowIndex > -1)
+            {
+                dataGridView1.Rows[e.RowIndex].Selected = true;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -142,12 +153,15 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            
             Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_cargarTurno");
-            cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
-            cmd.Parameters.Add("@fecha", SqlDbType.NVarChar).Value = diaSeleccionado.ToString();
-            cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
-            cmd.Parameters.Add("@horario", SqlDbType.NVarChar).Value = rangoHorario;
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_confirmacionTurno");
+            cmd.Parameters.Add("@especialidad", SqlDbType.VarChar).Value = especialidadSeleccionada;
+            cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = diaSeleccionado.ToString();
+            cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = idMedico;
+            cmd.Parameters.Add("@hora", SqlDbType.VarChar).Value = rangoHorario;
+            cmd.Parameters.Add("@paciente", SqlDbType.VarChar).Value = UsuarioLogueado.UserName;
+            con.ExecConsulta(cmd);
         }
        
     }
