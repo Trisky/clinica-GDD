@@ -34,5 +34,9 @@ namespace ClinicaFrba.Helpers
         {
             return System.Text.RegularExpressions.Regex.IsMatch(s, "^[0-9]*$");
         }
+        public static string getDate()
+        {
+            return "2016-01-01";
+        }
     }
 }

@@ -184,9 +184,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                         MessageBox.Show("¡Ningun campo puede estar vacio!", "Operación fallida"
                             , MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return a;
-                       
                     }
-
                 }
             }
             return a;
