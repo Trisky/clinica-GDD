@@ -21,23 +21,24 @@ namespace ClinicaFrba.Helpers
         //    dataTable.Rows.InsertAt(row, 0);
         //    return combo;
         //}
-        public ComboBox CrearEstadoCivil(ComboBox combo)
+        public ComboBox CrearEstadoCivil(ComboBox cbEstadoCiv)
         {
-            //HACER EL COMBO BOX DE ESTADO CIVIL
-            List<EstadoCivil> lstEstadoCivil = new List<EstadoCivil>();
-            lstEstadoCivil.Add(new EstadoCivil("Soltero", 0));
-            lstEstadoCivil.Add(new EstadoCivil("Casado", 1));
-            lstEstadoCivil.Add(new EstadoCivil("Divorciado", 2));
-            lstEstadoCivil.Add(new EstadoCivil("Viudo", 3));
-            lstEstadoCivil.Add(new EstadoCivil("Concubinato", 4));
-            lstEstadoCivil.Add(new EstadoCivil("-SELECCIONE-", 5));
+            Conexion con = new Conexion();
+            const string query = "SELECT * FROM [GD2C2016].[GRUPOSA].[EstadoCivil]";
+            SqlCommand cmd = con.CrearComandoQuery(query);
+            DataTable dt = con.ExecConsulta(cmd);
+            DataRow row = dt.NewRow();
+            row["EstadoCivil_Id"] = -1;
+            row["EstadoCivil_Desc"] = "--SELECCIONE--";
+            dt.Rows.InsertAt(row, 0);
+            cbEstadoCiv.DisplayMember = "EstadoCivil_Desc";
+            cbEstadoCiv.ValueMember = "EstadoCivil_Id";
+            cbEstadoCiv.DataSource = dt;
 
-            combo.DataSource = lstEstadoCivil;
-            combo.ValueMember = "valor";
-            combo.DisplayMember = "nombre";
-            combo.SelectedValue = 5;
-    
-            return combo;
+            return cbEstadoCiv;
+            throw new NotImplementedException();
+
+            return cbEstadoCiv;
         }
 
         internal ComboBox CrearEspecialidades(ComboBox comboBoxEspecialidad)

@@ -42,6 +42,7 @@
             // 
             // gbFiltros
             // 
+            this.gbFiltros.Controls.Add(this.groupBoxLlegada);
             this.gbFiltros.Controls.Add(this.textBoxApellido);
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label3);
@@ -53,6 +54,7 @@
             this.gbFiltros.Controls.SetChildIndex(this.label3, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxApellido, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.groupBoxLlegada, 0);
             // 
             // btnBuscar
             // 
@@ -68,6 +70,7 @@
             // 
             // btnSeleccionar
             // 
+            this.btnSeleccionar.Text = "eliminar";
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // textBoxCantidadEncontrada
@@ -123,9 +126,9 @@
             // 
             this.groupBoxLlegada.Controls.Add(this.buttonSeleccionParaTurno);
             this.groupBoxLlegada.Enabled = false;
-            this.groupBoxLlegada.Location = new System.Drawing.Point(1511, 12);
+            this.groupBoxLlegada.Location = new System.Drawing.Point(1474, 2);
             this.groupBoxLlegada.Name = "groupBoxLlegada";
-            this.groupBoxLlegada.Size = new System.Drawing.Size(502, 270);
+            this.groupBoxLlegada.Size = new System.Drawing.Size(504, 278);
             this.groupBoxLlegada.TabIndex = 23;
             this.groupBoxLlegada.TabStop = false;
             this.groupBoxLlegada.Text = "Seleccione afiliado para turnos";
@@ -145,7 +148,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2025, 887);
-            this.Controls.Add(this.groupBoxLlegada);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxCantidadEncontrada);
             this.Name = "AbmAfiliadoListar";
@@ -157,7 +159,6 @@
             this.Controls.SetChildIndex(this.btnSeleccionar, 0);
             this.Controls.SetChildIndex(this.textBoxCantidadEncontrada, 0);
             this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.groupBoxLlegada, 0);
             this.gbFiltros.ResumeLayout(false);
             this.gbFiltros.PerformLayout();
             this.groupBoxLlegada.ResumeLayout(false);

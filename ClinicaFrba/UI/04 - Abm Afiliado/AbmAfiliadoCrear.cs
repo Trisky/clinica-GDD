@@ -19,7 +19,6 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public bool estaModificando { get; set; }
         public int IDAfiliado { get; set; }
         public AbmAfiliadoCrear()
-
         {
             Inicializar();
             IDAfiliado = 0;
@@ -122,19 +121,21 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             else
                 cmd.Parameters.Add("@paci_sexo", SqlDbType.NVarChar).Value = 0;
             // fin sexo
-            cmd.Parameters.Add("@paci_matricula", SqlDbType.NVarChar).Value = IDAfiliado;
+            //cmd.Parameters.Add("@paci_matricula", SqlDbType.NVarChar).Value = IDAfiliado;
             cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;
             cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;
-            cmd.Parameters.Add("@paci_tipodni", SqlDbType.NVarChar).Value = comboBoxTipoDni.SelectedValue;
+            string a = comboBoxTipoDni.SelectedValue.ToString();
+            int b = Convert.ToInt32(a);
+            cmd.Parameters.Add("@paci_tipodni", SqlDbType.NVarChar).Value = b;
             cmd.Parameters.Add("@paci_dni", SqlDbType.NVarChar).Value = textBoxDNI.Text;
-            cmd.Parameters.Add("@paci_tel", SqlDbType.NVarChar).Value = textBoxTelefono.Text;
+            cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text;
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.NVarChar).Value = comboBoxEstadoCivil.SelectedValue;
             cmd.Parameters.Add("@paci_plan_medi", SqlDbType.NVarChar).Value = comboBoxPlanMedico.SelectedValue;
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.DateTime).Value = dateTimePickerFechaNacimiento.Value;
-            
             cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0;
+            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = "01";
             con.ExecConsulta(cmd);
         }
 

@@ -21,6 +21,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         public AbmAfiliadoListar()
         {
             InitializeComponent();
+            groupBoxLlegada.Dispose();
             Show();
         }
 
@@ -92,6 +93,30 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
+            var dr = dgListado.SelectedRows[0];
+            var cells = dr.Cells;
+            string usuario = cells[13].Value.ToString();
+            ExecBajaLogica(usuario);
+
+        }
+
+        private void ExecBajaLogica(string usuario)
+        {
+            Conexion con = new Conexion();
+            try
+            {
+                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaAfiliado");
+                cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
+                con.ExecConsulta(cmd);
+                MessageBox.Show("Afiliado eliminado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch
+            {
+                MessageBox.Show("Error al eliminar eliminado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+
 
         }
 

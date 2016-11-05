@@ -138,6 +138,7 @@
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(417, 29);
             this.textBoxNombre.TabIndex = 14;
+            this.textBoxNombre.Text = "a";
             // 
             // textBoxApellido
             // 
@@ -146,6 +147,7 @@
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(417, 29);
             this.textBoxApellido.TabIndex = 15;
+            this.textBoxApellido.Text = "a";
             // 
             // textBoxDireccion
             // 
@@ -154,6 +156,7 @@
             this.textBoxDireccion.Name = "textBoxDireccion";
             this.textBoxDireccion.Size = new System.Drawing.Size(417, 29);
             this.textBoxDireccion.TabIndex = 16;
+            this.textBoxDireccion.Text = "asd";
             // 
             // textBoxMail
             // 
@@ -162,6 +165,7 @@
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(417, 29);
             this.textBoxMail.TabIndex = 17;
+            this.textBoxMail.Text = "mail@mail.com";
             // 
             // textBoxTelefono
             // 
@@ -170,6 +174,7 @@
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(420, 29);
             this.textBoxTelefono.TabIndex = 18;
+            this.textBoxTelefono.Text = "44554444";
             // 
             // dateTimePickerFechaNacimiento
             // 
@@ -303,6 +308,7 @@
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(420, 29);
             this.textBoxDNI.TabIndex = 30;
+            this.textBoxDNI.Text = "222";
             this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
             // buttonCrearFamiliar
