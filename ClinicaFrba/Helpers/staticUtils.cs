@@ -32,7 +32,7 @@ namespace ClinicaFrba.Helpers
         }
         public static bool EsSoloNumerico(string s)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(s, "[ ^ 0-9]");
+            return System.Text.RegularExpressions.Regex.IsMatch(s, "^[0-9]*$");
         }
     }
 }

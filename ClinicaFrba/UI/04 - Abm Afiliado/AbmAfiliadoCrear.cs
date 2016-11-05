@@ -34,7 +34,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             {
                 comboBoxPlanMedico.SelectedValue = planMedico;
                 comboBoxPlanMedico.Enabled = false;
-                groupBox1.Text = "Agregar pariente";
+                groupBoxCrear.Text = "Agregar pariente";
                 buttonCrearAfiliado.Hide();
                 buttonCrearFamiliar.Show();
             }
@@ -49,7 +49,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         {
             Inicializar();
             estaModificando = true;
-            groupBox1.Text = "modificar usuario";
+            groupBoxCrear.Text = "modificar usuario";
 
             var cells = dr.Cells;
             IDAfiliado = Convert.ToInt32(cells[0].Value.ToString());
@@ -140,12 +140,15 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
         private bool Validar()
         {
-            if (!ValidateChildren() )
+            CheckearTextBoxesNoVacios();
+
+            if (!ValidateChildren())
             {
                 MessageBox.Show("¡error!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if(comboBoxEstadoCivil.SelectedValue.Equals(5)){
+            if (comboBoxEstadoCivil.SelectedValue.Equals(5))
+            {
                 MessageBox.Show("¡error, elija estado civil!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
@@ -154,13 +157,38 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 MessageBox.Show("¡error, elija plan medico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if(StaticUtils.EsSoloNumerico(textBoxDNI.Text))
+            if (StaticUtils.EsSoloNumerico(textBoxDNI.Text.ToString()))
             {
                 MessageBox.Show("¡DNI debe ser numerico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
+                //return false;
             }
             return true;
 
+        }
+
+        /// <summary>
+        /// devuelve false si encuentra un textbox vacio
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckearTextBoxesNoVacios()
+        {
+            bool a = true;
+            foreach (Control x in this.Controls)
+            {
+                if (x is TextBox)
+                {
+                    if (((TextBox)x).Text == String.Empty)
+                    {
+                        a = false;
+                        MessageBox.Show("¡Ningun campo puede estar vacio!", "Operación fallida"
+                            , MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return a;
+                       
+                    }
+
+                }
+            }
+            return a;
         }
 
         private void comboBoxSexo_SelectedIndexChanged(object sender, EventArgs e)
