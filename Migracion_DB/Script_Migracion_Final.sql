@@ -207,12 +207,14 @@ CREATE PROCEDURE [GRUPOSA].[sp_AltaRol]
 	@esAdministrador BIT
 AS   
 	
+	BEGIN TRANSACTION 
+	
 	INSERT INTO [GRUPOSA].[Rol]
            ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
     VALUES
            (@nombre,@estado,@esAdministrador)
 	
-	COMMIT;
+	COMMIT TRANSACTION;
 GO
 
 --sp_medicosEspecialidad: Devuelve el nombre de los medicos de la especialidad recibida.
