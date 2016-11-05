@@ -62,6 +62,32 @@ AS
 							   WHERE Paci.Paci_Usuario = @usuario)	
 GO
 ------------------------------------------------------------------------------------------------
+--sp_confirmacionTurno: Confirma un turno y se añade a la base.
+
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_confirmacionTurno]
+    @fecha 			VARCHAR (250),
+	@hora			VARCHAR (250),
+	@paciente		VARCHAR (250),
+	@medico			VARCHAR (250),
+	@especialidad	VARCHAR (250)
+AS   
+	DECLARE @turno NUMERIC (18,0);
+	DECLARE @fecha_confirmada DATETIME;
+	
+	BEGIN
+	
+	SET @fecha_confirmada = CONCAT(CAST(@fecha AS DATE), CAST(@hora AS TIME))	
+	SELECT @turno = MAX(Turn_Numero) + 1 FROM GRUPOSA.Turnos;
+
+	INSERT INTO [GRUPOSA].[Turnos]
+           ([Turn_Numero],[Turn_Fecha],[Turn_Paciente_Id],[Turn_Medico_Id],[Turn_Especialidad])
+    VALUES(@turno, @fecha_confirmada, @paciente, @medico, @especialidad)
+	
+	END 
+GO
+
+------------------------------------------------------------------------------------------------
 --sp_cambioDePlan: Cambia de plan y registra el movimiento.
 GO
 CREATE PROCEDURE [GRUPOSA].[sp_cambioDePlan]
