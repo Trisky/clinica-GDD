@@ -23,12 +23,26 @@ AS
 			UPDATE GRUPOSA.[Usuario] 
 			SET Usuario_Habilitado = 0
 			WHERE Usuario_Username = @usuario
+			
+			UPDATE GRUPOSA.[Paciente]
+			SET Paci_estado = 0
+			WHERE paci_usuario = @usuario
+			AND Paci_Fecha_Baja = GETDATE();
+			
+		
 		END
+
 	ELSE
 		BEGIN
 			UPDATE GRUPOSA.[Usuario] 
 			SET Usuario_Habilitado = 1
 			WHERE Usuario_Username = @usuario
+			
+			UPDATE GRUPOSA.[Paciente]
+			SET Paci_estado = 1
+			WHERE paci_usuario = @usuario
+			AND Paci_Fecha_Baja = GETDATE();
+			
 		END
 GO
 ------------------------------------------------------------------------------------------------
@@ -147,19 +161,20 @@ CREATE PROCEDURE [GRUPOSA].[sp_modificarAfiliado]
 AS   
 	DECLARE @usuarioPaci VARCHAR(255);
 	
+	BEGIN
 	UPDATE GRUPOSA.Paciente
 	SET Paci_Direccion = ISNULL(@nuevaDireccion,Paci_Direccion),
 		Paci_Mail = ISNULL(@nuevoEmail, Paci_Mail),
 		Paci_Estado_Civil = ISNULL(@nuevoEstadoCivil, Paci_Estado_Civil),
 		Paci_Plan_Med_Cod_FK = ISNULL(@nuevoPlanMedico, Paci_Plan_Med_Cod_FK)
 	WHERE @afiliadoId = Paci_Matricula;	
+	END;
 GO
 ------------------------------------------------------------------------------------------------
 --sp_crearAfiliado: Modifica un afiliado apartir de su id. 
 --					Necesita tambien recibir el tipo familiar asi se agrega al grupo o no
 GO
 CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
-	@paci_matricula VARCHAR(250),
 	@paci_nom VARCHAR(250),
 	@paci_apell VARCHAR(250),
 	@paci_tipodni NUMERIC (18,0),
@@ -176,11 +191,19 @@ CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 AS   
 	DECLARE @var1 NUMERIC (18,0);
 	DECLARE @paci_usuario VARCHAR(255);
+	DECLARE @paci_matricula VARCHAR(250);
 	
 	SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
 	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + @paci_tipoFamiliar, 5)
 	SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell)
-					 
+	
+	BEGIN TRANSACTION
+	--Usuarios Medicos y Pacientes
+	INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Fecha_Ultima_Modificacion], [Usuario_Intentos_Fallidos], [Usuario_Habilitado])
+	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , GETDATE(),NULL,0,0);
+	COMMIT TRANSACTION;
+	
+	BEGIN TRANSACTION
 	INSERT INTO [GRUPOSA].[Paciente]
 	   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
 		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
@@ -189,7 +212,25 @@ AS
 	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
 		@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_sexo, @paci_estado_civil, 
 		@paci_plan_medi, @paci_cant_fam, @paci_usuario);
-						
+	COMMIT TRANSACTION;
+GO
+
+--sp_AltaRol: Agrega Rol
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_AltaRol]
+    @nombre VARCHAR(250),
+	@estado BIT,
+	@esAdministrador BIT
+AS   
+	
+	BEGIN TRANSACTION 
+	
+	INSERT INTO [GRUPOSA].[Rol]
+           ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
+    VALUES
+           (@nombre,@estado,@esAdministrador)
+	
+	COMMIT TRANSACTION;
 GO
 
 --sp_medicosEspecialidad: Devuelve el nombre de los medicos de la especialidad recibida.
@@ -325,11 +366,13 @@ CREATE TABLE [GRUPOSA].[Paciente]
 		[Paci_Telefono] 		[NUMERIC](18,0) NULL,
 		[Paci_Mail] 			[VARCHAR](250) NULL,
 		[Paci_Fecha_Nac] 		[DATE] NOT NULL,
-		[Paci_Sexo]				[VARCHAR] (250) NULL,
+		[Paci_Sexo]				[VARCHAR] (250) DEFAULT 0,
 		[Paci_Estado_Civil]		[NUMERIC] (18,0) NOT NULL,		
 		[Paci_Plan_Med_Cod_FK] 	[NUMERIC](18, 0) NULL,
 		[Paci_Cant_Familiares] 	[NUMERIC](18, 0) NULL,
 		[Paci_Usuario] 			[VARCHAR] (255) NOT NULL,
+		[Paci_estado]			[BIT] DEFAULT 0,
+		[Paci_Fecha_Baja]		[DATE] NULL,
 		
 		CONSTRAINT [PK_Pacientes] PRIMARY KEY CLUSTERED ([Paci_Matricula] ASC	)
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
