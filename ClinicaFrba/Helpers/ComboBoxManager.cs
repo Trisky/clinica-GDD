@@ -102,19 +102,19 @@ namespace ClinicaFrba.Helpers
 
         internal ComboBox ListarMedicos(string especialidad, ComboBox comboBoxEspecialidad)
         {
-            
+
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_medicosEspecialidad");
             cmd.Parameters.Add("@id_especialidad", SqlDbType.NVarChar).Value = especialidad;
             DataTable dt = con.ExecConsulta(cmd);
             DataRow row = dt.NewRow();
-            row["MedEspe_Espe_Cod"] = -1;
+            row["MedEspe_Medi_Id"] = -1;
             row["medico"] = "--SELECCIONE--";
             dt.Rows.InsertAt(row, 0);
             comboBoxEspecialidad.DisplayMember = "medico";
-            comboBoxEspecialidad.ValueMember = "MedEspe_Espe_Cod";
-            comboBoxEspecialidad.DataSource = dt;
-
+            comboBoxEspecialidad.ValueMember = "MedEspe_Medi_Id";
+            comboBoxEspecialidad.DataSource = dt; 
+            
             return comboBoxEspecialidad;
             throw new NotImplementedException();
         }
