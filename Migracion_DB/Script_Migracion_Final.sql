@@ -158,7 +158,7 @@ GO
 --sp_crearAfiliado: Modifica un afiliado apartir de su id. 
 --					Necesita tambien recibir el tipo familiar asi se agrega al grupo o no
 GO
-ALTER PROCEDURE [GRUPOSA].[sp_crearAfiliado]
+CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_nom VARCHAR(250),
 	@paci_apell VARCHAR(250),
 	@paci_tipodni NUMERIC (18,0),
@@ -195,6 +195,22 @@ AS
 	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
 		@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_sexo, @paci_estado_civil, 
 		@paci_plan_medi, @paci_cant_fam, @paci_usuario);
+	
+	COMMIT;
+GO
+
+--sp_AltaRol: Agrega Rol
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_cambioDePlan]
+    @nombre VARCHAR(250),
+	@estado BIT,
+	@esAdministrador BIT
+AS   
+	
+	INSERT INTO [GRUPOSA].[Rol]
+           ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
+    VALUES
+           (@nombre,@estado,@esAdministrador)
 	
 	COMMIT;
 GO
