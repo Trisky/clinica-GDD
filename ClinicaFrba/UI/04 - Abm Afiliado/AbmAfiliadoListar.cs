@@ -115,9 +115,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                 MessageBox.Show("Error al eliminar eliminado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-
-
         }
 
         private void buttonSeleccionParaTurno_Click(object sender, EventArgs e)
