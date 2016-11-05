@@ -181,12 +181,13 @@ AS
 	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + @paci_tipoFamiliar, 5)
 	SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell)
 	
+	BEGIN TRANSACTION
 	--Usuarios Medicos y Pacientes
 	INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Fecha_Ultima_Modificacion], [Usuario_Intentos_Fallidos], [Usuario_Habilitado])
 	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , GETDATE(),NULL,0,0);
+	COMMIT TRANSACTION;
 	
-	COMMIT;
-	
+	BEGIN TRANSACTION
 	INSERT INTO [GRUPOSA].[Paciente]
 	   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
 		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
@@ -195,8 +196,7 @@ AS
 	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
 		@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_sexo, @paci_estado_civil, 
 		@paci_plan_medi, @paci_cant_fam, @paci_usuario);
-	
-	COMMIT;
+	COMMIT TRANSACTION;
 GO
 
 --sp_AltaRol: Agrega Rol
