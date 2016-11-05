@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.calendarDoctors = new System.Windows.Forms.MonthCalendar();
             this.btnBuscarTurnos = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbBoxListadoEspecialidades = new System.Windows.Forms.ComboBox();
@@ -39,16 +39,18 @@
             this.cmbMedicos = new System.Windows.Forms.ComboBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // monthCalendar1
+            // calendarDoctors
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(29, 141);
-            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(5);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 1;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            this.calendarDoctors.Location = new System.Drawing.Point(29, 141);
+            this.calendarDoctors.Margin = new System.Windows.Forms.Padding(5);
+            this.calendarDoctors.Name = "calendarDoctors";
+            this.calendarDoctors.TabIndex = 1;
+            this.calendarDoctors.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             // 
             // btnBuscarTurnos
             // 
@@ -73,7 +75,7 @@
             // 
             this.cmbBoxListadoEspecialidades.Location = new System.Drawing.Point(194, 21);
             this.cmbBoxListadoEspecialidades.Name = "cmbBoxListadoEspecialidades";
-            this.cmbBoxListadoEspecialidades.Size = new System.Drawing.Size(162, 21);
+            this.cmbBoxListadoEspecialidades.Size = new System.Drawing.Size(219, 21);
             this.cmbBoxListadoEspecialidades.TabIndex = 17;
             this.cmbBoxListadoEspecialidades.SelectedIndexChanged += new System.EventHandler(this.cmbBoxListadoEspecialidades_SelectedIndexChanged);
             // 
@@ -103,7 +105,7 @@
             this.tbAfiliado.Multiline = true;
             this.tbAfiliado.Name = "tbAfiliado";
             this.tbAfiliado.ReadOnly = true;
-            this.tbAfiliado.Size = new System.Drawing.Size(348, 38);
+            this.tbAfiliado.Size = new System.Drawing.Size(414, 38);
             this.tbAfiliado.TabIndex = 0;
             this.tbAfiliado.TextChanged += new System.EventHandler(this.tbAfiliado_TextChanged);
             // 
@@ -115,7 +117,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(348, 38);
+            this.textBox1.Size = new System.Drawing.Size(414, 38);
             this.textBox1.TabIndex = 13;
             // 
             // cmbMedicos
@@ -123,7 +125,7 @@
             this.cmbMedicos.FormattingEnabled = true;
             this.cmbMedicos.Location = new System.Drawing.Point(194, 65);
             this.cmbMedicos.Name = "cmbMedicos";
-            this.cmbMedicos.Size = new System.Drawing.Size(164, 21);
+            this.cmbMedicos.Size = new System.Drawing.Size(219, 21);
             this.cmbMedicos.TabIndex = 14;
             this.cmbMedicos.SelectedIndexChanged += new System.EventHandler(this.cmbMedicos_SelectedIndexChanged);
             // 
@@ -131,11 +133,11 @@
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(15, 103);
+            this.textBox2.Location = new System.Drawing.Point(15, 108);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(348, 213);
+            this.textBox2.Size = new System.Drawing.Size(414, 213);
             this.textBox2.TabIndex = 15;
             // 
             // dataGridView1
@@ -146,17 +148,39 @@
             this.dataGridView1.Location = new System.Drawing.Point(28, 332);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(328, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(385, 150);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Location = new System.Drawing.Point(79, 488);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(97, 23);
+            this.btnConfirm.TabIndex = 18;
+            this.btnConfirm.Text = "Confirmar";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(260, 488);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(97, 23);
+            this.btnCancel.TabIndex = 19;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 523);
+            this.ClientSize = new System.Drawing.Size(441, 523);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.calendarDoctors);
             this.Controls.Add(this.cmbMedicos);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnBuscarTurnos);
@@ -178,7 +202,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar calendarDoctors;
         private System.Windows.Forms.Button btnBuscarTurnos;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbBoxListadoEspecialidades;
@@ -189,5 +213,7 @@
         private System.Windows.Forms.ComboBox cmbMedicos;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

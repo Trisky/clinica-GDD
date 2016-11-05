@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using ClinicaFrba.Helpers;
 using ClinicaFrba.Logica.Entidades;
-using ClinicaFrba.UI._08___Registrar_Agenta_Medico;
+//using ClinicaFrba.UI._08___Registrar_Agenta_Medico;
 using ClinicaFrba.UI._11___Registro_Llegada;
 
 namespace ClinicaFrba.Pedir_Turno
@@ -20,6 +20,10 @@ namespace ClinicaFrba.Pedir_Turno
     public partial class PedirTurno : FormBase
     {
         private string userName;
+        private string especialidadSeleccionada;
+        private string idMedico;
+        private DateTime diaSeleccionado;
+        private string especialidad;
 
         public PedirTurno()
         {
@@ -32,7 +36,7 @@ namespace ClinicaFrba.Pedir_Turno
             Show();
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
-            monthCalendar1.MaxSelectionCount = 1;
+            calendarDoctors.MaxSelectionCount = 1;
         }
 
         /// <summary>
@@ -43,55 +47,43 @@ namespace ClinicaFrba.Pedir_Turno
         public PedirTurno(RegistroLlegada regLlegada, string username,DateTime dia)
         {
             userName = username;
-            monthCalendar1.SelectionStart = dia;
-            monthCalendar1.SelectionEnd = dia;
-            monthCalendar1.Enabled = false;
+            calendarDoctors.SelectionStart = dia;
+            calendarDoctors.SelectionEnd = dia;
+            calendarDoctors.Enabled = false;
             //FALTA HACER ESTO, ale no toques este metodo.
             Init();
         }
 
         private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string especialidad;
-            especialidad = cmbBoxListadoEspecialidades.SelectedValue.ToString();
+            especialidadSeleccionada = cmbBoxListadoEspecialidades.SelectedValue.ToString();
             ComboBoxManager comboMed = new ComboBoxManager();
-            cmbMedicos = comboMed.ListarMedicos(especialidad, cmbMedicos);
+            cmbMedicos = comboMed.ListarMedicos(especialidadSeleccionada, cmbMedicos);
         }
 
         private void btnPedirTurno(object sender, EventArgs e)
         {
-            String especialidadSeleccionada = cmbBoxListadoEspecialidades.SelectedValue.ToString();
-            String idMedico = cmbMedicos.SelectedValue.ToString();
-            String diaSeleccionado = monthCalendar1.SelectionRange.Start.ToString();
+            if (diaSeleccionado < DateTime.Today || diaSeleccionado.ToString("dddd")=="domingo")
+            {
+                MessageBox.Show("Fecha no valida");
+            }
+            else
+            {
+                Conexion con = new Conexion();
+                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosMedicosDisponibles");
+                cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
+                cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado.ToString();
+                cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
+                DataTable dTurnos = con.ExecConsulta(cmd);
+                dataGridView1.DataSource = dTurnos;
 
-            Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosMedicosDisponibles");
-            cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
-            cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado;
-            cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
-            DataTable dTurnos = con.ExecConsulta(cmd);
-            dataGridView1.DataSource = dTurnos;
 
-
-            //si no hay medicos, le aviso al usuario.
-            if(dTurnos.Rows.Count == 0)
-                MessageBox.Show("No existen medicos de la especialidad elegida que atiendan en ese horario"
-                , "Sin medicos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //si no hay medicos, le aviso al usuario.
+                if (dTurnos.Rows.Count == 0)
+                    MessageBox.Show("No existen medicos de la especialidad elegida que atiendan en ese horario"
+                    , "Sin medicos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         private void PedirTurno_Load(object sender, EventArgs e)
@@ -106,7 +98,12 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-
+            //habia pensado en algo como esto para mostrar los dias que atiende un medico
+            //para que el paciente no tenga que estar tanteando fecha por fecha
+            calendarDoctors.RemoveAllBoldedDates();
+            diaSeleccionado = e.Start;
+            calendarDoctors.AddBoldedDate(diaSeleccionado);
+            calendarDoctors.UpdateBoldedDates();
         }
 
 
@@ -130,14 +127,22 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            idMedico = cmbMedicos.SelectedValue.ToString();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
+        }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            //cargar datos en la base
         }
        
     }
