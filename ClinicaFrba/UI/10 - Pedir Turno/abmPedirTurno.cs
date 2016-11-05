@@ -24,6 +24,7 @@ namespace ClinicaFrba.Pedir_Turno
         private string idMedico;
         private DateTime diaSeleccionado;
         private string especialidad;
+        private string rangoHorario;
 
         public PedirTurno()
         {
@@ -98,8 +99,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-            //habia pensado en algo como esto para mostrar los dias que atiende un medico
-            //para que el paciente no tenga que estar tanteando fecha por fecha
+            
             calendarDoctors.RemoveAllBoldedDates();
             diaSeleccionado = e.Start;
             calendarDoctors.AddBoldedDate(diaSeleccionado);
@@ -132,7 +132,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            rangoHorario = dataGridView1.CurrentCell.ToString();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -142,7 +142,12 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            //cargar datos en la base
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_cargarTurno");
+            cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
+            cmd.Parameters.Add("@fecha", SqlDbType.NVarChar).Value = diaSeleccionado.ToString();
+            cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
+            cmd.Parameters.Add("@horario", SqlDbType.NVarChar).Value = rangoHorario;
         }
        
     }
