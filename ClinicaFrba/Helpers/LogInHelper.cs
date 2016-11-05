@@ -17,7 +17,7 @@ namespace ClinicaFrba.Logica.Entidades
     {
         public string UserName { get; set; }
         public string password { get; set; }
-        public TipoUsuarioEnum TipoUsuario { get; set; }
+        //public TipoUsuarioEnum TipoUsuario { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string PreguntaSecreta { get; private set; }
         public string RespuestaSecreta { get; private set; }

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using static ClinicaFrba.Helpers.TipoUsuarioEnum;
 
 namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 {
@@ -54,7 +53,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void buttonVerDia_Click(object sender, EventArgs e)
         {
-            DiaSemana s = (DiaSemana)comboBoxDia.SelectedValue;
+            TipoUsuarioEnum.DiaSemana s = (TipoUsuarioEnum.DiaSemana)comboBoxDia.SelectedValue;
             int dia = (int)s;
 
             DataTable dt = GetAgendaDeldia(dia);
