@@ -201,7 +201,7 @@ GO
 
 --sp_AltaRol: Agrega Rol
 GO
-CREATE PROCEDURE [GRUPOSA].[sp_cambioDePlan]
+CREATE PROCEDURE [GRUPOSA].[sp_AltaRol]
     @nombre VARCHAR(250),
 	@estado BIT,
 	@esAdministrador BIT
