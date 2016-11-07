@@ -29,7 +29,7 @@ namespace ClinicaFrba.FormulariosBase
         public FormBase()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
+            //this.StartPosition = FormStartPosition.CenterScreen;
         }
     }
 }

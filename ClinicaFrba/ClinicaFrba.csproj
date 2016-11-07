@@ -104,6 +104,12 @@
     <Compile Include="UI\11 - Registro Llegada\RegistroLlegada.Designer.cs">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencion.Designer.cs">
+      <DependentUpon>CancelarAtencion.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\12 - Registro Resultado\RegistroResultado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,12 +145,6 @@
     </Compile>
     <Compile Include="UI\AbmRol\ListaDeRoles.Designer.cs">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\13 - Cancelar Atencion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\13 - Cancelar Atencion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\09 - Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>

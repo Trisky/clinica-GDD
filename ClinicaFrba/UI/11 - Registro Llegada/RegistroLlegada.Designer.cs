@@ -34,8 +34,8 @@
             this.pacienteNombreLabel = new System.Windows.Forms.Label();
             this.pacienteApellidoLabel = new System.Windows.Forms.Label();
             this.groupBoxPacienteSeleccionado = new System.Windows.Forms.GroupBox();
-            this.idPacienteLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.idPacienteLabel = new System.Windows.Forms.Label();
             this.groupBoxPacienteSeleccionado.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +47,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Indicar paciente";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -60,13 +61,13 @@
             // 
             // btnMedicoHora
             // 
-            this.btnMedicoHora.Location = new System.Drawing.Point(198, 407);
+            this.btnMedicoHora.Enabled = false;
+            this.btnMedicoHora.Location = new System.Drawing.Point(198, 485);
             this.btnMedicoHora.Name = "btnMedicoHora";
             this.btnMedicoHora.Size = new System.Drawing.Size(258, 94);
             this.btnMedicoHora.TabIndex = 2;
-            this.btnMedicoHora.Text = "Indicar medico y hora";
+            this.btnMedicoHora.Text = "Indicar medico y hora para este paciente HOY";
             this.btnMedicoHora.UseVisualStyleBackColor = true;
-            this.btnMedicoHora.Visible = false;
             this.btnMedicoHora.Click += new System.EventHandler(this.btnMedicoHora_Click);
             // 
             // pacienteNombreLabel
@@ -100,15 +101,6 @@
             this.groupBoxPacienteSeleccionado.TabStop = false;
             this.groupBoxPacienteSeleccionado.Text = "Paciente seleccionado:";
             // 
-            // idPacienteLabel
-            // 
-            this.idPacienteLabel.AutoSize = true;
-            this.idPacienteLabel.Location = new System.Drawing.Point(382, 46);
-            this.idPacienteLabel.Name = "idPacienteLabel";
-            this.idPacienteLabel.Size = new System.Drawing.Size(75, 25);
-            this.idPacienteLabel.TabIndex = 5;
-            this.idPacienteLabel.Text = "idLabel";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -118,6 +110,15 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "#ID=";
             this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // idPacienteLabel
+            // 
+            this.idPacienteLabel.AutoSize = true;
+            this.idPacienteLabel.Location = new System.Drawing.Point(382, 46);
+            this.idPacienteLabel.Name = "idPacienteLabel";
+            this.idPacienteLabel.Size = new System.Drawing.Size(75, 25);
+            this.idPacienteLabel.TabIndex = 5;
+            this.idPacienteLabel.Text = "idLabel";
             // 
             // RegistroLlegada
             // 

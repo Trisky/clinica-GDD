@@ -34,7 +34,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             this.registroLlegada = registroLlegada;
             InitializeComponent();
             groupBoxLlegada.Enabled = true;
-
+            btnAgregar.Enabled = false;
+            btnEliminar.Enabled = false;
+            btnSeleccionar.Enabled = false;
             Show();
 
         }
@@ -119,16 +121,22 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         private void buttonSeleccionParaTurno_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("este boton no deberias verlo", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonTurnoHoy_Click(object sender, EventArgs e)
+        {
             var a = dgListado.SelectedRows[0];
-            if (a!= null)
+            if (a != null)
             {
                 registroLlegada.ElTurnoEsPara(a);
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un afiliado", "Afiliado ", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                MessageBox.Show("Debe seleccionar un afiliado", "Afiliado no seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
+            Hide();
+            Dispose();
         }
     }
 }

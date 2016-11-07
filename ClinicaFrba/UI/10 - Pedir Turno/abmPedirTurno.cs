@@ -42,18 +42,22 @@ namespace ClinicaFrba.Pedir_Turno
         }
 
         /// <summary>
-        /// Para cuando tengo que registrar una llegada en el hospital.
+        /// Para cuando tengo que registrar una llegada en el hospital no dejo que el usuario pueda elegir el dia.
         /// </summary>
         /// <param name="regLlegada"></param>
         /// <param name="username"></param>
-        public PedirTurno(RegistroLlegada regLlegada, string username,DateTime dia)
+        public PedirTurno(RegistroLlegada regLlegada, string username, DateTime dia)
         {
+            Init();
             userName = username;
+            UsuarioLogueado = new UsuarioLogeado(); 
+            //como esto no lo hace el propio usuario, 
+            //asigno el usuario al que se le va a asignar el turno al usuariologeado (la villa)
+            UsuarioLogueado.UserName = username;
             calendarDoctors.SelectionStart = dia;
             calendarDoctors.SelectionEnd = dia;
             calendarDoctors.Enabled = false;
-            //FALTA HACER ESTO, ale no toques este metodo.
-            Init();
+            diaSeleccionado = dia;
         }
 
         private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,29 +69,36 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnPedirTurno(object sender, EventArgs e)
         {
-            if (diaSeleccionado < DateTime.Today || diaSeleccionado.ToString("dddd")=="domingo")
+            bool todoOk = true;
+            if (calendarDoctors.Enabled) //si esto no esta activado significa que no puedo elegir el dia y que se va a asignar un turno para el dia de la fecha
             {
-                MessageBox.Show("Fecha no valida");
+                if (diaSeleccionado < DateTime.Today || diaSeleccionado.ToString("dddd") == "domingo")
+                {
+                    MessageBox.Show("Fecha no valida");
+                    todoOk = false;
+
+                }
+
             }
-            else
-            {
-                Conexion con = new Conexion();
-                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosMedicosDisponibles");
-                cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
-                cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado.ToString();
-                cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
-                DataTable dTurnos = con.ExecConsulta(cmd);
-                dataGridView1.DataSource = dTurnos;
+            if (!todoOk) return; //
+
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosMedicosDisponibles");
+            cmd.Parameters.Add("@especialidad", SqlDbType.NVarChar).Value = especialidadSeleccionada;
+            cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado.ToString();
+            cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
+            DataTable dTurnos = con.ExecConsulta(cmd);
+            dataGridView1.DataSource = dTurnos;
 
 
-                //si no hay medicos, le aviso al usuario.
-                if (dTurnos.Rows.Count == 0)
-                    MessageBox.Show("No existen medicos de la especialidad elegida que atiendan en ese horario"
-                    , "Sin medicos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //si no hay medicos, le aviso al usuario.
+            if (dTurnos.Rows.Count == 0)
+                MessageBox.Show("No existen medicos de la especialidad elegida que atiendan en ese horario"
+                , "Sin medicos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
-        
-        
+
+
         private void PedirTurno_Load(object sender, EventArgs e)
         {
 
@@ -100,7 +111,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-            
+
             calendarDoctors.RemoveAllBoldedDates();
             diaSeleccionado = e.Start;
             calendarDoctors.AddBoldedDate(diaSeleccionado);
@@ -134,7 +145,6 @@ namespace ClinicaFrba.Pedir_Turno
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             rangoHorario = dataGridView1.SelectedCells[0].Value.ToString();
-            
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -153,7 +163,6 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_confirmacionTurno");
             cmd.Parameters.Add("@especialidad", SqlDbType.VarChar).Value = especialidadSeleccionada;
@@ -163,9 +172,9 @@ namespace ClinicaFrba.Pedir_Turno
             cmd.Parameters.Add("@paciente", SqlDbType.VarChar).Value = UsuarioLogueado.UserName;
             con.ExecConsulta(cmd);
         }
-       
+
     }
-       
+
 }
 
 

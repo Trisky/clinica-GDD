@@ -36,6 +36,7 @@
             this.textBoxApellido = new System.Windows.Forms.TextBox();
             this.groupBoxLlegada = new System.Windows.Forms.GroupBox();
             this.buttonSeleccionParaTurno = new System.Windows.Forms.Button();
+            this.buttonTurnoHoy = new System.Windows.Forms.Button();
             this.gbFiltros.SuspendLayout();
             this.groupBoxLlegada.SuspendLayout();
             this.SuspendLayout();
@@ -124,11 +125,12 @@
             // 
             // groupBoxLlegada
             // 
+            this.groupBoxLlegada.Controls.Add(this.buttonTurnoHoy);
             this.groupBoxLlegada.Controls.Add(this.buttonSeleccionParaTurno);
             this.groupBoxLlegada.Enabled = false;
-            this.groupBoxLlegada.Location = new System.Drawing.Point(1474, 2);
+            this.groupBoxLlegada.Location = new System.Drawing.Point(1081, 23);
             this.groupBoxLlegada.Name = "groupBoxLlegada";
-            this.groupBoxLlegada.Size = new System.Drawing.Size(504, 278);
+            this.groupBoxLlegada.Size = new System.Drawing.Size(504, 121);
             this.groupBoxLlegada.TabIndex = 23;
             this.groupBoxLlegada.TabStop = false;
             this.groupBoxLlegada.Text = "Seleccione afiliado para turnos";
@@ -142,6 +144,18 @@
             this.buttonSeleccionParaTurno.Text = "Darle un turno para hoy a este afiliado";
             this.buttonSeleccionParaTurno.UseVisualStyleBackColor = true;
             this.buttonSeleccionParaTurno.Click += new System.EventHandler(this.buttonSeleccionParaTurno_Click);
+            // 
+            // buttonTurnoHoy
+            // 
+            this.buttonTurnoHoy.BackColor = System.Drawing.Color.Aqua;
+            this.buttonTurnoHoy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonTurnoHoy.Location = new System.Drawing.Point(82, 49);
+            this.buttonTurnoHoy.Name = "buttonTurnoHoy";
+            this.buttonTurnoHoy.Size = new System.Drawing.Size(388, 66);
+            this.buttonTurnoHoy.TabIndex = 1;
+            this.buttonTurnoHoy.Text = "Darle un turno para hoy";
+            this.buttonTurnoHoy.UseVisualStyleBackColor = false;
+            this.buttonTurnoHoy.Click += new System.EventHandler(this.buttonTurnoHoy_Click);
             // 
             // AbmAfiliadoListar
             // 
@@ -177,5 +191,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBoxLlegada;
         private System.Windows.Forms.Button buttonSeleccionParaTurno;
+        private System.Windows.Forms.Button buttonTurnoHoy;
     }
 }
