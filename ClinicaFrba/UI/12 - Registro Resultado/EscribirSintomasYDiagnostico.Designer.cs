@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Registro_Resultado
 {
-    partial class RegistroResultado
+    partial class EscribirSintomasYDiagnostico
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonSeleccionarAfiliado = new System.Windows.Forms.Button();
             this.radioButtonAtendidoNo = new System.Windows.Forms.RadioButton();
             this.radioButtonAtendidoSi = new System.Windows.Forms.RadioButton();
             this.textBoxSintomas = new System.Windows.Forms.TextBox();
@@ -37,21 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonCerrarConsulta = new System.Windows.Forms.Button();
             this.groupBoxPasoDos = new System.Windows.Forms.GroupBox();
-            this.dgTable = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxPasoDos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgTable)).BeginInit();
             this.SuspendLayout();
-            // 
-            // buttonSeleccionarAfiliado
-            // 
-            this.buttonSeleccionarAfiliado.Location = new System.Drawing.Point(368, 414);
-            this.buttonSeleccionarAfiliado.Name = "buttonSeleccionarAfiliado";
-            this.buttonSeleccionarAfiliado.Size = new System.Drawing.Size(447, 54);
-            this.buttonSeleccionarAfiliado.TabIndex = 0;
-            this.buttonSeleccionarAfiliado.Text = "Atender a este paciente";
-            this.buttonSeleccionarAfiliado.UseVisualStyleBackColor = true;
-            this.buttonSeleccionarAfiliado.Click += new System.EventHandler(this.buttonSeleccionarAfiliado_Click);
             // 
             // radioButtonAtendidoNo
             // 
@@ -131,60 +117,29 @@
             this.groupBoxPasoDos.Controls.Add(this.radioButtonAtendidoNo);
             this.groupBoxPasoDos.Controls.Add(this.label1);
             this.groupBoxPasoDos.Enabled = false;
-            this.groupBoxPasoDos.Location = new System.Drawing.Point(12, 575);
+            this.groupBoxPasoDos.Location = new System.Drawing.Point(12, 12);
             this.groupBoxPasoDos.Name = "groupBoxPasoDos";
             this.groupBoxPasoDos.Size = new System.Drawing.Size(1188, 554);
             this.groupBoxPasoDos.TabIndex = 8;
             this.groupBoxPasoDos.TabStop = false;
             this.groupBoxPasoDos.Text = "Paso Dos";
             // 
-            // dgTable
-            // 
-            this.dgTable.AllowUserToAddRows = false;
-            this.dgTable.AllowUserToDeleteRows = false;
-            this.dgTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgTable.Location = new System.Drawing.Point(12, 75);
-            this.dgTable.Name = "dgTable";
-            this.dgTable.ReadOnly = true;
-            this.dgTable.RowTemplate.Height = 31;
-            this.dgTable.Size = new System.Drawing.Size(1182, 333);
-            this.dgTable.TabIndex = 9;
-            this.dgTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgTable_CellContentClick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(36, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1084, 32);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Seleccione al paciente que esta atendiendo ahora, se muestran los pacientes de ho" +
-    "y";
-            // 
-            // Form1
+            // RegistroResultado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1212, 1141);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.dgTable);
+            this.ClientSize = new System.Drawing.Size(1212, 575);
             this.Controls.Add(this.groupBoxPasoDos);
-            this.Controls.Add(this.buttonSeleccionarAfiliado);
-            this.Name = "Form1";
+            this.Name = "RegistroResultado";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxPasoDos.ResumeLayout(false);
             this.groupBoxPasoDos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgTable)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button buttonSeleccionarAfiliado;
         private System.Windows.Forms.RadioButton radioButtonAtendidoNo;
         private System.Windows.Forms.RadioButton radioButtonAtendidoSi;
         private System.Windows.Forms.TextBox textBoxSintomas;
@@ -193,7 +148,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonCerrarConsulta;
         private System.Windows.Forms.GroupBox groupBoxPasoDos;
-        private System.Windows.Forms.DataGridView dgTable;
-        private System.Windows.Forms.Label label3;
     }
 }

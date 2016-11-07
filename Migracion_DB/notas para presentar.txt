@@ -1,1 +1,4 @@
 asumimos que un medico puede dar de baja los turnos de cualquier paciente para cualquier medico siempre y cuando no sea para el dia de la fecha
+
+
+Al momento de cerrar una consulta: Se toma fecha hora del sistema por ser poco preciso e ineficiente que lo haga el medico.

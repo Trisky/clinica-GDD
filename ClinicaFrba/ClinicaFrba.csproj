@@ -104,17 +104,23 @@
     <Compile Include="UI\11 - Registro Llegada\RegistroLlegada.Designer.cs">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\12 - Registro Resultado\RegistrarResultadoPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\12 - Registro Resultado\RegistrarResultadoPaciente.Designer.cs">
+      <DependentUpon>RegistrarResultadoPaciente.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencion.Designer.cs">
       <DependentUpon>CancelarAtencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\12 - Registro Resultado\RegistroResultado.cs">
+    <Compile Include="UI\12 - Registro Resultado\EscribirSintomasYDiagnostico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\12 - Registro Resultado\RegistroResultado.Designer.cs">
-      <DependentUpon>RegistroResultado.cs</DependentUpon>
+    <Compile Include="UI\12 - Registro Resultado\EscribirSintomasYDiagnostico.Designer.cs">
+      <DependentUpon>EscribirSintomasYDiagnostico.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmRol\RolEditar.cs">
       <SubType>Form</SubType>
@@ -223,8 +229,11 @@
     <EmbeddedResource Include="UI\11 - Registro Llegada\RegistroLlegada.resx">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\12 - Registro Resultado\RegistroResultado.resx">
-      <DependentUpon>RegistroResultado.cs</DependentUpon>
+    <EmbeddedResource Include="UI\12 - Registro Resultado\RegistrarResultadoPaciente.resx">
+      <DependentUpon>RegistrarResultadoPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\12 - Registro Resultado\EscribirSintomasYDiagnostico.resx">
+      <DependentUpon>EscribirSintomasYDiagnostico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
