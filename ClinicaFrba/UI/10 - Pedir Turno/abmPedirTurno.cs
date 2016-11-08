@@ -24,7 +24,7 @@ namespace ClinicaFrba.Pedir_Turno
         private string idMedico;
         private DateTime diaSeleccionado;
         private string especialidad;
-        private string rangoHorario;
+        private string horario;
 
         public PedirTurno(UsuarioLogeado user)
         {
@@ -65,6 +65,8 @@ namespace ClinicaFrba.Pedir_Turno
             especialidadSeleccionada = cmbBoxListadoEspecialidades.SelectedValue.ToString();
             ComboBoxManager comboMed = new ComboBoxManager();
             cmbMedicos = comboMed.ListarMedicos(especialidadSeleccionada, cmbMedicos);
+            horariosDisponibles.DataSource = null;
+            horariosDisponibles.Refresh();
         }
 
         private void btnPedirTurno(object sender, EventArgs e)
@@ -88,7 +90,7 @@ namespace ClinicaFrba.Pedir_Turno
             cmd.Parameters.Add("@diaConsultado", SqlDbType.NVarChar).Value = diaSeleccionado.ToString();
             cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
             DataTable dTurnos = con.ExecConsulta(cmd);
-            dataGridView1.DataSource = dTurnos;
+            horariosDisponibles.DataSource = dTurnos;
 
 
             //si no hay medicos, le aviso al usuario.
@@ -111,11 +113,12 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-
             calendarDoctors.RemoveAllBoldedDates();
             diaSeleccionado = e.Start;
             calendarDoctors.AddBoldedDate(diaSeleccionado);
             calendarDoctors.UpdateBoldedDates();
+            horariosDisponibles.DataSource = null;
+            horariosDisponibles.Refresh();
         }
 
 
@@ -140,11 +143,13 @@ namespace ClinicaFrba.Pedir_Turno
         private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             idMedico = cmbMedicos.SelectedValue.ToString();
+            horariosDisponibles.DataSource = null;
+            horariosDisponibles.Refresh();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            rangoHorario = dataGridView1.SelectedCells[0].Value.ToString();
+            
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -152,7 +157,7 @@ namespace ClinicaFrba.Pedir_Turno
             //selecciona toda la fila al tocar cualquier col.
             if (e.RowIndex > -1)
             {
-                dataGridView1.Rows[e.RowIndex].Selected = true;
+                horariosDisponibles.Rows[e.RowIndex].Selected = true;
             }
         }
 
@@ -168,11 +173,22 @@ namespace ClinicaFrba.Pedir_Turno
             cmd.Parameters.Add("@especialidad", SqlDbType.VarChar).Value = especialidadSeleccionada;
             cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = diaSeleccionado.ToString();
             cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = idMedico;
-            cmd.Parameters.Add("@hora", SqlDbType.VarChar).Value = rangoHorario;
+            cmd.Parameters.Add("@hora", SqlDbType.VarChar).Value = horario;
             cmd.Parameters.Add("@paciente", SqlDbType.VarChar).Value = UsuarioLogueado.UserName;
-            con.ExecConsulta(cmd);
+            DataTable ret=con.ExecConsulta(cmd);
+            //Esta comprobacion es medio dudosa
+            if (ret != null)
+            {
+                MessageBox.Show("Su turno se ha reservado con exito!","Reserva existosa",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+
         }
 
+        private void horariosDisponibles_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            horario = horariosDisponibles.SelectedCells[0].Value.ToString();
+        }
+        
     }
 
 }

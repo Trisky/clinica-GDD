@@ -35,8 +35,9 @@
             this.buttonGo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -46,7 +47,7 @@
             // 
             this.comboBoxRol.FormattingEnabled = true;
             this.comboBoxRol.Location = new System.Drawing.Point(34, 48);
-            this.comboBoxRol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxRol.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxRol.Name = "comboBoxRol";
             this.comboBoxRol.Size = new System.Drawing.Size(206, 21);
             this.comboBoxRol.TabIndex = 1;
@@ -55,7 +56,7 @@
             // 
             this.comboBoxFuncionalidad.FormattingEnabled = true;
             this.comboBoxFuncionalidad.Location = new System.Drawing.Point(27, 37);
-            this.comboBoxFuncionalidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxFuncionalidad.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxFuncionalidad.Name = "comboBoxFuncionalidad";
             this.comboBoxFuncionalidad.Size = new System.Drawing.Size(206, 21);
             this.comboBoxFuncionalidad.TabIndex = 3;
@@ -64,9 +65,9 @@
             // 
             this.groupBox1.Controls.Add(this.comboBoxRol);
             this.groupBox1.Location = new System.Drawing.Point(77, 39);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(260, 81);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -78,9 +79,9 @@
             this.groupBox2.Controls.Add(this.comboBoxFuncionalidad);
             this.groupBox2.Enabled = false;
             this.groupBox2.Location = new System.Drawing.Point(77, 178);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(260, 74);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
@@ -90,7 +91,7 @@
             // 
             this.buttonGo.Enabled = false;
             this.buttonGo.Location = new System.Drawing.Point(111, 276);
-            this.buttonGo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonGo.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGo.Name = "buttonGo";
             this.buttonGo.Size = new System.Drawing.Size(198, 35);
             this.buttonGo.TabIndex = 6;
@@ -111,27 +112,27 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Location = new System.Drawing.Point(412, 44);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(308, 257);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "admin Tools - se supone que esto no lo veo el usuario";
             // 
-            // button1
+            // button4
             // 
-            this.button1.Location = new System.Drawing.Point(43, 26);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(197, 25);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "alta - baja - modificacion afiliados";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button4.Location = new System.Drawing.Point(56, 229);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(118, 23);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Cancelar Turno";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button2
             // 
@@ -143,6 +144,17 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(43, 26);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(197, 25);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "alta - baja - modificacion afiliados";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // SelecionFuncionalidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,7 +165,7 @@
             this.Controls.Add(this.buttonGo);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SelecionFuncionalidad";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
@@ -174,5 +186,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
     }
 }

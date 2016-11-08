@@ -2,6 +2,7 @@
 using ClinicaFrba.Pedir_Turno;
 using ClinicaFrba.UI._04___Abm_Afiliado;
 using ClinicaFrba.UI._05___Abm_Profesional;
+using ClinicaFrba.UI._13___Cancelar_Atencion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,6 +76,12 @@ namespace ClinicaFrba.UI.MenuPrincipal
         private void button2_Click(object sender, EventArgs e)
         {
             PedirTurno turnos = new PedirTurno(usuario); 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CancelarAtencionAfiliado canc = new CancelarAtencionAfiliado(usuario);
+            canc.ShowDialog();
         }
     }
 }

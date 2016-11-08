@@ -297,6 +297,19 @@ AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtenc
 
 END
 GO
+
+CREATE PROCEDURE [GRUPOSA].[sp_turnosActivosPaciente] (@paci_usuario VARCHAR(255))
+AS
+DECLARE @id_paciente varchar(255)
+BEGIN
+SELECT Turn_Fecha FROM GRUPOSA.Turnos t
+JOIN GRUPOSA.Paciente p
+ON t.Turn_Paciente_Id=p.Paci_Matricula
+AND p.Paci_Usuario=@paci_usuario
+AND 0<=DATEDIFF(MINUTE,CURRENT_TIMESTAMP,Turn_Fecha)
+END
+GO
+
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 BEGIN TRANSACTION
