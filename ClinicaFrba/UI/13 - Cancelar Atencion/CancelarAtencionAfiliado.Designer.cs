@@ -30,11 +30,11 @@
         {
             this.turnosActivos = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.txtSelectedTurn = new System.Windows.Forms.TextBox();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtReason = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.turnosActivos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -53,13 +53,13 @@
             this.turnosActivos.RowHeadersVisible = false;
             this.turnosActivos.Size = new System.Drawing.Size(577, 127);
             this.turnosActivos.TabIndex = 0;
-            this.turnosActivos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.turnosActivos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.turnosActivos_CellClick);
             this.turnosActivos.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.turnosActivos_RowEnter);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.turnosActivos);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtSelectedTurn);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(589, 178);
@@ -67,36 +67,36 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleccione el turno que desea cancelar";
             // 
-            // textBox1
+            // txtSelectedTurn
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 152);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(577, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtSelectedTurn.Location = new System.Drawing.Point(6, 152);
+            this.txtSelectedTurn.Name = "txtSelectedTurn";
+            this.txtSelectedTurn.Size = new System.Drawing.Size(577, 20);
+            this.txtSelectedTurn.TabIndex = 2;
             // 
-            // button1
+            // btnConfirm
             // 
-            this.button1.Location = new System.Drawing.Point(125, 255);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 59);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Confirmar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnConfirm.Location = new System.Drawing.Point(125, 255);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(158, 59);
+            this.btnConfirm.TabIndex = 3;
+            this.btnConfirm.Text = "Confirmar";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(327, 255);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(146, 59);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnCancel.Location = new System.Drawing.Point(327, 255);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(146, 59);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.txtReason);
             this.groupBox2.Location = new System.Drawing.Point(12, 196);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(589, 53);
@@ -105,13 +105,13 @@
             this.groupBox2.Text = "Por favor introduzca el motivo de la cancelacion";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
-            // textBox2
+            // txtReason
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 19);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(577, 20);
-            this.textBox2.TabIndex = 0;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txtReason.Location = new System.Drawing.Point(6, 19);
+            this.txtReason.Name = "txtReason";
+            this.txtReason.Size = new System.Drawing.Size(577, 20);
+            this.txtReason.TabIndex = 0;
+            this.txtReason.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // CancelarAtencionAfiliado
             // 
@@ -119,8 +119,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 324);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox1);
             this.Name = "CancelarAtencionAfiliado";
             this.Text = "CancelarAtencionAfiliado";
@@ -138,10 +138,10 @@
 
         private System.Windows.Forms.DataGridView turnosActivos;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtSelectedTurn;
+        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtReason;
     }
 }

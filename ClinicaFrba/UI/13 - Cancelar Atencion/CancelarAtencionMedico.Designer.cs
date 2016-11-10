@@ -28,38 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.selectionDates = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtLastDate = new System.Windows.Forms.TextBox();
+            this.diaryDoctor = new System.Windows.Forms.MonthCalendar();
+            this.txtInitDate = new System.Windows.Forms.TextBox();
+            this.txtReason = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.selectionDates)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // selectionDates
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(21, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(403, 205);
-            this.dataGridView1.TabIndex = 0;
+            this.selectionDates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.selectionDates.Location = new System.Drawing.Point(21, 19);
+            this.selectionDates.Name = "selectionDates";
+            this.selectionDates.Size = new System.Drawing.Size(403, 205);
+            this.selectionDates.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.monthCalendar1);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.txtLastDate);
+            this.groupBox1.Controls.Add(this.diaryDoctor);
+            this.groupBox1.Controls.Add(this.txtInitDate);
+            this.groupBox1.Controls.Add(this.selectionDates);
             this.groupBox1.Location = new System.Drawing.Point(15, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(430, 244);
@@ -85,39 +85,39 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Desde";
             // 
-            // textBox2
+            // txtLastDate
             // 
-            this.textBox2.Location = new System.Drawing.Point(290, 185);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(127, 20);
-            this.textBox2.TabIndex = 3;
+            this.txtLastDate.Location = new System.Drawing.Point(290, 185);
+            this.txtLastDate.Name = "txtLastDate";
+            this.txtLastDate.Size = new System.Drawing.Size(127, 20);
+            this.txtLastDate.TabIndex = 3;
             // 
-            // monthCalendar1
+            // diaryDoctor
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(51, 43);
-            this.monthCalendar1.MaxSelectionCount = 30;
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 1;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
-            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
+            this.diaryDoctor.Location = new System.Drawing.Point(51, 43);
+            this.diaryDoctor.MaxSelectionCount = 30;
+            this.diaryDoctor.Name = "diaryDoctor";
+            this.diaryDoctor.TabIndex = 1;
+            this.diaryDoctor.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.diaryDoctor_DateChanged);
+            this.diaryDoctor.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.diaryDoctor_DateSelected);
             // 
-            // textBox1
+            // txtInitDate
             // 
-            this.textBox1.Location = new System.Drawing.Point(290, 115);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(127, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtInitDate.Location = new System.Drawing.Point(290, 115);
+            this.txtInitDate.Name = "txtInitDate";
+            this.txtInitDate.Size = new System.Drawing.Size(127, 20);
+            this.txtInitDate.TabIndex = 2;
             // 
-            // textBox3
+            // txtReason
             // 
-            this.textBox3.Location = new System.Drawing.Point(6, 19);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(418, 20);
-            this.textBox3.TabIndex = 2;
+            this.txtReason.Location = new System.Drawing.Point(6, 19);
+            this.txtReason.Name = "txtReason";
+            this.txtReason.Size = new System.Drawing.Size(418, 20);
+            this.txtReason.TabIndex = 2;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.txtReason);
             this.groupBox2.Location = new System.Drawing.Point(15, 262);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(430, 59);
@@ -125,37 +125,37 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ingrese el motivo de la cancelacion";
             // 
-            // button1
+            // btnConfirm
             // 
-            this.button1.Location = new System.Drawing.Point(36, 362);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnConfirm.Location = new System.Drawing.Point(36, 362);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(147, 23);
+            this.btnConfirm.TabIndex = 4;
+            this.btnConfirm.Text = "Aceptar";
+            this.btnConfirm.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(287, 362);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(152, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(287, 362);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(152, 23);
+            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // CancelarAtencionMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 405);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "CancelarAtencionMedico";
             this.Text = "CancelarAtencionMedico";
             this.Load += new System.EventHandler(this.CancelarAtencionMedico_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectionDates)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -166,16 +166,16 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView selectionDates;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtLastDate;
+        private System.Windows.Forms.MonthCalendar diaryDoctor;
+        private System.Windows.Forms.TextBox txtInitDate;
+        private System.Windows.Forms.TextBox txtReason;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

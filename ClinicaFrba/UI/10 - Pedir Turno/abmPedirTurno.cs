@@ -88,9 +88,10 @@ namespace ClinicaFrba.Pedir_Turno
 
 
             //si no hay medicos, le aviso al usuario.
+            
             if (dTurnos.Rows.Count == 0)
-                MessageBox.Show("No existen medicos de la especialidad elegida que atiendan en ese horario"
-                , "Sin medicos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No hay turnos disponibles"
+                , "Sin turnos", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
@@ -107,10 +108,14 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-            calendarDoctors.RemoveAllBoldedDates();
-            datesDoctor = aten.obtenerFechas(idMedico, e.Start);
-            calendarDoctors.BoldedDates = datesDoctor;
-            calendarDoctors.UpdateBoldedDates();
+            diaSeleccionado = e.Start;
+            if (e.Start.Month != mes)
+            {
+                calendarDoctors.RemoveAllBoldedDates();
+                calendarDoctors.BoldedDates = aten.obtenerFechas(idMedico,especialidadSeleccionada,e.Start);
+                calendarDoctors.UpdateBoldedDates();
+                mes = e.Start.Month;
+            }
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
         }
@@ -137,7 +142,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             idMedico = cmbMedicos.SelectedValue.ToString();
-            datesDoctor = aten.obtenerFechas(idMedico, DateTime.Today);
+            datesDoctor = aten.obtenerFechas(idMedico,especialidadSeleccionada,DateTime.Today);
             calendarDoctors.BoldedDates = datesDoctor;
             calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
@@ -193,6 +198,7 @@ namespace ClinicaFrba.Pedir_Turno
         private string especialidad;
         private string horario;
         private DateTime[] datesDoctor;
+        private int mes = DateTime.Today.Month;
 
     }
 

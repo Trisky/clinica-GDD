@@ -352,15 +352,24 @@ INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Can
 VALUES (1,@id_turno,@descripcion,GETDATE())
 GO
 
---tengo que poner los dias que efectivamente tienen horarios disponibles
 CREATE PROC [GRUPOSA].[sp_obtenerDiasDeAtencion]
 @id_medico VARCHAR(255)
 AS
-SELECT Hora_Dia FROM GRUPOSA.HorariosAtencion h
-JOIN GRUPOSA.Medico m
-on m.Medi_Id=h.Hora_Medico_Id_FK
-WHERE m.Medi_Id=@id_medico
+SELECT h.Hora_Dia
+FROM GRUPOSA.HorariosAtencion h
+WHERE h.Hora_Medico_Id_FK=@id_medico
 GO
+
+CREATE PROC [GRUPOSA].[sp_obtenerDiasDeAtencion2]
+@id_medico VARCHAR(255),
+@especialidad VARCHAR(255)
+AS
+SELECT h.Hora_Dia
+FROM GRUPOSA.HorariosAtencion h
+WHERE h.Hora_Medico_Id_FK=@id_medico
+AND h.Hora_Especialidad=@especialidad
+GO
+
 
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------

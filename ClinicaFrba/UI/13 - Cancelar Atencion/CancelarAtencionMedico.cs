@@ -17,53 +17,50 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
 {
     public partial class CancelarAtencionMedico : Form
     {
-        private UsuarioLogeado usuario;
-        private DateTime fechaInicio;
-        private DateTime fechaFinal;
-        DateTime[] fechas;
         public CancelarAtencionMedico(UsuarioLogeado user)
         {
             InitializeComponent();
             usuario = user;
         }
 
-        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        private void CancelarAtencionMedico_Load(object sender, EventArgs e)
+        {
+            fechas=baja.obtenerFechas(usuario.MedicoMatricula,DateTime.Today);
+            diaryDoctor.BoldedDates = fechas;
+            diaryDoctor.UpdateBoldedDates();
+        }
+
+        BajaAtencion baja = new BajaAtencion();
+        private int mes = DateTime.Today.Month;
+        private UsuarioLogeado usuario;
+        private DateTime[] fechas;
+
+        private void diaryDoctor_DateSelected(object sender, DateRangeEventArgs e)
         {
             //falta agregar excepciones
             if (e.Start < DateTime.Today)
             {
-                MessageBox.Show("La fecha de inicio no esta disponible");
+                MessageBox.Show("Periodo no valido");
             }
             else
             {
-                fechaInicio = e.Start;
-                fechaFinal = e.End;
-                textBox1.Text = fechaInicio.ToString();
-                textBox2.Text = fechaFinal.ToString();
+                txtInitDate.Text = e.Start.ToString();
+                txtLastDate.Text = e.End.ToString();
             }
         }
 
-        private void CancelarAtencionMedico_Load(object sender, EventArgs e)
-        {
-            fechas=baja.obtenerFechas(usuario.MedicoMatricula, DateTime.Today);
-            monthCalendar1.BoldedDates = fechas;
-            monthCalendar1.UpdateBoldedDates();
-        }
-
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        private void diaryDoctor_DateChanged(object sender, DateRangeEventArgs e)
         {
             if (e.Start.Month != mes)
             {
                 fechas = baja.obtenerFechas(usuario.MedicoMatricula, e.Start);
-                monthCalendar1.BoldedDates = fechas;
-                monthCalendar1.UpdateBoldedDates();
+                diaryDoctor.BoldedDates = fechas;
+                diaryDoctor.UpdateBoldedDates();
                 mes = e.Start.Month;
             }
-            
         }
 
-        BajaAtencion baja = new BajaAtencion();
-        int mes = DateTime.Today.Month;
+        
     }
 
 }
