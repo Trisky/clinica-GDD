@@ -11,8 +11,7 @@ GO
 ------------------------------------------------------------------------------------------------
 --sp_bajaLogica: Realiza una baja logica sobre el usuario 
 GO
-CREATE PROCEDURE [GRUPOSA].[sp_bajaLogica]
-    @usuario VARCHAR(250)
+CREATE PROCEDURE [GRUPOSA].[sp_bajaLogica] (@usuario VARCHAR(250))
 AS   
     DECLARE @estadoActual BIT
 	
@@ -57,9 +56,16 @@ AS
 	SELECT @matricula = Paci_Matricula FROM GRUPOSA.Paciente Paci
 	WHERE Paci.Paci_Usuario = @usuario
 	
+	DELETE FROM GRUPOSA.Consultas
+	WHERE Cons_Id_Turno IN (SELECT Turn_Numero FROM GRUPOSA.Turnos
+							WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) 
+																	   FROM GRUPOSA.Paciente Paci
+																	   WHERE Paci.Paci_Usuario = @usuario))
+							   
 	DELETE FROM GRUPOSA.Turnos
-	WHERE Turn_Paciente_Id IN (SELECT SUBSTRING(Paci_Matricula,1,6) FROM GRUPOSA.Paciente Paci
-							   WHERE Paci.Paci_Usuario = @usuario)	
+	WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) FROM GRUPOSA.Paciente Paci
+											  WHERE Paci.Paci_Usuario = @usuario)
+							   
 GO
 ------------------------------------------------------------------------------------------------
 --sp_confirmacionTurno: Confirma un turno y se añade a la base.
@@ -86,6 +92,10 @@ AS
            ([Turn_Numero],[Turn_Fecha],[Turn_Paciente_Id],[Turn_Medico_Id],[Turn_Especialidad])
     VALUES(@turno, @fecha_confirmada, @paciente_id, @medico, @especialidad)
 	
+	INSERT INTO [GRUPOSA].[Consultas]
+           ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Realizada],[Cons_Sintomas],[Cons_Enfermedades],[Cons_Diagnostico])
+     VALUES
+		   (@turno, NULL, NULL, @fecha_confirmada, 0, NULL, NULL, NULL)
 	END 
 GO
 
@@ -107,7 +117,8 @@ AS
 	
 	UPDATE GRUPOSA.Paciente 
 	SET Paci_Plan_Med_Cod_FK = @nuevoPlan
-	WHERE Paci_Usuario = @usuario;
+	WHERE Paci_Usuario = @usuario 
+	AND SUBSTRING(Paci_Matricula,1,6) IN (SUBSTRING(Paci_Matricula,1,6)) ;
 	
 GO
 ------------------------------------------------------------------------------------------------
@@ -297,6 +308,25 @@ AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtenc
 
 END
 GO
+--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+CREATE PROCEDURE [GRUPOSA].[sp_cerrarConsulta] (@turnoId NUMERIC(18,0), @diagnostico VARCHAR(255), @enfermedad VARCHAR(255), @sintomas VARCHAR(250), @idBono NUMERIC (18,0))
+AS
+BEGIN
+	
+	UPDATE GRUPOSA.Consultas
+	SET Cons_Diagnostico = @diagnostico,
+		Cons_Sintomas = @sintomas,
+		Cons_Enfermedades = @enfermedad,
+		Cons_Id_Bono = @idBono,
+		Cons_Bono_Fecha = GETDATE(),
+		Cons_Realizada = 1
+	WHERE Cons_Id_Turno = @turnoId
+	
+END
+GO
+--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
 
 CREATE PROC [GRUPOSA].[sp_turnosActivosPaciente]
 @paci_usuario VARCHAR(255)
@@ -520,9 +550,12 @@ CREATE TABLE [GRUPOSA].[Consultas]
 		[Cons_Id] 			[NUMERIC](18, 0) IDENTITY(1,1) NOT NULL,
 		[Cons_Id_Turno] 	[NUMERIC](18,0),
 		[Cons_Id_Bono] 		[NUMERIC](18, 0),
-		[Cons_Fecha] 		[DATETIME],
-		[Cons_Sintomas] 	[VARCHAR](255) NOT NULL,
-		[Cons_Enfermedades] [VARCHAR](255) NOT NULL,
+		[Cons_Bono_Fecha] 	[DATETIME],
+		[Cons_Fecha_Turno] 	[DATETIME],
+		[Cons_Realizada]	[BIT] DEFAULT 0, -- 0 F, 1 V
+		[Cons_Sintomas] 	[VARCHAR](255),
+		[Cons_Enfermedades] [VARCHAR](255),
+		[Cons_Diagnostico]	[VARCHAR](255),
 		
 		CONSTRAINT [PK_Consultas] PRIMARY KEY CLUSTERED ( [Cons_ID] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -639,6 +672,10 @@ BEGIN TRANSACTION
 		VALUES ('Modificar')
 		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
 		VALUES ('Borrar') 
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Solicitar Turno') 
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Registrar Atencion Medica') 
 		
 	--FuncionalidadesRol
 		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
@@ -647,7 +684,11 @@ BEGIN TRANSACTION
 		VALUES (1,2)
 		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
 		VALUES (1,3)
-
+		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
+		VALUES (3,5)
+		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
+		VALUES (2,4)
+		
 	--Usuario Admin	
 		INSERT INTO GRUPOSA.[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Habilitado])
 		VALUES ('admin','w23e',GETDATE(),0)
@@ -860,11 +901,28 @@ COMMIT TRANSACTION
 	COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
-		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Fecha],[Cons_Enfermedades],[Cons_Sintomas])
-		SELECT M.Turno_Numero, M.Bono_Consulta_Numero, M.Compra_Bono_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
+		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Enfermedades],[Cons_Sintomas])
+		SELECT M.Turno_Numero, M.Bono_Consulta_Numero, M.Compra_Bono_Fecha, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
 		FROM gd_esquema.Maestra M
-		WHERE M.Consulta_Enfermedades IS NOT NULL
+		WHERE M.Turno_Numero IS NOT NULL
 	COMMIT TRANSACTION
+
+	BEGIN TRANSACTION
+		INSERT INTO [GRUPOSA].[TurnosCancelacion] 
+		([Cancelacion_Tipo],[Cancelacion_Turno_Id],[Cancelacion_Motivo],[Cancelacion_Fecha])
+		SELECT 1, M.Turno_Numero, 'Cancelada por acuerdo', M.Turno_Fecha - 2
+		FROM gd_esquema.Maestra M
+		WHERE M.Turno_Numero IS NOT NULL 
+		AND M.Consulta_Sintomas IS NULL
+	COMMIT TRANSACTION
+	
+	
+	BEGIN TRANSACTION
+		UPDATE [GRUPOSA].[Consultas] 
+		SET Cons_Realizada = 1
+		WHERE Cons_Enfermedades IS NOT NULL
+	COMMIT TRANSACTION
+	
 	
 	BEGIN TRANSACTION
 
@@ -944,5 +1002,14 @@ BEGIN TRANSACTION
 
 	ALTER TABLE GRUPOSA.FuncionalidadesRol ADD CONSTRAINT FK_FuncionalidadesRol_Rol FOREIGN KEY
 	(FuncRol_Rol_Codigo) REFERENCES GRUPOSA.Rol (Rol_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.RolesUsuario ADD CONSTRAINT FK_RolesUsuario_Rol FOREIGN KEY 
+	(RolUsu_Rol_Codigo) REFERENCES GRUPOSA.Rol (Rol_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.RolesUsuario ADD CONSTRAINT FK_RolesUsuario_Usuario FOREIGN KEY
+	(RolUsu_Usuario_Username) REFERENCES GRUPOSA.Usuario (Usuario_Username) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	ALTER TABLE GRUPOSA.Consultas ADD CONSTRAINT FK_Consultas_Turnos FOREIGN KEY
+	(Cons_Id_Turno) REFERENCES GRUPOSA.Turnos (Turn_Numero) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
 COMMIT TRANSACTION
