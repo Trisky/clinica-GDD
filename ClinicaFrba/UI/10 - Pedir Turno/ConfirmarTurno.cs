@@ -15,8 +15,7 @@ namespace ClinicaFrba.UI._10___Pedir_Turno
         {
             List<string> list = new List<string>();
             Conexion con = new Conexion();
-            string query = "select * from horarios";
-            SqlCommand cmd= con.CrearComandoQuery(query);
+            SqlCommand cmd = con.CrearComandoQuery("select * from horarios");
             cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
             DataTable dias = con.ExecConsulta(cmd);
 

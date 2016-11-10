@@ -298,17 +298,29 @@ AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtenc
 END
 GO
 
-CREATE PROCEDURE [GRUPOSA].[sp_turnosActivosPaciente] (@paci_usuario VARCHAR(255))
+CREATE PROC [GRUPOSA].[sp_turnosActivosPaciente]
+@paci_usuario VARCHAR(255)
 AS
-DECLARE @id_paciente varchar(255)
-BEGIN
-SELECT Turn_Fecha FROM GRUPOSA.Turnos t
+SELECT t.Turn_Numero,(m.Medi_Apellido)+', '+m.Medi_Nombre 'Doctor',e.Espe_Desc 'Especialidad',t.Turn_Fecha 'Fecha'
+FROM GRUPOSA.Turnos t
 JOIN GRUPOSA.Paciente p
 ON t.Turn_Paciente_Id=p.Paci_Matricula
-AND p.Paci_Usuario=@paci_usuario
+join GRUPOSA.Medico m
+ON m.Medi_Id=t.Turn_Medico_Id
+JOIN GRUPOSA.Especialidades e
+ON e.Espe_Cod=t.Turn_Especialidad
+WHERE p.Paci_Usuario=@paci_usuario
 AND 0<=DATEDIFF(MINUTE,CURRENT_TIMESTAMP,Turn_Fecha)
-END
 GO
+
+CREATE PROC [GRUPOSA].[sp_bajaTurnoPaciente]
+@id_turno NUMERIC(18,0),
+@descripcion VARCHAR(255)
+AS
+INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
+VALUES (1,@id_turno,@descripcion,GETDATE())
+GO
+
 
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
