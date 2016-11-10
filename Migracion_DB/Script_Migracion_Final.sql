@@ -343,6 +343,7 @@ WHERE p.Paci_Usuario=@paci_usuario
 AND 0<=DATEDIFF(MINUTE,CURRENT_TIMESTAMP,Turn_Fecha)
 GO
 
+--tengo que hacer trigger que modifique la tabla turnos
 CREATE PROC [GRUPOSA].[sp_bajaTurnoPaciente]
 @id_turno NUMERIC(18,0),
 @descripcion VARCHAR(255)
@@ -351,6 +352,15 @@ INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Can
 VALUES (1,@id_turno,@descripcion,GETDATE())
 GO
 
+--tengo que poner los dias que efectivamente tienen horarios disponibles
+CREATE PROC [GRUPOSA].[sp_obtenerDiasDeAtencion]
+@id_medico VARCHAR(255)
+AS
+SELECT Hora_Dia FROM GRUPOSA.HorariosAtencion h
+JOIN GRUPOSA.Medico m
+on m.Medi_Id=h.Hora_Medico_Id_FK
+WHERE m.Medi_Id=@id_medico
+GO
 
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
@@ -876,7 +886,7 @@ COMMIT TRANSACTION
 	BEGIN TRANSACTION
 		
 			UPDATE GRUPOSA.HorariosAtencion
-			SET HORA_DIA = 'Miercoles'
+			SET HORA_DIA = 'Miércoles'
 			WHERE HORA_DIA = 'Domingo'
 			
 			UPDATE GRUPOSA.HorariosAtencion

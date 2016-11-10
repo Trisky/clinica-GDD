@@ -83,5 +83,11 @@ namespace ClinicaFrba.UI.MenuPrincipal
             CancelarAtencionAfiliado canc = new CancelarAtencionAfiliado(usuario);
             canc.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CancelarAtencionMedico canc = new CancelarAtencionMedico(usuario);
+            canc.ShowDialog();
+        }
     }
 }

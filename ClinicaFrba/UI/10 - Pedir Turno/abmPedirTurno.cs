@@ -13,19 +13,13 @@ using ClinicaFrba.Helpers;
 using ClinicaFrba.Logica.Entidades;
 //using ClinicaFrba.UI._08___Registrar_Agenta_Medico;
 using ClinicaFrba.UI._11___Registro_Llegada;
+using ClinicaFrba.UI._13___Cancelar_Atencion;
 
 namespace ClinicaFrba.Pedir_Turno
 {
 
     public partial class PedirTurno : FormBase
     {
-        private string userName;
-        private string especialidadSeleccionada;
-        private string idMedico;
-        private DateTime diaSeleccionado;
-        private string especialidad;
-        private string horario;
-
         public PedirTurno(UsuarioLogeado user)
         {
             Init();
@@ -114,8 +108,8 @@ namespace ClinicaFrba.Pedir_Turno
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
             calendarDoctors.RemoveAllBoldedDates();
-            diaSeleccionado = e.Start;
-            calendarDoctors.AddBoldedDate(diaSeleccionado);
+            datesDoctor = aten.obtenerFechas(idMedico, e.Start);
+            calendarDoctors.BoldedDates = datesDoctor;
             calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
@@ -143,6 +137,9 @@ namespace ClinicaFrba.Pedir_Turno
         private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             idMedico = cmbMedicos.SelectedValue.ToString();
+            datesDoctor = aten.obtenerFechas(idMedico, DateTime.Today);
+            calendarDoctors.BoldedDates = datesDoctor;
+            calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
         }
@@ -188,7 +185,15 @@ namespace ClinicaFrba.Pedir_Turno
         {
             horario = horariosDisponibles.SelectedCells[0].Value.ToString();
         }
-        
+        BajaAtencion aten = new BajaAtencion();
+        private string userName;
+        private string especialidadSeleccionada;
+        private string idMedico;
+        private DateTime diaSeleccionado;
+        private string especialidad;
+        private string horario;
+        private DateTime[] datesDoctor;
+
     }
 
 }

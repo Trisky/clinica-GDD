@@ -15,8 +15,7 @@ using ClinicaFrba.FormulariosBase;
 namespace ClinicaFrba.UI._13___Cancelar_Atencion
 {
     public partial class CancelarAtencionAfiliado : Form
-    {
-        
+    {   
         public CancelarAtencionAfiliado(UsuarioLogeado user)
         {
             InitializeComponent();
@@ -27,12 +26,9 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         {
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosActivosPaciente");
-            cmd.Parameters.Add("@paci_usuario", SqlDbType.VarChar).Value = "aaron_sánchez.clinica_frba";
+            cmd.Parameters.Add("@paci_usuario", SqlDbType.VarChar).Value = usuario.UserName;
             DataTable dt = con.ExecConsulta(cmd);
-            //foreach(DataRow item in dt.Rows)
-            //{
-            //    listaTurnos.Add(Convert.ToDecimal(item[0]));
-            //}
+            
             turnosActivos.DataSource = dt;
             turnosActivos.Columns[0].Visible = false;
             textBox1.Enabled = false;
@@ -48,8 +44,7 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             }
             else
             {
-                textBox1.Text = "Se cancelara el turno del dia "+fechaConsultada.ToShortDateString()+" a las "+fechaConsultada.ToShortTimeString()+" hs.";
-                //turno = listaTurnos[e.RowIndex];
+                textBox1.Text = "Se cancelara el turno del dia "+fechaConsultada.ToShortDateString()+" a las "+fechaConsultada.ToShortTimeString()+" hs.";   
                 turno = Convert.ToDecimal(turnosActivos.Rows[e.RowIndex].Cells[0].Value);
             }
         }
@@ -98,7 +93,5 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         private UsuarioLogeado usuario;
         private DateTime fechaConsultada;
         private TimeSpan ts;
-        
-        
     }
 }

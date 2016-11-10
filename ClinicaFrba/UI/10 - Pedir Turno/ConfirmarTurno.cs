@@ -11,17 +11,17 @@ namespace ClinicaFrba.UI._10___Pedir_Turno
 {
     class ConfirmarTurno
     {
-        public List<string> diasDeAtencion(string idMedico)
+        public List<string> diasDeAtencion(string userName)
         {
             List<string> list = new List<string>();
             Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoQuery("select * from horarios");
-            cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_obtenerDiasDeAtencion");
+            cmd.Parameters.Add("@usr_medico", SqlDbType.NVarChar).Value = userName;
             DataTable dias = con.ExecConsulta(cmd);
 
-            for (int i = 0; i < dias.Rows.Count; i++ )
+            foreach (DataRow item in dias.Rows)
             {
-                //
+                list.Add(Convert.ToString(item[0]));
             }
                 
             return list;
