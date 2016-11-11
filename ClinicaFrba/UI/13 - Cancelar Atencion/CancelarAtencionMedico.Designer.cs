@@ -123,7 +123,7 @@
             this.groupBox2.Size = new System.Drawing.Size(430, 59);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ingrese el motivo de la cancelacion";
+            this.groupBox2.Text = "Indique el motivo de la cancelacion";
             // 
             // btnConfirm
             // 
@@ -133,6 +133,7 @@
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "Aceptar";
             this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // btnCancel
             // 

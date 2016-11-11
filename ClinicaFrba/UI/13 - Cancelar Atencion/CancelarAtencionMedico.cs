@@ -40,12 +40,12 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             //falta agregar excepciones
             if (e.Start < DateTime.Today)
             {
-                MessageBox.Show("Periodo no valido");
+                MessageBox.Show("Periodo no válido");
             }
             else
             {
-                txtInitDate.Text = e.Start.ToString();
-                txtLastDate.Text = e.End.ToString();
+                txtInitDate.Text = e.Start.ToShortDateString();
+                txtLastDate.Text = e.End.ToShortDateString();
             }
         }
 
@@ -57,6 +57,18 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
                 diaryDoctor.BoldedDates = fechas;
                 diaryDoctor.UpdateBoldedDates();
                 mes = e.Start.Month;
+            }
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            if (txtInitDate.Text == txtLastDate.Text)
+            {
+                baja.bajaTurnosMedico(txtInitDate.Text,usuario.MedicoMatricula,txtReason.Text);
+            }
+            else
+            {
+                baja.bajaTurnosMedico(txtInitDate.Text,txtLastDate.Text,usuario.MedicoMatricula,txtReason.Text);
             }
         }
 

@@ -57,7 +57,7 @@ namespace ClinicaFrba.Helpers
                     return dataTable;
                 }
             }
-            catch
+            catch(SqlException ex)
             {
                 //throw new Exception("query error");
                 MessageBox.Show("Error al ejecutar la query", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);

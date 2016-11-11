@@ -343,15 +343,6 @@ WHERE p.Paci_Usuario=@paci_usuario
 AND 0<=DATEDIFF(MINUTE,CURRENT_TIMESTAMP,Turn_Fecha)
 GO
 
---tengo que hacer trigger que modifique la tabla turnos
-CREATE PROC [GRUPOSA].[sp_bajaTurnoPaciente]
-@id_turno NUMERIC(18,0),
-@descripcion VARCHAR(255)
-AS
-INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
-VALUES (1,@id_turno,@descripcion,GETDATE())
-GO
-
 CREATE PROC [GRUPOSA].[sp_obtenerDiasDeAtencion]
 @id_medico VARCHAR(255)
 AS
@@ -370,6 +361,43 @@ WHERE h.Hora_Medico_Id_FK=@id_medico
 AND h.Hora_Especialidad=@especialidad
 GO
 
+CREATE PROC [GRUPOSA].[sp_bajaTurnosMedico]
+@fecha VARCHAR(255),
+@medico VARCHAR(255),
+@tipo NUMERIC(18,0),
+@descripcion VARCHAR(255)
+AS
+DECLARE @cant NUMERIC(18,0)
+DECLARE @ind NUMERIC(18,0)
+DECLARE @id_turno NUMERIC(18,0)
+CREATE TABLE #turnosDelDia(
+id_turno NUMERIC(18,0) IDENTITY(1,1),
+num_turno VARCHAR(255)
+)
+SET @ind=1
+INSERT #turnosDelDia
+SELECT T.Turn_Numero FROM gruposa.Turnos T
+WHERE CONVERT(VARCHAR(10), Turn_Fecha, 103)=@fecha
+AND T.Turn_Medico_Id=@medico
+SELECT @cant=COUNT(*)+1 FROM #turnosDelDia
+WHILE @ind!=@cant
+BEGIN
+SELECT @id_turno=TD.num_turno FROM #turnosDelDia TD WHERE TD.id_turno=@ind
+INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
+VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
+SET @ind+=1
+END
+DROP TABLE #turnosDelDia
+GO
+
+CREATE PROC [GRUPOSA].[sp_bajaTurnoPaciente]
+@tipo NUMERIC(18,0),
+@id_turno NUMERIC(18,0),
+@descripcion VARCHAR(255)
+AS
+INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
+VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
+GO
 
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
