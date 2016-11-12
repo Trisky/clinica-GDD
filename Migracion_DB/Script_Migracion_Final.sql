@@ -216,14 +216,14 @@ GO
 CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_nom VARCHAR(250),
 	@paci_apell VARCHAR(250),
-	@paci_tipodni NUMERIC (18,0),
+	@paci_tipodni VARCHAR (255),
 	@paci_dni NUMERIC (18,0),
 	@paci_direccion VARCHAR(250), 
 	@paci_tel NUMERIC (18,0), 
 	@paci_mail VARCHAR(250), 
 	@paci_fecha_nac DATE, 
 	@paci_sexo VARCHAR(250), 
-	@paci_estado_civil NUMERIC (18,0),
+	@paci_estado_civil VARCHAR (250),
 	@paci_plan_medi NUMERIC (18,0),
 	@paci_cant_fam NUMERIC (18,0),
 	@paci_tipoFamiliar VARCHAR(250)
@@ -473,9 +473,9 @@ CREATE TABLE [GRUPOSA].[Medico]
 		[Medi_Id] 					[VARCHAR](255) NOT NULL,
 		[Medi_Nombre] 				[VARCHAR](255) NULL,
 		[Medi_Apellido] 			[VARCHAR](255) NULL,
-		[Medi_TipoDocumento] 		[NUMERIC](18, 0) NOT NULL,
+		[Medi_TipoDocumento] 		[VARCHAR](255) NOT NULL,
 		[Medi_Dni] 					[NUMERIC](18, 0) NOT NULL,
-		[Medi_Sexo]					[NUMERIC](18,0) DEFAULT NULL,
+		[Medi_Sexo]					[VARCHAR](255) DEFAULT NULL,
 		[Medi_Direccion] 			[VARCHAR](255) NULL,
 		[Medi_Mail] 				[VARCHAR](255) NULL,
 		[Medi_Telefono] 			[NUMERIC](18, 0) NULL,
@@ -491,14 +491,14 @@ CREATE TABLE [GRUPOSA].[Paciente]
 		[Paci_Matricula] 		[VARCHAR](255) NOT NULL,
 		[Paci_Nombre] 			[VARCHAR](255) NOT NULL,
 		[Paci_Apellido] 		[VARCHAR](255) NOT NULL,
-		[Paci_TipoDocumento] 	[NUMERIC](18, 0) NOT NULL,
+		[Paci_TipoDocumento] 	[VARCHAR](255) NOT NULL,
 		[Paci_Dni] 				[NUMERIC](18, 0) NOT NULL,
 		[Paci_Direccion] 		[VARCHAR](250) NULL,
 		[Paci_Telefono] 		[NUMERIC](18,0) NULL,
 		[Paci_Mail] 			[VARCHAR](250) NULL,
 		[Paci_Fecha_Nac] 		[DATE] NOT NULL,
-		[Paci_Sexo]				[VARCHAR] (250) DEFAULT 0,
-		[Paci_Estado_Civil]		[NUMERIC] (18,0) NOT NULL,		
+		[Paci_Sexo]				[VARCHAR] (255) DEFAULT 'Masculino',
+		[Paci_Estado_Civil]		[VARCHAR] (255) DEFAULT 'Soltero',		
 		[Paci_Plan_Med_Cod_FK] 	[NUMERIC](18, 0) NULL,
 		[Paci_Cant_Familiares] 	[NUMERIC](18, 0) NULL,
 		[Paci_Usuario] 			[VARCHAR] (255) NOT NULL,
@@ -512,18 +512,18 @@ CREATE TABLE [GRUPOSA].[Paciente]
 CREATE TABLE [GRUPOSA].[TipoDocumento]
 	(
 		[Tipo_Doc_Cod]  [NUMERIC](18, 0) IDENTITY(1,1) NOT NULL,
-		[Tipo_Doc_Desc] [VARCHAR](255) NULL,
+		[Tipo_Doc_Desc] [VARCHAR](255) NOT NULL,
 	 
-		CONSTRAINT [PK_Tipo_Doc_Cod] PRIMARY KEY CLUSTERED ( [Tipo_Doc_Cod] ASC )
+		CONSTRAINT [PK_Tipo_Doc_Cod] PRIMARY KEY CLUSTERED ( [Tipo_Doc_Desc] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 
 CREATE TABLE [GRUPOSA].[EstadoCivil]
 	(
 		[EstadoCivil_Id]  	[NUMERIC](18, 0) IDENTITY(1,1) NOT NULL,
-		[EstadoCivil_Desc] 	[VARCHAR](255) NULL,
+		[EstadoCivil_Desc] 	[VARCHAR](255) NOT NULL,
 	 
-		CONSTRAINT [PK_EstadoCivil_Id] PRIMARY KEY CLUSTERED ( [EstadoCivil_Id] ASC )
+		CONSTRAINT [PK_EstadoCivil_Id] PRIMARY KEY CLUSTERED ( [EstadoCivil_Desc] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 
@@ -759,7 +759,7 @@ BEGIN TRANSACTION
 	DECLARE @paci_mail 					VARCHAR(255)
 	DECLARE @paci_fecha_nac				DATE
 	DECLARE @paci_sexo	 				VARCHAR(255)
-	DECLARE @paci_estado_civil			NUMERIC(18,0)
+	DECLARE @paci_estado_civil			VARCHAR(250)
 	DECLARE @paci_plan_medi				NUMERIC(18,0)
 	DECLARE @paci_cant					NUMERIC(18,0)
 	DECLARE @paci_usuario 				VARCHAR(255)
@@ -791,8 +791,8 @@ BEGIN TRANSACTION
 						[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Estado_Civil],
 						[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario])
 					VALUES
-					   (@paci_matricula, @paci_nom, @paci_apell, 1, @paci_dni, 
-						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 1, @paci_plan_medi, 0, @paci_usuario);
+					   (@paci_matricula, @paci_nom, @paci_apell, 'DNI', @paci_dni, 
+						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, 0, @paci_usuario);
 
 				FETCH NEXT FROM Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
 			END
@@ -809,7 +809,7 @@ BEGIN TRANSACTION
 	DECLARE @medi_id					VARCHAR(255)
 	DECLARE @medi_nom					VARCHAR(255)
 	DECLARE @medi_apell					VARCHAR(255)
-	DECLARE @medi_tipodni				NUMERIC(18,0)
+	DECLARE @medi_tipodni				VARCHAR(255)
 	DECLARE @medi_dni			 		NUMERIC(18,0)
 	DECLARE @medi_direccion				VARCHAR(255)
 	DECLARE @medi_mail 					VARCHAR(255)
@@ -825,7 +825,7 @@ BEGIN TRANSACTION
 		WHERE medico_nombre IS NOT NULL
 		GROUP BY medico_nombre, medico_apellido, medico_dni, medico_direccion, medico_fecha_nac, medico_mail, medico_telefono
 		
-		SELECT @medi_tipodni = Tipo_Doc_Cod FROM GRUPOSA.TIPODOCUMENTO
+		SELECT @medi_tipodni = Tipo_Doc_Desc FROM GRUPOSA.TIPODOCUMENTO
 		WHERE TIPO_DOC_COD = 1;
 		
 	OPEN Cur_Medicos 
@@ -996,7 +996,7 @@ COMMIT TRANSACTION
 BEGIN TRANSACTION
 
 	ALTER TABLE GRUPOSA.Medico ADD CONSTRAINT FK_Medico_TipoDocumento FOREIGN KEY
-	(Medi_TipoDocumento) REFERENCES GRUPOSA.TipoDocumento (Tipo_Doc_Cod) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+	(Medi_TipoDocumento) REFERENCES GRUPOSA.TipoDocumento (Tipo_Doc_Desc) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 		
 	ALTER TABLE GRUPOSA.HorariosAtencion ADD CONSTRAINT FK_HorariosAtencion_Medico FOREIGN KEY
 	(Hora_Medico_Id_FK) REFERENCES GRUPOSA.Medico (Medi_Id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
@@ -1036,13 +1036,13 @@ BEGIN TRANSACTION
 	(Paci_Plan_Med_Cod_FK) REFERENCES GRUPOSA.PlanesMedicos (Plan_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
 	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_EstadoCivil FOREIGN KEY
-	(Paci_Estado_Civil) REFERENCES GRUPOSA.EstadoCivil (EstadoCivil_Id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+	(Paci_Estado_Civil) REFERENCES GRUPOSA.EstadoCivil (EstadoCivil_Desc) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
 	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_Usuario FOREIGN KEY 
 	(Paci_Usuario) REFERENCES GRUPOSA.Usuario (Usuario_Username) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
 	ALTER TABLE GRUPOSA.Paciente ADD CONSTRAINT FK_Paciente_TipoDocumento 
-	FOREIGN KEY (Paci_TipoDocumento) REFERENCES GRUPOSA.TipoDocumento (Tipo_Doc_Cod) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+	FOREIGN KEY (Paci_TipoDocumento) REFERENCES GRUPOSA.TipoDocumento (Tipo_Doc_Desc) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 		
 	ALTER TABLE GRUPOSA.FuncionalidadesRol ADD CONSTRAINT FK_FuncionalidadesRol_Funcionalidad1 FOREIGN KEY
 	(FuncRol_Func_Codigo) REFERENCES GRUPOSA.Funcionalidad (Func_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
