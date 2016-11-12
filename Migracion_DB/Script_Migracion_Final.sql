@@ -402,6 +402,69 @@ AS
 INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
 VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
 
+---------------------------------------------------------------------------------------------------------------------
+--SP_LISTADOS_ESTADISTICOS-------------------------------------------------------------------------------------------
+CREATE PROCEDURE [GRUPOSA].[sp_top5EspecialidadesMasCanceladas](@fechaInicio VARCHAR(255), @fechaFinal VARCHAR(255))
+AS
+BEGIN
+	SELECT TOP 5 (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.turn_especialidad) AS Especialidad, COUNT(*) Cantidad_de_Cancelaciones 
+	FROM GRUPOSA.TurnosCancelacion c JOIN GRUPOSA.Turnos t ON c.Cancelacion_Turno_Id = t.Turn_Numero
+	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH('29121012') AND MONTH('20211212') 
+	GROUP BY T.Turn_Especialidad
+    ORDER BY COUNT(*) DESC
+END
+
+CREATE PROCEDURE [GRUPOSA].[sp_top5ProfMasConsultadasPorPlan](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+AS
+BEGIN
+	SELECT TOP 5 SUM( DATEDIFF( MI , Hora_Inicio , Hora_Fin ) / 60) AS Cantidad_de_Horas,
+		  (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = Hora_Especialidad) AS Especialidad,  
+		  (SELECT UPPER(M.Medi_Apellido+' '+M.Medi_Nombre) FROM GRUPOSA.Medico M WHERE M.Medi_Id = Hora_Medico_Id_FK) AS Profesional   
+	FROM GRUPOSA.HorariosAtencion JOIN GRUPOSA.TURNOS T ON Hora_Medico_Id_FK = T.Turn_Medico_Id
+	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	GROUP BY Hora_Especialidad, Hora_Medico_Id_FK
+	ORDER BY SUM( DATEDIFF( MI , Hora_Inicio , Hora_Fin )) ASC
+END
+
+CREATE PROCEDURE [GRUPOSA].[sp_top5ProfConMenosHsTrabPorEsp](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+AS
+BEGIN
+	SELECT TOP 5 
+	(SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = Turn_Especialidad) AS Especialidad,  
+	COUNT(*) AS Cantidad_de_Bonos_Utilizados 
+	FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
+	WHERE Bono_expirado <> 0
+	AND MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	GROUP BY Turn_Especialidad
+	ORDER BY 2 DESC
+END
+
+CREATE PROCEDURE [GRUPOSA].[sp_top5EspConMasBonosUtil](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+AS
+BEGIN
+	SELECT TOP 5 
+		(SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = Turn_Especialidad) AS Especialidad,  
+		COUNT(*) AS Cantidad_de_Bonos_Utilizados 
+		FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
+	WHERE Bono_expirado <> 0
+	AND MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	GROUP BY Turn_Especialidad
+	ORDER BY 2 DESC
+END
+
+CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+AS
+BEGIN
+SELECT TOP 5 (SELECT UPPER(Paci_Apellido + ' ' + Paci_Nombre) FROM GRUPOSA.Paciente WHERE Paci_Matricula =  Bono_Paci_Id) AS Afiliado, 
+			 (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No Es Grupo Familiar' ELSE 'Grupo Familiar' END) AS Grupo_Fliar, 
+			 COUNT(*) AS Cantidad_de_Bonos 
+FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
+WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+GROUP BY Bono_Paci_Id, Bono_Numero_GrupoFamiliar
+ORDER BY 3 DESC, 2 ASC
+END
+
+
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 BEGIN TRANSACTION
