@@ -95,6 +95,7 @@
             this.comboBoxEspecialidad.Name = "comboBoxEspecialidad";
             this.comboBoxEspecialidad.Size = new System.Drawing.Size(436, 32);
             this.comboBoxEspecialidad.TabIndex = 5;
+            this.comboBoxEspecialidad.SelectedIndexChanged += new System.EventHandler(this.comboBoxEspecialidad_SelectedIndexChanged);
             // 
             // groupBoxNuevoHorario
             // 

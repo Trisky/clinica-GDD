@@ -52,6 +52,7 @@
     <Compile Include="Helpers\EstadoCivil.cs" />
     <Compile Include="Helpers\TipoUsuarioEnum.cs" />
     <Compile Include="Helpers\LogInHelper.cs" />
+    <Compile Include="Helpers\TraductorDeTipos.cs" />
     <Compile Include="Logica\Entidades\UsuarioLogeado.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Funcionalidad.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Rol.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="UI\12 - Registro Resultado\RegistrarResultadoPaciente.Designer.cs">
       <DependentUpon>RegistrarResultadoPaciente.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\13 - Cancelar Atencion\BajaAtencion.cs" />
     <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +129,18 @@
     </Compile>
     <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencionAfiliado.Designer.cs">
       <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencionMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencionMedico.Designer.cs">
+      <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\14 - Listados\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\14 - Listados\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AbmRol\RolEditar.cs">
       <SubType>Form</SubType>
@@ -238,6 +252,9 @@
     <EmbeddedResource Include="UI\13 - Cancelar Atencion\CancelarAtencionAfiliado.resx">
       <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\13 - Cancelar Atencion\CancelarAtencionMedico.resx">
+      <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,7 +290,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\14 - Listados\" />
     <Folder Include="UI\MenuPrincipal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

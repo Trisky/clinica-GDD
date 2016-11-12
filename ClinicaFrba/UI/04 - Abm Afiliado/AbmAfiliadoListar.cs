@@ -57,6 +57,10 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                 cmd.Parameters.Add(new SqlParameter("@paci_ape", con.ConWildCard(textBoxApellido.Text)));
 
                 dt = con.ExecConsulta(cmd);
+
+                DataColumn colTipoDni = dt.Columns[3];
+
+                
             }
 
             textBoxCantidadEncontrada.Text = dt.Rows.Count.ToString();
