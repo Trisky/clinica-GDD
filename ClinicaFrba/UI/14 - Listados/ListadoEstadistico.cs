@@ -23,10 +23,9 @@ namespace ClinicaFrba.Listados
 
         private void buttonMostrar1_Click(object sender, EventArgs e)
         {
-            Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_listado1");
-            DataTable dt = con.ExecConsulta(cmd);
-            MostrarEstaTabla(dt);
+
+            MostrarEsteSP("sp_listado1"); //muestra en pantalla lo q devuelve ese SP
+
         }
 
         #region auxiliares
@@ -38,8 +37,11 @@ namespace ClinicaFrba.Listados
             btnSeleccionar.Enabled = false;
         }
 
-        private void MostrarEstaTabla(DataTable dt)
+        private void MostrarEsteSP(string SP)
         {
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoStoreProcedure(SP);
+            DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
         }
         #endregion
