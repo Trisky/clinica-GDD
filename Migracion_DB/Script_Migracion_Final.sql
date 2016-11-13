@@ -330,7 +330,7 @@ GO
 --------------------------------------------------------------------------------------------------------------------
 
 
-CREATE PROC [GRUPOSA].[sp_turnosActivosPaciente]
+CREATE PROCEDURE [GRUPOSA].[sp_turnosActivosPaciente]
 @paci_usuario VARCHAR(255)
 AS
 SELECT t.Turn_Numero,(m.Medi_Apellido)+', '+m.Medi_Nombre 'Doctor',e.Espe_Desc 'Especialidad',t.Turn_Fecha 'Fecha'
@@ -347,7 +347,7 @@ WHERE p.Paci_Usuario=@paci_usuario
 AND 0<=DATEDIFF(MINUTE,CURRENT_TIMESTAMP,Turn_Fecha)
 GO
 
-CREATE PROC [GRUPOSA].[sp_obtenerDiasDeAtencion]
+CREATE PROCEDURE [GRUPOSA].[sp_obtenerDiasDeAtencion]
 @id_medico VARCHAR(255)
 AS
 SELECT h.Hora_Dia
@@ -355,7 +355,7 @@ FROM GRUPOSA.HorariosAtencion h
 WHERE h.Hora_Medico_Id_FK=@id_medico
 GO
 
-CREATE PROC [GRUPOSA].[sp_obtenerDiasDeAtencion2]
+CREATE PROCEDURE [GRUPOSA].[sp_obtenerDiasDeAtencion2]
 @id_medico VARCHAR(255),
 @especialidad VARCHAR(255)
 AS
@@ -365,7 +365,7 @@ WHERE h.Hora_Medico_Id_FK=@id_medico
 AND h.Hora_Especialidad=@especialidad
 GO
 
-CREATE PROC [GRUPOSA].[sp_bajaTurnosMedico]
+CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnosMedico]
 @fecha VARCHAR(255),
 @medico VARCHAR(255),
 @tipo NUMERIC(18,0),
@@ -394,14 +394,16 @@ END
 DROP TABLE #turnosDelDia
 GO
 
-CREATE PROC [GRUPOSA].[sp_bajaTurnoPaciente]
+CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnoPaciente]
 @tipo NUMERIC(18,0),
 @id_turno NUMERIC(18,0),
 @descripcion VARCHAR(255)
 AS
-INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
-VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
-
+BEGIN
+	INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
+	VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
+END
+GO
 ---------------------------------------------------------------------------------------------------------------------
 --SP_LISTADOS_ESTADISTICOS-------------------------------------------------------------------------------------------
 CREATE PROCEDURE [GRUPOSA].[sp_top5EspecialidadesMasCanceladas](@fechaInicio VARCHAR(255), @fechaFinal VARCHAR(255))
@@ -409,12 +411,12 @@ AS
 BEGIN
 	SELECT TOP 5 (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.turn_especialidad) AS Especialidad, COUNT(*) Cantidad_de_Cancelaciones 
 	FROM GRUPOSA.TurnosCancelacion c JOIN GRUPOSA.Turnos t ON c.Cancelacion_Turno_Id = t.Turn_Numero
-	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH('29121012') AND MONTH('20211212') 
+	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
 	GROUP BY T.Turn_Especialidad
     ORDER BY COUNT(*) DESC
 END
-
-CREATE PROCEDURE [GRUPOSA].[sp_top5ProfMasConsultadasPorPlan](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_top5ProfMasConsultadasPorPlan](@fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
 AS
 BEGIN
 	SELECT TOP 5 SUM( DATEDIFF( MI , Hora_Inicio , Hora_Fin ) / 60) AS Cantidad_de_Horas,
@@ -425,8 +427,8 @@ BEGIN
 	GROUP BY Hora_Especialidad, Hora_Medico_Id_FK
 	ORDER BY SUM( DATEDIFF( MI , Hora_Inicio , Hora_Fin )) ASC
 END
-
-CREATE PROCEDURE [GRUPOSA].[sp_top5ProfConMenosHsTrabPorEsp](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_top5ProfConMenosHsTrabPorEsp](@fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
 AS
 BEGIN
 	SELECT TOP 5 
@@ -438,8 +440,8 @@ BEGIN
 	GROUP BY Turn_Especialidad
 	ORDER BY 2 DESC
 END
-
-CREATE PROCEDURE [GRUPOSA].[sp_top5EspConMasBonosUtil](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_top5EspConMasBonosUtil](@fechaInicio VARCHAR(250), @fechaFinal  VARCHAR(250))
 AS
 BEGIN
 	SELECT TOP 5 
@@ -451,8 +453,8 @@ BEGIN
 	GROUP BY Turn_Especialidad
 	ORDER BY 2 DESC
 END
-
-CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@fechaInicio VARCHAR, @fechaFinal VARCHAR)
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
 AS
 BEGIN
 SELECT TOP 5 (SELECT UPPER(Paci_Apellido + ' ' + Paci_Nombre) FROM GRUPOSA.Paciente WHERE Paci_Matricula =  Bono_Paci_Id) AS Afiliado, 
@@ -463,7 +465,7 @@ WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal)
 GROUP BY Bono_Paci_Id, Bono_Numero_GrupoFamiliar
 ORDER BY 3 DESC, 2 ASC
 END
-
+GO
 
 ----------------------------------SECUENCIAS-------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
