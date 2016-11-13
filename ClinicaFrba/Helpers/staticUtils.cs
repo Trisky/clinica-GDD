@@ -39,5 +39,30 @@ namespace ClinicaFrba.Helpers
             return "2016-01-01";
         }
 
+        public static object TraducirTipoDNI(object entrada)
+        {
+            //PASAPORTE = 1,
+            //DNI = 2,
+            //LC = 3
+            string ent = entrada.ToString();
+            switch (ent)
+            {
+                case "1":
+                    return "pasaporte";
+                case "2":
+                    return "DNI";
+                case "3":
+                    return "LC";
+                case "pasaporte":
+                    return 1;
+                case "DNI":
+                    return 2;
+                case "LC":
+                    return 3;
+                default:
+                    return "WTF";
+            }
+        }
+
     }
 }

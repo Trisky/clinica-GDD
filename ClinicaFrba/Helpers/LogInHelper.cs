@@ -73,13 +73,15 @@ namespace ClinicaFrba.Logica.Entidades
         internal void asociarUsuarioConPaciente(UsuarioLogeado usuarioLogeado)
         {
             Conexion con = new Conexion();
-            string s = @"SELECT [Medi_Id]
-                        FROM [GD2C2016].[GRUPOSA].[Medico]
-                        where Medi_Usuario = @username";
+            string s = @"SELECT [Paci_Matricula] ,[Paci_Plan_Med_Cod_FK]
+                        FROM [GRUPOSA].[Paciente]
+                        where Paci_Usuario = @username";
             SqlCommand cmd =  con.CrearComandoQuery(s);
             cmd.Parameters.Add(new SqlParameter("@username", usuarioLogeado.UserName));
             DataTable dt = con.ExecConsulta(cmd);
+            if (dt.Rows.Count == 0) return; //si no hay, retorno
             usuarioLogeado.PacienteMatricula = getUniqueValueFrom(dt);
+            usuarioLogeado.planMedico = dt.Rows[0].ItemArray[1].ToString(); //segundo valor
 
 
         }
@@ -92,6 +94,7 @@ namespace ClinicaFrba.Logica.Entidades
             SqlCommand cmd = con.CrearComandoQuery(s);
             cmd.Parameters.Add(new SqlParameter("@username", usuarioLogeado.UserName));
             DataTable dt = con.ExecConsulta(cmd);
+            if (dt.Rows.Count ==0) return; //si no hay, retorno
             usuarioLogeado.MedicoMatricula = getUniqueValueFrom(dt);
 
         }

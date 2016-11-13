@@ -23,6 +23,7 @@ namespace ClinicaFrba.Logica.Entidades
         public int CantidadIntentosFallidos { get;  set; }
         public bool Inhabilitado { get;  set; }
         public int GrupoFamiliar { get; set; }
+        public string  planMedico { get; set; }
 
         public List<Rol> Roles { get; set; }
         public List<Funcionalidad> FuncionalidadesRolSeleccionado { get; set; }

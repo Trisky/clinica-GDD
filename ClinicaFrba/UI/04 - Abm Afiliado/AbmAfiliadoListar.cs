@@ -45,26 +45,27 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             DataTable dt;
             Conexion con = new Conexion();
-            if(textBoxApellido.Text == ""  && textBoxNombre.Text == "")
-                dt = con.SimpleQuery("SELECT * FROM [GD2C2016].[GRUPOSA].[Paciente]");
+            string s = @"SELECT Paci_Matricula as matricula, paci_nombre as nombre, Paci_TipoDocumento as tipoDoc,
+	                        Paci_Direccion as direccion, Paci_Telefono as telefono, paci_mail as mail, Paci_Fecha_Nac as Namcimiento, Paci_Usuario as usuario
+                            FROM [GD2C2016].[GRUPOSA].[Paciente]";
+            if (textBoxApellido.Text == "" && textBoxNombre.Text == "")
+
+                dt = con.SimpleQuery(s);
             else
             {
-                string q = @"SELECT * FROM [GD2C2016].[GRUPOSA].[Paciente]
-                             where paci_nombre like @paci_nom and
+                string q = s+
+                             @"where paci_nombre like @paci_nom and
                                    paci_apellido like @paci_ape";
                 SqlCommand cmd = con.CrearComandoQuery(q);
                 cmd.Parameters.Add(new SqlParameter("@paci_nom", con.ConWildCard(textBoxNombre.Text)));
                 cmd.Parameters.Add(new SqlParameter("@paci_ape", con.ConWildCard(textBoxApellido.Text)));
 
                 dt = con.ExecConsulta(cmd);
-
-                DataColumn colTipoDni = dt.Columns[3];
-
-                
             }
 
             textBoxCantidadEncontrada.Text = dt.Rows.Count.ToString();
-            
+
+            dgListado.DataSource = dt;
             //dgListado.DataSource = null;
             //dgListado.ColumnCount = 4;
             //dgListado.AutoGenerateColumns = false;
@@ -74,15 +75,19 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             //dgListado.Columns[1].Name = "Fecha creación";
             //dgListado.Columns[1].DataPropertyName = "FechaCreacion";
             //dgListado.Columns[1].Width = 200;
-            //dgListado.Columns[2].Name = "Fecha última modificacion";
+            //dgListado.Columns[2].Name = "ultima modificacion";
             //dgListado.Columns[2].DataPropertyName = "FechaUltimaModificacion";
             //dgListado.Columns[2].Width = 200;
             //dgListado.Columns[3].Name = "Inhabilitado";
             //dgListado.Columns[3].DataPropertyName = "InhabilitadoString";
             //dgListado.Columns[3].Width = 157;
-            dgListado.DataSource = dt;
-            dgListado.Columns[4].Name = "tipo DNI";
+
+            //dgListado.Columns[4]. = "tipo DNI";
+
+
         }
+
+        
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
@@ -93,6 +98,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            //traducirTiposDniDeLaTabla();
             AbmAfiliadoCrear abm = new AbmAfiliadoCrear();
             abm.Show();
         }
@@ -103,7 +109,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             var cells = dr.Cells;
             string usuario = cells[13].Value.ToString();
             ExecBajaLogica(usuario);
-
+            MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ExecBajaLogica(string usuario)

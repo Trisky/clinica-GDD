@@ -18,5 +18,11 @@ namespace ClinicaFrba.Helpers
             VIERNES = 4,
             SABADO = 5
         }
+        public enum TipoDni
+        {
+            PASAPORTE = 1,
+            DNI = 2,
+            LC = 3
+        }
     }
 }

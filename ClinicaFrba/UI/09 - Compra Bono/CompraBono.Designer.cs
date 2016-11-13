@@ -36,12 +36,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.labelGrupoFamiliar = new System.Windows.Forms.Label();
             this.numericUpDownCantidad = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.idPlanMedicoLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.precioFarmaciaLabel = new System.Windows.Forms.Label();
+            this.precioAtencionLabel = new System.Windows.Forms.Label();
+            this.radioButtonFarmacia = new System.Windows.Forms.RadioButton();
+            this.radioButtonAtencion = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonComprar
             // 
-            this.buttonComprar.Location = new System.Drawing.Point(77, 204);
+            this.buttonComprar.Location = new System.Drawing.Point(77, 274);
             this.buttonComprar.Name = "buttonComprar";
             this.buttonComprar.Size = new System.Drawing.Size(295, 56);
             this.buttonComprar.TabIndex = 1;
@@ -51,7 +59,7 @@
             // 
             // textBoxPrecio
             // 
-            this.textBoxPrecio.Location = new System.Drawing.Point(198, 141);
+            this.textBoxPrecio.Location = new System.Drawing.Point(660, 148);
             this.textBoxPrecio.Name = "textBoxPrecio";
             this.textBoxPrecio.Size = new System.Drawing.Size(177, 29);
             this.textBoxPrecio.TabIndex = 3;
@@ -69,7 +77,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(77, 141);
+            this.label2.Location = new System.Drawing.Point(539, 148);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 25);
             this.label2.TabIndex = 5;
@@ -111,11 +119,97 @@
             this.numericUpDownCantidad.TabIndex = 9;
             this.numericUpDownCantidad.ValueChanged += new System.EventHandler(this.numericUpDownCantidad_ValueChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 416);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 25);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "id planMedico";
+            // 
+            // idPlanMedicoLabel
+            // 
+            this.idPlanMedicoLabel.AutoSize = true;
+            this.idPlanMedicoLabel.Location = new System.Drawing.Point(184, 415);
+            this.idPlanMedicoLabel.Name = "idPlanMedicoLabel";
+            this.idPlanMedicoLabel.Size = new System.Drawing.Size(64, 25);
+            this.idPlanMedicoLabel.TabIndex = 11;
+            this.idPlanMedicoLabel.Text = "label6";
+            this.idPlanMedicoLabel.Click += new System.EventHandler(this.idPlanMedicoLabel_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(571, 353);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(193, 25);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "precio bono farmacia";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(576, 395);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(193, 25);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "precio bono atencion";
+            // 
+            // precioFarmaciaLabel
+            // 
+            this.precioFarmaciaLabel.AutoSize = true;
+            this.precioFarmaciaLabel.Location = new System.Drawing.Point(790, 353);
+            this.precioFarmaciaLabel.Name = "precioFarmaciaLabel";
+            this.precioFarmaciaLabel.Size = new System.Drawing.Size(72, 25);
+            this.precioFarmaciaLabel.TabIndex = 14;
+            this.precioFarmaciaLabel.Text = "p_farm";
+            // 
+            // precioAtencionLabel
+            // 
+            this.precioAtencionLabel.AutoSize = true;
+            this.precioAtencionLabel.Location = new System.Drawing.Point(776, 395);
+            this.precioAtencionLabel.Name = "precioAtencionLabel";
+            this.precioAtencionLabel.Size = new System.Drawing.Size(72, 25);
+            this.precioAtencionLabel.TabIndex = 15;
+            this.precioAtencionLabel.Text = "p_aten";
+            // 
+            // radioButtonFarmacia
+            // 
+            this.radioButtonFarmacia.AutoSize = true;
+            this.radioButtonFarmacia.Location = new System.Drawing.Point(109, 149);
+            this.radioButtonFarmacia.Name = "radioButtonFarmacia";
+            this.radioButtonFarmacia.Size = new System.Drawing.Size(162, 29);
+            this.radioButtonFarmacia.TabIndex = 16;
+            this.radioButtonFarmacia.TabStop = true;
+            this.radioButtonFarmacia.Text = "Bono farmacia";
+            this.radioButtonFarmacia.UseVisualStyleBackColor = true;
+            this.radioButtonFarmacia.CheckedChanged += new System.EventHandler(this.radioButtonFarmacia_CheckedChanged);
+            // 
+            // radioButtonAtencion
+            // 
+            this.radioButtonAtencion.AutoSize = true;
+            this.radioButtonAtencion.Location = new System.Drawing.Point(109, 185);
+            this.radioButtonAtencion.Name = "radioButtonAtencion";
+            this.radioButtonAtencion.Size = new System.Drawing.Size(165, 29);
+            this.radioButtonAtencion.TabIndex = 17;
+            this.radioButtonAtencion.TabStop = true;
+            this.radioButtonAtencion.Text = "Bono Atencion";
+            this.radioButtonAtencion.UseVisualStyleBackColor = true;
+            // 
             // CompraBono
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 380);
+            this.ClientSize = new System.Drawing.Size(955, 468);
+            this.Controls.Add(this.radioButtonAtencion);
+            this.Controls.Add(this.radioButtonFarmacia);
+            this.Controls.Add(this.precioAtencionLabel);
+            this.Controls.Add(this.precioFarmaciaLabel);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.idPlanMedicoLabel);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDownCantidad);
             this.Controls.Add(this.labelGrupoFamiliar);
             this.Controls.Add(this.label4);
@@ -142,5 +236,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelGrupoFamiliar;
         private System.Windows.Forms.NumericUpDown numericUpDownCantidad;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label idPlanMedicoLabel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label precioFarmaciaLabel;
+        private System.Windows.Forms.Label precioAtencionLabel;
+        private System.Windows.Forms.RadioButton radioButtonFarmacia;
+        private System.Windows.Forms.RadioButton radioButtonAtencion;
     }
 }
