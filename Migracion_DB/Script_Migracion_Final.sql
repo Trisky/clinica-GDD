@@ -177,17 +177,66 @@ AS
 		END
 GO
 ------------------------------------------------------------------------------------------------
---fnc_nombreRol: Devuelve el nombre del rol enviado.
-CREATE FUNCTION [GRUPOSA].[fnc_nombreRol] (@id_rol NUMERIC(18,0))
-RETURNS VARCHAR(255)
+--fnc_nombreRol: Devuelve SI EXISTE EL ROL del rol enviado.
+CREATE FUNCTION [GRUPOSA].[fnc_nombreRolExiste] (@nombreRol NUMERIC(18,0))
+RETURNS NUMERIC(18,0)
 AS
 BEGIN
-	DECLARE @nombreRol VARCHAR(255)	
-	
-	SELECT @nombreRol = Rol_Nombre FROM GRUPOSA.Rol R WHERE R.Rol_Codigo = @id_rol
-	RETURN @nombreRol
+	DECLARE @existeRol NUMERIC(18,0)
+
+	SELECT @existeRol = 1 FROM GRUPOSA.Rol R WHERE R.Rol_Nombre = @nombreRol
+	RETURN ISNULL(@existeRol,0) --1 Existe, 0 No existe
 END
-GO 
+GO
+------------------------------------------------------------------------------------------------
+--sp_intentoLogin: Modifica el estado de un usuario.
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_intentoLogin](@usuario  VARCHAR(250), @password  VARCHAR(250))
+AS
+BEGIN
+DECLARE @RET NUMERIC(18,0);
+DECLARE @intentos NUMERIC(18,0);
+DECLARE @existe_usuario NUMERIC(2);
+	
+	SELECT @existe_usuario = 1 FROM GRUPOSA.Usuario
+    WHERE Usuario_Username = @usuario
+	
+	IF @existe_usuario = 1
+		
+		SET @RET = 0
+
+		SELECT @intentos = Usuario_Intentos_Fallidos FROM GRUPOSA.Usuario
+		WHERE Usuario_Username = @usuario
+			
+		IF (@password <> (SELECT Usuario_Password FROM GRUPOSA.Usuario WHERE Usuario_Username = @usuario))
+			BEGIN
+			SET @RET = 1
+						
+			IF (@intentos < 3) 
+				BEGIN
+				UPDATE GRUPOSA.Usuario
+				SET Usuario_Intentos_Fallidos = Usuario_Intentos_Fallidos + 1
+				WHERE Usuario_Username = @usuario
+				END
+			ELSE 
+				BEGIN
+				UPDATE GRUPOSA.Usuario
+				SET Usuario_Habilitado = 1 --Inhabilitado
+				WHERE Usuario_Username = @usuario
+				END
+			END
+		ELSE
+			BEGIN
+			UPDATE GRUPOSA.Usuario
+			SET Usuario_Habilitado = 0, --Habilitado
+				Usuario_Intentos_Fallidos = 0
+			WHERE Usuario_Username = @usuario	
+
+			SET @RET = 0
+			END
+RETURN @RET
+END
+GO
 ------------------------------------------------------------------------------------------------
 --sp_modificarAfiliado: Modifica un afiliado apartir de su id.
 GO
@@ -714,7 +763,7 @@ CREATE TABLE [GRUPOSA].[TurnosCancelacion]
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 
-
+
 CREATE TABLE [GRUPOSA].[Bonos]
 	(
 		[Bono_Id] NUMERIC(18,0) IDENTITY(1,1) NOT NULL,
