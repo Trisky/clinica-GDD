@@ -16,7 +16,6 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 {
     public partial class AbmAfiliadoCrear : FormBase
     {
-        private bool estoyAgregandoUnFamiliar;
 
         public List<int> Especialidades { get; set; }
         public bool estaModificando { get; set; }
@@ -34,9 +33,8 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             IDAfiliado = "0";
             estaModificando = false;
             Text = "Crear Afiliado";
-            IDfamiliar = "0";
-            HijoConcubino = "01";
             numeroHijo = 2;
+            radioButtonFemenino.Checked = true;
         }
 
         #region trash2
@@ -72,10 +70,14 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public AbmAfiliadoCrear(DataGridViewRow dr)
         {
             Inicializar();
+            buttonCrearAfiliado.Visible = false;
+            buttonGuardarModificacion.Visible = true;
             UpDownCantidadHijos.Dispose(); //porque estoy modificando
-            estaModificando = true;
+
             groupBoxCrear.Text = "modificar usuario";
             Text = "Modificar Afiliado";
+
+            //ahora copio todo de la dataRow seleccionada
             var cells = dr.Cells;
             IDAfiliado = cells[0].Value.ToString();
             textBoxNombre.Text = cells[1].Value.ToString();
@@ -131,10 +133,11 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public void consultarPorMasHijos()
         {
             int cantidadHijos = Convert.ToInt32(UpDownCantidadHijos.Value);
-            int cantFaltante = cantidadHijos + 2 - numeroHijo; //la cantidad q le falta completar
-            MessageBox.Show("¡Te quedan "+cantFaltante+" personas a cargo por crear!", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            int cantFaltante = cantidadHijos + 2 - numeroHijo; //la cantidad de forms que le falta completar
+            
             if (cantidadHijos + 2 > numeroHijo)
             {
+                DialogResult dialogResult = MessageBox.Show("¡Te quedan " + cantFaltante + " personas a cargo por crear!", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CrearHijo c = new CrearHijo(numeroHijo,this);
                 numeroHijo++;
             }
@@ -172,20 +175,14 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         {
             Conexion con = new Conexion();
             SqlCommand cmd;
-            if (estoyAgregandoUnFamiliar)
-            {
-                 cmd = con.CrearComandoStoreProcedure("sp_crearFamiliar");
-                cmd.Parameters.Add("@idFamiliar", SqlDbType.VarChar).Value = IDfamiliar;
-            }
-            else
-                 cmd = con.CrearComandoStoreProcedure("sp_crearAfiliado");
+            cmd = con.CrearComandoStoreProcedure("sp_crearAfiliado");
 
             //sexo
             if (radioButtonMasculino.Checked)
                 cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Masculino";
             else
                 cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Femenino";
-            // fin sexo
+            // fin sexo, sigo con el resto
             string a = comboBoxTipoDni.SelectedText.ToString();
             cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;
             cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;

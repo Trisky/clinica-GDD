@@ -103,7 +103,7 @@ namespace ClinicaFrba.Compra_Bono
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_comprarBono");
 
             //3- agrego los parametros del SP.
-            cmd.Parameters.Add("NumeroGrupoFamiliar",SqlDbType.Decimal).Value = usuarioLogeado.GrupoFamiliar;
+            cmd.Parameters.Add("matricula",SqlDbType.Decimal).Value = usuarioLogeado.PacienteMatricula;
             cmd.Parameters.Add("Username", SqlDbType.VarChar).Value = usuarioLogeado.UserName;
 
             //4- ejecuto el storeprocedure
