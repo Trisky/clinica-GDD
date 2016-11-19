@@ -1,5 +1,6 @@
 ﻿using ClinicaFrba.FormulariosBase;
 using ClinicaFrba.Helpers;
+using ClinicaFrba.UI._04___Abm_Afiliado;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,43 +16,68 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 {
     public partial class AbmAfiliadoCrear : FormBase
     {
+        private bool estoyAgregandoUnFamiliar;
+
         public List<int> Especialidades { get; set; }
         public bool estaModificando { get; set; }
-        public int IDAfiliado { get; set; }
+        public string IDAfiliado { get; set; }
+        public string IDfamiliar { get;  set; } //para mandarle a la base que familiar quiero
+        public string HijoConcubino { get; private set; }
+
+        #region constructores
+        /// <summary>
+        /// para crear un afiliado
+        /// </summary>
         public AbmAfiliadoCrear()
         {
             Inicializar();
-            IDAfiliado = 0;
+            IDAfiliado = "0";
             estaModificando = false;
-            
+            Text = "Crear Afiliado";
+            IDfamiliar = "0";
+            HijoConcubino = "01";
+            numeroHijo = 2;
         }
 
-        public AbmAfiliadoCrear(bool esPariente, object planMedico)
-        {
-            estaModificando = false;
-            if (esPariente)
-            {
-                comboBoxPlanMedico.SelectedValue = planMedico;
-                comboBoxPlanMedico.Enabled = false;
-                groupBoxCrear.Text = "Agregar pariente";
-                buttonCrearAfiliado.Hide();
-                buttonCrearFamiliar.Show();
-            }
-        }
+        #region trash2
+        /// <summary>
+        /// para cuando le quiero agregar un familiar a un afi
+        /// </summary>
+        /// <param name="esPariente"></param>
+        /// <param name="planMedico"></param>
+        /// <param name="IDfamiliarr"></param>
+        //public AbmAfiliadoCrear(bool esPariente, object planMedico, string IDfamiliarr,string hijoConcubino)
+        //{
+        //    estaModificando = false;
+        //    if (esPariente)
+        //    {
+        //        HijoConcubino = hijoConcubino;
+        //        estoyAgregandoUnFamiliar = true;
+        //        IDfamiliar = IDfamiliarr;
+        //        Text = "Modificar Afiliado";
+        //        comboBoxPlanMedico.SelectedValue = planMedico;
+        //        comboBoxPlanMedico.Enabled = false;
+        //        groupBoxCrear.Text = "Agregar pariente";
+        //        buttonCrearAfiliado.Hide();
+        //        buttonCrearFamiliar.Show();
+        //    }
+        //}
+        #endregion
 
 
         /// <summary>
         /// Para modificar un afiliado
         /// </summary>
-        /// <param name="dt"></param>
+        /// <param name="dataGridViewRow"></param>
         public AbmAfiliadoCrear(DataGridViewRow dr)
         {
             Inicializar();
+            UpDownCantidadHijos.Dispose(); //porque estoy modificando
             estaModificando = true;
             groupBoxCrear.Text = "modificar usuario";
-
+            Text = "Modificar Afiliado";
             var cells = dr.Cells;
-            IDAfiliado = Convert.ToInt32(cells[0].Value.ToString());
+            IDAfiliado = cells[0].Value.ToString();
             textBoxNombre.Text = cells[1].Value.ToString();
             textBoxApellido.Text = cells[2].Value.ToString();
             comboBoxTipoDni.SelectedValue = cells[3].Value.ToString();
@@ -61,8 +87,70 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             textBoxMail.Text = cells[7].Value.ToString();
             dateTimePickerFechaNacimiento.Value = Convert.ToDateTime(cells[8].Value.ToString()) ;
             comboBoxPlanMedico.SelectedValue = cells[9].Value.ToString();
-            //comboBoxEstadoCivil.SelectedValue = cells[] TODO
-            
+            string sexoDb = cells[10].Value.ToString();
+            if (sexoDb == "Masculino")
+                radioButtonMasculino.Checked = true;
+            else radioButtonFemenino.Checked = true;
+            comboBoxEstadoCivil.SelectedValue = cells[11].Value.ToString();
+        }
+#endregion
+        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!Validar()) return;
+            ExecSQL();
+            MessageBox.Show("¡Se guardaron los datos correctamente!", "Operación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Hide();
+            if (EstaCasadoOConcubino())
+            {
+                DialogResult dialogResult = MessageBox.Show("Afiliado creado, quiere agregar a su concibino/esposo?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //tiene un concubino o lo q sea, entonces lo agrego:
+                    CrearHijo c = new CrearHijo(1,this); //le mando 1 porque es el trailing number
+                    Hide();
+                }
+                #region trash
+                //else if (dialogResult == DialogResult.No)
+                //{
+                //    MessageBox.Show("Creacion de afiliado finalizada", "pariente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    this.Dispose();
+                //}
+                //DialogResult dialogResult2 = MessageBox.Show("Afiliado creado, quiere agregar hijos o personas a cargo?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //if (dialogResult == DialogResult.Yes)
+                //{
+                //    new AbmAfiliadoCrear(true, comboBoxPlanMedico.SelectedValue, IDAfiliado, "03");
+                //}
+                #endregion
+            }
+            else
+            consultarPorMasHijos();
+        }
+        public void consultarPorMasHijos()
+        {
+            int cantidadHijos = Convert.ToInt32(UpDownCantidadHijos.Value);
+            int cantFaltante = cantidadHijos + 2 - numeroHijo; //la cantidad q le falta completar
+            MessageBox.Show("¡Te quedan "+cantFaltante+" personas a cargo por crear!", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (cantidadHijos + 2 > numeroHijo)
+            {
+                CrearHijo c = new CrearHijo(numeroHijo,this);
+                numeroHijo++;
+            }
+            else
+            {
+                MessageBox.Show("Proceso finalizado", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Dispose();
+            }
+        }
+        public int numeroHijo;//representa el tailNumber del proximoHijo
+        #region funciones Auxiliares
+        private bool EstaCasadoOConcubino()
+        {
+            if (comboBoxEstadoCivil.SelectedValue.Equals("Casado") || comboBoxEstadoCivil.SelectedValue.Equals("")) //concubino?
+                return true;
+            else return false;
         }
         private void Inicializar()
         {
@@ -78,64 +166,40 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             Especialidades = new List<int>();
             EspecialidadesHandler espHandler = new EspecialidadesHandler(Especialidades);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!Validar()) return;
-            ExecSQL();
-            MessageBox.Show("¡Se guardaron los datos correctamente!", "Operación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            if (EstaCasadoOConcubino())
-            {
-                DialogResult dialogResult = MessageBox.Show("Afiliado creado, quiere agregar un pariente?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    new AbmAfiliadoCrear(true,comboBoxPlanMedico.SelectedValue);
-                    this.Dispose();
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    MessageBox.Show("Creacion de afiliado finalizada", "pariente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Dispose();
-                }
-
-            }
-            Dispose();
-        }
-
-        private bool EstaCasadoOConcubino()
-        {
-            if (comboBoxEstadoCivil.SelectedValue.Equals(1) || comboBoxEstadoCivil.SelectedValue.Equals(4))
-                return true;
-            else return false;
-        }
+        #endregion
 
         private void ExecSQL()
         {
             Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_crearAfiliado");
+            SqlCommand cmd;
+            if (estoyAgregandoUnFamiliar)
+            {
+                 cmd = con.CrearComandoStoreProcedure("sp_crearFamiliar");
+                cmd.Parameters.Add("@idFamiliar", SqlDbType.VarChar).Value = IDfamiliar;
+            }
+            else
+                 cmd = con.CrearComandoStoreProcedure("sp_crearAfiliado");
 
             //sexo
             if (radioButtonMasculino.Checked)
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.NVarChar).Value = 1;
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Masculino";
             else
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.NVarChar).Value = 0;
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Femenino";
             // fin sexo
-            //cmd.Parameters.Add("@paci_matricula", SqlDbType.NVarChar).Value = IDAfiliado;
+            string a = comboBoxTipoDni.SelectedText.ToString();
             cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;
             cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;
-            string a = comboBoxTipoDni.SelectedValue.ToString();
-            int b = Convert.ToInt32(a);
-            cmd.Parameters.Add("@paci_tipodni", SqlDbType.NVarChar).Value = b;
-            cmd.Parameters.Add("@paci_dni", SqlDbType.NVarChar).Value = textBoxDNI.Text;
+            cmd.Parameters.Add("@paci_tipodni", SqlDbType.VarChar).Value = a;
+            cmd.Parameters.Add("@paci_dni", SqlDbType.VarChar).Value = textBoxDNI.Text;
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text;
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;
-            cmd.Parameters.Add("@paci_estado_civil", SqlDbType.NVarChar).Value = comboBoxEstadoCivil.SelectedValue;
-            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.NVarChar).Value = comboBoxPlanMedico.SelectedValue;
+            cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;
+            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.DateTime).Value = dateTimePickerFechaNacimiento.Value;
-            cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0;
-            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = "01";
+            cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; //al pedo
+            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = HijoConcubino;
+            cmd.Parameters.Add("@idFamiliar", SqlDbType.VarChar).Value = IDfamiliar;
             con.ExecConsulta(cmd);
         }
 
@@ -158,15 +222,38 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 MessageBox.Show("¡error, elija plan medico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if (StaticUtils.EsSoloNumerico(textBoxDNI.Text.ToString()))
-            {
-                MessageBox.Show("¡DNI debe ser numerico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //return false;
-            }
+            //if (StaticUtils.EsSoloNumerico(textBoxDNI.Text))
+            //{
+            //    MessageBox.Show("¡DNI debe ser numerico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
             return true;
 
         }
 
+        private void buttonCrearFamiliar_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("ERROR RE LOCO ?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //if (!Validar()) return;
+            //ExecSQL();
+            //comboBoxPlanMedico.Enabled = false;
+            //if (!estoyAgregandoUnFamiliar)
+            //{
+            //    DialogResult dialogResult = MessageBox.Show("Pariente creado, quiere agregar otro mas?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            //    if (dialogResult == DialogResult.Yes)
+            //    {
+            //        //new AbmAfiliadoCrear(true, comboBoxPlanMedico.SelectedValue, IDAfiliado);
+            //        this.Dispose();
+            //    }
+
+            //    else if (dialogResult == DialogResult.No)
+            //    {
+            //        this.Dispose();
+            //    }
+            //}
+            //this.Dispose();
+        }
+        #region cosasRaras
         /// <summary>
         /// devuelve false si encuentra un textbox vacio
         /// </summary>
@@ -209,26 +296,8 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         {
 
         }
-
-        private void buttonCrearFamiliar_Click(object sender, EventArgs e)
-        {
-            if (!Validar()) return;
-            ExecSQL();
-            comboBoxPlanMedico.Enabled = false;
-
-            DialogResult dialogResult = MessageBox.Show("Pariente creado, quiere agregar otro mas?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                new AbmAfiliadoCrear(true,comboBoxPlanMedico.SelectedValue);
-                this.Dispose();
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
-
-        }
+        
+        
 
         private void buttonGuardarModificacion_Click(object sender, EventArgs e)
         {
@@ -251,5 +320,11 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         {
 
         }
+
+        private void UpDownCantidadHijos_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
+    #endregion
 }

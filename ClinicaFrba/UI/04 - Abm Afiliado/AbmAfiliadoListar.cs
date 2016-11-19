@@ -22,7 +22,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             InitializeComponent();
             groupBoxLlegada.Dispose();
+            btnLimpiar.Dispose();
             Show();
+
         }
 
         /// <summary>
@@ -31,6 +33,8 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// <param name="registroLlegada"></param>
         public AbmAfiliadoListar(RegistroLlegada registroLlegada)
         {
+            btnLimpiar.Dispose();
+            Text = "Buscar Afiliado que acaba de llegar";
             this.registroLlegada = registroLlegada;
             InitializeComponent();
             groupBoxLlegada.Enabled = true;
@@ -45,11 +49,20 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             DataTable dt;
             Conexion con = new Conexion();
-            string s = @"SELECT Paci_Matricula as matricula, paci_nombre as nombre, Paci_TipoDocumento as tipoDoc,
-	                        Paci_Direccion as direccion, Paci_Telefono as telefono, paci_mail as mail, Paci_Fecha_Nac as Namcimiento, Paci_Usuario as usuario
+            string s = @"SELECT Paci_Matricula as matricula, 
+                                paci_nombre as nombre, 
+                                paci_apellido as apellido,
+                                Paci_TipoDocumento as tipoDoc,
+                                paci_Dni as dni,
+	                            Paci_Direccion as direccion,
+                                Paci_Telefono as telefono,
+                                paci_mail as mail,
+                                Paci_Fecha_Nac as Namcimiento,
+                                Paci_plan_Med_Cod_FK as planMedico,
+                                Paci_sexo as sexo,
+                                Paci_Estado_civil as estadoCivil
                             FROM [GD2C2016].[GRUPOSA].[Paciente]";
             if (textBoxApellido.Text == "" && textBoxNombre.Text == "")
-
                 dt = con.SimpleQuery(s);
             else
             {
@@ -69,7 +82,8 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             //dgListado.DataSource = null;
             //dgListado.ColumnCount = 4;
             //dgListado.AutoGenerateColumns = false;
-            //dgListado.Columns[0].Name = "Username";
+            dgListado.Columns[0].Visible = false; //escondo matricula
+            dgListado.Columns[9].Visible = false; //escondo plan FK
             //dgListado.Columns[0].DataPropertyName = "Username";
             //dgListado.Columns[0].Width = 200;
             //dgListado.Columns[1].Name = "Fecha creación";
@@ -110,6 +124,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             string usuario = cells[13].Value.ToString();
             ExecBajaLogica(usuario);
             MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Close();
         }
 
         private void ExecBajaLogica(string usuario)
@@ -147,6 +162,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             }
             Hide();
             Dispose();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
