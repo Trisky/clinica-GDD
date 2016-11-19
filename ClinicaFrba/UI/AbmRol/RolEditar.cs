@@ -1,108 +1,203 @@
-﻿using ClinicaFrba.FormulariosBase;
+﻿using ClinicaFrba.AbmRol;
+using ClinicaFrba.FormulariosBase;
 using ClinicaFrba.Helpers;
 using ClinicaFrba.Logica.Roles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ClinicaFrba.UI.AbmRol
 {
     public partial class RolEditar : FormularioEdicionBase
     {
+
         private Rol rol;
+        public List<Funcionalidad> lstFuncionalidades;
+        public List<Rol> lstRoles;
+
         public RolEditar()
         {
             InitializeComponent();
             CargarCheckListFuncionalidades(ref checkedListFuncionalidades);
             Show();
         }
+        public RolEditar(Rol rol)
+        {
+            InitializeComponent();
+            CargarFormulario(rol);
+            Show();
 
-        private Rol ObtenerRolDelFormulario()
+        }
+
+        private void CargarFormulario(Rol rol)
         {
             try
             {
-                //Si es un Alta
-                if (rol == null)
-                {
-                    rol = new Rol();
-                }
-                rol.Nombre = textBoxNombre.Text;
-                rol.Estado = checkBoxInhabilitar.Checked;
-                rol.EsAdmin = checkBoxAdmin.Checked;
-                rol.Funcionalidades = new List<Funcionalidad>();
-                foreach (Funcionalidad item in checkedListFuncionalidades.CheckedItems)
-                {
-                    rol.Funcionalidades.Add(item);
-                }
+                textBoxNombre.Text = rol.Nombre;
+                checkBoxInhabilitar.Checked = Convert.ToBoolean(rol.Estado);
+                checkBoxAdmin.Checked = Convert.ToBoolean(rol.EsAdmin);
 
-                return rol;
+                DataTable dtFuncionalidades = new DataTable();
+                Conexion con = new Conexion();
+                dtFuncionalidades = con.SimpleQuery("SELECT Func_Codigo, Func_Desc FROM [GD2C2016].[GRUPOSA].[Funcionalidad]");
+
+                checkedListFuncionalidades.DataSource = dtFuncionalidades;
+                checkedListFuncionalidades.DisplayMember = "Func_Desc";
+                checkedListFuncionalidades.ValueMember = "Func_Codigo";
+
+
+
+                for (int i = 0; i < dtFuncionalidades.Rows.Count; i++)
+                {
+                    DataRow funcion = dtFuncionalidades.Rows[i]; //todas las funciones
+                    Funcionalidad unaFuncion = new Funcionalidad();
+                    unaFuncion.Codigo = int.Parse(funcion["Func_Codigo"].ToString());
+
+                    bool estaEnLaColeccion = rol.Funcionalidades.Exists(x => x.Codigo == unaFuncion.Codigo);
+                    checkedListFuncionalidades.SetItemChecked(i, estaEnLaColeccion);
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
-
-
-
-        public static void CargarCheckListFuncionalidades(ref CheckedListBox chk)
+        public void CargarCheckListFuncionalidades(ref CheckedListBox chk)
         {
 
             DataTable dtFuncionalidades = new DataTable();
             Conexion con = new Conexion();
             dtFuncionalidades = con.SimpleQuery("SELECT Func_Codigo, Func_Desc FROM [GD2C2016].[GRUPOSA].[Funcionalidad]");
 
-            List<Funcionalidad> lstFuncionalidades = dtFuncionalidades.AsEnumerable().Select(x => new Funcionalidad
-            {
-                Codigo = Convert.ToInt32(Convert.ToString(x["Func_Codigo"])),
-                Descripcion = Convert.ToString(x["Func_Desc"] ?? string.Empty)
-            }).ToList();
-            
-            ((ListBox)chk).DataSource = lstFuncionalidades;
-            ((ListBox)chk).DisplayMember = "Descripcion";
-            ((ListBox)chk).ValueMember = "Codigo";
+            checkedListFuncionalidades.DataSource = dtFuncionalidades;
+            checkedListFuncionalidades.DisplayMember = "Func_Desc";
+            checkedListFuncionalidades.ValueMember = "Func_Codigo";
+
         }
+        public void guardarFuncionalidadesRol(int codigo){
+          Conexion con = new Conexion();
+          foreach (DataRowView item in checkedListFuncionalidades.CheckedItems)
+                    {
+                        string q = @"INSERT INTO [GRUPOSA].[FuncionalidadesRol]
+                                         ([FuncRol_Rol_Codigo],[FuncRol_Func_Codigo])
+                                        VALUES (@funcRol_Rol_Codigo,@funcRol_Func_Codigo)";
+                        SqlCommand cmd3 = con.CrearComandoQuery(q);
+                        cmd3.Parameters.Add("@funcRol_Rol_Codigo", SqlDbType.NVarChar).Value = codigo;
+                        cmd3.Parameters.Add("@funcRol_Func_Codigo", SqlDbType.NVarChar).Value = int.Parse(item["Func_Codigo"].ToString());
+                        con.ExecConsulta(cmd3);
+                    }
+
+        }
+
+
+
+        void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Conexion con = new Conexion();
+                string q = @"	SELECT R.Rol_Nombre  FROM GRUPOSA.Rol R WHERE R.Rol_Nombre = @nombreRol ";
+                SqlCommand cmd1 = con.CrearComandoQuery(q);
+                cmd1.Parameters.Add("@nombreRol", SqlDbType.VarChar).Value = textBoxNombre.Text;
+                DataTable dt = con.ExecConsulta(cmd1);
+
+                if (dt.Rows.Count > 0)
+                {
+                    DataTable dtLlena = Rol.llenarDataTable();
+                    lstRoles = Rol.MapearDataTableRol(dtLlena);
+                    Rol rol = Rol.buscarRol(lstRoles, textBoxNombre.Text);
+
+                    string q2 = @"DELETE FROM [GRUPOSA].[FuncionalidadesRol]
+                                    WHERE funcRol_Rol_Codigo=@funcRol_Rol_Codigo";
+                    SqlCommand cmd3 = con.CrearComandoQuery(q2);
+                    cmd3.Parameters.Add("@funcRol_Rol_Codigo", SqlDbType.NVarChar).Value = rol.Codigo;
+                    con.ExecConsulta(cmd3);
+
+                    guardarFuncionalidadesRol(rol.Codigo);
+
+
+                    string q3 = @"UPDATE GRUPOSA.Rol
+                                    SET Rol_Estado=@estado, Rol_Es_Administrador = @esAdministrador
+                                    WHERE Rol_Nombre = @nombre";
+                    SqlCommand cmd4 = con.CrearComandoQuery(q3);
+                    cmd4.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
+                    cmd4.Parameters.Add("@estado", SqlDbType.Bit).Value = (checkBoxInhabilitar.Checked ? 1 : 0);
+                    cmd4.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
+                    con.ExecConsulta(cmd4);
+                }
+                    else{
+
+                        SqlCommand cmd2 = con.CrearComandoStoreProcedure("sp_AltaRol");
+                        cmd2.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
+                        cmd2.Parameters.Add("@estado", SqlDbType.Bit).Value = (checkBoxInhabilitar.Checked ? 1 : 0);
+                        cmd2.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
+                        con.ExecConsulta(cmd2);
+
+                        DataTable dtLlena = Rol.llenarDataTable();
+                        lstRoles = Rol.MapearDataTableRol(dtLlena);
+                        Rol rol = Rol.buscarRol(lstRoles, textBoxNombre.Text);
+
+                        guardarFuncionalidadesRol(rol.Codigo);
+                        }
+
+                
+
+                MessageBox.Show("Se guardo el rol correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("No se guardo el rol correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void gcAccion_Enter(object sender, EventArgs e)
         {
-
+            
         }
-
         private void checkBoxAdmin_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-
         private void checkBoxInhabilitar_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
 
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

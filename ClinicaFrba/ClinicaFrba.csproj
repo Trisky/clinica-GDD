@@ -136,12 +136,10 @@
     <Compile Include="UI\13 - Cancelar Atencion\CancelarAtencionMedico.Designer.cs">
       <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\14 - Listados\Form1.cs">
+    <Compile Include="UI\14 - Listados\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\14 - Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="UI\14 - Listados\ListadoEstadistico.Designer.cs" />
     <Compile Include="UI\AbmRol\RolEditar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +253,7 @@
     <EmbeddedResource Include="UI\13 - Cancelar Atencion\CancelarAtencionMedico.resx">
       <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\14 - Listados\ListadoEstadistico.resx" />
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
     </EmbeddedResource>

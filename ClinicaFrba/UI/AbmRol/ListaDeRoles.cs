@@ -28,73 +28,35 @@ namespace ClinicaFrba.AbmRol
         }
 
 
-
-        private List<Rol> MapearDataTableLista(DataTable dtRoles)
-        {
-            List<Rol> lstRoles = new List<Rol>();
-
-            try
-            {
-                lstRoles = (from x in dtRoles.AsEnumerable()
-                            select new Rol
-                            {
-                                Codigo = Convert.ToInt32(Convert.ToString(x["Rol_Codigo"])),
-                                Nombre = Convert.ToString(x["Rol_Nombre"]),
-                                EsAdmin = Convert.ToBoolean(x["Rol_Es_Administrador"]),
-                                Estado = Convert.ToBoolean(x["Rol_Estado"])
-                            }).ToList();
-
-                lstRoles = lstRoles.GroupBy(a => a.Codigo).Select(g => g.First()).ToList();
-
-                //Cargo las funcionalidades de cada Rol
-                foreach (Rol r in lstRoles)
-                {
-                    List<Funcionalidad> lstFuncionalidades = new List<Funcionalidad>();
-
-                    lstFuncionalidades = (from x in dtRoles.AsEnumerable()
-                                          where Convert.ToInt32(Convert.ToString(x["Rol_Codigo"])) == r.Codigo
-                                               && x["Func_Codigo"] != DBNull.Value
-                                          select new Funcionalidad
-                                          {
-                                              Codigo = Convert.ToInt32(Convert.ToString(x["Func_Codigo"])),
-                                              Descripcion = Convert.ToString(x["Func_Desc"])
-                                          }).ToList();
-
-                    r.Funcionalidades = lstFuncionalidades;
-                }
-                return lstRoles;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-        }
-
-
-
+//Si no se selecciona una fila el boton de modificar agrega un rol nuevo
         private void button_Modificar(object sender, EventArgs e)
         {
-
-        }
+            if (dataGridViewRoles.SelectedRows.Count != 0)
+            {
+                Rol miRol = new Rol();
+                DataGridViewRow miFilaSeleccionada = dataGridViewRoles.SelectedRows[0];
+                string nomRol = Convert.ToString(miFilaSeleccionada.Cells[1].Value);
+                Rol rol = Rol.rolConSusFuncionalidades(nomRol);
+                RolEditar rolEditar = new RolEditar(rol);
+            }
+            else {
+                MessageBox.Show("No se selecciono ningun Rol se dara de alta uno nuevo", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                RolEditar rolNuevo = new RolEditar();
+            }
+        }          
         private void button_Agregar(object sender, EventArgs e)
         {
             RolEditar rolNuevo = new RolEditar();
         }
-
-
-
-
-
         private void button_Eliminar(object sender, EventArgs e)
         {
+            try{
             DataTable dt;
             Conexion con = new Conexion();
 
             Rol miRol = new Rol();
 
-            DataGridViewRow miFilaSeleccionada = dataGridView1.SelectedRows[0];
+            DataGridViewRow miFilaSeleccionada = dataGridViewRoles.SelectedRows[0];
             int codigoRol = Convert.ToInt32(miFilaSeleccionada.Cells[0].Value);
 
             string q = @"UPDATE [GD2C2016].[GRUPOSA].[Rol]
@@ -105,10 +67,18 @@ namespace ClinicaFrba.AbmRol
             cmd.Parameters.Add(new SqlParameter("@codigoRol", codigoRol));
             dt = con.ExecConsulta(cmd);
 
+                MessageBox.Show("Se realizo baja logica correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("No se realizo baja logica correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
+            dataGridViewRoles.DataSource = null;
             nombreRol.Text = string.Empty;
         }
         private void button_Busqueda(object sender, EventArgs e)
@@ -127,15 +97,16 @@ namespace ClinicaFrba.AbmRol
             }
 
 
-            dataGridView1.DataSource = dt;
-            //lstRoles = MapearDataTableLista(dt);
-
-        }
+            dataGridViewRoles.DataSource = dt;
+         }
 
 
+        // ListaDeRoles A = new ListaDeRoles();
 
-
-
+//        using ClinicaFrba.Logica.Entidades;
+//﻿using ClinicaFrba.AbmRol;
+//using ClinicaFrba.FormulariosBase;
+//using ClinicaFrba.Logica.Entidades;
 
         private void Form1_Load(object sender, EventArgs e)
         {
