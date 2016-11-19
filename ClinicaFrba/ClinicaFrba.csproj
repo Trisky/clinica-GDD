@@ -52,7 +52,6 @@
     <Compile Include="Helpers\EstadoCivil.cs" />
     <Compile Include="Helpers\TipoUsuarioEnum.cs" />
     <Compile Include="Helpers\LogInHelper.cs" />
-    <Compile Include="Helpers\TraductorDeTipos.cs" />
     <Compile Include="Logica\Entidades\UsuarioLogeado.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Funcionalidad.cs" />
     <Compile Include="Logica\RolesYFuncionabilidad\Rol.cs" />
@@ -73,6 +72,12 @@
     </Compile>
     <Compile Include="UI\04 - Abm Afiliado\AbmAfiliadoListar.Designer.cs">
       <DependentUpon>AbmAfiliadoListar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\04 - Abm Afiliado\CrearHijo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\04 - Abm Afiliado\CrearHijo.Designer.cs">
+      <DependentUpon>CrearHijo.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalEdicion.cs">
       <SubType>Form</SubType>
@@ -231,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\04 - Abm Afiliado\AbmAfiliadoListar.resx">
       <DependentUpon>AbmAfiliadoListar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\04 - Abm Afiliado\CrearHijo.resx">
+      <DependentUpon>CrearHijo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.resx">
       <DependentUpon>CrearNuevoHorario.cs</DependentUpon>
