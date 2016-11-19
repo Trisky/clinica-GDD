@@ -52,11 +52,16 @@ namespace ClinicaFrba.Compra_Bono
             cmd.Parameters.Add(new SqlParameter("@planmed", usuarioLogeado.planMedico));
             DataTable dt = con.ExecConsulta(cmd);
             
-            DataGridView dgListado = new DataGridView();
-            dgListado.DataSource = dt;
-            DataGridViewRow dr = dgListado.Rows[0];
-            precioFarmaciaLabel.Text =dr.Cells[0].Value.ToString();
-            precioFarmaciaLabel.Text = dr.Cells[0].Value.ToString();
+            
+            //DataGridView dgListado = new DataGridView();
+            
+            //dgListado.DataSource = dt;
+            //var rows = dgListado.ro
+            //var cells = dgListado.Cells;
+            //DataGridViewRow dr = dgListado.Rows[0];
+            precioFarmaciaLabel.Text = dt.Rows[0].ItemArray[0].ToString();
+            precioAtencionLabel.Text = dt.Rows[0].ItemArray[1].ToString();
+            //precioFarmaciaLabel.Text = dr.Cells[0].Value.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -75,7 +80,18 @@ namespace ClinicaFrba.Compra_Bono
         /// </summary>
         private void numericUpDownCantidad_ValueChanged(object sender, EventArgs e)
         {
-           textBoxPrecio.Text =  (numericUpDownCantidad.Value* PrecioBono).ToString();
+            actualizarPrecio();
+        }
+
+        private string actualizarPrecio()
+        {
+            string a = "0" ;
+            if (radioButtonFarmacia.Checked)
+                a = precioFarmaciaLabel.Text;
+            if (radioButtonAtencion.Checked)
+                a = precioAtencionLabel.Text;
+            textBoxPrecio.Text = (numericUpDownCantidad.Value * Convert.ToInt32(a)).ToString();
+            return textBoxPrecio.Text;
         }
 
         private void buttonComprar_Click(object sender, EventArgs e)
@@ -94,16 +110,12 @@ namespace ClinicaFrba.Compra_Bono
             DataTable respuesta = con.ExecConsulta(cmd);
 
             //5- informo resultado
-            string precio = calcularPrecioAPagar();
+            string precio = actualizarPrecio();
             MessageBox.Show("Debe pagar"+precio, "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Close();
         }
 
-        private string calcularPrecioAPagar()
-        {
-            int a = Convert.ToInt32(precioFarmaciaLabel.Text);
-            int b = Convert.ToInt32(numericUpDownCantidad.Text);
-            return Convert.ToString(a * b);
-        }
+       
 
         private void idPlanMedicoLabel_Click(object sender, EventArgs e)
         {
@@ -112,7 +124,12 @@ namespace ClinicaFrba.Compra_Bono
 
         private void radioButtonFarmacia_CheckedChanged(object sender, EventArgs e)
         {
+            actualizarPrecio();
+        }
 
+        private void radioButtonAtencion_CheckedChanged(object sender, EventArgs e)
+        {
+            actualizarPrecio();
         }
     }
 }

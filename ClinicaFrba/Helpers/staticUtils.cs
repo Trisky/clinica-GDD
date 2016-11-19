@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -62,6 +63,20 @@ namespace ClinicaFrba.Helpers
                 default:
                     return "WTF";
             }
+        }
+        /// <summary>
+        /// le das un datatable y devuelve el valor 0 de la col 0
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public static string getUniqueValueFrom(DataTable d)
+        {
+            string field = d.Rows[0].Field<string>(0);
+            if (field == null)
+            {
+                return "0";
+            }
+            return field;
         }
 
     }

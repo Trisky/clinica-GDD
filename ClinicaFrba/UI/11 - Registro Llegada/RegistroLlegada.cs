@@ -22,6 +22,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
         {
             InitializeComponent();
             btnMedicoHora.Enabled = false;
+            Show();
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace ClinicaFrba.Helpers
             row["EstadoCivil_Desc"] = "--SELECCIONE--";
             dt.Rows.InsertAt(row, 0);
             cbEstadoCiv.DisplayMember = "EstadoCivil_Desc";
-            cbEstadoCiv.ValueMember = "EstadoCivil_Id";
+            cbEstadoCiv.ValueMember = "EstadoCivil_Desc";
             cbEstadoCiv.DataSource = dt;
 
             return cbEstadoCiv;
@@ -91,7 +91,7 @@ namespace ClinicaFrba.Helpers
             row["Tipo_Doc_Desc"] = "--SELECCIONE--";
             dt.Rows.InsertAt(row, 0);
             combo.DisplayMember = "Tipo_Doc_Desc";
-            combo.ValueMember = "Tipo_Doc_Cod";
+            combo.ValueMember = "Tipo_Doc_Desc";
             combo.DataSource = dt;
             return combo;
         }
