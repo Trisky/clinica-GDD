@@ -280,6 +280,7 @@ AS
 	DECLARE @var1 NUMERIC (18,0);
 	DECLARE @paci_usuario VARCHAR(255);
 	DECLARE @paci_matricula VARCHAR(250);
+	DECLARE @paci_grupo_fliar VARCHAR(250);
 	
 	SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
 	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + @paci_tipoFamiliar, 5)
@@ -291,15 +292,21 @@ AS
 	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , GETDATE(),NULL,0,0);
 	COMMIT TRANSACTION;
 	
+	IF (@paci_tipoFamiliar <> '01')
+	BEGIN
+		SET @paci_matricula = @paci_tipoFamiliar
+		SET @paci_tipoFamiliar = SUBSTRING(@paci_tipoFamiliar,7,8)
+	END
+	
 	BEGIN TRANSACTION
 	INSERT INTO [GRUPOSA].[Paciente]
 	   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
 		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
-		[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario])
+		[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario], [Paci_Grupo_Fliar])
 	VALUES
 	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
 		@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_sexo, @paci_estado_civil, 
-		@paci_plan_medi, @paci_cant_fam, @paci_usuario);
+		@paci_plan_medi, @paci_cant_fam, @paci_usuario, @paci_grupo_fliar);
 	COMMIT TRANSACTION;
 GO
 
@@ -621,6 +628,7 @@ CREATE TABLE [GRUPOSA].[Paciente]
 		[Paci_Usuario] 			[VARCHAR] (255) NOT NULL,
 		[Paci_estado]			[BIT] DEFAULT 0,
 		[Paci_Fecha_Baja]		[DATE] NULL,
+		[Paci_Grupo_Fliar]		[VARCHAR] (255),
 		
 		CONSTRAINT [PK_Pacientes] PRIMARY KEY CLUSTERED ([Paci_Matricula] ASC	)
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -906,10 +914,10 @@ BEGIN TRANSACTION
 					INSERT INTO [GRUPOSA].[Paciente]
 					   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
 						[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Estado_Civil],
-						[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario])
+						[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario], [Paci_Grupo_Fliar])
 					VALUES
 					   (@paci_matricula, @paci_nom, @paci_apell, 'DNI', @paci_dni, 
-						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, 0, @paci_usuario);
+						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, 0, @paci_usuario, '01');
 
 				FETCH NEXT FROM Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
 			END
