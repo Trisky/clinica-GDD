@@ -35,6 +35,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             Text = "Crear Afiliado";
             numeroHijo = 2;
             radioButtonFemenino.Checked = true;
+            HijoConcubino = "01";
         }
 
         #region trash2
@@ -179,25 +180,41 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
             //sexo
             if (radioButtonMasculino.Checked)
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Masculino";
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "MASCULINO";//9
             else
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Femenino";
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "FEMENINO";//9
             // fin sexo, sigo con el resto
-            string a = comboBoxTipoDni.SelectedText.ToString();
-            cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;
-            cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;
-            cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;
-            cmd.Parameters.Add("@paci_tipodni", SqlDbType.VarChar).Value = a;
-            cmd.Parameters.Add("@paci_dni", SqlDbType.VarChar).Value = textBoxDNI.Text;
-            cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text;
-            cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;
-            cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;
-            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;
-            cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.DateTime).Value = dateTimePickerFechaNacimiento.Value;
-            cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; //al pedo
-            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = HijoConcubino;
-            cmd.Parameters.Add("@idFamiliar", SqlDbType.VarChar).Value = IDfamiliar;
+            string a = comboBoxTipoDni.SelectedValue.ToString();
+            cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;//1
+            cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;//2
+            cmd.Parameters.Add("@paci_tipodni", SqlDbType.VarChar).Value =  a;//3
+            cmd.Parameters.Add("@paci_dni", SqlDbType.NVarChar).Value =  Convert.ToInt32(textBoxDNI.Text);//4
+            cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value =  textBoxDireccion.Text;//5
+
+            cmd.Parameters.Add("@paci_tel", SqlDbType.NVarChar).Value = Convert.ToInt32(textBoxTelefono.Text);//6
+            cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value =  textBoxMail.Text;//7
+            cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value =  dateTimePickerFechaNacimiento.Value;//8
+            cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;//10
+            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.NVarChar).Value = 555555;// comboBoxPlanMedico.SelectedValue;//11 numeric?
+            
+            //cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; // 12 pedo
+            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = HijoConcubino;//13
+            //cmd.Parameters.Add("@idFamiliar", SqlDbType.VarChar).Value = IDfamiliar; //13 FALTA??
             con.ExecConsulta(cmd);
+
+    //@paci_nom VARCHAR(250), --1
+	//@paci_apell VARCHAR(250),--2
+	//@paci_tipodni VARCHAR (255),--3
+	//@paci_dni NUMERIC (18,0),--4
+	//@paci_direccion VARCHAR(250),--5 
+	//@paci_tel NUMERIC (18,0), --6
+	//@paci_mail VARCHAR(250), --7
+	//@paci_fecha_nac DATE, --8
+	//@paci_sexo VARCHAR(250), --9
+	//@paci_estado_civil VARCHAR (250),--10
+	//@paci_plan_medi NUMERIC (18,0),--11
+	//@paci_cant_fam NUMERIC (18,0),--12
+	//@paci_tipoFamiliar VARCHAR(250)--13
         }
 
         private bool Validar()

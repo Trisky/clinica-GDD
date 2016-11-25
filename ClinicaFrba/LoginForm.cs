@@ -1,5 +1,6 @@
 ﻿using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.UI;
+using ClinicaFrba.UI._04___Abm_Afiliado;
 using ClinicaFrba.UI.MenuPrincipal;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace ClinicaFrba
             if (ValidateChildren())
             {
                 ObtenerUsuarioPorUsername();
+                //AbmAfiliadoListar a = new AbmAfiliadoListar();
             }
         }
 

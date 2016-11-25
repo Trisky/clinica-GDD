@@ -32,6 +32,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             this.abmAfiliadoCrear = abmAfiliadoCrear;
             TailNumber = "0" + tailNumber.ToString();
             InitializeComponent();
+
+            ComboBoxManager cb = new ComboBoxManager();
+            comboBoxEstadoCivil = cb.CrearEstadoCivil(comboBoxEstadoCivil);
+            comboBoxPlanMedico = cb.CrearPlanesMedicos(comboBoxPlanMedico);
+            comboBoxTipoDni = cb.CrearTiposDni(comboBoxTipoDni);
             Show();
             
         }
@@ -80,8 +85,8 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;
             cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.DateTime).Value = dateTimePickerFechaNacimiento.Value;
-            cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; //al pedo
-            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = Matricula + TailNumber; //le mando la matricula que va a tener + el trailing number
+            //cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; //al pedo
+            cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = TailNumber; //le mando la matricula que va a tener + el trailing number
             con.ExecConsulta(cmd);
         }
 
