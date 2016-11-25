@@ -274,7 +274,7 @@ CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_sexo VARCHAR(250), 
 	@paci_estado_civil VARCHAR (250),
 	@paci_plan_medi NUMERIC (18,0),
-	@paci_cant_fam NUMERIC (18,0),
+	--@paci_cant_fam NUMERIC (18,0),
 	@paci_tipoFamiliar VARCHAR(250)
 AS   
 	DECLARE @var1 NUMERIC (18,0);
@@ -294,19 +294,19 @@ AS
 	
 	IF (@paci_tipoFamiliar <> '01')
 	BEGIN
-		SET @paci_matricula = @paci_tipoFamiliar
-		SET @paci_tipoFamiliar = SUBSTRING(@paci_tipoFamiliar,7,8)
+		SELECT @paci_matricula = SUBSTRING(MAX(Paci_Matricula),1,6) + @paci_tipoFamiliar FROM GRUPOSA.Paciente
+		--SET @paci_tipoFamiliar = SUBSTRING(@paci_tipoFamiliar,7,8)
 	END
 	
 	BEGIN TRANSACTION
 	INSERT INTO [GRUPOSA].[Paciente]
 	   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
 		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
-		[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario], [Paci_Grupo_Fliar])
+		[Paci_Plan_Med_Cod_FK], [Paci_Usuario], [Paci_Grupo_Fliar])
 	VALUES
 	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
 		@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_sexo, @paci_estado_civil, 
-		@paci_plan_medi, @paci_cant_fam, @paci_usuario, @paci_grupo_fliar);
+		@paci_plan_medi, @paci_usuario, @paci_grupo_fliar);
 	COMMIT TRANSACTION;
 GO
 
@@ -384,14 +384,10 @@ END
 GO
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
-
-
 CREATE PROCEDURE [GRUPOSA].[sp_turnosActivosPaciente]
 @paci_usuario VARCHAR(255)
 AS
 SELECT t.Turn_Numero,(m.Medi_Apellido)+', '+m.Medi_Nombre 'Doctor',e.Espe_Desc 'Especialidad',t.Turn_Fecha 'Fecha'
-
-
 FROM GRUPOSA.Turnos t
 JOIN GRUPOSA.Paciente p
 ON t.Turn_Paciente_Id=p.Paci_Matricula
@@ -400,7 +396,7 @@ ON m.Medi_Id=t.Turn_Medico_Id
 JOIN GRUPOSA.Especialidades e
 ON e.Espe_Cod=t.Turn_Especialidad
 WHERE p.Paci_Usuario=@paci_usuario
-AND 0<=DATEDIFF(MINUTE,CURRENT_TIMESTAMP,Turn_Fecha)
+and Turn_Numero not in (select c.Cancelacion_Turno_Id from GRUPOSA.TurnosCancelacion c)
 GO
 
 CREATE PROCEDURE [GRUPOSA].[sp_obtenerDiasDeAtencion]
@@ -460,6 +456,7 @@ BEGIN
 	VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
 END
 GO
+
 ---------------------------------------------------------------------------------------------------------------------
 --SP_LISTADOS_ESTADISTICOS-------------------------------------------------------------------------------------------
 CREATE PROCEDURE [GRUPOSA].[sp_top5EspecialidadesMasCanceladas](@fechaInicio VARCHAR(255), @fechaFinal VARCHAR(255))
@@ -624,7 +621,6 @@ CREATE TABLE [GRUPOSA].[Paciente]
 		[Paci_Sexo]				[VARCHAR] (255) DEFAULT 'Masculino',
 		[Paci_Estado_Civil]		[VARCHAR] (255) DEFAULT 'Soltero',		
 		[Paci_Plan_Med_Cod_FK] 	[NUMERIC](18, 0) NULL,
-		[Paci_Cant_Familiares] 	[NUMERIC](18, 0) NULL,
 		[Paci_Usuario] 			[VARCHAR] (255) NOT NULL,
 		[Paci_estado]			[BIT] DEFAULT 0,
 		[Paci_Fecha_Baja]		[DATE] NULL,
@@ -886,7 +882,6 @@ BEGIN TRANSACTION
 	DECLARE @paci_sexo	 				VARCHAR(255)
 	DECLARE @paci_estado_civil			VARCHAR(250)
 	DECLARE @paci_plan_medi				NUMERIC(18,0)
-	DECLARE @paci_cant					NUMERIC(18,0)
 	DECLARE @paci_usuario 				VARCHAR(255)
 	DECLARE @var1						NUMERIC(18,0)
 
@@ -914,10 +909,10 @@ BEGIN TRANSACTION
 					INSERT INTO [GRUPOSA].[Paciente]
 					   ([Paci_Matricula],[Paci_Nombre],[Paci_Apellido],[Paci_TipoDocumento],[Paci_Dni],
 						[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Estado_Civil],
-						[Paci_Plan_Med_Cod_FK],[Paci_Cant_Familiares], [Paci_Usuario], [Paci_Grupo_Fliar])
+						[Paci_Plan_Med_Cod_FK], [Paci_Usuario], [Paci_Grupo_Fliar])
 					VALUES
 					   (@paci_matricula, @paci_nom, @paci_apell, 'DNI', @paci_dni, 
-						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, 0, @paci_usuario, '01');
+						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, @paci_usuario, '01');
 
 				FETCH NEXT FROM Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
 			END
@@ -1034,6 +1029,7 @@ COMMIT TRANSACTION
 		FROM GD_ESQUEMA.MAESTRA MA, GRUPOSA.MEDICO ME
 		WHERE ESPECIALIDAD_DESCRIPCION IS NOT NULL
 		AND ME.MEDI_APELLIDO = MA.MEDICO_APELLIDO
+		and MA.ESPECIALIDAD_CODIGO IN (SELECT m.MedEspe_Espe_Cod FROM GRUPOSA.MedicoEspecialidad m WHERE m.MedEspe_Medi_Id = me.medi_id) 
 		GROUP BY MA.ESPECIALIDAD_CODIGO, ME.MEDI_ID
 	COMMIT TRANSACTION
 	
@@ -1048,7 +1044,9 @@ COMMIT TRANSACTION
 	BEGIN TRANSACTION
 		
 			UPDATE GRUPOSA.HorariosAtencion
-			SET HORA_DIA = 'Miercoles'
+			SET HORA_DIA = 'Miercoles',
+			    HORA_INICIO = '18:00',
+				HORA_FIN = '20:00'
 			WHERE HORA_DIA = 'Domingo'
 			
 			UPDATE GRUPOSA.HorariosAtencion
@@ -1079,7 +1077,7 @@ COMMIT TRANSACTION
 		WHERE M.Turno_Numero IS NOT NULL
 	COMMIT TRANSACTION
 
-	BEGIN TRANSACTION
+/*	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[TurnosCancelacion] 
 		([Cancelacion_Tipo],[Cancelacion_Turno_Id],[Cancelacion_Motivo],[Cancelacion_Fecha])
 		SELECT 1, M.Turno_Numero, 'Cancelada por acuerdo', M.Turno_Fecha - 2
@@ -1087,7 +1085,7 @@ COMMIT TRANSACTION
 		WHERE M.Turno_Numero IS NOT NULL 
 		AND M.Consulta_Sintomas IS NULL
 	COMMIT TRANSACTION
-	
+	*/  --No existen turnos cancelados, todos los turnos han sido usados
 	
 	BEGIN TRANSACTION
 		UPDATE [GRUPOSA].[Consultas] 
