@@ -191,7 +191,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd.Parameters.Add("@paci_dni", SqlDbType.NVarChar).Value =  Convert.ToInt32(textBoxDNI.Text);//4
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value =  textBoxDireccion.Text;//5
 
-            cmd.Parameters.Add("@paci_tel", SqlDbType.NVarChar).Value = Convert.ToInt32(textBoxTelefono.Text);//6
+            cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text; // Convert.ToInt32(textBoxTelefono.Text);//6
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value =  textBoxMail.Text;//7
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value =  dateTimePickerFechaNacimiento.Value;//8
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;//10
@@ -220,26 +220,17 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         private bool Validar()
         {
             CheckearTextBoxesNoVacios();
+            if(
+                !StaticUtils.CheckSelectedValueCB(comboBoxEstadoCivil)||
+                !StaticUtils.CheckSelectedValueCB(comboBoxPlanMedico)||
+                !StaticUtils.CheckSelectedValueCB(comboBoxTipoDni)||
+                !StaticUtils.checkControls(groupBoxCrear.Controls)
+              )
+            {
+                MessageBox.Show("¡Debe seleccionar todas las opciones y completar todos los campos", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
 
-            if (!ValidateChildren())
-            {
-                MessageBox.Show("¡error!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            if (comboBoxEstadoCivil.SelectedValue.Equals(5))
-            {
-                MessageBox.Show("¡error, elija estado civil!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            if (comboBoxPlanMedico.SelectedValue.Equals(-1))
-            {
-                MessageBox.Show("¡error, elija plan medico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            //if (StaticUtils.EsSoloNumerico(textBoxDNI.Text))
-            //{
-            //    MessageBox.Show("¡DNI debe ser numerico!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
             return true;
 
         }

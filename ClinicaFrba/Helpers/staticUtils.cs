@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ClinicaFrba.Helpers
 {
@@ -94,5 +95,34 @@ namespace ClinicaFrba.Helpers
             return field;
         }
 
+        //<summary>
+        //se fija si el usuario selecciono algo en el combobox, si no lo seleccionó, avisa.
+        public static bool CheckSelectedValueCB(ComboBox cb)
+        {
+            string s = "--SELECCIONE--";
+            if (cb.SelectedValue == s){
+                
+                return false;
+            }
+                
+            else
+                return true;
+        }
+
+        
+
+
+        public static bool checkControls(Control.ControlCollection controles)
+        {
+
+            foreach (Control control in controles)
+            {
+                if (string.IsNullOrWhiteSpace(control.Text))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

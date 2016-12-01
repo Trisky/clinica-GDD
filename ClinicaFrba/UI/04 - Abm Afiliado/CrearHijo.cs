@@ -28,7 +28,12 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// <param name="hijosCount"></param>
         public CrearHijo(int tailNumber, AbmAfiliadoCrear abmAfiliadoCrear) : this(tailNumber)
         {
-            
+            if (tailNumber == 1)
+            {
+                //es es esposo/a
+                buttonCrearHijo.Text = "crear concubino";
+            }
+
             this.abmAfiliadoCrear = abmAfiliadoCrear;
             TailNumber = "0" + tailNumber.ToString();
             InitializeComponent();
