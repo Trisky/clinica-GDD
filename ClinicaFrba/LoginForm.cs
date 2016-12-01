@@ -1,4 +1,5 @@
-﻿using ClinicaFrba.Logica.Entidades;
+﻿using ClinicaFrba.Helpers;
+using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.UI;
 using ClinicaFrba.UI._04___Abm_Afiliado;
 using ClinicaFrba.UI.MenuPrincipal;
@@ -21,6 +22,7 @@ namespace ClinicaFrba
         public LoginForm()
         {
             InitializeComponent();
+            labelFecha.Text = StaticUtils.getDate();
             
         }
 

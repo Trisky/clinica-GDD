@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
@@ -10,7 +11,21 @@ namespace ClinicaFrba.Helpers
 {
     public static class StaticUtils
     {
+        private static DateTime ObtenerFechaSistema()
+        {
+            try
+            {
+                DateTime fecha = DateTime.Now;
+                string fechaString = Convert.ToString(ConfigurationManager.AppSettings["FechaSistema"]);
+                fecha = Convert.ToDateTime(fechaString);
 
+                return fecha;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         /// <summary>
         /// recibe un string y devuelve el string encriptado con SHA256
         /// </summary>
@@ -37,7 +52,7 @@ namespace ClinicaFrba.Helpers
         }
         public static string getDate()
         {
-            return "2016-01-01";
+            return Convert.ToString(ConfigurationManager.AppSettings["FechaSistema"]);
         }
 
         public static object TraducirTipoDNI(object entrada)
