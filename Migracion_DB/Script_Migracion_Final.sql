@@ -11,7 +11,7 @@ GO
 ------------------------------------------------------------------------------------------------
 --sp_bajaLogica: Realiza una baja logica sobre el usuario 
 GO
-CREATE PROCEDURE [GRUPOSA].[sp_bajaLogica] (@usuario VARCHAR(250))
+CREATE PROCEDURE [GRUPOSA].[sp_bajaLogica] (@usuario VARCHAR(250), @fechaHoy DATETIME)
 AS   
     DECLARE @estadoActual BIT
 	
@@ -26,7 +26,7 @@ AS
 			UPDATE GRUPOSA.[Paciente]
 			SET Paci_estado = 0
 			WHERE paci_usuario = @usuario
-			AND Paci_Fecha_Baja = GETDATE();
+			AND Paci_Fecha_Baja = @fechaHoy; --GETDATE();
 			
 		
 		END
@@ -40,7 +40,7 @@ AS
 			UPDATE GRUPOSA.[Paciente]
 			SET Paci_estado = 1
 			WHERE paci_usuario = @usuario
-			AND Paci_Fecha_Baja = GETDATE();
+			AND Paci_Fecha_Baja = @fechaHoy; --GETDATE();
 			
 		END
 GO
@@ -105,7 +105,8 @@ GO
 CREATE PROCEDURE [GRUPOSA].[sp_cambioDePlan]
     @usuario VARCHAR(250),
 	@nuevoPlan [NUMERIC] (18,0),
-	@motivo VARCHAR (250)
+	@motivo VARCHAR (250),
+	@fechaHoy DATETIME
 AS   
 	DECLARE @viejoPlan [NUMERIC] (18,0);
 	
@@ -113,7 +114,7 @@ AS
 	WHERE Paci.Paci_Usuario = @usuario
 	
 	INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
-	VALUES (@usuario, @viejoPlan, @nuevoPlan, @motivo, GETDATE());
+	VALUES (@usuario, @viejoPlan, @nuevoPlan, @motivo, @fechaHoy);
 	
 	UPDATE GRUPOSA.Paciente 
 	SET Paci_Plan_Med_Cod_FK = @nuevoPlan
@@ -274,7 +275,7 @@ CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_sexo VARCHAR(250), 
 	@paci_estado_civil VARCHAR (250),
 	@paci_plan_medi NUMERIC (18,0),
-	--@paci_cant_fam NUMERIC (18,0),
+	@fechaHoy DATETIME,
 	@paci_tipoFamiliar VARCHAR(250)
 AS   
 	DECLARE @var1 NUMERIC (18,0);
@@ -289,7 +290,7 @@ AS
 	BEGIN TRANSACTION
 	--Usuarios Medicos y Pacientes
 	INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Fecha_Ultima_Modificacion], [Usuario_Intentos_Fallidos], [Usuario_Habilitado])
-	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , GETDATE(),NULL,0,0);
+	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , @fechaHoy, NULL,0,0);
 	COMMIT TRANSACTION;
 	
 	IF (@paci_tipoFamiliar <> '01')
@@ -367,7 +368,7 @@ END
 GO
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
-CREATE PROCEDURE [GRUPOSA].[sp_cerrarConsulta] (@turnoId NUMERIC(18,0), @diagnostico VARCHAR(255), @enfermedad VARCHAR(255), @sintomas VARCHAR(250), @idBono NUMERIC (18,0))
+CREATE PROCEDURE [GRUPOSA].[sp_cerrarConsulta] (@turnoId NUMERIC(18,0), @diagnostico VARCHAR(255), @enfermedad VARCHAR(255), @sintomas VARCHAR(250), @idBono NUMERIC (18,0), @fechaHoy DATETIME)
 AS
 BEGIN
 	
@@ -376,7 +377,7 @@ BEGIN
 		Cons_Sintomas = @sintomas,
 		Cons_Enfermedades = @enfermedad,
 		Cons_Id_Bono = @idBono,
-		Cons_Bono_Fecha = GETDATE(),
+		Cons_Bono_Fecha = @fechaHoy,
 		Cons_Realizada = 1
 	WHERE Cons_Id_Turno = @turnoId
 	
@@ -418,42 +419,51 @@ AND h.Hora_Especialidad=@especialidad
 GO
 
 CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnosMedico]
-@fecha VARCHAR(255),
-@medico VARCHAR(255),
-@tipo NUMERIC(18,0),
-@descripcion VARCHAR(255)
+	@fecha VARCHAR(255),
+	@medico VARCHAR(255),
+	@tipo NUMERIC(18,0),
+	@descripcion VARCHAR(255),
+	@fechaHoy DATETIME
 AS
 DECLARE @cant NUMERIC(18,0)
 DECLARE @ind NUMERIC(18,0)
 DECLARE @id_turno NUMERIC(18,0)
-CREATE TABLE #turnosDelDia(
-id_turno NUMERIC(18,0) IDENTITY(1,1),
-num_turno VARCHAR(255)
-)
-SET @ind=1
-INSERT #turnosDelDia
-SELECT T.Turn_Numero FROM gruposa.Turnos T
-WHERE CONVERT(VARCHAR(10), Turn_Fecha, 103)=@fecha
-AND T.Turn_Medico_Id=@medico
-SELECT @cant=COUNT(*)+1 FROM #turnosDelDia
-WHILE @ind!=@cant
-BEGIN
-SELECT @id_turno=TD.num_turno FROM #turnosDelDia TD WHERE TD.id_turno=@ind
-INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
-VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
-SET @ind+=1
-END
+
+	CREATE TABLE #turnosDelDia(
+								id_turno NUMERIC(18,0) IDENTITY(1,1),
+								num_turno VARCHAR(255)
+							   )
+	
+	SET @ind=1
+	
+	INSERT #turnosDelDia
+	SELECT T.Turn_Numero FROM gruposa.Turnos T
+	WHERE CONVERT(VARCHAR(10), Turn_Fecha, 103) = @fecha
+	AND T.Turn_Medico_Id=@medico
+
+	SELECT @cant=COUNT(*)+1 FROM #turnosDelDia
+	WHILE @ind!=@cant
+		BEGIN
+			SELECT @id_turno=TD.num_turno FROM #turnosDelDia TD 
+			WHERE TD.id_turno=@ind
+			
+			INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
+			VALUES (@tipo,@id_turno,@descripcion,CAST(@fechaHoy AS DATE))
+			
+			SET @ind+=1
+		END
 DROP TABLE #turnosDelDia
 GO
 
 CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnoPaciente]
 @tipo NUMERIC(18,0),
 @id_turno NUMERIC(18,0),
-@descripcion VARCHAR(255)
+@descripcion VARCHAR(255),
+@fechaHoy DATETIME
 AS
 BEGIN
 	INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
-	VALUES (@tipo,@id_turno,@descripcion,CAST(GETDATE() AS DATE))
+	VALUES (@tipo,@id_turno,@descripcion,CAST(@fechaHoy AS DATE))
 END
 GO
 
