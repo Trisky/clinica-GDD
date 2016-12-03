@@ -305,7 +305,7 @@ AS
 	VALUES
 	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
 		@paci_direccion, @paci_tel, @paci_mail, CAST(@paci_fecha_nac AS DATE), @paci_sexo, @paci_estado_civil, 
-		@planMedCod, @paci_usuario, @paci_tipoFamiliar);
+		@paci_plan_medi, @paci_usuario, @paci_tipoFamiliar);
 	COMMIT TRANSACTION;
 GO
 
