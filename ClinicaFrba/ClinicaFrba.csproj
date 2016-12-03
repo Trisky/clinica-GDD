@@ -246,6 +246,9 @@
     <EmbeddedResource Include="UI\04 - Abm Afiliado\CrearHijo.resx">
       <DependentUpon>CrearHijo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalListado.resx">
+      <DependentUpon>AbmProfesionalListado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.resx">
       <DependentUpon>CrearNuevoHorario.cs</DependentUpon>
     </EmbeddedResource>
