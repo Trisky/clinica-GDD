@@ -31,17 +31,15 @@ namespace ClinicaFrba.Logica.Entidades
             string passEncriptada = StaticUtils.Encriptar(passwordIngresada);
             //1- defino la query con los @parametros
             //const string query = "select * from GRUPOSA.Usuario where Usuario_Username= '@username' and Usuario_Password= '@password'";
-             string query = "select * from GRUPOSA.Usuario where Usuario_Username = '"+usuarioIngresado+"'";
+            string query = "SELECT * FROM [GD2C2016].[GRUPOSA].[Usuario] where [Usuario_Username] = @username";
             //2- creo la conexion con la db
-            Conexion conexion = new Conexion();
-
+            Conexion con = new Conexion();
             //3- creo el comando SQL y le asigno los parametros que hice con @
-            SqlCommand comando = conexion.CrearComandoQuery(query);
-            //comando.Parameters.Add("@username", SqlDbType.VarChar, 50).Value = usuarioIngresado;
-            //comando.Parameters.Add("@password", SqlDbType.VarChar, 50).Value = passEncriptada;
-
+            SqlCommand comando = con.CrearComandoQuery(query);
+            comando.Parameters.Add(new SqlParameter("@username", usuarioIngresado));
             //4- hago la consulta a la db y me devuelve una tabla.
-            DataTable usuarios = conexion.ExecConsulta(comando);
+            DataTable usuarios = con.ExecConsulta(comando);
+            //DataTable usuarios = con.SimpleQuery(query);
 
             //5- me fijo que haya traido uno solo por las dudas
             if (usuarios.Rows.Count > 1)
@@ -56,6 +54,7 @@ namespace ClinicaFrba.Logica.Entidades
             if (user.Inhabilitado)
             {
                 MessageBox.Show("este usuario esta inhabilitado para iniciar sesion", "inhabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 return null;
             }
             // 8 chequeo password
@@ -111,24 +110,38 @@ namespace ClinicaFrba.Logica.Entidades
 
         private void IncrementarIntentosFallidos(UsuarioLogeado user)
         {
-            if(user.CantidadIntentosFallidos == 2)
-            {
-                sumarIntento(user.UserName);
-                inhabilitarUsuario(user.UserName);
-            }
-            sumarIntento(user.UserName);
+            
+            sumarIntento(user);
 
         }
 
-        private void sumarIntento(string userName)
+        private void sumarIntento(UsuarioLogeado u)
+        {
+            if (u.CantidadIntentosFallidos == 2)
+                inhabilitarUsuario(u);
+            Conexion con = new Conexion();
+            
+            string s = @" update [GD2C2016].[GRUPOSA].[Usuario]
+                            set Usuario_Intentos_Fallidos = @intentos
+                            where Usuario_Username = @username";
+            SqlCommand cmd = con.CrearComandoQuery(s);
+            var intentosNuevo = u.CantidadIntentosFallidos + 1;
+            cmd.Parameters.Add(new SqlParameter("@username", u.UserName));
+            cmd.Parameters.Add(new SqlParameter("@intentos", intentosNuevo));
+            DataTable dt = con.ExecConsulta(cmd);
+        }
+
+        private void inhabilitarUsuario(UsuarioLogeado u)
         {
             Conexion con = new Conexion();
-            throw new NotImplementedException();
-        }
+            string s = @" update [GD2C2016].[GRUPOSA].[Usuario]
+                            set Usuario_Habilitado = 1
+                            where Usuario_Username = @username";
+            SqlCommand cmd = con.CrearComandoQuery(s);
+            cmd.Parameters.Add(new SqlParameter("@username", u.UserName));
+            DataTable dt = con.ExecConsulta(cmd);
+            MessageBox.Show("¡Usuario inhabilitado!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-        private void inhabilitarUsuario(string userName)
-        {
-            throw new NotImplementedException();
 
         }
 
@@ -147,7 +160,7 @@ namespace ClinicaFrba.Logica.Entidades
                                    //RespuestaSecreta = Convert.ToString(x["Usuario_Respuesta_Secreta"] ?? string.Empty),
                                    //FechaCreacion = Convert.ToDateTime(Convert.ToString(x["Usuario_Fecha_Creacion"] ?? string.Empty)),
                                    //FechaUltimaModificacion = (x["Usuario_Fecha_Ultima_Modificacion"] == DBNull.Value || Convert.ToDateTime(x["Usuario_Fecha_Ultima_Modificacion"]) == SqlDateTime.MinValue.Value) ? DateTime.MinValue : Convert.ToDateTime(Convert.ToString(x["Usuario_Fecha_Ultima_Modificacion"])),
-                                   //CantidadIntentosFallidos = Convert.ToInt32(Convert.ToString(x["Usuario_Intentos_Fallidos"])),
+                                   CantidadIntentosFallidos = Convert.ToInt32(Convert.ToString(x["Usuario_Intentos_Fallidos"])),
                                    Inhabilitado = Convert.ToBoolean(x["Usuario_Habilitado"])
                                    
                                }).ToList();

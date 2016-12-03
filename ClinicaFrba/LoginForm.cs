@@ -2,6 +2,7 @@
 using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.UI;
 using ClinicaFrba.UI._04___Abm_Afiliado;
+using ClinicaFrba.UI._05___Abm_Profesional;
 using ClinicaFrba.UI.MenuPrincipal;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace ClinicaFrba
         {
             InitializeComponent();
             labelFecha.Text = StaticUtils.getDate();
+            AbmAfiliadoCrear a = new AbmAfiliadoCrear();
+            a.Show();
             
         }
 
