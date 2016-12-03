@@ -96,6 +96,13 @@ AS
            ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Realizada],[Cons_Sintomas],[Cons_Enfermedades],[Cons_Diagnostico])
      VALUES
 		   (@turno, NULL, NULL, @fecha_confirmada, 0, NULL, NULL, NULL)
+		   
+	UPDATE GRUPOSA.Bonos
+	SET Bono_Expirado = 1
+	WHERE Bono_Id = (SELECT MAX(Bono_Id) FROM GRUPOSA.bonos 
+					  WHERE Bono_Paci_Id = @paciente_id 
+					  AND Bono_Fecha_Compra_Usado IS NULL)
+
 	END 
 GO
 
@@ -706,18 +713,6 @@ CREATE TABLE [GRUPOSA].[TiposCancelacion]
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 
-CREATE TABLE [GRUPOSA].[Auditoria_Login]
-	(
-		[Auditoria_Login_Id] 				[NUMERIC](18, 0) IDENTITY(1,1) NOT NULL,
-		[Auditoria_Login_Usuario_Username] 	[VARCHAR](255) NULL,
-		[Auditoria_Login_Fecha] 			[DATETIME] NULL,
-		[Auditoria_Login_Acceso_Correcto] 	[BIT] NULL,
-		[Auditoria_Login_Numero_Intento] 	[NUMERIC](18, 0) NULL,
-		
-		CONSTRAINT [PK_Auditoria_Login_Id] PRIMARY KEY CLUSTERED ( [Auditoria_Login_Id] ASC )
-		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-	) ON [PRIMARY]
-
 CREATE TABLE [GRUPOSA].[Auditoria_Plan]
 	(
 		[Auditoria_Movim]					[NUMERIC] (18,0) IDENTITY(1,1) NOT NULL,
@@ -852,8 +847,8 @@ BEGIN TRANSACTION
 		VALUES (1,'Cancelada por el paciente'),(2,'Cancelada por el medico')
 
 	--Usuario Admin	
-		INSERT INTO GRUPOSA.[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Habilitado])
-		VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',GETDATE(),0)
+		INSERT INTO GRUPOSA.[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Habilitado],[Usuario_Intentos_Fallidos])
+		VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',GETDATE(),0,0)
 	
 	--Rol usuario Admin
 		INSERT INTO GRUPOSA.[RolesUsuario] ([RolUsu_Rol_Codigo],[RolUsu_Usuario_Username])
@@ -1150,9 +1145,6 @@ BEGIN TRANSACTION
 
 	ALTER TABLE GRUPOSA.Auditoria_Plan ADD CONSTRAINT FK_Auditoria_Plan_PlanesMedicos FOREIGN KEY
 	(Auditoria_Plan_Nuevo) REFERENCES GRUPOSA.PlanesMedicos (Plan_Codigo) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
-
-	ALTER TABLE GRUPOSA.Auditoria_Login ADD CONSTRAINT FK_Auditoria_Login_Usuario FOREIGN KEY
-	(Auditoria_Login_Usuario_Username) REFERENCES GRUPOSA.Usuario (Usuario_Username) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
 	ALTER TABLE GRUPOSA.Bonos ADD CONSTRAINT FK_Bonos_Paciente FOREIGN KEY
 	(Bono_Paci_Id) REFERENCES GRUPOSA.Paciente (Paci_Matricula) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
