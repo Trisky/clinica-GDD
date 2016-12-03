@@ -24,8 +24,7 @@ namespace ClinicaFrba
         {
             InitializeComponent();
             labelFecha.Text = StaticUtils.getDate();
-            AbmAfiliadoCrear a = new AbmAfiliadoCrear();
-            a.Show();
+
             
         }
 
@@ -72,9 +71,7 @@ namespace ClinicaFrba
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al intentar realizar el logueo. Esta andando el SQL server?", "Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
-                throw new Exception();
+
             }
 
             
