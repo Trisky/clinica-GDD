@@ -28,11 +28,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// <param name="hijosCount"></param>
         public CrearHijo(int tailNumber, AbmAfiliadoCrear abmAfiliadoCrear) : this(tailNumber)
         {
-            if (tailNumber == 1)
-            {
-                //es es esposo/a
-                buttonCrearHijo.Text = "crear concubino";
-            }
+            
 
             this.abmAfiliadoCrear = abmAfiliadoCrear;
             TailNumber = "0" + tailNumber.ToString();
@@ -43,7 +39,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             comboBoxPlanMedico = cb.CrearPlanesMedicos(comboBoxPlanMedico);
             comboBoxTipoDni = cb.CrearTiposDni(comboBoxTipoDni);
             Show();
-            
+            if (tailNumber == 1)
+            {
+                groupBoxCrear.Text = buttonCrearHijo.Text = "crear concubino";
+            }
+
         }
 
         public string Matricula { get; private set; }
@@ -89,8 +89,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;
             cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;
-            cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.DateTime).Value = dateTimePickerFechaNacimiento.Value;
-            //cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; //al pedo
+            cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value = dateTimePickerFechaNacimiento.Value;
             cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = TailNumber; //le mando la matricula que va a tener + el trailing number
             con.ExecConsulta(cmd);
         }
