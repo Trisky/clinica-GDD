@@ -269,18 +269,29 @@ CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_tipodni 			VARCHAR(255),
 	@paci_dni				VARCHAR(250),
 	@paci_direccion 		VARCHAR(250), 
-	@paci_tel 				VARCHAR(250), 
+	@paci_tel 				VARCHAR(250),
 	@paci_mail 				VARCHAR(250), 
 	@paci_fecha_nac 		VARCHAR(250),
-	@paci_sexo 				VARCHAR(250), 
+	@paci_sexo 				VARCHAR(250),
 	@paci_estado_civil 		VARCHAR(250),
 	@paci_plan_medi 		VARCHAR(250),
 	@paci_tipoFamiliar 		VARCHAR(250),
-	@fechaHoy 				VARCHAR(250),
+	@fechaHoy 				VARCHAR(250)
 AS   
 	DECLARE @var1 			NUMERIC (18,0);
 	DECLARE @paci_usuario 	VARCHAR(255);
 	DECLARE @paci_matricula VARCHAR(250);
+	DECLARE @hoy DATE;
+	DECLARE @dni NUMERIC(18,0);
+	DECLARE @tel NUMERIC(18,0);
+	DECLARE @fnac DATE;
+	DECLARE @plan NUMERIC(18,0);
+
+	SET @hoy = CAST(@fechaHoy AS DATE)
+	SET @dni = CAST(@paci_dni AS NUMERIC(18,0))
+	SET @tel = CAST(@paci_tel AS NUMERIC(18,0))
+	SET @fnac = CAST(@paci_fecha_nac AS DATE)
+	SET @plan = CAST(@paci_plan_medi AS NUMERIC(18,0))
 	
 	SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
 	SET @paci_matricula = RIGHT(replicate('0',5) + CAST(@var1 AS VARCHAR(5)) + @paci_tipoFamiliar, 8)
@@ -289,7 +300,7 @@ AS
 	BEGIN TRANSACTION
 	--Usuarios Medicos y Pacientes
 	INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Fecha_Ultima_Modificacion], [Usuario_Intentos_Fallidos], [Usuario_Habilitado])
-	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , CAST(@fechaHoy AS DATE), NULL,0,0);
+	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , @hoy, NULL,0,0);
 	COMMIT TRANSACTION;
 	
 	IF (@paci_tipoFamiliar <> '01')
@@ -303,9 +314,8 @@ AS
 		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
 		[Paci_Plan_Med_Cod_FK], [Paci_Usuario], [Paci_Grupo_Fliar])
 	VALUES
-	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, CAST(@paci_dni AS NUMERIC(18,0)), 
-		@paci_direccion, CAST(@paci_tel AS NUMERIC(18,0)), @paci_mail, CAST(@paci_fecha_nac AS DATE), @paci_sexo, @paci_estado_civil, 
-		CAST(@paci_plan_medi AS NUMERIC(18,0)), @paci_usuario, @paci_tipoFamiliar);
+	    (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @dni, @paci_direccion, @tel, @paci_mail, 
+		@fnac, @paci_sexo, @paci_estado_civil, @plan , @paci_usuario, @paci_tipoFamiliar);
 	COMMIT TRANSACTION;
 GO
 
@@ -855,15 +865,8 @@ BEGIN TRANSACTION
 		
 	--FuncionalidadesRol
 		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (1,1)
-		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (1,2)
-		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (1,3)
-		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (3,5)
-		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (2,4)
+		VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
+			   (1,13),(1,14),(2,9),(2,8),(2,4),(2,13),(3,11),(3,12),(3,10),(2,14),(3,14)
 		
 	--Usuario Admin	
 		INSERT INTO GRUPOSA.[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Habilitado])
@@ -1121,7 +1124,15 @@ COMMIT TRANSACTION
 	END
 
 	COMMIT TRANSACTION
-
+	
+	BEGIN TRANSACTION
+	
+		INSERT INTO [GD2C2016].[GRUPOSA].[Funcionalidad]
+		VALUES ('ABM de Afiliado',0),('Registro Llegada',0),('Pedir Turno',0),('Compra Bono',0),('Cancelar Atencion',0),
+			   ('Registro Agenda',0),('Registro Resultado',0),('Cancelar Turno',0),('Listados',0)
+ 
+	COMMIT TRANSACTION
+	
 --------------------------------------------------------------------------------------------------------------------------------------
 ------------CONSTRAINT
 BEGIN TRANSACTION
