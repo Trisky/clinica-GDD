@@ -48,11 +48,9 @@
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label3);
             this.gbFiltros.Controls.Add(this.label2);
-            this.gbFiltros.Location = new System.Drawing.Point(19, 8);
-            this.gbFiltros.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.gbFiltros.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.gbFiltros.Size = new System.Drawing.Size(930, 151);
-            this.gbFiltros.Enter += new System.EventHandler(this.gbFiltros_Enter);
+            this.gbFiltros.Location = new System.Drawing.Point(29, 13);
+            this.gbFiltros.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbFiltros.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
@@ -63,17 +61,11 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(679, 115);
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(805, 115);
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Location = new System.Drawing.Point(961, 93);
             // 
             // btnAgregar
             // 
@@ -85,64 +77,62 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(961, 93);
-            this.btnSeleccionar.Text = "Eliminar";
+            this.btnSeleccionar.Text = "eliminar";
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // textBoxCantidadEncontrada
             // 
-            this.textBoxCantidadEncontrada.Location = new System.Drawing.Point(88, 463);
-            this.textBoxCantidadEncontrada.Margin = new System.Windows.Forms.Padding(1);
+            this.textBoxCantidadEncontrada.Location = new System.Drawing.Point(132, 712);
+            this.textBoxCantidadEncontrada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxCantidadEncontrada.Name = "textBoxCantidadEncontrada";
             this.textBoxCantidadEncontrada.ReadOnly = true;
-            this.textBoxCantidadEncontrada.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCantidadEncontrada.Size = new System.Drawing.Size(148, 26);
             this.textBoxCantidadEncontrada.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 463);
-            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label1.Location = new System.Drawing.Point(14, 712);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.Size = new System.Drawing.Size(104, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Encontrados:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 21);
-            this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label2.Location = new System.Drawing.Point(21, 32);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.Size = new System.Drawing.Size(67, 20);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Nombre:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Text = "nombre:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 48);
-            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label3.Location = new System.Drawing.Point(21, 74);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.Size = new System.Drawing.Size(69, 20);
             this.label3.TabIndex = 3;
             this.label3.Text = "Apellido:";
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(63, 21);
-            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(1);
+            this.textBoxNombre.Location = new System.Drawing.Point(95, 32);
+            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(167, 20);
+            this.textBoxNombre.Size = new System.Drawing.Size(248, 26);
             this.textBoxNombre.TabIndex = 4;
             // 
             // textBoxApellido
             // 
-            this.textBoxApellido.Location = new System.Drawing.Point(63, 48);
-            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(1);
+            this.textBoxApellido.Location = new System.Drawing.Point(95, 74);
+            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(167, 20);
+            this.textBoxApellido.Size = new System.Drawing.Size(248, 26);
             this.textBoxApellido.TabIndex = 5;
             // 
             // groupBoxLlegada
@@ -150,11 +140,11 @@
             this.groupBoxLlegada.Controls.Add(this.buttonTurnoHoy);
             this.groupBoxLlegada.Controls.Add(this.buttonSeleccionParaTurno);
             this.groupBoxLlegada.Enabled = false;
-            this.groupBoxLlegada.Location = new System.Drawing.Point(679, 12);
-            this.groupBoxLlegada.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBoxLlegada.Location = new System.Drawing.Point(884, 19);
+            this.groupBoxLlegada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBoxLlegada.Name = "groupBoxLlegada";
-            this.groupBoxLlegada.Padding = new System.Windows.Forms.Padding(1);
-            this.groupBoxLlegada.Size = new System.Drawing.Size(246, 99);
+            this.groupBoxLlegada.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxLlegada.Size = new System.Drawing.Size(412, 101);
             this.groupBoxLlegada.TabIndex = 23;
             this.groupBoxLlegada.TabStop = false;
             this.groupBoxLlegada.Text = "Seleccione afiliado para turnos";
@@ -163,21 +153,21 @@
             // 
             this.buttonTurnoHoy.BackColor = System.Drawing.Color.Aqua;
             this.buttonTurnoHoy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonTurnoHoy.Location = new System.Drawing.Point(27, 37);
-            this.buttonTurnoHoy.Margin = new System.Windows.Forms.Padding(1);
+            this.buttonTurnoHoy.Location = new System.Drawing.Point(67, 41);
+            this.buttonTurnoHoy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonTurnoHoy.Name = "buttonTurnoHoy";
-            this.buttonTurnoHoy.Size = new System.Drawing.Size(211, 36);
+            this.buttonTurnoHoy.Size = new System.Drawing.Size(317, 55);
             this.buttonTurnoHoy.TabIndex = 1;
-            this.buttonTurnoHoy.Text = "Dar Turno";
+            this.buttonTurnoHoy.Text = "Darle un turno para hoy";
             this.buttonTurnoHoy.UseVisualStyleBackColor = false;
             this.buttonTurnoHoy.Click += new System.EventHandler(this.buttonTurnoHoy_Click);
             // 
             // buttonSeleccionParaTurno
             // 
-            this.buttonSeleccionParaTurno.Location = new System.Drawing.Point(45, 107);
-            this.buttonSeleccionParaTurno.Margin = new System.Windows.Forms.Padding(1);
+            this.buttonSeleccionParaTurno.Location = new System.Drawing.Point(67, 164);
+            this.buttonSeleccionParaTurno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSeleccionParaTurno.Name = "buttonSeleccionParaTurno";
-            this.buttonSeleccionParaTurno.Size = new System.Drawing.Size(193, 36);
+            this.buttonSeleccionParaTurno.Size = new System.Drawing.Size(290, 56);
             this.buttonSeleccionParaTurno.TabIndex = 0;
             this.buttonSeleccionParaTurno.Text = "Darle un turno para hoy a este afiliado";
             this.buttonSeleccionParaTurno.UseVisualStyleBackColor = true;
@@ -185,12 +175,12 @@
             // 
             // AbmAfiliadoListar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1105, 480);
+            this.ClientSize = new System.Drawing.Size(1657, 739);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxCantidadEncontrada);
-            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.Name = "AbmAfiliadoListar";
             this.Text = "AbmAfiliadoListar";
             this.Controls.SetChildIndex(this.gbFiltros, 0);

@@ -308,9 +308,6 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         {
             if (!Validar())
                 return;
-            ExecSQL();
-            MessageBox.Show("¡Se guardaron los datos correctamente!", "Operación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Hide();
 
         }
 
@@ -330,26 +327,6 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         }
 
         private void UpDownCantidadHijos_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
         {
 
         }
