@@ -25,6 +25,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
             Show();
         }
 
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -54,7 +55,6 @@ namespace ClinicaFrba.UI.MenuPrincipal
             }
                
         }
-
         
         public void AutoSeleccionarRol()
         {
@@ -88,6 +88,16 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             CancelarAtencionMedico canc = new CancelarAtencionMedico(usuario);
             canc.ShowDialog();
+        }
+
+        private void comboBoxRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxFuncionalidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

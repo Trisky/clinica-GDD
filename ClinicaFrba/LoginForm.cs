@@ -63,7 +63,9 @@ namespace ClinicaFrba
                     return;
                 }
 
-                SelecionFuncionalidad seleccion = new SelecionFuncionalidad(usuarioLogeado);
+               
+                PantallaPrincipal pp = new PantallaPrincipal(usuarioLogeado);
+
             }
             catch(Exception ex)
             {

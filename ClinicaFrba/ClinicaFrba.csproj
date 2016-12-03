@@ -219,6 +219,12 @@
     <Compile Include="UI\FormulariosBase\FormularioListadoBase.Designer.cs">
       <DependentUpon>FormularioListadoBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MenuPrincipal\PantallaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MenuPrincipal\PantallaPrincipal.Designer.cs">
+      <DependentUpon>PantallaPrincipal.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -283,6 +289,9 @@
     <EmbeddedResource Include="UI\FormulariosBase\FormularioListadoBase.resx">
       <DependentUpon>FormularioListadoBase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MenuPrincipal\PantallaPrincipal.resx">
+      <DependentUpon>PantallaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -296,9 +305,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\MenuPrincipal\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

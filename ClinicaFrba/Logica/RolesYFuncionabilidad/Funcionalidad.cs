@@ -11,5 +11,40 @@ namespace ClinicaFrba.Logica.Roles
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
 
+
+
+
+        public static Funcionalidades? obtenerPorNombre(Funcionalidad fun)
+        {
+            if (fun.Descripcion == "ABM de Rol") return Funcionalidades.ABM_Rol;
+            if (fun.Descripcion == "ABM de Afiliado") return Funcionalidades.ABM_Afiliado;
+            if (fun.Descripcion == "Registro Llegada") return Funcionalidades.RegistroLlegada;
+            if (fun.Descripcion == "Pedir Turno") return Funcionalidades.PedirTurno;
+            if (fun.Descripcion == "Compra Bono") return Funcionalidades.CompraBono;
+            if (fun.Descripcion == "Cancelar Atencion") return Funcionalidades.CancelarAtencion;
+            if (fun.Descripcion == "Registro Agenda") return Funcionalidades.RegistrarAgenda;
+            if (fun.Descripcion == "Registro Resultado") return Funcionalidades.RegistroResultado;
+            if (fun.Descripcion == "Cancelar Turno") return Funcionalidades.CancerlarTurno;
+            if (fun.Descripcion == "Listados") return Funcionalidades.Listados;
+            return null;
+        }
+
     }
-}
+
+    public enum Funcionalidades   //afuera de la clase
+    {
+        ABM_Rol,
+        ABM_Afiliado,
+        RegistroLlegada,
+
+        PedirTurno,
+        CompraBono,
+        CancerlarTurno,
+       
+        RegistrarAgenda,
+        RegistroResultado,
+        CancelarAtencion,
+
+        Listados,
+    }
+    }

@@ -39,7 +39,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public void label1_Click(object sender, EventArgs e)
         {
 
         }
@@ -60,6 +60,11 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             {
                 button1.Enabled = false;
             }
+        }
+
+        private void EspecialidadesHandler_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
