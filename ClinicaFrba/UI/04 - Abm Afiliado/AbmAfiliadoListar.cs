@@ -49,18 +49,18 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             DataTable dt;
             Conexion con = new Conexion();
-            string s = @"SELECT Paci_Matricula as matricula, 
-                                paci_nombre as nombre, 
-                                paci_apellido as apellido,
-                                Paci_TipoDocumento as tipoDoc,
-                                paci_Dni as dni,
-	                            Paci_Direccion as direccion,
-                                Paci_Telefono as telefono,
-                                paci_mail as mail,
-                                Paci_Fecha_Nac as Namcimiento,
-                                Paci_plan_Med_Cod_FK as planMedico,
-                                Paci_sexo as sexo,
-                                Paci_Estado_civil as estadoCivil
+            string s = @"SELECT Paci_Matricula as MATRICULA, 
+                                paci_nombre as NOMBRE, 
+                                paci_apellido as APELLIDO,
+                                Paci_TipoDocumento as TIPO_DOC,
+                                paci_Dni as DNI,
+	                            Paci_Direccion as DIRECCION,
+                                Paci_Telefono as TELEFONO,
+                                paci_mail as MAIL,
+                                Paci_Fecha_Nac as NACIMIENTO,
+                                Paci_plan_Med_Cod_FK as PLAN_MEDICO,
+                                Paci_sexo as SEXO,
+                                Paci_Estado_civil as ESTADO_CIVIL
                             FROM [GD2C2016].[GRUPOSA].[Paciente]";
             if (textBoxApellido.Text == "" && textBoxNombre.Text == "")
                 dt = con.SimpleQuery(s);
@@ -165,6 +165,16 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gbFiltros_Enter(object sender, EventArgs e)
         {
 
         }

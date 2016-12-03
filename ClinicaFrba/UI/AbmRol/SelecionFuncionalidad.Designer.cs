@@ -35,11 +35,11 @@
             this.buttonGo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnDoctorCancel = new System.Windows.Forms.Button();
-            this.btnPatientCancel = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnPatientCancel = new System.Windows.Forms.Button();
+            this.btnDoctorCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -127,26 +127,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "admin Tools - se supone que esto no lo veo el usuario";
             // 
-            // btnDoctorCancel
-            // 
-            this.btnDoctorCancel.Location = new System.Drawing.Point(30, 19);
-            this.btnDoctorCancel.Name = "btnDoctorCancel";
-            this.btnDoctorCancel.Size = new System.Drawing.Size(159, 23);
-            this.btnDoctorCancel.TabIndex = 4;
-            this.btnDoctorCancel.Text = "Cancelar Atencion Medico";
-            this.btnDoctorCancel.UseVisualStyleBackColor = true;
-            this.btnDoctorCancel.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // btnPatientCancel
-            // 
-            this.btnPatientCancel.Location = new System.Drawing.Point(30, 48);
-            this.btnPatientCancel.Name = "btnPatientCancel";
-            this.btnPatientCancel.Size = new System.Drawing.Size(159, 23);
-            this.btnPatientCancel.TabIndex = 3;
-            this.btnPatientCancel.Text = "Cancelar Atencion Paciente";
-            this.btnPatientCancel.UseVisualStyleBackColor = true;
-            this.btnPatientCancel.Click += new System.EventHandler(this.button4_Click);
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(43, 134);
@@ -159,12 +139,12 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(43, 26);
+            this.button1.Location = new System.Drawing.Point(60, 26);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(197, 25);
+            this.button1.Size = new System.Drawing.Size(197, 38);
             this.button1.TabIndex = 0;
-            this.button1.Text = "alta - baja - modificacion afiliados";
+            this.button1.Text = "Alta - Baja - Modificacion\r\n Afiliados";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -178,6 +158,26 @@
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Cancelar Atencion";
+            // 
+            // btnPatientCancel
+            // 
+            this.btnPatientCancel.Location = new System.Drawing.Point(30, 48);
+            this.btnPatientCancel.Name = "btnPatientCancel";
+            this.btnPatientCancel.Size = new System.Drawing.Size(159, 23);
+            this.btnPatientCancel.TabIndex = 3;
+            this.btnPatientCancel.Text = "Cancelar Atencion Paciente";
+            this.btnPatientCancel.UseVisualStyleBackColor = true;
+            this.btnPatientCancel.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // btnDoctorCancel
+            // 
+            this.btnDoctorCancel.Location = new System.Drawing.Point(30, 19);
+            this.btnDoctorCancel.Name = "btnDoctorCancel";
+            this.btnDoctorCancel.Size = new System.Drawing.Size(159, 23);
+            this.btnDoctorCancel.TabIndex = 4;
+            this.btnDoctorCancel.Text = "Cancelar Atencion Medico";
+            this.btnDoctorCancel.UseVisualStyleBackColor = true;
+            this.btnDoctorCancel.Click += new System.EventHandler(this.button3_Click);
             // 
             // SelecionFuncionalidad
             // 
