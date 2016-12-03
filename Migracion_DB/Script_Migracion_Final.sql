@@ -267,16 +267,16 @@ CREATE PROCEDURE [GRUPOSA].[sp_crearAfiliado]
 	@paci_nom 				VARCHAR(250),
 	@paci_apell 			VARCHAR(250),
 	@paci_tipodni 			VARCHAR(255),
-	@paci_dni 				NUMERIC(18,0),
+	@paci_dni				VARCHAR(250),
 	@paci_direccion 		VARCHAR(250), 
 	@paci_tel 				VARCHAR(250), 
 	@paci_mail 				VARCHAR(250), 
-	@paci_fecha_nac 		DATETIME, 
+	@paci_fecha_nac 		VARCHAR(250),
 	@paci_sexo 				VARCHAR(250), 
 	@paci_estado_civil 		VARCHAR(250),
-	@paci_plan_medi 		NUMERIC (18,0),
+	@paci_plan_medi 		VARCHAR(250),
 	@paci_tipoFamiliar 		VARCHAR(250),
-	@fechaHoy 				DATETIME
+	@fechaHoy 				VARCHAR(250),
 AS   
 	DECLARE @var1 			NUMERIC (18,0);
 	DECLARE @paci_usuario 	VARCHAR(255);
@@ -289,7 +289,7 @@ AS
 	BEGIN TRANSACTION
 	--Usuarios Medicos y Pacientes
 	INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Fecha_Ultima_Modificacion], [Usuario_Intentos_Fallidos], [Usuario_Habilitado])
-	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , @fechaHoy, NULL,0,0);
+	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , CAST(@fechaHoy AS DATE), NULL,0,0);
 	COMMIT TRANSACTION;
 	
 	IF (@paci_tipoFamiliar <> '01')
@@ -303,9 +303,9 @@ AS
 		[Paci_Direccion],[Paci_Telefono],[Paci_Mail],[Paci_Fecha_Nac],[Paci_Sexo],[Paci_Estado_Civil],
 		[Paci_Plan_Med_Cod_FK], [Paci_Usuario], [Paci_Grupo_Fliar])
 	VALUES
-	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @paci_dni, 
-		@paci_direccion, @paci_tel, @paci_mail, CAST(@paci_fecha_nac AS DATE), @paci_sexo, @paci_estado_civil, 
-		@paci_plan_medi, @paci_usuario, @paci_tipoFamiliar);
+	   (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, CAST(@paci_dni AS NUMERIC(18,0)), 
+		@paci_direccion, CAST(@paci_tel AS NUMERIC(18,0)), @paci_mail, CAST(@paci_fecha_nac AS DATE), @paci_sexo, @paci_estado_civil, 
+		CAST(@paci_plan_medi AS NUMERIC(18,0)), @paci_usuario, @paci_tipoFamiliar);
 	COMMIT TRANSACTION;
 GO
 
