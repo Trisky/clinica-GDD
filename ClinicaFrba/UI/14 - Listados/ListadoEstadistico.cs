@@ -19,6 +19,7 @@ namespace ClinicaFrba.Listados
         {
             InitializeComponent();
             DesactivarBotonesQueNoSeUsan();
+            Show();
         }
 
         private void buttonMostrar1_Click(object sender, EventArgs e)

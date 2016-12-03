@@ -44,7 +44,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             //selecciona toda la fila al tocar cualquier col.
             if (e.RowIndex > -1)
