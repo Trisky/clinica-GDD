@@ -194,8 +194,19 @@ namespace ClinicaFrba.UI.MenuPrincipal
         private void rolToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
-        } 
-    
+        }
+
+
+
+        /// <summary>
+        /// este metodo es el utilizado por AbmAfiliadoListar cuando el administrador 
+        /// desea seleccionar una afiliado para realizar una accion en su nombre
+        /// </summary>
+        /// <param name="ua"></param>
+        public void afiliadoSeleccionado(UsuarioLogeado usuarioAfiliado)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

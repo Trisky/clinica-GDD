@@ -261,6 +261,9 @@
     <EmbeddedResource Include="UI\12 - Registro Resultado\EscribirSintomasYDiagnostico.resx">
       <DependentUpon>EscribirSintomasYDiagnostico.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\13 - Cancelar Atencion\CancelarAtencion.resx">
+      <DependentUpon>CancelarAtencion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\13 - Cancelar Atencion\CancelarAtencionAfiliado.resx">
       <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
     </EmbeddedResource>

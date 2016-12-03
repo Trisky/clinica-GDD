@@ -11,12 +11,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaFrba.UI._11___Registro_Llegada;
+using ClinicaFrba.UI.MenuPrincipal;
+using ClinicaFrba.Logica.Entidades;
 
 namespace ClinicaFrba.UI._04___Abm_Afiliado
 {
     public partial class AbmAfiliadoListar : FormulariosBase.FormularioListadoBase
     {
         private RegistroLlegada registroLlegada;
+        private PantallaPrincipal pantallaPP;
 
         public AbmAfiliadoListar()
         {
@@ -31,6 +34,17 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// Se utiliza para cuando esta ventana es una sub funcionalidad del registro de llegadas
         /// </summary>
         /// <param name="registroLlegada"></param>
+        /// 
+
+        public AbmAfiliadoListar(PantallaPrincipal pp)
+        {
+            pantallaPP = pp;
+            groupBoxAccion.Visible = true;
+            btnAgregar.Enabled = false;
+            btnEliminar.Enabled = false;
+            btnSeleccionar.Enabled = false;
+
+        }
         public AbmAfiliadoListar(RegistroLlegada registroLlegada)
         {
             btnLimpiar.Dispose();
@@ -167,6 +181,25 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonParaAccion_Click(object sender, EventArgs e)
+        {
+            var a = dgListado.SelectedRows[0];
+            if (a != null)
+            {
+                var cells = a.Cells;
+
+                UsuarioLogeado ua = new UsuarioLogeado();
+                ua.PacienteMatricula = cells[0].Value.ToString();
+                pantallaPP.afiliadoSeleccionado(ua);
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un afiliado", "Afiliado no seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            Hide();
+            Dispose();
         }
     }
 }

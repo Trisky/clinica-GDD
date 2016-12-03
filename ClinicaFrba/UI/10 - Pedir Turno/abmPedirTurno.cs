@@ -177,6 +177,7 @@ namespace ClinicaFrba.Pedir_Turno
             cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = idMedico;
             cmd.Parameters.Add("@hora", SqlDbType.VarChar).Value = horario;
             cmd.Parameters.Add("@paciente", SqlDbType.VarChar).Value = UsuarioLogueado.UserName;
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             DataTable ret=con.ExecConsulta(cmd);
             //Esta comprobacion es medio dudosa
             if (ret != null)

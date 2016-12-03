@@ -26,5 +26,25 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
         {
             throw new NotImplementedException();
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSeleccionar_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

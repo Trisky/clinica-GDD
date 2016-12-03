@@ -37,20 +37,26 @@
             this.groupBoxLlegada = new System.Windows.Forms.GroupBox();
             this.buttonTurnoHoy = new System.Windows.Forms.Button();
             this.buttonSeleccionParaTurno = new System.Windows.Forms.Button();
+            this.groupBoxAccion = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonParaAccion = new System.Windows.Forms.Button();
             this.gbFiltros.SuspendLayout();
             this.groupBoxLlegada.SuspendLayout();
+            this.groupBoxAccion.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
             // 
+            this.gbFiltros.Controls.Add(this.groupBox2);
+            this.gbFiltros.Controls.Add(this.groupBoxAccion);
             this.gbFiltros.Controls.Add(this.groupBoxLlegada);
             this.gbFiltros.Controls.Add(this.textBoxApellido);
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label3);
             this.gbFiltros.Controls.Add(this.label2);
-            this.gbFiltros.Location = new System.Drawing.Point(29, 13);
-            this.gbFiltros.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbFiltros.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbFiltros.Location = new System.Drawing.Point(19, 8);
+            this.gbFiltros.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.gbFiltros.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
@@ -58,6 +64,8 @@
             this.gbFiltros.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxApellido, 0);
             this.gbFiltros.Controls.SetChildIndex(this.groupBoxLlegada, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.groupBoxAccion, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.groupBox2, 0);
             // 
             // btnBuscar
             // 
@@ -82,57 +90,57 @@
             // 
             // textBoxCantidadEncontrada
             // 
-            this.textBoxCantidadEncontrada.Location = new System.Drawing.Point(132, 712);
-            this.textBoxCantidadEncontrada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxCantidadEncontrada.Location = new System.Drawing.Point(88, 463);
+            this.textBoxCantidadEncontrada.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxCantidadEncontrada.Name = "textBoxCantidadEncontrada";
             this.textBoxCantidadEncontrada.ReadOnly = true;
-            this.textBoxCantidadEncontrada.Size = new System.Drawing.Size(148, 26);
+            this.textBoxCantidadEncontrada.Size = new System.Drawing.Size(100, 20);
             this.textBoxCantidadEncontrada.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 712);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(9, 463);
+            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 20);
+            this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Encontrados:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 32);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(14, 21);
+            this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 20);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "nombre:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 74);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(14, 48);
+            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 20);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Apellido:";
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(95, 32);
-            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxNombre.Location = new System.Drawing.Point(63, 21);
+            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(248, 26);
+            this.textBoxNombre.Size = new System.Drawing.Size(167, 20);
             this.textBoxNombre.TabIndex = 4;
             // 
             // textBoxApellido
             // 
-            this.textBoxApellido.Location = new System.Drawing.Point(95, 74);
-            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxApellido.Location = new System.Drawing.Point(63, 48);
+            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(248, 26);
+            this.textBoxApellido.Size = new System.Drawing.Size(167, 20);
             this.textBoxApellido.TabIndex = 5;
             // 
             // groupBoxLlegada
@@ -140,11 +148,11 @@
             this.groupBoxLlegada.Controls.Add(this.buttonTurnoHoy);
             this.groupBoxLlegada.Controls.Add(this.buttonSeleccionParaTurno);
             this.groupBoxLlegada.Enabled = false;
-            this.groupBoxLlegada.Location = new System.Drawing.Point(884, 19);
-            this.groupBoxLlegada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxLlegada.Location = new System.Drawing.Point(589, 12);
+            this.groupBoxLlegada.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.groupBoxLlegada.Name = "groupBoxLlegada";
-            this.groupBoxLlegada.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBoxLlegada.Size = new System.Drawing.Size(412, 101);
+            this.groupBoxLlegada.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBoxLlegada.Size = new System.Drawing.Size(275, 66);
             this.groupBoxLlegada.TabIndex = 23;
             this.groupBoxLlegada.TabStop = false;
             this.groupBoxLlegada.Text = "Seleccione afiliado para turnos";
@@ -153,10 +161,10 @@
             // 
             this.buttonTurnoHoy.BackColor = System.Drawing.Color.Aqua;
             this.buttonTurnoHoy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonTurnoHoy.Location = new System.Drawing.Point(67, 41);
-            this.buttonTurnoHoy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonTurnoHoy.Location = new System.Drawing.Point(45, 27);
+            this.buttonTurnoHoy.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.buttonTurnoHoy.Name = "buttonTurnoHoy";
-            this.buttonTurnoHoy.Size = new System.Drawing.Size(317, 55);
+            this.buttonTurnoHoy.Size = new System.Drawing.Size(211, 36);
             this.buttonTurnoHoy.TabIndex = 1;
             this.buttonTurnoHoy.Text = "Darle un turno para hoy";
             this.buttonTurnoHoy.UseVisualStyleBackColor = false;
@@ -164,23 +172,56 @@
             // 
             // buttonSeleccionParaTurno
             // 
-            this.buttonSeleccionParaTurno.Location = new System.Drawing.Point(67, 164);
-            this.buttonSeleccionParaTurno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSeleccionParaTurno.Location = new System.Drawing.Point(45, 107);
+            this.buttonSeleccionParaTurno.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.buttonSeleccionParaTurno.Name = "buttonSeleccionParaTurno";
-            this.buttonSeleccionParaTurno.Size = new System.Drawing.Size(290, 56);
+            this.buttonSeleccionParaTurno.Size = new System.Drawing.Size(193, 36);
             this.buttonSeleccionParaTurno.TabIndex = 0;
             this.buttonSeleccionParaTurno.Text = "Darle un turno para hoy a este afiliado";
             this.buttonSeleccionParaTurno.UseVisualStyleBackColor = true;
             this.buttonSeleccionParaTurno.Click += new System.EventHandler(this.buttonSeleccionParaTurno_Click);
             // 
+            // groupBoxAccion
+            // 
+            this.groupBoxAccion.Controls.Add(this.buttonParaAccion);
+            this.groupBoxAccion.Location = new System.Drawing.Point(326, 12);
+            this.groupBoxAccion.Name = "groupBoxAccion";
+            this.groupBoxAccion.Size = new System.Drawing.Size(259, 66);
+            this.groupBoxAccion.TabIndex = 24;
+            this.groupBoxAccion.TabStop = false;
+            this.groupBoxAccion.Text = "Seleccion de afiliado para una accion";
+            this.groupBoxAccion.Visible = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(562, 114);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // buttonParaAccion
+            // 
+            this.buttonParaAccion.BackColor = System.Drawing.Color.Aqua;
+            this.buttonParaAccion.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonParaAccion.Location = new System.Drawing.Point(24, 15);
+            this.buttonParaAccion.Margin = new System.Windows.Forms.Padding(1);
+            this.buttonParaAccion.Name = "buttonParaAccion";
+            this.buttonParaAccion.Size = new System.Drawing.Size(211, 36);
+            this.buttonParaAccion.TabIndex = 2;
+            this.buttonParaAccion.Text = "Seleccionar afiliado para accion";
+            this.buttonParaAccion.UseVisualStyleBackColor = false;
+            this.buttonParaAccion.Click += new System.EventHandler(this.buttonParaAccion_Click);
+            // 
             // AbmAfiliadoListar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1657, 739);
+            this.ClientSize = new System.Drawing.Size(957, 480);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxCantidadEncontrada);
-            this.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "AbmAfiliadoListar";
             this.Text = "AbmAfiliadoListar";
             this.Controls.SetChildIndex(this.gbFiltros, 0);
@@ -193,6 +234,7 @@
             this.gbFiltros.ResumeLayout(false);
             this.gbFiltros.PerformLayout();
             this.groupBoxLlegada.ResumeLayout(false);
+            this.groupBoxAccion.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,5 +251,8 @@
         private System.Windows.Forms.GroupBox groupBoxLlegada;
         private System.Windows.Forms.Button buttonSeleccionParaTurno;
         private System.Windows.Forms.Button buttonTurnoHoy;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxAccion;
+        private System.Windows.Forms.Button buttonParaAccion;
     }
 }

@@ -28,9 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.gbFiltros.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
+            // 
+            // CancelarAtencion
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1090, 469);
+            this.Name = "CancelarAtencion";
             this.Text = "CancelarAtencion";
+            this.gbFiltros.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
