@@ -850,24 +850,7 @@ BEGIN TRANSACTION
 	--TiposCancelacion	
 		INSERT INTO [GRUPOSA].TiposCancelacion([TipoCancelacion_Codigo],[TipoCancelacion_Descripcion])
 		VALUES (1,'Cancelada por el paciente'),(2,'Cancelada por el medico')
-	
-	--Funcionalidades
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Crear')
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Modificar')
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Borrar') 
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Solicitar Turno') 
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Registrar Atencion Medica') 
-		
-	--FuncionalidadesRol
-		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
-			   (1,13),(1,14),(2,9),(2,8),(2,4),(2,13),(3,11),(3,12),(3,10),(2,14),(3,14)
-		
+
 	--Usuario Admin	
 		INSERT INTO GRUPOSA.[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Habilitado])
 		VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',GETDATE(),0)
@@ -1126,10 +1109,28 @@ COMMIT TRANSACTION
 	COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
-	
+
+	--Funcionalidades
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Crear')
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Modificar')
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Borrar') 
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Solicitar Turno') 
+		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
+		VALUES ('Registrar Atencion Medica') 
+		
+	--FuncionalidadesRol
+		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
+		VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
+			   (1,13),(1,14),(2,9),(2,8),(2,4),(2,13),(3,11),(3,12),(3,10),(2,14),(3,14),(1,15)
+		
+		
 		INSERT INTO [GD2C2016].[GRUPOSA].[Funcionalidad]
 		VALUES ('ABM de Afiliado',0),('Registro Llegada',0),('Pedir Turno',0),('Compra Bono',0),('Cancelar Atencion',0),
-			   ('Registro Agenda',0),('Registro Resultado',0),('Cancelar Turno',0),('Listados',0)
+			   ('Registro Agenda',0),('Registro Resultado',0),('Cancelar Turno',0),('Listados',0), ('ABM de Rol',0)
  
 	COMMIT TRANSACTION
 	
