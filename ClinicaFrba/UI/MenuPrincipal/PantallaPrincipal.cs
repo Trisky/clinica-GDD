@@ -243,7 +243,6 @@ namespace ClinicaFrba.UI.MenuPrincipal
         private void cerrarSecionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Dispose();
-            
             LoginForm login = new LoginForm();
 
         }

@@ -91,16 +91,16 @@
     <Compile Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalListado.Designer.cs">
       <DependentUpon>AbmProfesionalListado.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.cs">
+    <Compile Include="UI\07 - Abm Planes NOHACER\08 - Registrar Agenta Medico\CrearNuevoHorario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.Designer.cs">
+    <Compile Include="UI\07 - Abm Planes NOHACER\08 - Registrar Agenta Medico\CrearNuevoHorario.Designer.cs">
       <DependentUpon>CrearNuevoHorario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.cs">
+    <Compile Include="UI\07 - Abm Planes NOHACER\08 - Registrar Agenta Medico\ListarAgendaProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.Designer.cs">
+    <Compile Include="UI\07 - Abm Planes NOHACER\08 - Registrar Agenta Medico\ListarAgendaProfesional.Designer.cs">
       <DependentUpon>ListarAgendaProfesional.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\10 - Pedir Turno\ConfirmarTurno.cs" />
@@ -246,13 +246,10 @@
     <EmbeddedResource Include="UI\04 - Abm Afiliado\CrearHijo.resx">
       <DependentUpon>CrearHijo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\05 - Abm Profesional NOHACER\AbmProfesionalListado.resx">
-      <DependentUpon>AbmProfesionalListado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\08 - Registrar Agenta Medico\CrearNuevoHorario.resx">
+    <EmbeddedResource Include="UI\07 - Abm Planes NOHACER\08 - Registrar Agenta Medico\CrearNuevoHorario.resx">
       <DependentUpon>CrearNuevoHorario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.resx">
+    <EmbeddedResource Include="UI\07 - Abm Planes NOHACER\08 - Registrar Agenta Medico\ListarAgendaProfesional.resx">
       <DependentUpon>ListarAgendaProfesional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\11 - Registro Llegada\RegistroLlegada.resx">

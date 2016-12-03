@@ -19,14 +19,13 @@ namespace ClinicaFrba
     public partial class LoginForm : Form
     {
 
-        public UsuarioLogeado  usuarioLogeado { get; set; }
+        public UsuarioLogeado usuarioLogeado { get; set; }
         public LoginForm()
         {
             InitializeComponent();
             labelFecha.Text = StaticUtils.getDate();
-            AbmAfiliadoCrear a = new AbmAfiliadoCrear();
-            a.Show();
-            
+            Show();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -54,7 +53,7 @@ namespace ClinicaFrba
             {
                 LogInHelper helper = new LogInHelper();
                 usuarioLogeado = helper.GetUsuario(usernameTextBox.Text, PasswordTextBox.Text);
-                if(usuarioLogeado == null)
+                if (usuarioLogeado == null)
                 {
                     MessageBox.Show("Combinacion de Usuario/password incorrecta", " Login erroneo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -66,18 +65,17 @@ namespace ClinicaFrba
                     return;
                 }
 
-               
+
                 PantallaPrincipal pp = new PantallaPrincipal(usuarioLogeado);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al intentar realizar el logueo. Esta andando el SQL server?", "Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
-                throw new Exception();
+                
             }
 
-            
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
