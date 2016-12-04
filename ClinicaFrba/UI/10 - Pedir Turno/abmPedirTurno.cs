@@ -30,7 +30,8 @@ namespace ClinicaFrba.Pedir_Turno
         private void Init()
         {
             InitializeComponent();
-            calendarDoctors.TodayDate = Convert.ToDateTime(StaticUtils.getDate());
+            calendarDoctors.TodayDate = StaticUtils.getDateTime();
+            mes = StaticUtils.getDateTime().Month;
             calendarDoctors.MaxSelectionCount = 1;
 
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
@@ -101,7 +102,7 @@ namespace ClinicaFrba.Pedir_Turno
             bool todoOk = true;
             if (calendarDoctors.Enabled) //si esto no esta activado significa que no puedo elegir el dia y que se va a asignar un turno para el dia de la fecha
             {
-                if (diaSeleccionado < DateTime.Today || diaSeleccionado.ToString("dddd") == "domingo")
+                if (diaSeleccionado < StaticUtils.getDateTime() || diaSeleccionado.ToString("dddd") == "domingo")
                 {
                     MessageBox.Show("Fecha no valida");
                     todoOk = false;
@@ -175,7 +176,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             idMedico = cmbMedicos.SelectedValue.ToString();
-            datesDoctor = aten.obtenerFechas(idMedico,especialidadSeleccionada,DateTime.Today);
+            datesDoctor = aten.obtenerFechas(idMedico,especialidadSeleccionada,StaticUtils.getDateTime());
             calendarDoctors.BoldedDates = datesDoctor; 
             calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
@@ -242,7 +243,8 @@ namespace ClinicaFrba.Pedir_Turno
         private string especialidad;
         private string horario;
         private DateTime[] datesDoctor;
-        private int mes = DateTime.Today.Month;
+        private int mes;
+
 
     }
 
