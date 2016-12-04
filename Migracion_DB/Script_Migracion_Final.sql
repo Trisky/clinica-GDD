@@ -257,7 +257,6 @@ CREATE PROCEDURE [GRUPOSA].[sp_modificarAfiliado]
 	@paci_sexo VARCHAR(250),
 	@paci_estado_civil VARCHAR(250),
 	@paci_plan_medi VARCHAR(250),
-	@usuario VARCHAR(250),
 	@motivo VARCHAR (250),
 	@fechaHoy DATETIME
 AS 
@@ -265,7 +264,6 @@ AS
 	DECLARE @viejoPlan [NUMERIC] (18,0);
 	DECLARE @tel NUMERIC(18,0);
 	DECLARE @plan NUMERIC(18,0);
-	DECLARE @usuarioPaci VARCHAR(255);
 
 	SET @tel = CAST(@paci_tel AS NUMERIC(18,0))
 	SET @plan = CAST(@paci_plan_medi AS NUMERIC(18,0))
@@ -281,17 +279,21 @@ BEGIN
 		Paci_Estado_Civil = ISNULL(@paci_estado_civil, Paci_Estado_Civil)
 	WHERE @afiliadoId = Paci_Matricula;	
 
-	SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
-	WHERE Paci.Paci_Matricula = @afiliadoId
-	
-	INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
-	VALUES (@usuario, @viejoPlan, @plan, @motivo, @fechaHoy);
-	
-	UPDATE GRUPOSA.Paciente 
-	SET Paci_Plan_Med_Cod_FK = ISNULL(@plan,Paci_Plan_Med_Cod_FK)
-	WHERE Paci_Usuario = @usuario 
-	AND SUBSTRING(Paci_Matricula,1,6) IN (SUBSTRING(Paci_Matricula,1,6)) ;
-	
+	IF @plan IS NOT NULL
+		BEGIN
+		
+		SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
+		WHERE Paci.Paci_Matricula = @afiliadoId
+		
+		INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
+		VALUES (@usuario, @viejoPlan, @plan, @motivo, @fechaHoy);
+		
+		UPDATE GRUPOSA.Paciente 
+		SET Paci_Plan_Med_Cod_FK = ISNULL(@plan,Paci_Plan_Med_Cod_FK)
+		WHERE SUBSTRING(Paci_Matricula,1,6) IN (SUBSTRING(Paci_Matricula,1,6)) ;
+			
+		END
+		
 END;
 GO
 ------------------------------------------------------------------------------------------------
@@ -507,6 +509,45 @@ AS
 BEGIN
 	INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
 	VALUES (@tipo,@id_turno,@descripcion,CAST(@fechaHoy AS DATE))
+END
+GO
+-------------------------------------------------------------------------------------------------------------------
+--sp_comprarBono: Crea Registros de bonos
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_comprarBono]
+	@PaciId			VARCHAR(250),
+	@PaciPlan 		VARCHAR(255),
+	@fechaHoy 		VARCHAR(250),
+	@cantidadBonos	VARCHAR(250)
+AS 
+	DECLARE @cant 		NUMERIC(18,0);
+	DECLARE @hoy  		DATETIME;
+	DECLARE @bonoNumero NUMERIC(18,0);
+	DECLARE @forTime	NUMERIC(18,0);
+
+BEGIN
+
+	SET @hoy = CAST(@fechaHoy AS DATETIME);
+	SET @cant = CAST (@cantidadBonos AS NUMERIC(18,0));
+	SET @forTime = 0;
+	
+	WHILE @forTime < @cant
+	BEGIN
+
+		SELECT @bonoNumero = MAX(Bono_Consulta_Numero)+ 1 
+		FROM GRUPOSA.Bonos
+
+		BEGIN TRANSACTION
+			INSERT INTO [GRUPOSA].[Bonos]
+			([Bono_Paci_Id],[Bono_Plan],[Bono_Fecha_Impresion],[Bono_Fecha_Compra_Usado],
+			 [Bono_Consulta_Numero],[Bono_expirado],[Bono_Numero_GrupoFamiliar])
+			VALUES
+			(@PaciId, @PaciPlan, @hoy, NULL, @bonoNumero, 0, SUBSTRING(@PaciId,1,6))
+		COMMIT TRANSACTION
+
+		SET @forTime = @forTime + 1;
+		
+	END;
 END
 GO
 
@@ -808,7 +849,7 @@ CREATE TABLE [GRUPOSA].[TurnosCancelacion]
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 
-
+
 CREATE TABLE [GRUPOSA].[Bonos]
 	(
 		[Bono_Id] NUMERIC(18,0) IDENTITY(1,1) NOT NULL,
