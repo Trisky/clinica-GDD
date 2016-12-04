@@ -39,6 +39,8 @@ namespace ClinicaFrba.UI._14___Listados
             button1.Enabled = valor;
             button2.Enabled = valor;
             button3.Enabled = valor;
+            button4.Enabled = valor;
+            button5.Enabled = valor;
         }
 
         private bool MostrarEsteSP(string SP)
@@ -63,7 +65,8 @@ namespace ClinicaFrba.UI._14___Listados
         {
             if (MostrarEsteSP("sp_top5EspecialidadesMasCanceladas"))
             {
-                dgListado.Columns[0].Width = 200;
+                dgListado.Columns[0].Width = 500;
+                dgListado.Columns[1].Width = 500;
             }
             
         }
@@ -72,8 +75,8 @@ namespace ClinicaFrba.UI._14___Listados
         {
             if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
             {
-                dgListado.Columns[0].Width = 200;
-                dgListado.Columns[1].Width = 300;
+                dgListado.Columns[0].Width = 500;
+                dgListado.Columns[1].Width = 500;
             }
         }
 
@@ -82,8 +85,31 @@ namespace ClinicaFrba.UI._14___Listados
             if (MostrarEsteSP("sp_top5ProfMasConsultadasPorPlan"))
             {
                 dgListado.Columns[0].Width = 200;
-                dgListado.Columns[1].Width = 300;
+                dgListado.Columns[1].Width = 200;
                 dgListado.Columns[2].Width = 300;
+                dgListado.Columns[3].Width = 300;
+            }
+        }
+
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            if (MostrarEsteSP("sp_top5AfiliadosConMasBonos"))
+            {
+                dgListado.Columns[0].Width = 200;
+                dgListado.Columns[1].Width = 300;
+                dgListado.Columns[2].Width = 500;
+            }
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+            {
+                dgListado.Columns[0].Width = 500;
+                dgListado.Columns[1].Width = 500;
             }
         }
 
@@ -102,5 +128,11 @@ namespace ClinicaFrba.UI._14___Listados
             else
                 toggleBotones(false);
         }
+
+        private void ListadoEstadistico_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
