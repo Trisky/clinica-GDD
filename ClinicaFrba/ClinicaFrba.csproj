@@ -103,7 +103,6 @@
     <Compile Include="UI\08 - Registrar Agenta Medico\ListarAgendaProfesional.Designer.cs">
       <DependentUpon>ListarAgendaProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\10 - Pedir Turno\ConfirmarTurno.cs" />
     <Compile Include="UI\11 - Registro Llegada\RegistroLlegada.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -36,9 +36,7 @@ namespace ClinicaFrba.Helpers
             cbEstadoCiv.DataSource = dt;
 
             return cbEstadoCiv;
-            throw new NotImplementedException();
 
-            return cbEstadoCiv;
         }
 
         internal ComboBox CrearEspecialidades(ComboBox comboBoxEspecialidad)

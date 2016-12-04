@@ -163,7 +163,7 @@
             this.buttonTurnoHoy.Name = "buttonTurnoHoy";
             this.buttonTurnoHoy.Size = new System.Drawing.Size(211, 36);
             this.buttonTurnoHoy.TabIndex = 1;
-            this.buttonTurnoHoy.Text = "Darle un turno para hoy";
+            this.buttonTurnoHoy.Text = "Buscar turnos de la fecha para este usuario";
             this.buttonTurnoHoy.UseVisualStyleBackColor = false;
             this.buttonTurnoHoy.Click += new System.EventHandler(this.buttonTurnoHoy_Click);
             // 

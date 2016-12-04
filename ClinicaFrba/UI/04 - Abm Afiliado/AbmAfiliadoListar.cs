@@ -68,10 +68,12 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             this.registroLlegada = registroLlegada;
             InitializeComponent();
 
+            groupBoxLlegada.Visible = true;
             groupBoxLlegada.Enabled = true;
-            btnAgregar.Enabled = false;
-            btnEliminar.Enabled = false;
-            btnSeleccionar.Enabled = false;
+            btnAgregar.Visible = false;
+            btnEliminar.Visible = false;
+            btnModificar.Visible = false;
+            btnSeleccionar.Visible = false;
             BuscarEnDB();
             Show();
 
