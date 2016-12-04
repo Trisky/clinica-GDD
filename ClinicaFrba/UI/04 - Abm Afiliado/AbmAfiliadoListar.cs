@@ -20,7 +20,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
     {
         private RegistroLlegada registroLlegada;
         private PantallaPrincipal pantallaPP;
-
+        public int numeroAccionAdmin { get; set; }
         public AbmAfiliadoListar()
         {
             InitializeComponent();
@@ -225,6 +225,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Dispose();
         }
 
-        public int numeroAccionAdmin { get; set; }
+        
     }
 }

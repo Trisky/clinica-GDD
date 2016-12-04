@@ -175,7 +175,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             if (usuario.UserName == "admin")
             {
-                AbmAfiliadoListar registrarAgenda = new AbmAfiliadoListar(this, 4);
+                AbmProfesionalListado registrarAgenda = new AbmProfesionalListado(this, 4);
             }
             else
             {
@@ -186,7 +186,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             if (usuario.UserName == "admin")
             {
-                AbmAfiliadoListar registrarResultado = new AbmAfiliadoListar(this, 5);
+                AbmProfesionalListado registrarResultado = new AbmProfesionalListado(this, 5);
             }
             else
             {
@@ -197,7 +197,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             if (usuario.UserName == "admin")
             {
-                AbmAfiliadoListar cancelarAtencion = new AbmAfiliadoListar(this, 6);
+                AbmProfesionalListado cancelarAtencion = new AbmProfesionalListado(this, 6);
             }
             else
             {
