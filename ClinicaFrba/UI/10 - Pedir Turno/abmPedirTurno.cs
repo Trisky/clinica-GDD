@@ -51,7 +51,7 @@ namespace ClinicaFrba.Pedir_Turno
         }
 
 
-        }
+        
         private void VerificarSiTieneBonos()
         {
             Conexion con = new Conexion();
