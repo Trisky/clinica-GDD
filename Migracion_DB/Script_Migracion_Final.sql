@@ -572,13 +572,14 @@ GO
 CREATE PROCEDURE [GRUPOSA].[sp_top5ProfMasConsultadasPorPlan](@fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
 AS
 BEGIN
-	SELECT TOP 5 SUM( DATEDIFF( MI , Hora_Inicio , Hora_Fin ) / 60) AS Cantidad_de_Horas,
-		  (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = Hora_Especialidad) AS Especialidad,  
-		  (SELECT UPPER(M.Medi_Apellido+' '+M.Medi_Nombre) FROM GRUPOSA.Medico M WHERE M.Medi_Id = Hora_Medico_Id_FK) AS Profesional   
-	FROM GRUPOSA.HorariosAtencion JOIN GRUPOSA.TURNOS T ON Hora_Medico_Id_FK = T.Turn_Medico_Id
+	SELECT TOP 5 COUNT(*) AS Cantidad_Consultas, 
+		(SELECT PM.Plan_Descripcion FROM GRUPOSA.PlanesMedicos PM WHERE PM.Plan_Codigo = p.Paci_Plan_Med_Cod_FK) AS Plan_Medico,
+		(SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.Turn_Especialidad) AS Especialidad,  
+		(SELECT UPPER(M.Medi_Apellido+' '+M.Medi_Nombre) FROM GRUPOSA.Medico M WHERE M.Medi_Id = t.Turn_Medico_Id) AS Profesional
+	FROM GRUPOSA.TURNOS T JOIN GRUPOSA.Paciente P ON T.Turn_Paciente_Id = P.Paci_Matricula
 	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
-	GROUP BY Hora_Especialidad, Hora_Medico_Id_FK
-	ORDER BY SUM( DATEDIFF( MI , Hora_Inicio , Hora_Fin )) ASC
+	GROUP BY Turn_Medico_Id, p.Paci_Plan_Med_Cod_FK,t.Turn_Especialidad
+	ORDER BY 1 DESC
 END
 GO
 CREATE PROCEDURE [GRUPOSA].[sp_top5ProfConMenosHsTrabPorEsp](@fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
