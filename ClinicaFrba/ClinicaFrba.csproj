@@ -144,7 +144,9 @@
     <Compile Include="UI\14 - Listados\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\14 - Listados\ListadoEstadistico.Designer.cs" />
+    <Compile Include="UI\14 - Listados\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AbmRol\RolEditar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,7 +275,9 @@
     <EmbeddedResource Include="UI\13 - Cancelar Atencion\CancelarAtencionMedico.resx">
       <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\14 - Listados\ListadoEstadistico.resx" />
+    <EmbeddedResource Include="UI\14 - Listados\ListadoEstadistico.resx">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AbmRol\ListaDeRoles.resx">
       <DependentUpon>ListaDeRoles.cs</DependentUpon>
     </EmbeddedResource>

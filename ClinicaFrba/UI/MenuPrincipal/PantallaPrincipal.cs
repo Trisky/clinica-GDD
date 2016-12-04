@@ -1,7 +1,7 @@
 ﻿using ClinicaFrba.AbmRol;
 using ClinicaFrba.Compra_Bono;
 using ClinicaFrba.Helpers;
-using ClinicaFrba.Listados;
+
 using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.Logica.Roles;
 using ClinicaFrba.Pedir_Turno;
@@ -11,6 +11,7 @@ using ClinicaFrba.UI._08___Registrar_Agenta_Medico;
 using ClinicaFrba.UI._11___Registro_Llegada;
 using ClinicaFrba.UI._12___Registro_Resultado;
 using ClinicaFrba.UI._13___Cancelar_Atencion;
+using ClinicaFrba.UI._14___Listados;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -40,6 +40,7 @@ namespace ClinicaFrba
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             if (ValidateChildren())
             {
                 ObtenerUsuarioPorUsername();

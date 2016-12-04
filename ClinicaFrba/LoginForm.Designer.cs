@@ -90,7 +90,7 @@
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(161, 20);
             this.usernameTextBox.TabIndex = 4;
-            this.usernameTextBox.Text = "abdias_aguilera_00000201";
+            this.usernameTextBox.Text = "abdias_figueroa_00000301";
             this.usernameTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // PasswordTextBox
