@@ -268,13 +268,13 @@ namespace ClinicaFrba.UI.MenuPrincipal
                     CancelarAtencionAfiliado cancelarTurno = new CancelarAtencionAfiliado(usuarioAfiliado);
                     break;
                 case 4:
-                    ListarAgendaProfesional registrarAgenda = new ListarAgendaProfesional(usuario);
+                    ListarAgendaProfesional registrarAgenda = new ListarAgendaProfesional(usuarioAfiliado);
                     break;
                 case 5:
-                    RegistrarResultadoPaciente registrarResultado = new RegistrarResultadoPaciente(usuario);
+                    RegistrarResultadoPaciente registrarResultado = new RegistrarResultadoPaciente(usuarioAfiliado);
                     break;
                 default:
-                    CancelarAtencionMedico cancelarAtencion = new CancelarAtencionMedico(usuario);
+                    CancelarAtencionMedico cancelarAtencion = new CancelarAtencionMedico(usuarioAfiliado);
                     break;
             }
         }

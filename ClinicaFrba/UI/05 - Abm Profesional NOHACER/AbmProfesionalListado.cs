@@ -23,6 +23,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public AbmProfesionalListado(PantallaPrincipal pp,int numero)
         {
             InitializeComponent();
+            btnSeleccionar.Visible = true;
             numeroAccionAdmin = numero;
             pantallaPP = pp;
             Show();
@@ -70,8 +71,10 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 var cells = a.Cells;
 
                 UsuarioLogeado ua = new UsuarioLogeado();
-                ua.PacienteMatricula = cells[0].Value.ToString();
-                ua.UserName = cells[4].Value.ToString();
+                ua.MedicoMatricula = cells[0].Value.ToString();
+                ua.UserName = cells[5].Value.ToString();
+                LogInHelper helper = new LogInHelper();
+                ua = helper.GetUsuario(ua.UserName);
                 pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);
             }
             else

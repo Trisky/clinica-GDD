@@ -177,5 +177,46 @@ namespace ClinicaFrba.Logica.Entidades
             }
             return lstUsuarios.First();
         }
+
+
+
+
+        public UsuarioLogeado GetUsuario(string userName)
+        {
+            string query = "SELECT * FROM [GD2C2016].[GRUPOSA].[Usuario] where [Usuario_Username] = @username";
+            Conexion con = new Conexion();
+            SqlCommand comando = con.CrearComandoQuery(query);
+            comando.Parameters.Add(new SqlParameter("@username", userName));
+            DataTable usuarios = con.ExecConsulta(comando);
+            UsuarioLogeado user = MapearDataTableLista2(usuarios);
+            asociarUsuarioConPaciente(user);
+            asociarUsuarioConMedico(user);
+            return user;
+
+        }
+        private UsuarioLogeado MapearDataTableLista2(DataTable dtUsuarios)
+        {
+            List<UsuarioLogeado> lstUsuarios = new List<UsuarioLogeado>();
+            try
+            {
+                lstUsuarios = (from x in dtUsuarios.AsEnumerable()
+                               select new UsuarioLogeado
+                               {
+                                   UserName = Convert.ToString(x["Usuario_Username"] ?? string.Empty),
+                               }).ToList();
+
+                lstUsuarios = lstUsuarios.GroupBy(a => a.UserName).Select(g => g.First()).ToList();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error al intentar realizar el logueo. Por favor, intente nuevamente.", "Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            return lstUsuarios.First();
+        }
+
+
+
     }
+
 }

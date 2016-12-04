@@ -39,6 +39,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         public AbmAfiliadoListar(PantallaPrincipal pp,int numero)
         {
             InitializeComponent();
+            btnModificar.Visible = false;
             pantallaPP = pp;
             groupBoxAccion.Visible = true;
             numeroAccionAdmin = numero;
@@ -96,7 +97,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                                 paci_Dni as dni,
 	                            Paci_Direccion as direccion,
                                 Paci_Telefono as telefono,
-                                paci_mail as mail,
+                                Paci_Usuario as usuario,
                                 Paci_Fecha_Nac as Namcimiento,
                                 Paci_plan_Med_Cod_FK as planMedico,
                                 Paci_sexo as sexo,
@@ -214,9 +215,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             if (a != null)
             {
                 var cells = a.Cells;
-
                 UsuarioLogeado ua = new UsuarioLogeado();
                 ua.PacienteMatricula = cells[0].Value.ToString();
+                ua.UserName = cells[7].Value.ToString();
+                LogInHelper helper = new LogInHelper();
+                ua = helper.GetUsuario(ua.UserName);
                 pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);
             }
             else
