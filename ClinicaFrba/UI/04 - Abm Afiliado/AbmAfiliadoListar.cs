@@ -20,7 +20,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
     {
         private RegistroLlegada registroLlegada;
         private PantallaPrincipal pantallaPP;
-
+        public int numeroAccionAdmin { get; set; }
         public AbmAfiliadoListar()
         {
             InitializeComponent();
@@ -36,11 +36,12 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// <param name="registroLlegada"></param>
         /// 
 
-        public AbmAfiliadoListar(PantallaPrincipal pp)
+        public AbmAfiliadoListar(PantallaPrincipal pp,int numero)
         {
             InitializeComponent();
             pantallaPP = pp;
             groupBoxAccion.Visible = true;
+            numeroAccionAdmin = numero;
             
             Text = "Buscar Afiliado para realizar esta accion";
             btnAgregar.Visible = false;
@@ -50,6 +51,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             btnLimpiar.Visible = false;
             BuscarEnDB();
             Show();
+
         }
 
         private void BorrarBotones()
@@ -213,7 +215,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
                 UsuarioLogeado ua = new UsuarioLogeado();
                 ua.PacienteMatricula = cells[0].Value.ToString();
-                pantallaPP.afiliadoSeleccionado(ua);
+                pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);
             }
             else
             {
@@ -222,5 +224,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Hide();
             Dispose();
         }
+
+        
     }
 }

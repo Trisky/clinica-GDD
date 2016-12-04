@@ -18,10 +18,12 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
     public partial class AbmProfesionalListado : FormularioListadoBase
     {
         private PantallaPrincipal pantallaPP;
+        public int numeroAccionAdmin { get; set; }
 
-        public AbmProfesionalListado(PantallaPrincipal pp)
+        public AbmProfesionalListado(PantallaPrincipal pp,int numero)
         {
             InitializeComponent();
+            numeroAccionAdmin = numero;
             pantallaPP = pp;
             Show();
         }
@@ -68,7 +70,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 UsuarioLogeado ua = new UsuarioLogeado();
                 ua.PacienteMatricula = cells[0].Value.ToString();
                 ua.UserName = cells[4].Value.ToString();
-                pantallaPP.afiliadoSeleccionado(ua);
+                pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);
             }
             else
             {

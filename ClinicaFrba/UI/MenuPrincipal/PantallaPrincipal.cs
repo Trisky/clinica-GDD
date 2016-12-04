@@ -141,7 +141,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             if (usuario.UserName == "admin")
             {
-                AbmAfiliadoListar comprarBono = new AbmAfiliadoListar(this);
+                AbmAfiliadoListar pedirTurno = new AbmAfiliadoListar(this, 1);
             }
             else
             {
@@ -152,7 +152,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             if (usuario.UserName == "admin")
             {
-                AbmAfiliadoListar comprarBono = new AbmAfiliadoListar(this);
+                AbmAfiliadoListar comprarBono = new AbmAfiliadoListar(this, 2);
             }
             else
             {
@@ -163,18 +163,19 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             if (usuario.UserName == "admin")
             {
-                AbmAfiliadoListar comprarBono = new AbmAfiliadoListar(this);
+                AbmAfiliadoListar cancelarTurno = new AbmAfiliadoListar(this, 3);
             }
             else
             {
                 CancelarAtencionAfiliado cancelarTurno = new CancelarAtencionAfiliado(usuario);
             }
         }
+
         private void registrarAgendaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (usuario.UserName == "admin")
             {
-
+                AbmProfesionalListado registrarAgenda = new AbmProfesionalListado(this, 4);
             }
             else
             {
@@ -183,12 +184,28 @@ namespace ClinicaFrba.UI.MenuPrincipal
         }
         private void registrarResultadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RegistrarResultadoPaciente registrarResultado = new RegistrarResultadoPaciente(usuario);
+            if (usuario.UserName == "admin")
+            {
+                AbmProfesionalListado registrarResultado = new AbmProfesionalListado(this, 5);
+            }
+            else
+            {
+                RegistrarResultadoPaciente registrarResultado = new RegistrarResultadoPaciente(usuario);
+            }
         }
         private void cancelarTurnoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CancelarAtencionMedico cancelarAtencion = new CancelarAtencionMedico(usuario);
+            if (usuario.UserName == "admin")
+            {
+                AbmProfesionalListado cancelarAtencion = new AbmProfesionalListado(this, 6);
+            }
+            else
+            {
+                CancelarAtencionMedico cancelarAtencion = new CancelarAtencionMedico(usuario);
+            }
         }
+
+
         private void aBMAfiliadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbmAfiliadoListar abmAfiliado = new AbmAfiliadoListar();
@@ -236,15 +253,36 @@ namespace ClinicaFrba.UI.MenuPrincipal
         /// desea seleccionar una afiliado para realizar una accion en su nombre
         /// </summary>
         /// <param name="ua"></param>
-        public void afiliadoSeleccionado(UsuarioLogeado usuarioAfiliado)
+        public void afiliadoSeleccionado(UsuarioLogeado usuarioAfiliado, int numero)
         {
-            throw new NotImplementedException();
+
+            switch (numero)
+            {
+                case 1:
+                    PedirTurno turno = new PedirTurno(usuarioAfiliado);
+                    break;
+                case 2:
+                    CompraBono comprarBono = new CompraBono(usuarioAfiliado);
+                    break;
+                case 3:
+                    CancelarAtencionAfiliado cancelarTurno = new CancelarAtencionAfiliado(usuarioAfiliado);
+                    break;
+                case 4:
+                    ListarAgendaProfesional registrarAgenda = new ListarAgendaProfesional(usuario);
+                    break;
+                case 5:
+                    RegistrarResultadoPaciente registrarResultado = new RegistrarResultadoPaciente(usuario);
+                    break;
+                default:
+                    CancelarAtencionMedico cancelarAtencion = new CancelarAtencionMedico(usuario);
+                    break;
+            }
         }
 
         private void cerrarSecionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Dispose();
-            
+
             LoginForm login = new LoginForm();
 
         }
