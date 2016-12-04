@@ -38,28 +38,50 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         public AbmAfiliadoListar(PantallaPrincipal pp)
         {
+            InitializeComponent();
             pantallaPP = pp;
             groupBoxAccion.Visible = true;
-            btnAgregar.Enabled = false;
-            btnEliminar.Enabled = false;
-            btnSeleccionar.Enabled = false;
-
+            
+            Text = "Buscar Afiliado para realizar esta accion";
+            btnAgregar.Visible = false;
+            btnEliminar.Visible = false;
+            btnSeleccionar.Visible = false;
+            groupBoxLlegada.Visible = false;
+            btnLimpiar.Visible = false;
+            BuscarEnDB();
+            Show();
         }
+
+        private void BorrarBotones()
+        {
+            
+        }
+
         public AbmAfiliadoListar(RegistroLlegada registroLlegada)
         {
-            btnLimpiar.Dispose();
+            InitializeComponent();
+            BorrarBotones();
             Text = "Buscar Afiliado que acaba de llegar";
+
             this.registroLlegada = registroLlegada;
             InitializeComponent();
+
             groupBoxLlegada.Enabled = true;
             btnAgregar.Enabled = false;
             btnEliminar.Enabled = false;
             btnSeleccionar.Enabled = false;
+            BuscarEnDB();
             Show();
 
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            BuscarEnDB();
+
+        }
+
+        private void BuscarEnDB()
         {
             DataTable dt;
             Conexion con = new Conexion();
@@ -80,7 +102,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                 dt = con.SimpleQuery(s);
             else
             {
-                string q = s+
+                string q = s +
                              @"where paci_nombre like @paci_nom and
                                    paci_apellido like @paci_ape";
                 SqlCommand cmd = con.CrearComandoQuery(q);
@@ -98,24 +120,21 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             //dgListado.AutoGenerateColumns = false;
             dgListado.Columns[0].Visible = false; //escondo matricula
             dgListado.Columns[9].Visible = false; //escondo plan FK
-            //dgListado.Columns[0].DataPropertyName = "Username";
-            //dgListado.Columns[0].Width = 200;
-            //dgListado.Columns[1].Name = "Fecha creación";
-            //dgListado.Columns[1].DataPropertyName = "FechaCreacion";
-            //dgListado.Columns[1].Width = 200;
-            //dgListado.Columns[2].Name = "ultima modificacion";
-            //dgListado.Columns[2].DataPropertyName = "FechaUltimaModificacion";
-            //dgListado.Columns[2].Width = 200;
-            //dgListado.Columns[3].Name = "Inhabilitado";
-            //dgListado.Columns[3].DataPropertyName = "InhabilitadoString";
-            //dgListado.Columns[3].Width = 157;
+                                                  //dgListado.Columns[0].DataPropertyName = "Username";
+                                                  //dgListado.Columns[0].Width = 200;
+                                                  //dgListado.Columns[1].Name = "Fecha creación";
+                                                  //dgListado.Columns[1].DataPropertyName = "FechaCreacion";
+                                                  //dgListado.Columns[1].Width = 200;
+                                                  //dgListado.Columns[2].Name = "ultima modificacion";
+                                                  //dgListado.Columns[2].DataPropertyName = "FechaUltimaModificacion";
+                                                  //dgListado.Columns[2].Width = 200;
+                                                  //dgListado.Columns[3].Name = "Inhabilitado";
+                                                  //dgListado.Columns[3].DataPropertyName = "InhabilitadoString";
+                                                  //dgListado.Columns[3].Width = 157;
 
             //dgListado.Columns[4]. = "tipo DNI";
-
-
         }
 
-        
 
         private void btnModificar_Click(object sender, EventArgs e)
         {

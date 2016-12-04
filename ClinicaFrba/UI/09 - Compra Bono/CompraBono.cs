@@ -22,7 +22,7 @@ namespace ClinicaFrba.Compra_Bono
             usuarioLogeado = user;   
             InitializeComponent();
             textBoxPrecio.ReadOnly = true; // para que el precio sea solo lectura
-            labelGrupoFamiliar.Text = user.GrupoFamiliar.ToString();
+            //labelGrupoFamiliar.Text = user.GrupoFamiliar.ToString();
             idPlanMedicoLabel.Text = user.planMedico;
             getPreciosPlanMedico(user.planMedico);
             radioButtonAtencion.Checked = true;
@@ -130,6 +130,11 @@ namespace ClinicaFrba.Compra_Bono
         private void radioButtonAtencion_CheckedChanged(object sender, EventArgs e)
         {
             actualizarPrecio();
+        }
+
+        private void precioFarmaciaLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
