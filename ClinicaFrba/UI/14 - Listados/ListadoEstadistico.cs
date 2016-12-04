@@ -91,8 +91,9 @@ namespace ClinicaFrba.UI._14___Listados
             {
                 if (MostrarEsteSP("sp_top5EspecialidadesMasCanceladas"))
                 {
-                    dgListado.Columns[0].Width = 500;
-                    dgListado.Columns[1].Width = 500;
+
+                    //dgListado.Columns[0].Width = 500;
+                    //dgListado.Columns[1].Width = 500;
                 }
             }
             
@@ -104,8 +105,8 @@ namespace ClinicaFrba.UI._14___Listados
             {
                 if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
                 {
-                    dgListado.Columns[0].Width = 500;
-                    dgListado.Columns[1].Width = 500;
+                    //dgListado.Columns[0].Width = 500;
+                    //dgListado.Columns[1].Width = 500;
                 }
             }
            
