@@ -45,7 +45,11 @@ namespace ClinicaFrba.Pedir_Turno
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
             VerificarSiTieneBonos();
-            
+            calendarDoctors.TodayDate = StaticUtils.getDateTime();
+            calendarDoctors.MinDate = StaticUtils.getDateTime();
+            Show();
+        }
+
 
         }
         private void VerificarSiTieneBonos()
