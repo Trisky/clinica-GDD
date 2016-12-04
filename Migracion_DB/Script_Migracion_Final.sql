@@ -279,11 +279,12 @@ BEGIN
 		Paci_Estado_Civil = ISNULL(@paci_estado_civil, Paci_Estado_Civil)
 	WHERE @afiliadoId = Paci_Matricula;	
 
-	IF @plan IS NOT NULL
+	
+	SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
+	WHERE Paci.Paci_Matricula = @afiliadoId
+	
+	IF @plan <> @viejoPlan
 		BEGIN
-		
-		SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
-		WHERE Paci.Paci_Matricula = @afiliadoId
 		
 		INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
 		VALUES (@usuario, @viejoPlan, @plan, @motivo, @fechaHoy);
