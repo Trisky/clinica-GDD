@@ -25,7 +25,16 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
             btnEliminar.Visible = false;
             btnSeleccionar.Visible = false;
             MostrarTurnosDeHoy();
-            Show();
+            if (dgListado.Rows.Count == 0)
+            {
+                MessageBox.Show("Usted no tiene pacientes hoy :)", "sin pacientes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Dispose();
+
+            }
+            else
+            {
+                Show();
+            }
 
         }
 
@@ -62,11 +71,6 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
             cmd.Parameters["@fecha"].Value = StaticUtils.getDate();
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
-            if (dgListado.Rows.Count == 0)
-            {
-                MessageBox.Show("Usted no tiene pacientes hoy :)", "sin pacientes", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Dispose();
-            }
 
         }
     }

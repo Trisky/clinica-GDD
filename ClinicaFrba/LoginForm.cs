@@ -54,18 +54,18 @@ namespace ClinicaFrba
             {
                 LogInHelper helper = new LogInHelper();
                 usuarioLogeado = helper.GetUsuario(usernameTextBox.Text, PasswordTextBox.Text);
-                
 
-                if (usuarioLogeado.Inhabilitado == true)
-                {
-                    MessageBox.Show("El usuario [" + usernameTextBox.Text + "] se encuentra Inhabilitado para usar el sistema. Por favor comuniquese con el Administrador del sistema.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
                 if (usuarioLogeado == null)
                 {
                     MessageBox.Show("Combinacion de Usuario/password incorrecta", " Login erroneo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (usuarioLogeado.Inhabilitado == true)
+                {
+                    MessageBox.Show("El usuario [" + usernameTextBox.Text + "] se encuentra Inhabilitado para usar el sistema. Por favor comuniquese con el Administrador del sistema.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
 
 
                 PantallaPrincipal pp = new PantallaPrincipal(usuarioLogeado);

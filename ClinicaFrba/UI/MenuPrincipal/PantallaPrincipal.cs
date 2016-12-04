@@ -265,7 +265,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
                     CompraBono comprarBono = new CompraBono(usuarioAfiliado);
                     break;
                 case 3:
-                    CancelarAtencionAfiliado cancelarTurno = new CancelarAtencionAfiliado(usuarioAfiliado);
+                    CancelarAtencionAfiliado2 cancelarTurno = new CancelarAtencionAfiliado2(usuarioAfiliado);
                     break;
                 case 4:
                     ListarAgendaProfesional registrarAgenda = new ListarAgendaProfesional(usuarioAfiliado);
@@ -278,7 +278,6 @@ namespace ClinicaFrba.UI.MenuPrincipal
                     break;
             }
         }
-
         private void cerrarSecionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Dispose();

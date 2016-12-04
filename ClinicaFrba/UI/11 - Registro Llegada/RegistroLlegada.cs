@@ -45,7 +45,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             var cells = dr.Cells;
             pacienteNombreLabel.Text = cells[1].Value.ToString();
             pacienteApellidoLabel.Text = cells[2].Value.ToString();
-            idPacienteLabel.Text = cells[0].Value.ToString();
+            idPacienteLabel.Text = cells[7].Value.ToString(); //es el usuario en el sistema
             btnModificar.Enabled = true;
             btnSeleccionar.Enabled = true;
             btnSeleccionar.Visible = true;
@@ -62,6 +62,20 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             cmd.Parameters.Add("@paci_usuario", SqlDbType.VarChar).Value = idPacienteLabel.Text;
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
+
+            
+
+            //ahora filtro los que no son de hoy
+            DateTime hoy = StaticUtils.getDateTime().Date;
+            foreach (DataRow row in dt.Rows)
+            {
+                DateTime fechaTurno= row.Field<DateTime>("Fecha").Date; ;
+                //DateTime fechaTurno = (Convert.ToDateTime(cells[3].Value.ToString())).Date;
+                if (fechaTurno != hoy)
+                {
+                    row.Delete(); //escondo la datarow si no es de hoy.
+                }
+            }
         }
 
         public void TurnoSeleccionado(string nombreMedico, string hora)
@@ -116,6 +130,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
         private void btnModificar_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+            MessageBox.Show("Atencion borrada correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Dispose();
         }
     }
 }

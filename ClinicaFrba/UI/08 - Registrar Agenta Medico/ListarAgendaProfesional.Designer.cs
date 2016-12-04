@@ -51,6 +51,10 @@
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.labelIdMedico, 0);
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // btnAgregar
             // 
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -58,26 +62,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 47);
+            this.label1.Location = new System.Drawing.Point(10, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 25);
+            this.label1.Size = new System.Drawing.Size(79, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Seleccione Dia";
             // 
             // comboBoxDia
             // 
             this.comboBoxDia.FormattingEnabled = true;
-            this.comboBoxDia.Location = new System.Drawing.Point(168, 44);
+            this.comboBoxDia.Location = new System.Drawing.Point(92, 24);
+            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxDia.Name = "comboBoxDia";
-            this.comboBoxDia.Size = new System.Drawing.Size(398, 32);
+            this.comboBoxDia.Size = new System.Drawing.Size(219, 21);
             this.comboBoxDia.TabIndex = 4;
             this.comboBoxDia.SelectedIndexChanged += new System.EventHandler(this.comboBoxDia_SelectedIndexChanged);
             // 
             // buttonVerDia
             // 
-            this.buttonVerDia.Location = new System.Drawing.Point(50, 83);
+            this.buttonVerDia.Location = new System.Drawing.Point(27, 45);
+            this.buttonVerDia.Margin = new System.Windows.Forms.Padding(2);
             this.buttonVerDia.Name = "buttonVerDia";
-            this.buttonVerDia.Size = new System.Drawing.Size(164, 37);
+            this.buttonVerDia.Size = new System.Drawing.Size(89, 20);
             this.buttonVerDia.TabIndex = 6;
             this.buttonVerDia.Text = "VerDia";
             this.buttonVerDia.UseVisualStyleBackColor = true;
@@ -86,27 +93,30 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(893, 17);
+            this.label2.Location = new System.Drawing.Point(487, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(189, 25);
+            this.label2.Size = new System.Drawing.Size(104, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "su ID de medico es: ";
             // 
             // labelIdMedico
             // 
             this.labelIdMedico.AutoSize = true;
-            this.labelIdMedico.Location = new System.Drawing.Point(1076, 17);
+            this.labelIdMedico.Location = new System.Drawing.Point(587, 9);
+            this.labelIdMedico.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIdMedico.Name = "labelIdMedico";
-            this.labelIdMedico.Size = new System.Drawing.Size(64, 25);
+            this.labelIdMedico.Size = new System.Drawing.Size(35, 13);
             this.labelIdMedico.TabIndex = 8;
             this.labelIdMedico.Text = "label3";
             this.labelIdMedico.Click += new System.EventHandler(this.label3_Click);
             // 
             // ListarAgendaProfesional
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1998, 866);
+            this.ClientSize = new System.Drawing.Size(1086, 469);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ListarAgendaProfesional";
             this.Text = "ListarAgendaProfesional";
             this.gbFiltros.ResumeLayout(false);
