@@ -42,7 +42,6 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                           ,[Medi_Nombre] as nombre
                           ,[Medi_Apellido] as apellido
                           ,[Medi_Dni] as DNI
-                          ,[Medi_Sexo] as sexo
                           ,[Medi_Usuario] as usuario
                       FROM [GD2C2016].[GRUPOSA].[Medico]
                       ";
@@ -72,7 +71,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
                 UsuarioLogeado ua = new UsuarioLogeado();
                 ua.MedicoMatricula = cells[0].Value.ToString();
-                ua.UserName = cells[5].Value.ToString();
+                ua.UserName = cells[4].Value.ToString();
                 LogInHelper helper = new LogInHelper();
                 ua = helper.GetUsuario(ua.UserName);
                 pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);

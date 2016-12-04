@@ -24,6 +24,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
             ComboBoxManager cm = new ComboBoxManager();
             comboBoxDia = cm.CrearDias(comboBoxDia);
+            Show();
 
         }
 
@@ -61,6 +62,11 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
 
         }

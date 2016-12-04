@@ -50,7 +50,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             btnSeleccionar.Visible = false;
             groupBoxLlegada.Visible = false;
             btnLimpiar.Visible = false;
-            BuscarEnDB();
             Show();
 
         }
