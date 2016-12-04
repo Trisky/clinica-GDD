@@ -58,6 +58,8 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
                 dt = con.ExecConsulta(cmd);
             }
+
+            dgListado.DataSource = dt;
         }
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)

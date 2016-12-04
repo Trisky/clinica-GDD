@@ -167,7 +167,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
             }
             else
             {
-                CancelarAtencionAfiliado cancelarTurno = new CancelarAtencionAfiliado(usuario);
+                CancelarAtencionAfiliado2 cancelarTurno = new CancelarAtencionAfiliado2(usuario);
             }
         }
 
