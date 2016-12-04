@@ -22,17 +22,50 @@ namespace ClinicaFrba.Pedir_Turno
     {
         public PedirTurno(UsuarioLogeado user)
         {
-            Init();
             UsuarioLogueado = user;
+            Init();
+            
         }
 
         private void Init()
         {
             InitializeComponent();
-            Show();
+            calendarDoctors.TodayDate = Convert.ToDateTime(StaticUtils.getDate());
+            calendarDoctors.MaxSelectionCount = 1;
+
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
-            calendarDoctors.MaxSelectionCount = 1;
+            
+            VerificarSiTieneBonos();
+            Show();
+        }
+
+        private void VerificarSiTieneBonos()
+        {
+            Conexion con = new Conexion();
+            string s = @" SELECT count([Bono_Id])
+                          FROM [GD2C2016].[GRUPOSA].[Bonos]
+                          where Bono_Paci_Id = @id  and
+						  Bono_expirado = 0";
+            SqlCommand cmd = con.CrearComandoQuery(s);
+            string matricula = UsuarioLogueado.PacienteMatricula;
+            cmd.Parameters.Add(new SqlParameter("@id",matricula));
+            DataTable dt = con.ExecConsulta(cmd);
+            if (dt.Rows.Count == 0)
+                UstedNoTieneBonos();
+            //int  cant =Convert.ToInt32(StaticUtils.getUniqueValueFrom(dt));
+            int c = dt.Rows[0].Field<int>(0);
+
+            if (c <1)
+                UstedNoTieneBonos();
+
+        }
+
+        private void UstedNoTieneBonos()
+        {
+            MessageBox.Show("usted no tiene bonos, debe comprar antes de realizar esta accion"
+           , "Sin bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Dispose();
         }
 
         /// <summary>
@@ -143,7 +176,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             idMedico = cmbMedicos.SelectedValue.ToString();
             datesDoctor = aten.obtenerFechas(idMedico,especialidadSeleccionada,DateTime.Today);
-            calendarDoctors.BoldedDates = datesDoctor;
+            calendarDoctors.BoldedDates = datesDoctor; 
             calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
