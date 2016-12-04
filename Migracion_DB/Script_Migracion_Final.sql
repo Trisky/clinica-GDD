@@ -98,10 +98,10 @@ AS
 		   (@turno, NULL, NULL, @fecha_confirmada, 0, NULL, NULL, NULL)
 		   
 	UPDATE GRUPOSA.Bonos
-	SET Bono_Expirado = 1
+	SET Bono_Fecha_Compra_Usado = @fecha_confirmada
 	WHERE Bono_Id = (SELECT MAX(Bono_Id) FROM GRUPOSA.bonos 
-					  WHERE Bono_Paci_Id = @paciente_id 
-					  AND Bono_Fecha_Compra_Usado IS NULL)
+					 WHERE Bono_Paci_Id = @paciente_id 
+					 AND Bono_Fecha_Compra_Usado IS NULL)
 
 	END 
 GO
@@ -528,7 +528,7 @@ AS
 
 BEGIN
 
-	SET @hoy = CAST(@fechaHoy AS DATETIME);
+	SET @hoy = DATEADD(DAY,92,CAST(@fechaHoy AS DATETIME));
 	SET @cant = CAST (@cantidadBonos AS NUMERIC(18,0));
 	SET @forTime = 0;
 	
@@ -544,6 +544,11 @@ BEGIN
 			 [Bono_Consulta_Numero],[Bono_expirado],[Bono_Numero_GrupoFamiliar])
 			VALUES
 			(@PaciId, @PaciPlan, @hoy, NULL, @bonoNumero, 0, SUBSTRING(@PaciId,1,6))
+		
+			UPDATE GRUPOSA.Bonos
+			SET bono_expirado = 1
+			WHERE Bono_Fecha_Impresion < @fechaHoy
+			
 		COMMIT TRANSACTION
 
 		SET @forTime = @forTime + 1;
@@ -1123,9 +1128,11 @@ COMMIT TRANSACTION
 		FROM GRUPOSA.Paciente P JOIN gd_esquema.Maestra M ON (P.Paci_Dni = M.Paciente_Dni)
 		WHERE Bono_Consulta_Numero IS NOT NULL
 
-		UPDATE gruposa.bonos
+		UPDATE GRUPOSA.Bonos
 		SET bono_expirado = 1
-		WHERE bono_fecha_compra_usado IS NOT NULL;	
+		WHERE bono_fecha_compra_usado IS NOT NULL
+		OR Bono_Consulta_Numero IN (SELECT Bono_Consulta_Numero FROM gd_esquema.Maestra M 
+									WHERE M.Bono_Consulta_Fecha_Impresion < Turno_Fecha);	
 	
 	COMMIT TRANSACTION
 	
@@ -1136,15 +1143,14 @@ COMMIT TRANSACTION
 		WHERE M.Turno_Numero IS NOT NULL
 	COMMIT TRANSACTION
 
-/*	BEGIN TRANSACTION
+	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[TurnosCancelacion] 
 		([Cancelacion_Tipo],[Cancelacion_Turno_Id],[Cancelacion_Motivo],[Cancelacion_Fecha])
-		SELECT 1, M.Turno_Numero, 'Cancelada por acuerdo', M.Turno_Fecha - 2
-		FROM gd_esquema.Maestra M
-		WHERE M.Turno_Numero IS NOT NULL 
-		AND M.Consulta_Sintomas IS NULL
+		SELECT 1, M.Turno_Numero, 'Cancelada por vencimiento de Bono', M.Turno_Fecha - 2
+		FROM gd_esquema.Maestra M 
+		WHERE M.Bono_Consulta_Fecha_Impresion < Turno_Fecha
+
 	COMMIT TRANSACTION
-	*/  --No existen turnos cancelados, todos los turnos han sido usados
 	
 	BEGIN TRANSACTION
 		UPDATE [GRUPOSA].[Consultas] 
