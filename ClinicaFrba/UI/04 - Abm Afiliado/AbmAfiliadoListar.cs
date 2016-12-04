@@ -140,6 +140,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             var a = dgListado.SelectedRows[0];
             AbmAfiliadoCrear afi = new AbmAfiliadoCrear(a);
+            Close();
             afi.Show();
         }
 
@@ -199,6 +200,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            dgListado.DataSource = null;
 
         }
 

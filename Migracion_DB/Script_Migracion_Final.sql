@@ -287,7 +287,7 @@ BEGIN
 		BEGIN
 		
 		INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
-		VALUES (@usuario, @viejoPlan, @plan, @motivo, @fechaHoy);
+		VALUES (@afiliadoId, @viejoPlan, @plan, @motivo, @fechaHoy);
 		
 		UPDATE GRUPOSA.Paciente 
 		SET Paci_Plan_Med_Cod_FK = ISNULL(@plan,Paci_Plan_Med_Cod_FK)

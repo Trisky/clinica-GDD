@@ -32,6 +32,9 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             Inicializar();
             IDAfiliado = "0";
             estaModificando = false;
+            MotivotextBox1.Visible = false;
+            Motivolabel13.Visible = false;
+            
             Text = "Crear Afiliado";
             numeroHijo = 2;
             radioButtonFemenino.Checked = true;
@@ -73,6 +76,14 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             Inicializar();
             buttonCrearAfiliado.Visible = false;
             buttonGuardarModificacion.Visible = true;
+            label12.Visible = false;
+            textBoxNombre.Enabled = false;
+            textBoxApellido.Enabled = false;
+            textBoxDNI.Enabled = false;
+            dateTimePickerFechaNacimiento.Enabled = false;
+
+
+
             UpDownCantidadHijos.Dispose(); //porque estoy modificando
 
             groupBoxCrear.Text = "modificar usuario";
@@ -180,9 +191,9 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
             //sexo
             if (radioButtonMasculino.Checked)
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "MASCULINO";//9
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Masculino";//9
             else
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "FEMENINO";//9
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Femenino";//9
             // fin sexo, sigo con el resto
             string a = comboBoxTipoDni.SelectedValue.ToString();
             cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;//1
@@ -315,20 +326,18 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd = con.CrearComandoStoreProcedure("sp_modificarAfiliado");
             string a = comboBoxTipoDni.SelectedValue.ToString();
 
+            cmd.Parameters.Add("@motivo", SqlDbType.VarChar).Value = MotivotextBox1.Text;
             cmd.Parameters.Add("@afiliadoId", SqlDbType.VarChar).Value = IDAfiliado;//5
-            cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;//1
-            cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;//2
             cmd.Parameters.Add("@paci_tipodni", SqlDbType.VarChar).Value = a;//3
-            cmd.Parameters.Add("@paci_dni", SqlDbType.VarChar).Value = textBoxDNI.Text;//4
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;//5
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text; // Convert.ToInt32(textBoxTelefono.Text);//6
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;//7
-            cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value = dateTimePickerFechaNacimiento.Value;//8
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             //sexo
             if (radioButtonMasculino.Checked)
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "MASCULINO";//9
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Masculino";//9
             else
-                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "FEMENINO";//9
+                cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Femenino";//9
             // fin sexo, sigo con el resto
            cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;//10
            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;//11 numeric?
@@ -336,6 +345,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             con.ExecConsulta(cmd);
 
             Close();
+            AbmAfiliadoListar abmAfil = new AbmAfiliadoListar();
         }
 
         private void comboBoxTipoDni_SelectedIndexChanged(object sender, EventArgs e)
@@ -379,6 +389,16 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

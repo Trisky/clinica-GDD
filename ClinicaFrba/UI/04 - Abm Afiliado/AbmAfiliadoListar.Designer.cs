@@ -206,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(957, 480);
+            this.ClientSize = new System.Drawing.Size(1088, 480);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxCantidadEncontrada);
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);

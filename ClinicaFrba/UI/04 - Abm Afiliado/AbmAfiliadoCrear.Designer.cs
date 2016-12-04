@@ -49,16 +49,18 @@
             this.comboBoxPlanMedico = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBoxCrear = new System.Windows.Forms.GroupBox();
-            this.UpDownCantidadHijos = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxTipoDni = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDNI = new System.Windows.Forms.TextBox();
+            this.UpDownCantidadHijos = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
             this.buttonCrearFamiliar = new System.Windows.Forms.Button();
             this.buttonGuardarModificacion = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.MotivotextBox1 = new System.Windows.Forms.TextBox();
+            this.Motivolabel13 = new System.Windows.Forms.Label();
             this.groupBoxCrear.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UpDownCantidadHijos)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -140,7 +142,7 @@
             // buttonCrearAfiliado
             // 
             this.buttonCrearAfiliado.Location = new System.Drawing.Point(30, 277);
-            this.buttonCrearAfiliado.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonCrearAfiliado.Margin = new System.Windows.Forms.Padding(1);
             this.buttonCrearAfiliado.Name = "buttonCrearAfiliado";
             this.buttonCrearAfiliado.Size = new System.Drawing.Size(200, 20);
             this.buttonCrearAfiliado.TabIndex = 12;
@@ -151,7 +153,7 @@
             // textBoxNombre
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(90, 19);
-            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxNombre.MaxLength = 240;
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(281, 20);
@@ -160,7 +162,7 @@
             // textBoxApellido
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(90, 43);
-            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxApellido.MaxLength = 240;
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(281, 20);
@@ -169,7 +171,7 @@
             // textBoxDireccion
             // 
             this.textBoxDireccion.Location = new System.Drawing.Point(90, 22);
-            this.textBoxDireccion.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxDireccion.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxDireccion.MaxLength = 240;
             this.textBoxDireccion.Name = "textBoxDireccion";
             this.textBoxDireccion.Size = new System.Drawing.Size(529, 20);
@@ -178,7 +180,7 @@
             // textBoxMail
             // 
             this.textBoxMail.Location = new System.Drawing.Point(387, 46);
-            this.textBoxMail.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxMail.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxMail.MaxLength = 240;
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(232, 20);
@@ -188,7 +190,7 @@
             // textBoxTelefono
             // 
             this.textBoxTelefono.Location = new System.Drawing.Point(90, 47);
-            this.textBoxTelefono.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxTelefono.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxTelefono.MaxLength = 244;
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(231, 20);
@@ -198,7 +200,7 @@
             // dateTimePickerFechaNacimiento
             // 
             this.dateTimePickerFechaNacimiento.Location = new System.Drawing.Point(137, 93);
-            this.dateTimePickerFechaNacimiento.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.dateTimePickerFechaNacimiento.Margin = new System.Windows.Forms.Padding(1);
             this.dateTimePickerFechaNacimiento.Name = "dateTimePickerFechaNacimiento";
             this.dateTimePickerFechaNacimiento.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerFechaNacimiento.TabIndex = 22;
@@ -207,7 +209,7 @@
             // 
             this.radioButtonMasculino.AutoSize = true;
             this.radioButtonMasculino.Location = new System.Drawing.Point(137, 123);
-            this.radioButtonMasculino.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radioButtonMasculino.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonMasculino.Name = "radioButtonMasculino";
             this.radioButtonMasculino.Size = new System.Drawing.Size(73, 17);
             this.radioButtonMasculino.TabIndex = 23;
@@ -219,7 +221,7 @@
             // 
             this.radioButtonFemenino.AutoSize = true;
             this.radioButtonFemenino.Location = new System.Drawing.Point(225, 123);
-            this.radioButtonFemenino.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radioButtonFemenino.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonFemenino.Name = "radioButtonFemenino";
             this.radioButtonFemenino.Size = new System.Drawing.Size(73, 17);
             this.radioButtonFemenino.TabIndex = 24;
@@ -230,7 +232,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 23);
+            this.label5.Location = new System.Drawing.Point(8, 23);
             this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 13);
@@ -240,8 +242,8 @@
             // comboBoxEstadoCivil
             // 
             this.comboBoxEstadoCivil.FormattingEnabled = true;
-            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(90, 19);
-            this.comboBoxEstadoCivil.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(9, 50);
+            this.comboBoxEstadoCivil.Margin = new System.Windows.Forms.Padding(1);
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(146, 21);
             this.comboBoxEstadoCivil.TabIndex = 26;
@@ -250,8 +252,8 @@
             // comboBoxPlanMedico
             // 
             this.comboBoxPlanMedico.FormattingEnabled = true;
-            this.comboBoxPlanMedico.Location = new System.Drawing.Point(14, 120);
-            this.comboBoxPlanMedico.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.comboBoxPlanMedico.Location = new System.Drawing.Point(92, 92);
+            this.comboBoxPlanMedico.Margin = new System.Windows.Forms.Padding(1);
             this.comboBoxPlanMedico.Name = "comboBoxPlanMedico";
             this.comboBoxPlanMedico.Size = new System.Drawing.Size(210, 21);
             this.comboBoxPlanMedico.TabIndex = 27;
@@ -260,7 +262,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 101);
+            this.label9.Location = new System.Drawing.Point(4, 92);
             this.label9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(66, 13);
@@ -283,38 +285,14 @@
             this.groupBoxCrear.Controls.Add(this.label11);
             this.groupBoxCrear.Controls.Add(this.textBoxApellido);
             this.groupBoxCrear.Location = new System.Drawing.Point(30, 14);
-            this.groupBoxCrear.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBoxCrear.Margin = new System.Windows.Forms.Padding(1);
             this.groupBoxCrear.Name = "groupBoxCrear";
-            this.groupBoxCrear.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBoxCrear.Padding = new System.Windows.Forms.Padding(1);
             this.groupBoxCrear.Size = new System.Drawing.Size(379, 153);
             this.groupBoxCrear.TabIndex = 29;
             this.groupBoxCrear.TabStop = false;
             this.groupBoxCrear.Text = "Datos Personales";
             this.groupBoxCrear.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // UpDownCantidadHijos
-            // 
-            this.UpDownCantidadHijos.Location = new System.Drawing.Point(14, 73);
-            this.UpDownCantidadHijos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.UpDownCantidadHijos.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.UpDownCantidadHijos.Name = "UpDownCantidadHijos";
-            this.UpDownCantidadHijos.Size = new System.Drawing.Size(80, 20);
-            this.UpDownCantidadHijos.TabIndex = 35;
-            this.UpDownCantidadHijos.ValueChanged += new System.EventHandler(this.UpDownCantidadHijos_ValueChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 51);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(151, 13);
-            this.label12.TabIndex = 34;
-            this.label12.Text = "Cantidad de Personas a Cargo";
             // 
             // label10
             // 
@@ -331,7 +309,7 @@
             // 
             this.comboBoxTipoDni.FormattingEnabled = true;
             this.comboBoxTipoDni.Location = new System.Drawing.Point(90, 67);
-            this.comboBoxTipoDni.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.comboBoxTipoDni.Margin = new System.Windows.Forms.Padding(1);
             this.comboBoxTipoDni.Name = "comboBoxTipoDni";
             this.comboBoxTipoDni.Size = new System.Drawing.Size(113, 21);
             this.comboBoxTipoDni.TabIndex = 31;
@@ -350,17 +328,41 @@
             // textBoxDNI
             // 
             this.textBoxDNI.Location = new System.Drawing.Point(244, 68);
-            this.textBoxDNI.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxDNI.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxDNI.MaxLength = 20;
             this.textBoxDNI.Name = "textBoxDNI";
             this.textBoxDNI.Size = new System.Drawing.Size(127, 20);
             this.textBoxDNI.TabIndex = 30;
             this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
             // 
+            // UpDownCantidadHijos
+            // 
+            this.UpDownCantidadHijos.Location = new System.Drawing.Point(184, 51);
+            this.UpDownCantidadHijos.Margin = new System.Windows.Forms.Padding(2);
+            this.UpDownCantidadHijos.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.UpDownCantidadHijos.Name = "UpDownCantidadHijos";
+            this.UpDownCantidadHijos.Size = new System.Drawing.Size(80, 20);
+            this.UpDownCantidadHijos.TabIndex = 35;
+            this.UpDownCantidadHijos.ValueChanged += new System.EventHandler(this.UpDownCantidadHijos_ValueChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(181, 23);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(151, 13);
+            this.label12.TabIndex = 34;
+            this.label12.Text = "Cantidad de Personas a Cargo";
+            // 
             // buttonCrearFamiliar
             // 
             this.buttonCrearFamiliar.Location = new System.Drawing.Point(458, 277);
-            this.buttonCrearFamiliar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonCrearFamiliar.Margin = new System.Windows.Forms.Padding(1);
             this.buttonCrearFamiliar.Name = "buttonCrearFamiliar";
             this.buttonCrearFamiliar.Size = new System.Drawing.Size(200, 20);
             this.buttonCrearFamiliar.TabIndex = 30;
@@ -372,7 +374,7 @@
             // buttonGuardarModificacion
             // 
             this.buttonGuardarModificacion.Location = new System.Drawing.Point(246, 277);
-            this.buttonGuardarModificacion.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonGuardarModificacion.Margin = new System.Windows.Forms.Padding(1);
             this.buttonGuardarModificacion.Name = "buttonGuardarModificacion";
             this.buttonGuardarModificacion.Size = new System.Drawing.Size(200, 20);
             this.buttonGuardarModificacion.TabIndex = 31;
@@ -383,6 +385,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.MotivotextBox1);
+            this.groupBox1.Controls.Add(this.Motivolabel13);
             this.groupBox1.Controls.Add(this.UpDownCantidadHijos);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label12);
@@ -391,7 +395,7 @@
             this.groupBox1.Controls.Add(this.comboBoxPlanMedico);
             this.groupBox1.Location = new System.Drawing.Point(413, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(256, 154);
+            this.groupBox1.Size = new System.Drawing.Size(338, 154);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Familiares";
@@ -407,17 +411,36 @@
             this.groupBox2.Controls.Add(this.textBoxMail);
             this.groupBox2.Location = new System.Drawing.Point(30, 173);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(639, 100);
+            this.groupBox2.Size = new System.Drawing.Size(721, 100);
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Contacto";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
+            // MotivotextBox1
+            // 
+            this.MotivotextBox1.Location = new System.Drawing.Point(92, 119);
+            this.MotivotextBox1.Name = "MotivotextBox1";
+            this.MotivotextBox1.Size = new System.Drawing.Size(240, 20);
+            this.MotivotextBox1.TabIndex = 36;
+            this.MotivotextBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Motivolabel13
+            // 
+            this.Motivolabel13.AutoSize = true;
+            this.Motivolabel13.Location = new System.Drawing.Point(4, 119);
+            this.Motivolabel13.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.Motivolabel13.Name = "Motivolabel13";
+            this.Motivolabel13.Size = new System.Drawing.Size(39, 13);
+            this.Motivolabel13.TabIndex = 36;
+            this.Motivolabel13.Text = "Motivo";
+            this.Motivolabel13.Click += new System.EventHandler(this.label13_Click);
+            // 
             // AbmAfiliadoCrear
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 318);
+            this.ClientSize = new System.Drawing.Size(763, 308);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonGuardarModificacion);
@@ -470,5 +493,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.Label Motivolabel13;
+        private System.Windows.Forms.TextBox MotivotextBox1;
     }
 }
