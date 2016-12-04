@@ -48,6 +48,7 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             if (ts < 24)
             {
                 MessageBox.Show("Debe hacerlo por lo menos con 24 horas de antelacion" , "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             //ahora cancelo el turno

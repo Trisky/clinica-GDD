@@ -43,6 +43,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             pantallaPP = pp;
             groupBoxAccion.Visible = true;
             numeroAccionAdmin = numero;
+            buttonParaAccion.Enabled = false;
             
             Text = "Buscar Afiliado para realizar esta accion";
             btnAgregar.Visible = false;
@@ -53,12 +54,10 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Show();
 
         }
-
         private void BorrarBotones()
         {
-            
-        }
 
+        }
         public AbmAfiliadoListar(RegistroLlegada registroLlegada)
         {
             InitializeComponent();
@@ -78,13 +77,12 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Show();
 
         }
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             BuscarEnDB();
+            buttonParaAccion.Enabled = true;
 
         }
-
         private void BuscarEnDB()
         {
             DataTable dt;
@@ -138,8 +136,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
             //dgListado.Columns[4]. = "tipo DNI";
         }
-
-
         private void btnModificar_Click(object sender, EventArgs e)
         {
             var a = dgListado.SelectedRows[0];
@@ -147,14 +143,12 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Close();
             afi.Show();
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             //traducirTiposDniDeLaTabla();
             AbmAfiliadoCrear abm = new AbmAfiliadoCrear();
             abm.Show();
         }
-
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
             var dr = dgListado.SelectedRows[0];
@@ -164,7 +158,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
-
         private void ExecBajaLogica(string usuario)
         {
             Conexion con = new Conexion();
@@ -181,12 +174,10 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                 return;
             }
         }
-
         private void buttonSeleccionParaTurno_Click(object sender, EventArgs e)
         {
             MessageBox.Show("este boton no deberias verlo", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
         private void buttonTurnoHoy_Click(object sender, EventArgs e)
         {
             var a = dgListado.SelectedRows[0];
@@ -201,13 +192,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Hide();
             Dispose();
         }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             dgListado.DataSource = null;
 
         }
-
         private void buttonParaAccion_Click(object sender, EventArgs e)
         {
             var a = dgListado.SelectedRows[0];
@@ -228,7 +217,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Hide();
             Dispose();
         }
-
-        
+       
     }
 }

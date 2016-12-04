@@ -20,27 +20,34 @@ namespace ClinicaFrba.Pedir_Turno
 
     public partial class PedirTurno : FormBase
     {
+        //Constructor
+        BajaAtencion aten = new BajaAtencion();
+        private string userName;
+        private string especialidadSeleccionada;
+        private string idMedico;
+        private DateTime diaSeleccionado;
+        private string especialidad;
+        private string horario;
+        private DateTime[] datesDoctor;
+        private int mes;
+
         public PedirTurno(UsuarioLogeado user)
         {
             UsuarioLogueado = user;
-            Init();
-            
+            Init();          
         }
-
         private void Init()
         {
             InitializeComponent();
             calendarDoctors.TodayDate = StaticUtils.getDateTime();
             mes = StaticUtils.getDateTime().Month;
             calendarDoctors.MaxSelectionCount = 1;
-
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
-            
             VerificarSiTieneBonos();
-            Show();
-        }
+            
 
+        }
         private void VerificarSiTieneBonos()
         {
             Conexion con = new Conexion();
@@ -59,16 +66,16 @@ namespace ClinicaFrba.Pedir_Turno
 
             if (c <1)
                 UstedNoTieneBonos();
+            else
+                Show();
 
         }
-
         private void UstedNoTieneBonos()
         {
             MessageBox.Show("usted no tiene bonos, debe comprar antes de realizar esta accion"
            , "Sin bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Dispose();
         }
-
         /// <summary>
         /// Para cuando tengo que registrar una llegada en el hospital no dejo que el usuario pueda elegir el dia.
         /// </summary>
@@ -87,7 +94,6 @@ namespace ClinicaFrba.Pedir_Turno
             calendarDoctors.Enabled = false;
             diaSeleccionado = dia;
         }
-
         private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
             especialidadSeleccionada = cmbBoxListadoEspecialidades.SelectedValue.ToString();
@@ -96,7 +102,6 @@ namespace ClinicaFrba.Pedir_Turno
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
         }
-
         private void btnPedirTurno(object sender, EventArgs e)
         {
             bool todoOk = true;
@@ -106,9 +111,7 @@ namespace ClinicaFrba.Pedir_Turno
                 {
                     MessageBox.Show("Fecha no valida");
                     todoOk = false;
-
                 }
-
             }
             if (!todoOk) return; //
 
@@ -123,23 +126,11 @@ namespace ClinicaFrba.Pedir_Turno
 
             //si no hay medicos, le aviso al usuario.
             
-            if (dTurnos.Rows.Count == 0)
+            if (dTurnos.Rows.Count == null)
                 MessageBox.Show("No hay turnos disponibles"
                 , "Sin turnos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            
         }
-
-
-        private void PedirTurno_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbAfiliado_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
             diaSeleccionado = e.Start;
@@ -153,41 +144,15 @@ namespace ClinicaFrba.Pedir_Turno
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
         }
-
-
-
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
         private void cmbMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             idMedico = cmbMedicos.SelectedValue.ToString();
-            datesDoctor = aten.obtenerFechas(idMedico,especialidadSeleccionada,StaticUtils.getDateTime());
-            calendarDoctors.BoldedDates = datesDoctor; 
+            datesDoctor = aten.obtenerFechas(idMedico, especialidadSeleccionada, StaticUtils.getDateTime());
+            calendarDoctors.BoldedDates = datesDoctor;
             calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //selecciona toda la fila al tocar cualquier col.
@@ -196,12 +161,10 @@ namespace ClinicaFrba.Pedir_Turno
                 horariosDisponibles.Rows[e.RowIndex].Selected = true;
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             //@fecha VARCHAR (250),
@@ -210,10 +173,10 @@ namespace ClinicaFrba.Pedir_Turno
             //@medico         VARCHAR(250),
             //@especialidad   VARCHAR(250)
 
-            if(horario == null)
+            if (horario == null)
             {
                 MessageBox.Show("Debe seleccionar un horario", "error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Dispose() ;
+                Dispose();
                 return;
             }
             Conexion con = new Conexion();
@@ -230,20 +193,47 @@ namespace ClinicaFrba.Pedir_Turno
                 MessageBox.Show("Su turno se ha reservado con exito!", "Reserva existosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void horariosDisponibles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             horario = horariosDisponibles.SelectedCells[0].Value.ToString();
         }
-        BajaAtencion aten = new BajaAtencion();
-        private string userName;
-        private string especialidadSeleccionada;
-        private string idMedico;
-        private DateTime diaSeleccionado;
-        private string especialidad;
-        private string horario;
-        private DateTime[] datesDoctor;
-        private int mes;
+
+
+
+
+
+
+
+
+
+
+        private void PedirTurno_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void tbAfiliado_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void label2_Click(object sender, EventArgs e)
+        {
+        }
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+        }
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+        private void label3_Click(object sender, EventArgs e)
+        {
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
+
 
 
     }

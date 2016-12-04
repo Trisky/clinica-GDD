@@ -17,6 +17,7 @@ namespace ClinicaFrba.Compra_Bono
     {
         public Decimal PrecioBono { get; set; }
         public UsuarioLogeado usuarioLogeado { get; set; }
+
         public CompraBono(UsuarioLogeado user)
         {
             usuarioLogeado = user;   
@@ -29,7 +30,6 @@ namespace ClinicaFrba.Compra_Bono
             Show();
 
         }
-
         private void getPreciosPlanMedico(string planMedico)
         {
 
@@ -63,17 +63,6 @@ namespace ClinicaFrba.Compra_Bono
             precioAtencionLabel.Text = dt.Rows[0].ItemArray[1].ToString();
             //precioFarmaciaLabel.Text = dr.Cells[0].Value.ToString();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Actualizo el valor del textbox precio cada 
         /// vez que el usuario cambia la cantidad de bonos que quiere
@@ -82,7 +71,6 @@ namespace ClinicaFrba.Compra_Bono
         {
             actualizarPrecio();
         }
-
         private string actualizarPrecio()
         {
             string a = "0" ;
@@ -98,7 +86,6 @@ namespace ClinicaFrba.Compra_Bono
                 buttonComprar.Enabled = false;
             return textBoxPrecio.Text;
         }
-
         private void buttonComprar_Click(object sender, EventArgs e)
         {
             //1- creo la conexion
@@ -121,24 +108,31 @@ namespace ClinicaFrba.Compra_Bono
             MessageBox.Show("Debe pagar $"+precio, "Precio a pagar ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
-
-       
-
-        private void idPlanMedicoLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void radioButtonFarmacia_CheckedChanged(object sender, EventArgs e)
         {
             actualizarPrecio();
         }
-
         private void radioButtonAtencion_CheckedChanged(object sender, EventArgs e)
         {
             actualizarPrecio();
         }
 
+
+
+
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void idPlanMedicoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
         private void precioFarmaciaLabel_Click(object sender, EventArgs e)
         {
 
