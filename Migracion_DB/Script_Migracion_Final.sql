@@ -249,22 +249,50 @@ GO
 --sp_modificarAfiliado: Modifica un afiliado apartir de su id.
 GO
 CREATE PROCEDURE [GRUPOSA].[sp_modificarAfiliado]
-    @afiliadoId VARCHAR(250),
-	@nuevaDireccion VARCHAR(250),
-	@nuevoEmail VARCHAR(250),
-	@nuevoEstadoCivil VARCHAR (250),
-	@nuevoPlanMedico VARCHAR(250)
-AS   
-	DECLARE @usuarioPaci VARCHAR(255);
+	@afiliadoId	VARCHAR(250),
+	@paci_tipodni VARCHAR(255),
+	@paci_direccion VARCHAR(250), 
+	@paci_tel VARCHAR(250),
+	@paci_mail VARCHAR(250), 
+	@paci_sexo VARCHAR(250),
+	@paci_estado_civil VARCHAR(250),
+	@paci_plan_medi VARCHAR(250),
+	@usuario VARCHAR(250),
+	@motivo VARCHAR (250),
+	@fechaHoy DATETIME
+AS 
 	
-	BEGIN
+	DECLARE @viejoPlan [NUMERIC] (18,0);
+	DECLARE @tel NUMERIC(18,0);
+	DECLARE @plan NUMERIC(18,0);
+	DECLARE @usuarioPaci VARCHAR(255);
+
+	SET @tel = CAST(@paci_tel AS NUMERIC(18,0))
+	SET @plan = CAST(@paci_plan_medi AS NUMERIC(18,0))
+
+BEGIN
+	
 	UPDATE GRUPOSA.Paciente
-	SET Paci_Direccion = ISNULL(@nuevaDireccion,Paci_Direccion),
-		Paci_Mail = ISNULL(@nuevoEmail, Paci_Mail),
-		Paci_Estado_Civil = ISNULL(@nuevoEstadoCivil, Paci_Estado_Civil),
-		Paci_Plan_Med_Cod_FK = ISNULL(@nuevoPlanMedico, Paci_Plan_Med_Cod_FK)
+	SET	Paci_TipoDocumento = ISNULL(@paci_tipodni,Paci_TipoDocumento),
+		Paci_Telefono = ISNULL(@tel,Paci_Telefono),
+		Paci_Sexo = ISNULL(@paci_sexo,Paci_Sexo),
+		Paci_Direccion = ISNULL(@paci_direccion,Paci_Direccion),
+		Paci_Mail = ISNULL(@paci_mail, Paci_Mail),
+		Paci_Estado_Civil = ISNULL(@paci_estado_civil, Paci_Estado_Civil)
 	WHERE @afiliadoId = Paci_Matricula;	
-	END;
+
+	SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
+	WHERE Paci.Paci_Matricula = @afiliadoId
+	
+	INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
+	VALUES (@usuario, @viejoPlan, @plan, @motivo, @fechaHoy);
+	
+	UPDATE GRUPOSA.Paciente 
+	SET Paci_Plan_Med_Cod_FK = ISNULL(@plan,Paci_Plan_Med_Cod_FK)
+	WHERE Paci_Usuario = @usuario 
+	AND SUBSTRING(Paci_Matricula,1,6) IN (SUBSTRING(Paci_Matricula,1,6)) ;
+	
+END;
 GO
 ------------------------------------------------------------------------------------------------
 --sp_crearAfiliado: Modifica un afiliado apartir de su id. 
