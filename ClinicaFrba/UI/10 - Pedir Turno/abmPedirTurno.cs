@@ -44,10 +44,10 @@ namespace ClinicaFrba.Pedir_Turno
         private void VerificarSiTieneBonos()
         {
             Conexion con = new Conexion();
-            string s = @" SELECT count([Bono_Id])
+            string s = @" SELECT count( [Bono_Id])
                           FROM [GD2C2016].[GRUPOSA].[Bonos]
-                          where Bono_Paci_Id = @id  and
-						  Bono_expirado = 0";
+                          where SUBSTRING(@id,1,6)=SUBSTRING(Bono_Paci_Id,1,6) and
+                          Bono_expirado = 0";
             SqlCommand cmd = con.CrearComandoQuery(s);
             string matricula = UsuarioLogueado.PacienteMatricula;
             cmd.Parameters.Add(new SqlParameter("@id",matricula));
