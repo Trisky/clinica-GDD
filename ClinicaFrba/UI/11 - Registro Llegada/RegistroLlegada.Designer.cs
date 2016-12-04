@@ -33,7 +33,6 @@
             this.pacienteNombreLabel = new System.Windows.Forms.Label();
             this.pacienteApellidoLabel = new System.Windows.Forms.Label();
             this.groupBoxPacienteSeleccionado = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.idPacienteLabel = new System.Windows.Forms.Label();
             this.gbFiltros.SuspendLayout();
             this.groupBoxPacienteSeleccionado.SuspendLayout();
@@ -68,7 +67,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.button1.Location = new System.Drawing.Point(160, 48);
+            this.button1.Location = new System.Drawing.Point(488, 18);
             this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(141, 60);
@@ -101,7 +100,7 @@
             // pacienteApellidoLabel
             // 
             this.pacienteApellidoLabel.AutoSize = true;
-            this.pacienteApellidoLabel.Location = new System.Drawing.Point(7, 47);
+            this.pacienteApellidoLabel.Location = new System.Drawing.Point(8, 40);
             this.pacienteApellidoLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.pacienteApellidoLabel.Name = "pacienteApellidoLabel";
             this.pacienteApellidoLabel.Size = new System.Drawing.Size(62, 13);
@@ -110,34 +109,22 @@
             // 
             // groupBoxPacienteSeleccionado
             // 
-            this.groupBoxPacienteSeleccionado.Controls.Add(this.label2);
             this.groupBoxPacienteSeleccionado.Controls.Add(this.idPacienteLabel);
             this.groupBoxPacienteSeleccionado.Controls.Add(this.pacienteNombreLabel);
             this.groupBoxPacienteSeleccionado.Controls.Add(this.pacienteApellidoLabel);
-            this.groupBoxPacienteSeleccionado.Location = new System.Drawing.Point(481, 17);
+            this.groupBoxPacienteSeleccionado.Location = new System.Drawing.Point(631, 12);
             this.groupBoxPacienteSeleccionado.Margin = new System.Windows.Forms.Padding(1);
             this.groupBoxPacienteSeleccionado.Name = "groupBoxPacienteSeleccionado";
             this.groupBoxPacienteSeleccionado.Padding = new System.Windows.Forms.Padding(1);
-            this.groupBoxPacienteSeleccionado.Size = new System.Drawing.Size(239, 70);
+            this.groupBoxPacienteSeleccionado.Size = new System.Drawing.Size(294, 77);
             this.groupBoxPacienteSeleccionado.TabIndex = 5;
             this.groupBoxPacienteSeleccionado.TabStop = false;
             this.groupBoxPacienteSeleccionado.Text = "Paciente seleccionado:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(156, 25);
-            this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "#ID=";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
             // idPacienteLabel
             // 
             this.idPacienteLabel.AutoSize = true;
-            this.idPacienteLabel.Location = new System.Drawing.Point(188, 25);
+            this.idPacienteLabel.Location = new System.Drawing.Point(8, 55);
             this.idPacienteLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.idPacienteLabel.Name = "idPacienteLabel";
             this.idPacienteLabel.Size = new System.Drawing.Size(41, 13);
@@ -167,7 +154,6 @@
         private System.Windows.Forms.Label pacienteNombreLabel;
         private System.Windows.Forms.Label pacienteApellidoLabel;
         private System.Windows.Forms.GroupBox groupBoxPacienteSeleccionado;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label idPacienteLabel;
     }
 }

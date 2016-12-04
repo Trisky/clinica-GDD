@@ -38,6 +38,8 @@ namespace ClinicaFrba.Pedir_Turno
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
             
             VerificarSiTieneBonos();
+            calendarDoctors.TodayDate = StaticUtils.getDateTime();
+            calendarDoctors.MinDate = StaticUtils.getDateTime();
             Show();
         }
 
