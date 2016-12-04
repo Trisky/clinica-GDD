@@ -91,6 +91,11 @@ namespace ClinicaFrba.Compra_Bono
             if (radioButtonAtencion.Checked)
                 a = precioAtencionLabel.Text;
             textBoxPrecio.Text = (numericUpDownCantidad.Value * Convert.ToInt32(a)).ToString();
+
+            if (numericUpDownCantidad.Value > 0)
+                buttonComprar.Enabled = true;
+            else
+                buttonComprar.Enabled = false;
             return textBoxPrecio.Text;
         }
 
@@ -103,7 +108,7 @@ namespace ClinicaFrba.Compra_Bono
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_comprarBono");
 
             //3- agrego los parametros del SP.
-            cmd.Parameters.Add("@matricula",SqlDbType.Decimal).Value = usuarioLogeado.PacienteMatricula;
+            cmd.Parameters.Add("@matricula",SqlDbType.VarChar).Value = usuarioLogeado.PacienteMatricula;
             cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = usuarioLogeado.UserName;
             //TODO cmd.Parameters.Add("fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             //4- ejecuto el storeprocedure
@@ -111,7 +116,7 @@ namespace ClinicaFrba.Compra_Bono
 
             //5- informo resultado
             string precio = actualizarPrecio();
-            MessageBox.Show("Debe pagar"+precio, "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Debe pagar $"+precio, "Precio a pagar ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
 

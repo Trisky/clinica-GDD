@@ -49,8 +49,9 @@
             // 
             // buttonComprar
             // 
+            this.buttonComprar.Enabled = false;
             this.buttonComprar.Location = new System.Drawing.Point(42, 148);
-            this.buttonComprar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonComprar.Margin = new System.Windows.Forms.Padding(1);
             this.buttonComprar.Name = "buttonComprar";
             this.buttonComprar.Size = new System.Drawing.Size(161, 31);
             this.buttonComprar.TabIndex = 1;
@@ -61,7 +62,7 @@
             // textBoxPrecio
             // 
             this.textBoxPrecio.Location = new System.Drawing.Point(21, 35);
-            this.textBoxPrecio.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxPrecio.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxPrecio.Name = "textBoxPrecio";
             this.textBoxPrecio.Size = new System.Drawing.Size(99, 20);
             this.textBoxPrecio.TabIndex = 3;
@@ -101,7 +102,7 @@
             // numericUpDownCantidad
             // 
             this.numericUpDownCantidad.Location = new System.Drawing.Point(108, 48);
-            this.numericUpDownCantidad.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.numericUpDownCantidad.Margin = new System.Windows.Forms.Padding(1);
             this.numericUpDownCantidad.Name = "numericUpDownCantidad";
             this.numericUpDownCantidad.Size = new System.Drawing.Size(95, 20);
             this.numericUpDownCantidad.TabIndex = 9;
@@ -173,7 +174,7 @@
             // 
             this.radioButtonFarmacia.AutoSize = true;
             this.radioButtonFarmacia.Location = new System.Drawing.Point(59, 81);
-            this.radioButtonFarmacia.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radioButtonFarmacia.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonFarmacia.Name = "radioButtonFarmacia";
             this.radioButtonFarmacia.Size = new System.Drawing.Size(93, 17);
             this.radioButtonFarmacia.TabIndex = 16;
@@ -186,7 +187,7 @@
             // 
             this.radioButtonAtencion.AutoSize = true;
             this.radioButtonAtencion.Location = new System.Drawing.Point(59, 100);
-            this.radioButtonAtencion.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radioButtonAtencion.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonAtencion.Name = "radioButtonAtencion";
             this.radioButtonAtencion.Size = new System.Drawing.Size(95, 17);
             this.radioButtonAtencion.TabIndex = 17;
@@ -224,7 +225,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonComprar);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "CompraBono";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).EndInit();
