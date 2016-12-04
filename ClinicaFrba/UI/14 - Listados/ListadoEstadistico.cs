@@ -26,10 +26,12 @@ namespace ClinicaFrba.UI._14___Listados
         #region auxiliares
         private void DesactivarBotonesQueNoSeUsan()
         {
-            btnAgregar.Enabled = false;
-            btnEliminar.Enabled = false;
-            btnModificar.Enabled = false;
-            btnSeleccionar.Enabled = false;
+            btnAgregar.Visible = false;
+            btnEliminar.Visible = false;
+            btnModificar.Visible = false;
+            btnSeleccionar.Visible = false;
+            btnBuscar.Visible = false;
+            btnLimpiar.Visible = false;
             toggleBotones(false);
         }
         public void toggleBotones(bool valor)
@@ -39,30 +41,50 @@ namespace ClinicaFrba.UI._14___Listados
             button3.Enabled = valor;
         }
 
-        private void MostrarEsteSP(string SP)
+        private bool MostrarEsteSP(string SP)
         {
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure(SP);
-            cmd.Parameters.Add("@desde", SqlDbType.VarChar).Value = dateDesde.Value.Date.ToString();
-            cmd.Parameters.Add("@hasta", SqlDbType.VarChar).Value = dateHasta.Value.Date.ToString();
+            cmd.Parameters.Add("@fechaInicio", SqlDbType.VarChar).Value = dateDesde.Value.Date.ToString();
+            cmd.Parameters.Add("@fechaFinal", SqlDbType.VarChar).Value =  dateHasta.Value.Date.ToString();
             DataTable dt = con.ExecConsulta(cmd);
+            if(dt.Rows.Count<1)
+            {
+                MessageBox.Show("No hay datos" , "No hay datos ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+                
             dgListado.DataSource = dt;
+            return true;
         }
         #endregion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MostrarEsteSP("sp_top5EspecialidadesMasCanceladas");
+            if (MostrarEsteSP("sp_top5EspecialidadesMasCanceladas"))
+            {
+                dgListado.Columns[0].Width = 200;
+            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp");
+            if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+            {
+                dgListado.Columns[0].Width = 200;
+                dgListado.Columns[1].Width = 300;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MostrarEsteSP("sp_top5ProfMasConsultadasPorPlan");
+            if (MostrarEsteSP("sp_top5ProfMasConsultadasPorPlan"))
+            {
+                dgListado.Columns[0].Width = 200;
+                dgListado.Columns[1].Width = 300;
+                dgListado.Columns[2].Width = 300;
+            }
         }
 
         private void dateDesde_ValueChanged(object sender, EventArgs e)
