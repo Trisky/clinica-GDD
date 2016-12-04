@@ -20,6 +20,7 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         {
             InitializeComponent();
             usuario = user;
+            Show();
         }
 
         private void CancelarAtencionAfiliado_Load(object sender, EventArgs e)
@@ -76,14 +77,22 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+
+            //@tipo NUMERIC(18, 0),
+            //@id_turno NUMERIC(18, 0),
+            //@descripcion VARCHAR(255),
+            //@fechaHoy DATETIME
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaTurnoPaciente");
             cmd.Parameters.Add("@id_turno", SqlDbType.Decimal).Value = turno;
             cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = txtReason.Text;
+            cmd.Parameters.Add("@tipo", SqlDbType.NVarChar).Value = usuario.UserName;
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
+
             DataTable dt = con.ExecConsulta(cmd);
             if (dt != null) { MessageBox.Show("Cancelacion exitosa"); }
             cmd = con.CrearComandoStoreProcedure("sp_turnosActivosPaciente");
-            cmd.Parameters.Add("@paci_usuario", SqlDbType.VarChar).Value = usuario.UserName;
+            
             dt = con.ExecConsulta(cmd);
             turnosActivos.DataSource = dt;
         }

@@ -86,11 +86,11 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(327, 255);
+            this.btnCancel.Location = new System.Drawing.Point(34, 12);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(146, 59);
+            this.btnCancel.Size = new System.Drawing.Size(561, 302);
             this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "Hay que usar la clase que tiene el 2, no esta salame";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -118,8 +118,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 324);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox1);
             this.Name = "CancelarAtencionAfiliado";
