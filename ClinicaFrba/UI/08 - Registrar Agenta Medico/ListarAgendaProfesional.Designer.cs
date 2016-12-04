@@ -73,7 +73,7 @@
             // 
             this.comboBoxDia.FormattingEnabled = true;
             this.comboBoxDia.Location = new System.Drawing.Point(92, 24);
-            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxDia.Name = "comboBoxDia";
             this.comboBoxDia.Size = new System.Drawing.Size(219, 21);
             this.comboBoxDia.TabIndex = 4;
@@ -82,7 +82,7 @@
             // buttonVerDia
             // 
             this.buttonVerDia.Location = new System.Drawing.Point(27, 45);
-            this.buttonVerDia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonVerDia.Margin = new System.Windows.Forms.Padding(2);
             this.buttonVerDia.Name = "buttonVerDia";
             this.buttonVerDia.Size = new System.Drawing.Size(89, 20);
             this.buttonVerDia.TabIndex = 6;
@@ -115,8 +115,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 469);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ClientSize = new System.Drawing.Size(1086, 469);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ListarAgendaProfesional";
             this.Text = "ListarAgendaProfesional";
             this.gbFiltros.ResumeLayout(false);
