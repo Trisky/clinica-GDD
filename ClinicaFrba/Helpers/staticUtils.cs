@@ -51,9 +51,21 @@ namespace ClinicaFrba.Helpers
         {
             return System.Text.RegularExpressions.Regex.IsMatch(s, "^[0-9]*$");
         }
+        /// <summary>
+        /// obtener la fecha del dia en formato string
+        /// </summary>
+        /// <returns></returns>
         public static string getDate()
         {
             return Convert.ToString(ConfigurationManager.AppSettings["FechaSistema"]);
+        }
+        /// <summary>
+        /// obtener la fecha del dia en formato datetime
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime getDateTime()
+        {
+            return Convert.ToDateTime(getDate());
         }
 
         public static object TraducirTipoDNI(object entrada)

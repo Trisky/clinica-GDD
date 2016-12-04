@@ -21,24 +21,28 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         {
             InitializeComponent();
             usuario = user;
+            fechaHoy = Convert.ToDateTime(StaticUtils.getDate());
+            mes = fechaHoy.Month;
         }
 
         private void CancelarAtencionMedico_Load(object sender, EventArgs e)
         {
-            fechas=baja.obtenerFechas(usuario.MedicoMatricula,DateTime.Today);
+            fechas=baja.obtenerFechas(usuario.MedicoMatricula,fechaHoy);
             diaryDoctor.BoldedDates = fechas;
             diaryDoctor.UpdateBoldedDates();
         }
 
         BajaAtencion baja = new BajaAtencion();
-        private int mes = DateTime.Today.Month;
+        
         private UsuarioLogeado usuario;
         private DateTime[] fechas;
+        private DateTime fechaHoy;
+        private int mes;
 
         private void diaryDoctor_DateSelected(object sender, DateRangeEventArgs e)
         {
             //falta agregar excepciones
-            if (e.Start < DateTime.Today)
+            if (e.Start < fechaHoy)
             {
                 MessageBox.Show("Periodo no válido");
             }
