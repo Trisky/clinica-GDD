@@ -14,6 +14,7 @@ using System.Windows.Forms;
 namespace ClinicaFrba.UI._14___Listados
 {
     public partial class ListadoEstadistico : FormularioListadoBase
+    
     {
         public ListadoEstadistico()
         {
@@ -24,6 +25,22 @@ namespace ClinicaFrba.UI._14___Listados
 
 
         #region auxiliares
+
+        public Boolean ValidarFechaMenorA6Meses(){
+
+            int cantidadMesesEntreFechas=((dateDesde.Value.Year - dateHasta.Value.Year) * 12) + dateDesde.Value.Month - dateHasta.Value.Month;
+
+            cantidadMesesEntreFechas=cantidadMesesEntreFechas*(-1);
+
+            if (cantidadMesesEntreFechas > 6)
+            {
+                MessageBox.Show("La fecha debe ser menor a 6 meses.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
         private void DesactivarBotonesQueNoSeUsan()
         {
             btnAgregar.Visible = false;
@@ -50,10 +67,17 @@ namespace ClinicaFrba.UI._14___Listados
             cmd.Parameters.Add("@fechaInicio", SqlDbType.VarChar).Value = dateDesde.Value.Date.ToString();
             cmd.Parameters.Add("@fechaFinal", SqlDbType.VarChar).Value =  dateHasta.Value.Date.ToString();
             DataTable dt = con.ExecConsulta(cmd);
-            if(dt.Rows.Count<1)
+            try
             {
-                MessageBox.Show("No hay datos" , "No hay datos ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
+                if (dt.Rows.Count < 1)
+                {
+                    MessageBox.Show("No hay datos", "No hay datos ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Error Al obtener" + ex, "No hay datos ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
                 
             dgListado.DataSource = dt;
@@ -63,53 +87,68 @@ namespace ClinicaFrba.UI._14___Listados
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MostrarEsteSP("sp_top5EspecialidadesMasCanceladas"))
+            if (ValidarFechaMenorA6Meses())
             {
-                dgListado.Columns[0].Width = 500;
-                dgListado.Columns[1].Width = 500;
+                if (MostrarEsteSP("sp_top5EspecialidadesMasCanceladas"))
+                {
+                    dgListado.Columns[0].Width = 500;
+                    dgListado.Columns[1].Width = 500;
+                }
             }
             
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+            if (ValidarFechaMenorA6Meses())
             {
-                dgListado.Columns[0].Width = 500;
-                dgListado.Columns[1].Width = 500;
+                if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+                {
+                    dgListado.Columns[0].Width = 500;
+                    dgListado.Columns[1].Width = 500;
+                }
             }
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (MostrarEsteSP("sp_top5ProfMasConsultadasPorPlan"))
+            if (ValidarFechaMenorA6Meses())
             {
-                dgListado.Columns[0].Width = 200;
-                dgListado.Columns[1].Width = 200;
-                dgListado.Columns[2].Width = 300;
-                dgListado.Columns[3].Width = 300;
+                if (MostrarEsteSP("sp_top5ProfMasConsultadasPorPlan"))
+                {
+                    dgListado.Columns[0].Width = 200;
+                    dgListado.Columns[1].Width = 200;
+                    dgListado.Columns[2].Width = 300;
+                    dgListado.Columns[3].Width = 300;
+                }
             }
         }
 
 
         private void button4_Click(object sender, EventArgs e)
         {
-
-            if (MostrarEsteSP("sp_top5AfiliadosConMasBonos"))
+            if (ValidarFechaMenorA6Meses())
             {
-                dgListado.Columns[0].Width = 200;
-                dgListado.Columns[1].Width = 300;
-                dgListado.Columns[2].Width = 500;
+                if (MostrarEsteSP("sp_top5AfiliadosConMasBonos"))
+                {
+                    dgListado.Columns[0].Width = 200;
+                    dgListado.Columns[1].Width = 300;
+                    dgListado.Columns[2].Width = 500;
+                }
             }
 
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+            if (ValidarFechaMenorA6Meses())
             {
-                dgListado.Columns[0].Width = 500;
-                dgListado.Columns[1].Width = 500;
+                if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+                {
+                    dgListado.Columns[0].Width = 500;
+                    dgListado.Columns[1].Width = 500;
+                }
             }
         }
 

@@ -502,14 +502,18 @@ DROP TABLE #turnosDelDia
 GO
 
 CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnoPaciente]
-@tipo NUMERIC(18,0),
+@tipo VARCHAR(250),
 @id_turno NUMERIC(18,0),
 @descripcion VARCHAR(255),
 @fechaHoy DATETIME
 AS
+DECLARE @tip NUMERIC(18,0);
 BEGIN
+	
+	SET @tip = CAST(@tipo AS NUMERIC(18,0));
+	
 	INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
-	VALUES (@tipo,@id_turno,@descripcion,CAST(@fechaHoy AS DATE))
+	VALUES (@tip,@id_turno,@descripcion,CAST(@fechaHoy AS DATE))
 END
 GO
 -------------------------------------------------------------------------------------------------------------------
@@ -564,7 +568,7 @@ AS
 BEGIN
 	SELECT TOP 5 (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.turn_especialidad) AS Especialidad, COUNT(*) Cantidad_de_Cancelaciones 
 	FROM GRUPOSA.TurnosCancelacion c JOIN GRUPOSA.Turnos t ON c.Cancelacion_Turno_Id = t.Turn_Numero
-	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	WHERE CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 	GROUP BY T.Turn_Especialidad
     ORDER BY COUNT(*) DESC
 END
@@ -577,7 +581,7 @@ BEGIN
 		(SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.Turn_Especialidad) AS Especialidad,  
 		(SELECT UPPER(M.Medi_Apellido+' '+M.Medi_Nombre) FROM GRUPOSA.Medico M WHERE M.Medi_Id = t.Turn_Medico_Id) AS Profesional
 	FROM GRUPOSA.TURNOS T JOIN GRUPOSA.Paciente P ON T.Turn_Paciente_Id = P.Paci_Matricula
-	WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	WHERE CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 	GROUP BY Turn_Medico_Id, p.Paci_Plan_Med_Cod_FK,t.Turn_Especialidad
 	ORDER BY 1 DESC
 END
@@ -590,7 +594,7 @@ BEGIN
 	COUNT(*) AS Cantidad_de_Bonos_Utilizados 
 	FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
 	WHERE Bono_expirado <> 0
-	AND MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	AND CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 	GROUP BY Turn_Especialidad
 	ORDER BY 2 DESC
 END
@@ -603,7 +607,7 @@ BEGIN
 		COUNT(*) AS Cantidad_de_Bonos_Utilizados 
 		FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
 	WHERE Bono_expirado <> 0
-	AND MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+	AND CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 	GROUP BY Turn_Especialidad
 	ORDER BY 2 DESC
 END
@@ -615,7 +619,7 @@ SELECT TOP 5 (SELECT UPPER(Paci_Apellido + ' ' + Paci_Nombre) FROM GRUPOSA.Pacie
 			 (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No Es Grupo Familiar' ELSE 'Grupo Familiar' END) AS Grupo_Fliar, 
 			 COUNT(*) AS Cantidad_de_Bonos 
 FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
-WHERE MONTH(T.Turn_Fecha) BETWEEN MONTH(@fechaInicio) AND MONTH(@fechaFinal) 
+WHERE CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 GROUP BY Bono_Paci_Id, Bono_Numero_GrupoFamiliar
 ORDER BY 3 DESC, 2 ASC
 END
