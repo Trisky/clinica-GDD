@@ -32,16 +32,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.textBoxApellido = new System.Windows.Forms.TextBox();
-            this.comboBoxEspecialidades = new System.Windows.Forms.ComboBox();
-            this.labelEspec = new System.Windows.Forms.Label();
             this.buttonRegistroLlegada = new System.Windows.Forms.Button();
             this.gbFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
             // 
-            this.gbFiltros.Controls.Add(this.labelEspec);
-            this.gbFiltros.Controls.Add(this.comboBoxEspecialidades);
             this.gbFiltros.Controls.Add(this.textBoxApellido);
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label2);
@@ -54,8 +50,6 @@
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxApellido, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.comboBoxEspecialidades, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.labelEspec, 0);
             // 
             // btnBuscar
             // 
@@ -115,23 +109,6 @@
             this.textBoxApellido.Size = new System.Drawing.Size(100, 20);
             this.textBoxApellido.TabIndex = 5;
             // 
-            // comboBoxEspecialidades
-            // 
-            this.comboBoxEspecialidades.FormattingEnabled = true;
-            this.comboBoxEspecialidades.Location = new System.Drawing.Point(724, 15);
-            this.comboBoxEspecialidades.Name = "comboBoxEspecialidades";
-            this.comboBoxEspecialidades.Size = new System.Drawing.Size(200, 21);
-            this.comboBoxEspecialidades.TabIndex = 6;
-            // 
-            // labelEspec
-            // 
-            this.labelEspec.AutoSize = true;
-            this.labelEspec.Location = new System.Drawing.Point(651, 18);
-            this.labelEspec.Name = "labelEspec";
-            this.labelEspec.Size = new System.Drawing.Size(66, 13);
-            this.labelEspec.TabIndex = 7;
-            this.labelEspec.Text = "especialidad";
-            // 
             // buttonRegistroLlegada
             // 
             this.buttonRegistroLlegada.BackColor = System.Drawing.Color.Yellow;
@@ -164,8 +141,6 @@
         private System.Windows.Forms.TextBox textBoxApellido;
         private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelEspec;
-        private System.Windows.Forms.ComboBox comboBoxEspecialidades;
         private System.Windows.Forms.Button buttonRegistroLlegada;
     }
 }

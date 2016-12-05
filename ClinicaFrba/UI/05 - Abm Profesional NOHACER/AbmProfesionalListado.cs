@@ -28,16 +28,11 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             InitializeComponent();
             numeroAccionAdmin = numero;
             pantallaPP = pp;
-            inicializarComboBoxEspecialidad();
             btnSeleccionar.Visible = true;
             Show();
         }
 
-        private void inicializarComboBoxEspecialidad()
-        {
-            ComboBoxManager listaEspecialidades = new ComboBoxManager();
-            comboBoxEspecialidades = listaEspecialidades.CrearEspecialidades(comboBoxEspecialidades);
-        }
+
 
         public AbmProfesionalListado(RegistroLlegada registroLlegada)
         {
@@ -46,7 +41,6 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             btnSeleccionar.Visible = false;
             btnSeleccionar.Dispose();
             buttonRegistroLlegada.Visible = true;
-            inicializarComboBoxEspecialidad();
             Show();
             btnLimpiar.Visible = false;
 
