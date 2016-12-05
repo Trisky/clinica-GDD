@@ -94,7 +94,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 var cells = a.Cells;
 
                 UsuarioLogeado ua = new UsuarioLogeado();
-                ua.PacienteMatricula = cells[0].Value.ToString();
+                ua.MedicoMatricula = cells[0].Value.ToString();
                 ua.UserName = cells[4].Value.ToString();
                 pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);
             }

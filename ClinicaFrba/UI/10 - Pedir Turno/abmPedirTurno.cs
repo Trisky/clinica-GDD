@@ -115,6 +115,8 @@ namespace ClinicaFrba.Pedir_Turno
             cmd.Parameters.Add("@id_medico", SqlDbType.NVarChar).Value = idMedico;
             DataTable dTurnos = con.ExecConsulta(cmd);
             horariosDisponibles.DataSource = dTurnos;
+            horariosDisponibles.Visible = true;
+            horariosDisponibles.Refresh();
 
 
             //si no hay medicos, le aviso al usuario.

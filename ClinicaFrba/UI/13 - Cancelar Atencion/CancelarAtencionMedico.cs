@@ -69,8 +69,8 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             baja.bajaTurnosMedico(txtInitDate.Text,txtLastDate.Text,usuario.MedicoMatricula,txtReason.Text);
-            
-            if(txtInitDate.Text.Count>0)
+            int a =txtInitDate.Text.Count();
+            if ( a > 0)
             MessageBox.Show("Se cancelaron los turnos entre: "+txtInitDate.Text+ " y " + txtLastDate.Text);
         }
 
