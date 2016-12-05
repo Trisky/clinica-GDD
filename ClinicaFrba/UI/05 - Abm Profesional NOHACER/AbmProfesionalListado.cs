@@ -12,21 +12,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaFrba.UI._11___Registro_Llegada;
 
 namespace ClinicaFrba.UI._05___Abm_Profesional
 {
     public partial class AbmProfesionalListado : FormularioListadoBase
     {
         private PantallaPrincipal pantallaPP;
+        private RegistroLlegada registroLlegada;
+
         public int numeroAccionAdmin { get; set; }
 
         public AbmProfesionalListado(PantallaPrincipal pp,int numero)
         {
             InitializeComponent();
-            btnSeleccionar.Visible = true;
             numeroAccionAdmin = numero;
             pantallaPP = pp;
+            inicializarComboBoxEspecialidad();
             Show();
+        }
+
+        private void inicializarComboBoxEspecialidad()
+        {
+            ComboBoxManager listaEspecialidades = new ComboBoxManager();
+            comboBoxEspecialidades = listaEspecialidades.CrearEspecialidades(comboBoxEspecialidades);
+        }
+
+        public AbmProfesionalListado(RegistroLlegada registroLlegada)
+        {
+            InitializeComponent();
+            this.registroLlegada = registroLlegada;
+            btnSeleccionar.Visible = false;
+            buttonRegistroLlegada.Visible = true;
+            inicializarComboBoxEspecialidad();
+            Show();
+            btnLimpiar.Visible = false;
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -42,6 +63,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                           ,[Medi_Nombre] as nombre
                           ,[Medi_Apellido] as apellido
                           ,[Medi_Dni] as DNI
+                          ,[Medi_Sexo] as sexo
                           ,[Medi_Usuario] as usuario
                       FROM [GD2C2016].[GRUPOSA].[Medico]
                       ";
@@ -70,15 +92,38 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 var cells = a.Cells;
 
                 UsuarioLogeado ua = new UsuarioLogeado();
-                ua.MedicoMatricula = cells[0].Value.ToString();
+                ua.PacienteMatricula = cells[0].Value.ToString();
                 ua.UserName = cells[4].Value.ToString();
-                LogInHelper helper = new LogInHelper();
-                ua = helper.GetUsuario(ua.UserName);
                 pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un afiliado", "Afiliado no seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe seleccionar un profesional", "profesional no seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            Hide();
+            Dispose();
+        }
+
+        /// <summary>
+        /// para registro llegada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var a = dgListado.SelectedRows[0];
+            if (a != null)
+            {
+                var cells = a.Cells;
+
+                string matriculaProfesional = cells[0].Value.ToString();
+                registroLlegada.MostrarTurnosProfesional(matriculaProfesional);
+                Hide();
+                Dispose();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un profesional", "profesional no seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             Hide();
             Dispose();

@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pacienteNombreLabel = new System.Windows.Forms.Label();
             this.pacienteApellidoLabel = new System.Windows.Forms.Label();
             this.groupBoxPacienteSeleccionado = new System.Windows.Forms.GroupBox();
             this.idPacienteLabel = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.gbFiltros.SuspendLayout();
             this.groupBoxPacienteSeleccionado.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
             // 
+            this.gbFiltros.Controls.Add(this.button2);
             this.gbFiltros.Controls.Add(this.label1);
-            this.gbFiltros.Controls.Add(this.button1);
             this.gbFiltros.Controls.Add(this.groupBoxPacienteSeleccionado);
             this.gbFiltros.Location = new System.Drawing.Point(12, 9);
             this.gbFiltros.Controls.SetChildIndex(this.groupBoxPacienteSeleccionado, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.button1, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.button2, 0);
             // 
             // btnBuscar
             // 
@@ -63,18 +63,6 @@
             // 
             this.btnSeleccionar.Text = "Confirmar";
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.button1.Location = new System.Drawing.Point(488, 18);
-            this.button1.Margin = new System.Windows.Forms.Padding(1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(141, 60);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Buscar paciente";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -131,6 +119,16 @@
             this.idPacienteLabel.TabIndex = 5;
             this.idPacienteLabel.Text = "idLabel";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(408, 66);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(175, 44);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "buscar medico por especialidad";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // RegistroLlegada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,12 +146,11 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label pacienteNombreLabel;
         private System.Windows.Forms.Label pacienteApellidoLabel;
         private System.Windows.Forms.GroupBox groupBoxPacienteSeleccionado;
         private System.Windows.Forms.Label idPacienteLabel;
+        private System.Windows.Forms.Button button2;
     }
 }
