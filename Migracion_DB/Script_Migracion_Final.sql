@@ -388,6 +388,24 @@ BEGIN
 END
 GO 
 
+---------------------------------------------------------------------------------------------
+--sp_medicosEspecialidad: Devuelve el nombre de los medicos de la especialidad recibida.
+CREATE PROCEDURE [GRUPOSA].[sp_turnosOcupadosDelDia] (@idMedico VARCHAR(250), @fecha VARCHAR(250))
+AS
+BEGIN
+	
+	SELECT T.Turn_Numero AS Turno,
+		   SUBSTRING(CAST(CAST(T.Turn_Fecha AS TIME) AS varchar),1,5) AS Hora,
+		   (SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente
+	FROM GRUPOSA.Turnos t
+	WHERE Turn_Medico_Id = @IdMedico
+	AND CAST(Turn_Fecha AS DATE) = CAST(@fecha AS DATE)
+	AND Turn_Numero NOT IN (SELECT TC.Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion TC);
+	
+END
+GO 
+
+---------------------------------------------------------------------------------------------
 --sp_turnosMedicosDisponibles: Devuelve los turnos disponibles del dia.
 CREATE PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR(255), @especialidad VARCHAR(255),@id_medico VARCHAR(255))
 AS
