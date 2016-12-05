@@ -26,7 +26,7 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             UsuarioLogueado = user;
             PopularTabla();
             radioButton1.Checked = true;
-            btnSeleccionar.Text = "cancelar este turno";
+            btnSeleccionar.Text = "Cancelar turno seleccionado";
             btnSeleccionar.Visible = true;
             Show();
         }
@@ -36,6 +36,7 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosActivosPaciente");
             cmd.Parameters.Add("@paci_usuario", SqlDbType.VarChar).Value = UsuarioLogueado.UserName;
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime(); 
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
         }
@@ -66,7 +67,7 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             DataTable dt = con.ExecConsulta(cmd);
             if (dt != null) { MessageBox.Show("Cancelacion exitosa"); }
             cmd = con.CrearComandoStoreProcedure("sp_turnosActivosPaciente");
-
+            PopularTabla();
 
         }
 
@@ -85,6 +86,21 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             motivoRound = "Motivo medico";
+        }
+
+        private void textBoxMotivo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

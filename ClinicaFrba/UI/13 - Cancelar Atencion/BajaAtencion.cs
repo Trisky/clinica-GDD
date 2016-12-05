@@ -60,23 +60,6 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             return fechas;
         }
         
-        public DataTable bajaTurnosMedico(string dia, string medico, string descripcion){
-            DataTable dt = null;
-            try{
-                Conexion con = new Conexion();
-                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaTurnosMedico");
-                cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = dia;
-                cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = medico;
-                cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = descripcion;
-                cmd.Parameters.Add("@tipo", SqlDbType.Decimal).Value = Convert.ToDecimal(2);
-                dt = con.ExecConsulta(cmd);
-                return dt;
-            }
-            catch (Exception ex){
-                Console.WriteLine(ex.ToString());
-            }
-            return dt;
-        }
 
         public DataTable bajaTurnosMedico(string dia, string dia2,string medico, string descripcion){
             DataTable dt = null;
@@ -90,25 +73,16 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
                 foreach (DataRow day in days.Rows){
                     list2.Add(Convert.ToString(day[0]).ToUpper());
                 }
-                DateTime fecha = Convert.ToDateTime(dia);
-                DateTime fecha2 = Convert.ToDateTime(dia2);
-                while(fecha!=fecha2){
-                    list.Add(fecha);
-                    fecha=fecha.AddDays(1);
-                }
-                list.Add(fecha2);
-                foreach (var date in list){
-                    string nombreDia = date.ToString("dddd", new CultureInfo("es-ES"));
-                    if (list2.Contains(nombreDia.ToUpper())){
-                        cmd = con.CrearComandoStoreProcedure("sp_bajaTurnosMedico");
-                        cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = date.ToShortDateString();
-                        cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = medico;
-                        cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = descripcion;
-                        cmd.Parameters.Add("@tipo", SqlDbType.Decimal).Value = Convert.ToDecimal(2);
-                        dt = con.ExecConsulta(cmd);
-                    }
-                }
+              
+                cmd = con.CrearComandoStoreProcedure("sp_bajaTurnosMedico");
+                cmd.Parameters.Add("@fechaDesde", SqlDbType.VarChar).Value = dia.ToString();
+                cmd.Parameters.Add("@fechaHasta", SqlDbType.VarChar).Value = dia2.ToString();
+                cmd.Parameters.Add("@idMedico", SqlDbType.VarChar).Value = medico;
+                cmd.Parameters.Add("@motivo", SqlDbType.VarChar).Value = descripcion;
+                cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
+                dt = con.ExecConsulta(cmd);
             }
+             
             catch (Exception ex){
                 Console.WriteLine(ex.ToString());
             }

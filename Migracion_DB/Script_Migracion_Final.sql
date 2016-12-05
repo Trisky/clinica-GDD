@@ -449,19 +449,18 @@ END
 GO
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
-CREATE PROCEDURE [GRUPOSA].[sp_turnosActivosPaciente]
-@paci_usuario VARCHAR(255)
+CREATE PROCEDURE [GRUPOSA].[sp_turnosActivosPaciente] (@paci_usuario VARCHAR(255), @fechaHoy VARCHAR(255))
 AS
-SELECT t.Turn_Numero,(m.Medi_Apellido)+', '+m.Medi_Nombre 'Doctor',e.Espe_Desc 'Especialidad',t.Turn_Fecha 'Fecha'
-FROM GRUPOSA.Turnos t
-JOIN GRUPOSA.Paciente p
-ON t.Turn_Paciente_Id=p.Paci_Matricula
-join GRUPOSA.Medico m
-ON m.Medi_Id=t.Turn_Medico_Id
-JOIN GRUPOSA.Especialidades e
-ON e.Espe_Cod=t.Turn_Especialidad
-WHERE p.Paci_Usuario=@paci_usuario
-and Turn_Numero not in (select c.Cancelacion_Turno_Id from GRUPOSA.TurnosCancelacion c)
+	SELECT T.Turn_Numero,
+		  (M.Medi_Apellido)+', '+ M.Medi_Nombre 'Doctor', 
+		  E.Espe_Desc 'Especialidad',
+		  T.Turn_Fecha 'Fecha'
+	FROM GRUPOSA.Turnos T JOIN GRUPOSA.Paciente P ON T.Turn_Paciente_Id = P.Paci_Matricula
+						  JOIN GRUPOSA.Medico M ON M.Medi_Id = T.Turn_Medico_Id
+						  JOIN GRUPOSA.Especialidades E ON E.Espe_Cod = T.Turn_Especialidad
+	WHERE P.Paci_Usuario = @paci_usuario
+	AND Turn_Numero NOT IN (SELECT c.Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion c)
+	AND CAST(T.Turn_Fecha AS DATE) >= CAST(@fechaHoy AS DATE)
 GO
 
 CREATE PROCEDURE [GRUPOSA].[sp_obtenerDiasDeAtencion]
@@ -481,42 +480,27 @@ FROM GRUPOSA.HorariosAtencion h
 WHERE h.Hora_Medico_Id_FK=@id_medico
 AND h.Hora_Especialidad=@especialidad
 GO
-
+-----------------------------------------------------------------------------------------------------------------------
+----sp_bajaTurnosMedico
 CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnosMedico]
-	@fecha VARCHAR(255),
-	@medico VARCHAR(255),
-	@tipo NUMERIC(18,0),
-	@descripcion VARCHAR(255),
-	@fechaHoy DATETIME
+	@fechaDesde VARCHAR(255),
+	@fechaHasta VARCHAR(255),
+	@idMedico 	VARCHAR(255),
+	@fechaHoy   VARCHAR(255),
+	@motivo 	VARCHAR(255)
 AS
-DECLARE @cant NUMERIC(18,0)
-DECLARE @ind NUMERIC(18,0)
-DECLARE @id_turno NUMERIC(18,0)
+DECLARE @fecha DATETIME;
+BEGIN
 
-	CREATE TABLE #turnosDelDia(
-								id_turno NUMERIC(18,0) IDENTITY(1,1),
-								num_turno VARCHAR(255)
-							   )
+	SET @fecha = CAST(@fechaHoy AS DATE);
 	
-	SET @ind=1
+	INSERT INTO [GRUPOSA].[TurnosCancelacion]
+           ([Cancelacion_Tipo],[Cancelacion_Turno_Id],[Cancelacion_Motivo],[Cancelacion_Fecha])
+	SELECT 2, Turn_Numero, @motivo, @fecha  FROM GRUPOSA.Turnos
+	WHERE Turn_Medico_Id = @idMedico
+	AND CAST(Turn_Fecha AS DATE) BETWEEN CAST(@fechaDesde AS DATE) AND CAST(@fechaHasta AS DATE)
 	
-	INSERT #turnosDelDia
-	SELECT T.Turn_Numero FROM gruposa.Turnos T
-	WHERE CONVERT(VARCHAR(10), Turn_Fecha, 103) = @fecha
-	AND T.Turn_Medico_Id=@medico
-
-	SELECT @cant=COUNT(*)+1 FROM #turnosDelDia
-	WHILE @ind!=@cant
-		BEGIN
-			SELECT @id_turno=TD.num_turno FROM #turnosDelDia TD 
-			WHERE TD.id_turno=@ind
-			
-			INSERT INTO GRUPOSA.TurnosCancelacion (Cancelacion_Tipo,Cancelacion_Turno_Id,Cancelacion_Motivo,Cancelacion_Fecha)
-			VALUES (@tipo,@id_turno,@descripcion,CAST(@fechaHoy AS DATE))
-			
-			SET @ind+=1
-		END
-DROP TABLE #turnosDelDia
+END	   
 GO
 
 CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnoPaciente]
