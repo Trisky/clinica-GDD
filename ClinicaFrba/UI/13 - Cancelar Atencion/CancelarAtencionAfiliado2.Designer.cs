@@ -45,6 +45,7 @@
             this.gbFiltros.Controls.Add(this.radioButton1);
             this.gbFiltros.Controls.Add(this.textBoxMotivo);
             this.gbFiltros.Controls.Add(this.label2);
+            this.gbFiltros.Size = new System.Drawing.Size(930, 147);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
@@ -54,31 +55,38 @@
             this.gbFiltros.Controls.SetChildIndex(this.radioButton3, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(961, 94);
+            // 
             // btnSeleccionar
             // 
+            this.btnSeleccionar.Location = new System.Drawing.Point(961, 93);
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(447, 16);
+            this.label2.Location = new System.Drawing.Point(6, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Motivo de cancelacion";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBoxMotivo
             // 
-            this.textBoxMotivo.Location = new System.Drawing.Point(606, 34);
+            this.textBoxMotivo.Location = new System.Drawing.Point(9, 70);
             this.textBoxMotivo.Multiline = true;
             this.textBoxMotivo.Name = "textBoxMotivo";
-            this.textBoxMotivo.Size = new System.Drawing.Size(319, 107);
+            this.textBoxMotivo.Size = new System.Drawing.Size(916, 71);
             this.textBoxMotivo.TabIndex = 4;
+            this.textBoxMotivo.TextChanged += new System.EventHandler(this.textBoxMotivo_TextChanged);
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(450, 34);
+            this.radioButton1.Location = new System.Drawing.Point(235, 26);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(94, 17);
             this.radioButton1.TabIndex = 5;
@@ -90,7 +98,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(450, 57);
+            this.radioButton2.Location = new System.Drawing.Point(138, 26);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(91, 17);
             this.radioButton2.TabIndex = 6;
@@ -102,7 +110,7 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(450, 81);
+            this.radioButton3.Location = new System.Drawing.Point(335, 26);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(101, 17);
             this.radioButton3.TabIndex = 7;
@@ -114,7 +122,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(603, 18);
+            this.label1.Location = new System.Drawing.Point(6, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(137, 13);
             this.label1.TabIndex = 8;

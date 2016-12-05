@@ -22,7 +22,9 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             InitializeComponent();
             usuario = user;
             fechaHoy = Convert.ToDateTime(StaticUtils.getDate());
-            mes = fechaHoy.Month;
+            mes = fechaHoy.Month; 
+            diaryDoctor.TodayDate= StaticUtils.getDateTime();
+            Show();
         }
 
         private void CancelarAtencionMedico_Load(object sender, EventArgs e)
@@ -66,14 +68,10 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (txtInitDate.Text == txtLastDate.Text)
-            {
-                baja.bajaTurnosMedico(txtInitDate.Text,usuario.MedicoMatricula,txtReason.Text);
-            }
-            else
-            {
-                baja.bajaTurnosMedico(txtInitDate.Text,txtLastDate.Text,usuario.MedicoMatricula,txtReason.Text);
-            }
+            baja.bajaTurnosMedico(txtInitDate.Text,txtLastDate.Text,usuario.MedicoMatricula,txtReason.Text);
+            
+            if(txtInitDate.Text.Count>0)
+            MessageBox.Show("Se cancelaron los turnos entre: "+txtInitDate.Text+ " y " + txtLastDate.Text);
         }
 
         
