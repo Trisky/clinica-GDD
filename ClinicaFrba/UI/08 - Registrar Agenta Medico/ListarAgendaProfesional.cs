@@ -21,6 +21,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             btnBuscar.Enabled = btnEliminar.Enabled = btnLimpiar.Enabled = false;
             usuarioLogeado = user;
             labelIdMedico.Text = usuarioLogeado.MedicoMatricula;
+            btnModificar.Enabled = false;
 
             ComboBoxManager cm = new ComboBoxManager();
             comboBoxDia = cm.CrearDias(comboBoxDia);
@@ -35,7 +36,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            CrearNuevoHorario nuevoHorario = new CrearNuevoHorario(usuarioLogeado.UserName);
+            CrearNuevoHorario nuevoHorario = new CrearNuevoHorario(usuarioLogeado);
             nuevoHorario.Show();
         }
 
