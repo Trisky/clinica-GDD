@@ -20,6 +20,7 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
             InitializeComponent();
             usuarioMatricula = usuarioMatriculaa;
             BuscarTurnosDelUsuario();
+            Text = "Cancelacion de atencion - Medico";
         }
 
         private void BuscarTurnosDelUsuario()

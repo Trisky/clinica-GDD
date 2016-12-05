@@ -39,6 +39,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selectionDates)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -61,7 +62,7 @@
             this.groupBox1.Controls.Add(this.diaryDoctor);
             this.groupBox1.Controls.Add(this.txtInitDate);
             this.groupBox1.Controls.Add(this.selectionDates);
-            this.groupBox1.Location = new System.Drawing.Point(15, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(304, 278);
             this.groupBox1.TabIndex = 1;
@@ -95,7 +96,7 @@
             // 
             // diaryDoctor
             // 
-            this.diaryDoctor.Location = new System.Drawing.Point(34, 32);
+            this.diaryDoctor.Location = new System.Drawing.Point(32, 25);
             this.diaryDoctor.MaxSelectionCount = 30;
             this.diaryDoctor.Name = "diaryDoctor";
             this.diaryDoctor.TabIndex = 1;
@@ -120,7 +121,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtReason);
-            this.groupBox2.Location = new System.Drawing.Point(15, 296);
+            this.groupBox2.Location = new System.Drawing.Point(12, 346);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(304, 53);
             this.groupBox2.TabIndex = 3;
@@ -130,7 +131,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(15, 355);
+            this.btnConfirm.Location = new System.Drawing.Point(12, 405);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(147, 23);
             this.btnConfirm.TabIndex = 4;
@@ -140,7 +141,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(169, 355);
+            this.btnCancel.Location = new System.Drawing.Point(166, 405);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(152, 23);
             this.btnCancel.TabIndex = 5;
@@ -148,11 +149,23 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(365, 54);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Seleccione el dia desde el cual quiere cancelar \r\nsu atencion y mientras apreta s" +
+    "hift, seleccione\r\n el dia que quiere reanuadar su atención";
+            // 
             // CancelarAtencionMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 394);
+            this.ClientSize = new System.Drawing.Size(378, 441);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox2);
@@ -166,6 +179,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -182,5 +196,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label3;
     }
 }
