@@ -29,6 +29,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             numeroAccionAdmin = numero;
             pantallaPP = pp;
             inicializarComboBoxEspecialidad();
+            btnSeleccionar.Visible = true;
             Show();
         }
 
@@ -43,6 +44,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             InitializeComponent();
             this.registroLlegada = registroLlegada;
             btnSeleccionar.Visible = false;
+            btnSeleccionar.Dispose();
             buttonRegistroLlegada.Visible = true;
             inicializarComboBoxEspecialidad();
             Show();

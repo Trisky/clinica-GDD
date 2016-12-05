@@ -180,6 +180,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void buttonBuscarTurnosMedico_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
             AbmProfesionalListado prof = new AbmProfesionalListado(this);
             Hide();
         }
