@@ -24,8 +24,8 @@ namespace ClinicaFrba
         {
             InitializeComponent();
             labelFecha.Text = StaticUtils.getDate();
-
             
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -88,5 +88,13 @@ namespace ClinicaFrba
         {
 
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+       
     }
 }

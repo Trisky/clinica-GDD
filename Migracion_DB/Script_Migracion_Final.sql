@@ -703,7 +703,7 @@ CREATE TABLE [GRUPOSA].[Medico]
 		[Medi_Apellido] 			[VARCHAR](255) NULL,
 		[Medi_TipoDocumento] 		[VARCHAR](255) NOT NULL,
 		[Medi_Dni] 					[NUMERIC](18, 0) NOT NULL,
-		[Medi_Sexo]					[VARCHAR](255) DEFAULT NULL,
+		[Medi_Sexo]					[VARCHAR](255) DEFAULT 'Masculino',
 		[Medi_Direccion] 			[VARCHAR](255) NULL,
 		[Medi_Mail] 				[VARCHAR](255) NULL,
 		[Medi_Telefono] 			[NUMERIC](18, 0) NULL,
@@ -1029,7 +1029,7 @@ BEGIN TRANSACTION
 				
 			SET @var = NEXT VALUE FOR GRUPOSA.SQ_ID_MEDICO
 			SET @medi_id = RIGHT(replicate('0',5) + CAST(@var AS VARCHAR(5)) + '01', 8)
-			SET @medi_usuario = LOWER(@medi_nom) + '_' + LOWER(@medi_apell) + '.' +  'clinica_frba'
+			SET @medi_usuario = LOWER(@medi_nom) + '_' + LOWER(@medi_apell) + '.' +  'Medico'
 					
 					INSERT INTO [GRUPOSA].[Medico]
 					   ([Medi_Id],[Medi_Nombre],[Medi_Apellido],[Medi_TipoDocumento],[Medi_Dni],

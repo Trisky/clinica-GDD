@@ -49,8 +49,9 @@
             this.selectionDates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.selectionDates.Location = new System.Drawing.Point(21, 19);
             this.selectionDates.Name = "selectionDates";
-            this.selectionDates.Size = new System.Drawing.Size(403, 205);
+            this.selectionDates.Size = new System.Drawing.Size(254, 239);
             this.selectionDates.TabIndex = 0;
+            this.selectionDates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.selectionDates_CellContentClick);
             // 
             // groupBox1
             // 
@@ -62,15 +63,15 @@
             this.groupBox1.Controls.Add(this.selectionDates);
             this.groupBox1.Location = new System.Drawing.Point(15, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(430, 244);
+            this.groupBox1.Size = new System.Drawing.Size(304, 278);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Seleccione el dia o los dias que desea cancelar turnos";
+            this.groupBox1.Text = "Seleccione el/los dia/s a cancelar turnos";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(301, 159);
+            this.label2.Location = new System.Drawing.Point(189, 201);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 5;
@@ -79,7 +80,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(301, 88);
+            this.label1.Location = new System.Drawing.Point(66, 201);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 4;
@@ -87,14 +88,14 @@
             // 
             // txtLastDate
             // 
-            this.txtLastDate.Location = new System.Drawing.Point(290, 185);
+            this.txtLastDate.Location = new System.Drawing.Point(154, 217);
             this.txtLastDate.Name = "txtLastDate";
-            this.txtLastDate.Size = new System.Drawing.Size(127, 20);
+            this.txtLastDate.Size = new System.Drawing.Size(105, 20);
             this.txtLastDate.TabIndex = 3;
             // 
             // diaryDoctor
             // 
-            this.diaryDoctor.Location = new System.Drawing.Point(51, 43);
+            this.diaryDoctor.Location = new System.Drawing.Point(34, 32);
             this.diaryDoctor.MaxSelectionCount = 30;
             this.diaryDoctor.Name = "diaryDoctor";
             this.diaryDoctor.TabIndex = 1;
@@ -103,31 +104,33 @@
             // 
             // txtInitDate
             // 
-            this.txtInitDate.Location = new System.Drawing.Point(290, 115);
+            this.txtInitDate.Location = new System.Drawing.Point(32, 217);
             this.txtInitDate.Name = "txtInitDate";
-            this.txtInitDate.Size = new System.Drawing.Size(127, 20);
+            this.txtInitDate.Size = new System.Drawing.Size(103, 20);
             this.txtInitDate.TabIndex = 2;
             // 
             // txtReason
             // 
             this.txtReason.Location = new System.Drawing.Point(6, 19);
             this.txtReason.Name = "txtReason";
-            this.txtReason.Size = new System.Drawing.Size(418, 20);
+            this.txtReason.Size = new System.Drawing.Size(292, 20);
             this.txtReason.TabIndex = 2;
+            this.txtReason.TextChanged += new System.EventHandler(this.txtReason_TextChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtReason);
-            this.groupBox2.Location = new System.Drawing.Point(15, 262);
+            this.groupBox2.Location = new System.Drawing.Point(15, 296);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(430, 59);
+            this.groupBox2.Size = new System.Drawing.Size(304, 53);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Indique el motivo de la cancelacion";
+            this.groupBox2.Text = "Motivo de la cancelacion";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(36, 362);
+            this.btnConfirm.Location = new System.Drawing.Point(15, 355);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(147, 23);
             this.btnConfirm.TabIndex = 4;
@@ -137,18 +140,19 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(287, 362);
+            this.btnCancel.Location = new System.Drawing.Point(169, 355);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(152, 23);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // CancelarAtencionMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 405);
+            this.ClientSize = new System.Drawing.Size(340, 394);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox2);

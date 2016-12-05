@@ -209,7 +209,7 @@
             this.Controls.Add(this.textBox2);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PedirTurno";
-            this.Text = "Form1";
+            this.Text = "Solicitar Turno";
             this.Load += new System.EventHandler(this.PedirTurno_Load);
             ((System.ComponentModel.ISupportInitialize)(this.horariosDisponibles)).EndInit();
             this.ResumeLayout(false);

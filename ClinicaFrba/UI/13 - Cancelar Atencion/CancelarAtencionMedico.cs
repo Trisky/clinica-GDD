@@ -74,6 +74,26 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             MessageBox.Show("Se cancelaron los turnos entre: "+txtInitDate.Text+ " y " + txtLastDate.Text);
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void selectionDates_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtReason_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         
     }
 

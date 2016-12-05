@@ -175,6 +175,8 @@
             // 
             // cerrarSecionToolStripMenuItem
             // 
+            this.cerrarSecionToolStripMenuItem.Checked = true;
+            this.cerrarSecionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cerrarSecionToolStripMenuItem.Name = "cerrarSecionToolStripMenuItem";
             this.cerrarSecionToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.cerrarSecionToolStripMenuItem.Text = "Cerrar Sesion";
