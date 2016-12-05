@@ -30,6 +30,9 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             pantallaPP = pp;
             btnSeleccionar.Visible = true;
             Show();
+            btnSeleccionar.Enabled = false;
+            Text = "Buscar Profesional";
+            
         }
 
 
@@ -41,8 +44,10 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             btnSeleccionar.Visible = false;
             btnSeleccionar.Dispose();
             buttonRegistroLlegada.Visible = true;
+            Text = "Buscar Profesional";
             Show();
             btnLimpiar.Visible = false;
+            
 
         }
 
@@ -53,13 +58,19 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            BuscarDB();
+            btnSeleccionar.Enabled = true;
+            buttonRegistroLlegada.Enabled = true;
+        }
+
+        private void BuscarDB()
+        {
             DataTable dt;
             Conexion con = new Conexion();
             string s = @"SELECT [Medi_Id] as matricula
                           ,[Medi_Nombre] as nombre
                           ,[Medi_Apellido] as apellido
                           ,[Medi_Dni] as DNI
-                          ,[Medi_Sexo] as sexo
                           ,[Medi_Usuario] as usuario
                       FROM [GD2C2016].[GRUPOSA].[Medico]
                       ";

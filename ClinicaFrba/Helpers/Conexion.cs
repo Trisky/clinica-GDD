@@ -86,6 +86,8 @@ namespace ClinicaFrba.Helpers
         }
         public string ConWildCard(string original)
         {
+            if(original =="")
+                return "";
             return "%" + original + "%";
         }
 

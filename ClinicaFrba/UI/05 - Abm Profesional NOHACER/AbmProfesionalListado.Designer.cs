@@ -42,10 +42,8 @@
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Controls.Add(this.label1);
-            this.gbFiltros.Controls.Add(this.buttonRegistroLlegada);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.buttonRegistroLlegada, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxNombre, 0);
@@ -62,6 +60,7 @@
             // btnEliminar
             // 
             this.btnEliminar.Location = new System.Drawing.Point(961, 129);
+            this.btnEliminar.Visible = false;
             // 
             // btnAgregar
             // 
@@ -99,23 +98,24 @@
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(724, 51);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNombre.Size = new System.Drawing.Size(200, 20);
             this.textBoxNombre.TabIndex = 4;
             // 
             // textBoxApellido
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(724, 76);
             this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(100, 20);
+            this.textBoxApellido.Size = new System.Drawing.Size(200, 20);
             this.textBoxApellido.TabIndex = 5;
             // 
             // buttonRegistroLlegada
             // 
             this.buttonRegistroLlegada.BackColor = System.Drawing.Color.Yellow;
+            this.buttonRegistroLlegada.Enabled = false;
             this.buttonRegistroLlegada.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonRegistroLlegada.Location = new System.Drawing.Point(516, 84);
+            this.buttonRegistroLlegada.Location = new System.Drawing.Point(961, 12);
             this.buttonRegistroLlegada.Name = "buttonRegistroLlegada";
-            this.buttonRegistroLlegada.Size = new System.Drawing.Size(133, 60);
+            this.buttonRegistroLlegada.Size = new System.Drawing.Size(120, 60);
             this.buttonRegistroLlegada.TabIndex = 6;
             this.buttonRegistroLlegada.Text = "Mostrar Turnos de este medico para hoy";
             this.buttonRegistroLlegada.UseVisualStyleBackColor = false;
@@ -127,8 +127,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 469);
+            this.Controls.Add(this.buttonRegistroLlegada);
             this.Name = "AbmProfesionalListado";
             this.Text = "AbmProfesionalListado";
+            this.Controls.SetChildIndex(this.gbFiltros, 0);
+            this.Controls.SetChildIndex(this.btnAgregar, 0);
+            this.Controls.SetChildIndex(this.btnModificar, 0);
+            this.Controls.SetChildIndex(this.btnEliminar, 0);
+            this.Controls.SetChildIndex(this.btnSeleccionar, 0);
+            this.Controls.SetChildIndex(this.buttonRegistroLlegada, 0);
             this.gbFiltros.ResumeLayout(false);
             this.gbFiltros.PerformLayout();
             this.ResumeLayout(false);
