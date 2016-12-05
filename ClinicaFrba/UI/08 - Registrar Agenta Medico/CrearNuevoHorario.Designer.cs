@@ -52,18 +52,21 @@
             // comboBoxDia
             // 
             this.comboBoxDia.FormattingEnabled = true;
-            this.comboBoxDia.Location = new System.Drawing.Point(11, 37);
+            this.comboBoxDia.Location = new System.Drawing.Point(6, 20);
+            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxDia.Name = "comboBoxDia";
-            this.comboBoxDia.Size = new System.Drawing.Size(165, 32);
+            this.comboBoxDia.Size = new System.Drawing.Size(92, 21);
             this.comboBoxDia.TabIndex = 0;
+            this.comboBoxDia.SelectedIndexChanged += new System.EventHandler(this.comboBoxDia_SelectedIndexChanged);
             // 
             // buttonNuevoHorario
             // 
             this.buttonNuevoHorario.BackColor = System.Drawing.Color.Yellow;
             this.buttonNuevoHorario.Enabled = false;
-            this.buttonNuevoHorario.Location = new System.Drawing.Point(161, 294);
+            this.buttonNuevoHorario.Location = new System.Drawing.Point(88, 159);
+            this.buttonNuevoHorario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonNuevoHorario.Name = "buttonNuevoHorario";
-            this.buttonNuevoHorario.Size = new System.Drawing.Size(166, 87);
+            this.buttonNuevoHorario.Size = new System.Drawing.Size(91, 47);
             this.buttonNuevoHorario.TabIndex = 2;
             this.buttonNuevoHorario.Text = "Crear nuevo horario en este dia";
             this.buttonNuevoHorario.UseVisualStyleBackColor = false;
@@ -72,9 +75,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 9);
+            this.label1.Location = new System.Drawing.Point(10, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 25);
+            this.label1.Size = new System.Drawing.Size(79, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Seleccione Dia";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -82,18 +86,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(116, 215);
+            this.label2.Location = new System.Drawing.Point(63, 116);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(223, 25);
+            this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Seleccione especialidad";
             // 
             // comboBoxEspecialidad
             // 
             this.comboBoxEspecialidad.FormattingEnabled = true;
-            this.comboBoxEspecialidad.Location = new System.Drawing.Point(23, 243);
+            this.comboBoxEspecialidad.Location = new System.Drawing.Point(13, 132);
+            this.comboBoxEspecialidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxEspecialidad.Name = "comboBoxEspecialidad";
-            this.comboBoxEspecialidad.Size = new System.Drawing.Size(436, 32);
+            this.comboBoxEspecialidad.Size = new System.Drawing.Size(240, 21);
             this.comboBoxEspecialidad.TabIndex = 5;
             this.comboBoxEspecialidad.SelectedIndexChanged += new System.EventHandler(this.comboBoxEspecialidad_SelectedIndexChanged);
             // 
@@ -107,9 +113,11 @@
             this.groupBoxNuevoHorario.Controls.Add(this.label4);
             this.groupBoxNuevoHorario.Controls.Add(this.numHoraInicio);
             this.groupBoxNuevoHorario.Controls.Add(this.label6);
-            this.groupBoxNuevoHorario.Location = new System.Drawing.Point(191, 9);
+            this.groupBoxNuevoHorario.Location = new System.Drawing.Point(104, 5);
+            this.groupBoxNuevoHorario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBoxNuevoHorario.Name = "groupBoxNuevoHorario";
-            this.groupBoxNuevoHorario.Size = new System.Drawing.Size(370, 137);
+            this.groupBoxNuevoHorario.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxNuevoHorario.Size = new System.Drawing.Size(202, 74);
             this.groupBoxNuevoHorario.TabIndex = 6;
             this.groupBoxNuevoHorario.TabStop = false;
             this.groupBoxNuevoHorario.Text = "Nuevo Horario";
@@ -117,19 +125,21 @@
             // 
             // numMinutoFin
             // 
-            this.numMinutoFin.Location = new System.Drawing.Point(234, 92);
+            this.numMinutoFin.Location = new System.Drawing.Point(128, 50);
+            this.numMinutoFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numMinutoFin.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.numMinutoFin.Name = "numMinutoFin";
-            this.numMinutoFin.Size = new System.Drawing.Size(63, 29);
+            this.numMinutoFin.Size = new System.Drawing.Size(34, 20);
             this.numMinutoFin.TabIndex = 12;
             // 
             // numHoraFin
             // 
-            this.numHoraFin.Location = new System.Drawing.Point(157, 92);
+            this.numHoraFin.Location = new System.Drawing.Point(86, 50);
+            this.numHoraFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numHoraFin.Maximum = new decimal(new int[] {
             20,
             0,
@@ -141,7 +151,7 @@
             0,
             0});
             this.numHoraFin.Name = "numHoraFin";
-            this.numHoraFin.Size = new System.Drawing.Size(63, 29);
+            this.numHoraFin.Size = new System.Drawing.Size(34, 20);
             this.numHoraFin.TabIndex = 6;
             this.numHoraFin.Value = new decimal(new int[] {
             20,
@@ -152,45 +162,50 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(220, 92);
+            this.label5.Location = new System.Drawing.Point(120, 50);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(18, 25);
+            this.label5.Size = new System.Drawing.Size(10, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = ":";
             // 
             // numMinutoInicio
             // 
-            this.numMinutoInicio.Location = new System.Drawing.Point(83, 88);
+            this.numMinutoInicio.Location = new System.Drawing.Point(45, 48);
+            this.numMinutoInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numMinutoInicio.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.numMinutoInicio.Name = "numMinutoInicio";
-            this.numMinutoInicio.Size = new System.Drawing.Size(63, 29);
+            this.numMinutoInicio.Size = new System.Drawing.Size(34, 20);
             this.numMinutoInicio.TabIndex = 11;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(170, 60);
+            this.label3.Location = new System.Drawing.Point(93, 33);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 25);
+            this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Hora fin";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 60);
+            this.label4.Location = new System.Drawing.Point(3, 33);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 25);
+            this.label4.Size = new System.Drawing.Size(57, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Hora inicio";
             // 
             // numHoraInicio
             // 
-            this.numHoraInicio.Location = new System.Drawing.Point(6, 88);
+            this.numHoraInicio.Location = new System.Drawing.Point(3, 48);
+            this.numHoraInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numHoraInicio.Maximum = new decimal(new int[] {
             20,
             0,
@@ -202,7 +217,7 @@
             0,
             0});
             this.numHoraInicio.Name = "numHoraInicio";
-            this.numHoraInicio.Size = new System.Drawing.Size(63, 29);
+            this.numHoraInicio.Size = new System.Drawing.Size(34, 20);
             this.numHoraInicio.TabIndex = 5;
             this.numHoraInicio.Value = new decimal(new int[] {
             7,
@@ -213,23 +228,25 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(69, 88);
+            this.label6.Location = new System.Drawing.Point(38, 48);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(18, 25);
+            this.label6.Size = new System.Drawing.Size(10, 13);
             this.label6.TabIndex = 9;
             this.label6.Text = ":";
             // 
             // CrearNuevoHorario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 654);
+            this.ClientSize = new System.Drawing.Size(331, 354);
             this.Controls.Add(this.groupBoxNuevoHorario);
             this.Controls.Add(this.comboBoxEspecialidad);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxDia);
             this.Controls.Add(this.buttonNuevoHorario);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CrearNuevoHorario";
             this.Text = "CrearNuevoHorario";
             this.groupBoxNuevoHorario.ResumeLayout(false);

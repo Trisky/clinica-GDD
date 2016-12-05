@@ -71,8 +71,6 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
 
         }
 
-        
-
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             motivoRound = "Motivo personal"; 

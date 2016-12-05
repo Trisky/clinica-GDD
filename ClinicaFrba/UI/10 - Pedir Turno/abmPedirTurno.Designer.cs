@@ -41,6 +41,7 @@
             this.horariosDisponibles = new System.Windows.Forms.DataGridView();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.buttonRegistroLlegada = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.horariosDisponibles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,11 +177,23 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // buttonRegistroLlegada
+            // 
+            this.buttonRegistroLlegada.Location = new System.Drawing.Point(272, 141);
+            this.buttonRegistroLlegada.Name = "buttonRegistroLlegada";
+            this.buttonRegistroLlegada.Size = new System.Drawing.Size(128, 42);
+            this.buttonRegistroLlegada.TabIndex = 20;
+            this.buttonRegistroLlegada.Text = "Mostrar turnos del dia para este medico";
+            this.buttonRegistroLlegada.UseVisualStyleBackColor = true;
+            this.buttonRegistroLlegada.Visible = false;
+            this.buttonRegistroLlegada.Click += new System.EventHandler(this.buttonRegistroLlegada_Click);
+            // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 523);
+            this.Controls.Add(this.buttonRegistroLlegada);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.horariosDisponibles);
@@ -219,5 +232,6 @@
         private System.Windows.Forms.DataGridView horariosDisponibles;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button buttonRegistroLlegada;
     }
 }

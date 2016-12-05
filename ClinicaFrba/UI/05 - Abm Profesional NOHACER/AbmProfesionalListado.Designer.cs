@@ -32,11 +32,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.buttonRegistroLlegada = new System.Windows.Forms.Button();
+            this.comboBoxEspecialidades = new System.Windows.Forms.ComboBox();
+            this.labelEspec = new System.Windows.Forms.Label();
             this.gbFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
             // 
+            this.gbFiltros.Controls.Add(this.labelEspec);
+            this.gbFiltros.Controls.Add(this.comboBoxEspecialidades);
             this.gbFiltros.Controls.Add(this.textBoxApellido);
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label2);
@@ -47,6 +52,8 @@
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxApellido, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.comboBoxEspecialidades, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.labelEspec, 0);
             // 
             // btnBuscar
             // 
@@ -101,13 +108,50 @@
             this.textBoxApellido.Size = new System.Drawing.Size(100, 20);
             this.textBoxApellido.TabIndex = 5;
             // 
+            // buttonRegistroLlegada
+            // 
+            this.buttonRegistroLlegada.BackColor = System.Drawing.Color.Yellow;
+            this.buttonRegistroLlegada.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonRegistroLlegada.Location = new System.Drawing.Point(961, 99);
+            this.buttonRegistroLlegada.Name = "buttonRegistroLlegada";
+            this.buttonRegistroLlegada.Size = new System.Drawing.Size(133, 60);
+            this.buttonRegistroLlegada.TabIndex = 6;
+            this.buttonRegistroLlegada.Text = "Mostrar Turnos de este medico para hoy";
+            this.buttonRegistroLlegada.UseVisualStyleBackColor = false;
+            this.buttonRegistroLlegada.Visible = false;
+            this.buttonRegistroLlegada.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboBoxEspecialidades
+            // 
+            this.comboBoxEspecialidades.FormattingEnabled = true;
+            this.comboBoxEspecialidades.Location = new System.Drawing.Point(724, 15);
+            this.comboBoxEspecialidades.Name = "comboBoxEspecialidades";
+            this.comboBoxEspecialidades.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxEspecialidades.TabIndex = 6;
+            // 
+            // labelEspec
+            // 
+            this.labelEspec.AutoSize = true;
+            this.labelEspec.Location = new System.Drawing.Point(651, 18);
+            this.labelEspec.Name = "labelEspec";
+            this.labelEspec.Size = new System.Drawing.Size(66, 13);
+            this.labelEspec.TabIndex = 7;
+            this.labelEspec.Text = "especialidad";
+            // 
             // AbmProfesionalListado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 469);
+            this.Controls.Add(this.buttonRegistroLlegada);
             this.Name = "AbmProfesionalListado";
             this.Text = "AbmProfesionalListado";
+            this.Controls.SetChildIndex(this.gbFiltros, 0);
+            this.Controls.SetChildIndex(this.btnAgregar, 0);
+            this.Controls.SetChildIndex(this.btnModificar, 0);
+            this.Controls.SetChildIndex(this.btnEliminar, 0);
+            this.Controls.SetChildIndex(this.btnSeleccionar, 0);
+            this.Controls.SetChildIndex(this.buttonRegistroLlegada, 0);
             this.gbFiltros.ResumeLayout(false);
             this.gbFiltros.PerformLayout();
             this.ResumeLayout(false);
@@ -120,5 +164,8 @@
         private System.Windows.Forms.TextBox textBoxApellido;
         private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonRegistroLlegada;
+        private System.Windows.Forms.Label labelEspec;
+        private System.Windows.Forms.ComboBox comboBoxEspecialidades;
     }
 }

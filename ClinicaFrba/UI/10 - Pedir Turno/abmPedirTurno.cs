@@ -30,11 +30,13 @@ namespace ClinicaFrba.Pedir_Turno
         private string horario;
         private DateTime[] datesDoctor;
         private int mes;
+        private RegistroLlegada registroLlegada;
 
         public PedirTurno(UsuarioLogeado user)
         {
             UsuarioLogueado = user;
-            Init();          
+            Init();
+           
         }
         private void Init()
         {
@@ -44,7 +46,7 @@ namespace ClinicaFrba.Pedir_Turno
             calendarDoctors.MaxSelectionCount = 1;
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
-            VerificarSiTieneBonos();
+            
             calendarDoctors.TodayDate = StaticUtils.getDateTime();
             calendarDoctors.MinDate = StaticUtils.getDateTime();
             Show();
@@ -52,28 +54,7 @@ namespace ClinicaFrba.Pedir_Turno
 
 
         
-        private void VerificarSiTieneBonos()
-        {
-            Conexion con = new Conexion();
-            string s = @" SELECT count( [Bono_Id])
-                          FROM [GD2C2016].[GRUPOSA].[Bonos]
-                          where SUBSTRING(@id,1,6)=SUBSTRING(Bono_Paci_Id,1,6) and
-                          Bono_expirado = 0";
-            SqlCommand cmd = con.CrearComandoQuery(s);
-            string matricula = UsuarioLogueado.PacienteMatricula;
-            cmd.Parameters.Add(new SqlParameter("@id",matricula));
-            DataTable dt = con.ExecConsulta(cmd);
-            if (dt.Rows.Count == 0)
-                UstedNoTieneBonos();
-            //int  cant =Convert.ToInt32(StaticUtils.getUniqueValueFrom(dt));
-            int c = dt.Rows[0].Field<int>(0);
-
-            if (c <1)
-                UstedNoTieneBonos();
-            else
-                Show();
-
-        }
+        
         private void UstedNoTieneBonos()
         {
             MessageBox.Show("usted no tiene bonos, debe comprar antes de realizar esta accion"
@@ -85,19 +66,27 @@ namespace ClinicaFrba.Pedir_Turno
         /// </summary>
         /// <param name="regLlegada"></param>
         /// <param name="username"></param>
-        public PedirTurno(RegistroLlegada regLlegada, string username, DateTime dia)
+        public PedirTurno(RegistroLlegada regLlegada)
         {
             Init();
-            userName = username;
-            UsuarioLogueado = new UsuarioLogeado(); 
+
+            registroLlegada = regLlegada;
             //como esto no lo hace el propio usuario, 
             //asigno el usuario al que se le va a asignar el turno al usuariologeado (la villa)
-            UsuarioLogueado.UserName = username;
+            var dia = StaticUtils.getDateTime();
             calendarDoctors.SelectionStart = dia;
             calendarDoctors.SelectionEnd = dia;
             calendarDoctors.Enabled = false;
             diaSeleccionado = dia;
+            calendarDoctors.Visible = false;
+            btnConfirm.Visible = false;
+            btnBuscarTurnos.Visible = false;
+            buttonRegistroLlegada.Visible = true;
+            Text = "Elija medico";
+            horariosDisponibles.Visible = false;
+            label2.Visible = false;
         }
+
         private void cmbBoxListadoEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
             especialidadSeleccionada = cmbBoxListadoEspecialidades.SelectedValue.ToString();
@@ -202,15 +191,21 @@ namespace ClinicaFrba.Pedir_Turno
             horario = horariosDisponibles.SelectedCells[0].Value.ToString();
         }
 
+        
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
 
+        private void buttonRegistroLlegada_Click(object sender, EventArgs e)
+        {
+            registroLlegada.elMedicoEs(idMedico);
+            registroLlegada.Show();
+            Hide();
+            Dispose();
+        }
 
-
-
-
-
-
-
+        #region cosasLocas
         private void PedirTurno_Load(object sender, EventArgs e)
         {
 
@@ -231,15 +226,8 @@ namespace ClinicaFrba.Pedir_Turno
         private void label3_Click(object sender, EventArgs e)
         {
         }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
-
-
-
-
-
+        #endregion
     }
 
 }

@@ -2,6 +2,7 @@
 using ClinicaFrba.Helpers;
 using ClinicaFrba.Pedir_Turno;
 using ClinicaFrba.UI._04___Abm_Afiliado;
+using ClinicaFrba.UI._05___Abm_Profesional;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -87,10 +88,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
         
         private void btnMedicoHora_Click(object sender, EventArgs e)
         {
-            DateTime date = Convert.ToDateTime(StaticUtils.getDate());
-            pedidorTurnos = new PedirTurno(this,idPacienteLabel.Text,date);
-            Hide();
-            Dispose();
+            throw new NotImplementedException();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -104,6 +102,15 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             Hide();
         }
 
+        internal void MostrarTurnosProfesional(string matriculaProfesional)
+        {
+            throw new NotImplementedException();
+
+
+            Show();
+            
+        }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
@@ -111,7 +118,44 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
+            VerificarSiTieneBonos(idPacienteLabel.Text);
+        }
+
+        
+        private void VerificarSiTieneBonos(string idPaciente)
+        {
+            Conexion con = new Conexion();
+            string s = @" SELECT count( [Bono_Id])
+                          FROM [GD2C2016].[GRUPOSA].[Bonos]
+                          where SUBSTRING(@id,1,6)=SUBSTRING(Bono_Paci_Id,1,6) and
+                          Bono_expirado = 0";
+            SqlCommand cmd = con.CrearComandoQuery(s);
+            cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
+            DataTable dt = con.ExecConsulta(cmd);
+            if (dt.Rows.Count == 0)
+                UstedNoTieneBonos();
+            int c = dt.Rows[0].Field<int>(0);
+
+            if (c < 1)
+            {
+                UstedNoTieneBonos();
+                return;
+            }
+
+            else
+            {
+                MessageBox.Show("A este paciente ahora le queda una cantidad de bonos de: " + (c-1).ToString()
+                    , "Tiene bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             BorrarBono();
+
+        }
+
+        private static void UstedNoTieneBonos()
+        {
+            MessageBox.Show("Este paciente no tiene bonos, debe comprar antes de realizar esta accion"
+                                , "Sin bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
         }
 
         private void BorrarBono()
@@ -132,6 +176,31 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             throw new NotImplementedException();
             MessageBox.Show("Atencion borrada correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Dispose();
+        }
+
+        private void buttonBuscarTurnosMedico_Click(object sender, EventArgs e)
+        {
+            AbmProfesionalListado prof = new AbmProfesionalListado(this);
+            Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            pedidorTurnos = new PedirTurno(this);
+            Hide();
+            //Dispose();
+        }
+
+        internal void elMedicoEs(string idMedico)
+        {
+
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosOcupadosDelDia");
+            cmd.Parameters.Add("@idMedico", SqlDbType.VarChar).Value = idMedico;
+            cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = StaticUtils.getDate();
+            DataTable dt = con.ExecConsulta(cmd);
+            dgListado.DataSource = dt;
+            
         }
     }
 }
