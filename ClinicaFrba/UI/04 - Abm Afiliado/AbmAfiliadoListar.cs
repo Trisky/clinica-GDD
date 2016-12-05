@@ -105,7 +105,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             else
             {
                 string q = s +
-                             @"where paci_nombre like @paci_nom and
+                             @"where paci_nombre like @paci_nom or
                                    paci_apellido like @paci_ape";
                 SqlCommand cmd = con.CrearComandoQuery(q);
                 cmd.Parameters.Add(new SqlParameter("@paci_nom", con.ConWildCard(textBoxNombre.Text)));
