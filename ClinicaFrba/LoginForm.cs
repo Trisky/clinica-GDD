@@ -1,5 +1,6 @@
 ﻿using ClinicaFrba.Helpers;
 using ClinicaFrba.Logica.Entidades;
+using ClinicaFrba.Logica.Roles;
 using ClinicaFrba.UI;
 using ClinicaFrba.UI._04___Abm_Afiliado;
 using ClinicaFrba.UI._05___Abm_Profesional;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -44,7 +46,7 @@ namespace ClinicaFrba
             if (ValidateChildren())
             {
                 ObtenerUsuarioPorUsername();
-                //AbmAfiliadoListar a = new AbmAfiliadoListar();
+                
             }
         }
 
@@ -67,9 +69,24 @@ namespace ClinicaFrba
                 }
 
 
+                Conexion con = new Conexion();
+                string q = @"SELECT * FROM [GD2C2016].[GRUPOSA].[RolesUsuario]
+                                            where RolUsu_Usuario_Username = @nombre";
+                SqlCommand cmd3 = con.CrearComandoQuery(q);
+                cmd3.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuarioLogeado.UserName;
+                DataTable dtUsuario = con.ExecConsulta(cmd3);
 
-                PantallaPrincipal pp = new PantallaPrincipal(usuarioLogeado);
+                usuarioLogeado.Roles = dtUsuario.AsEnumerable().Select(row =>
+                new Rol { Codigo = Convert.ToInt32(Convert.ToString(row["RolUsu_Rol_Codigo"])), }).ToList(); ;
 
+                if (dtUsuario.Rows.Count > 1)
+                {
+                    ElegirRol elegirRol = new ElegirRol(usuarioLogeado);
+                }
+                else
+                {
+                    PantallaPrincipal pp = new PantallaPrincipal(usuarioLogeado);
+                }
             }
             catch(Exception ex)
             {

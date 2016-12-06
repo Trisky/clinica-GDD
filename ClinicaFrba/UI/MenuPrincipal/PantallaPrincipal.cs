@@ -30,30 +30,27 @@ namespace ClinicaFrba.UI.MenuPrincipal
     {
 
         public UsuarioLogeado usuario { get; set; }
+        public DataTable dtUsuario { get; set; }
+
+
         public PantallaPrincipal(UsuarioLogeado user)
         {
             usuario = user;
             label1.Visible = false;
             InitializeComponent();
-            Principal_Load();
+            Principal_Load(usuario);
             Show();
         }
 
 
-        private void Principal_Load()
+
+
+
+        public void Principal_Load(UsuarioLogeado user)
         {
-            DataTable dtUsuario;
-            Conexion con = new Conexion();
-            string q = @"SELECT * FROM [GD2C2016].[GRUPOSA].[RolesUsuario]
-                                            where RolUsu_Usuario_Username = @nombre";
-            SqlCommand cmd3 = con.CrearComandoQuery(q);
-            cmd3.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.UserName;
-            dtUsuario = con.ExecConsulta(cmd3);
 
-            List<Rol> numRol = dtUsuario.AsEnumerable().Select(row =>
-            new Rol { Codigo = Convert.ToInt32(Convert.ToString(row["RolUsu_Rol_Codigo"])), }).ToList();
-
-            Rol r = Rol.rolConSusFuncionalidadesCodigo((numRol.Find(x => x.Codigo != 0).Codigo));
+            Rol r = Rol.rolConSusFuncionalidadesCodigo((user.Roles.Find(x => x.Codigo != 0).Codigo));
+           
 
             listadoEstadisticoToolStripMenuItem.Visible = true;
             administradorToolStripMenuItem.Visible = false;
@@ -283,6 +280,29 @@ namespace ClinicaFrba.UI.MenuPrincipal
             Dispose();
 
             LoginForm login = new LoginForm();
+
+        }
+
+
+
+
+
+
+
+        private void comboBoxRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void aceptarRolBoton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cancelarBoton_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label2_Click(object sender, EventArgs e)
+        {
 
         }
     }

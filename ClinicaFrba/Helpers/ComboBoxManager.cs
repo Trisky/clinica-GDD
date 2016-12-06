@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClinicaFrba.Logica.Entidades;
+using ClinicaFrba.Logica.Roles;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -116,6 +118,30 @@ namespace ClinicaFrba.Helpers
             
             return comboBoxEspecialidad;
             throw new NotImplementedException();
+        }
+
+
+
+        public ComboBox cargarRoles(UsuarioLogeado user, ComboBox combo)
+        {
+            DataTable dtRol;
+            DataRow row;
+
+                Conexion con = new Conexion();
+                string q = @"  select Rol_Nombre,Rol_Codigo from [GD2C2016].[GRUPOSA].[RolesUsuario] inner join [GD2C2016].[GRUPOSA].[Rol] On 
+                                RolUsu_Rol_Codigo = Rol.Rol_Codigo
+                                where RolUsu_Usuario_Username = @nombre";
+                SqlCommand cmd3 = con.CrearComandoQuery(q);
+                cmd3.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = user.UserName;
+                dtRol = con.ExecConsulta(cmd3);
+
+                row = dtRol.NewRow();
+                dtRol.Rows.InsertAt(row, 0);
+                combo.DisplayMember = "Rol_Nombre";
+                combo.ValueMember = "Rol_Codigo";
+                combo.DataSource = dtRol;
+            
+            return combo;
         }
 
     }
