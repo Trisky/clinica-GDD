@@ -97,7 +97,7 @@ namespace ClinicaFrba
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+     {
 
         }
 
@@ -111,7 +111,5 @@ namespace ClinicaFrba
             this.Close();
         }
 
-
-       
     }
 }

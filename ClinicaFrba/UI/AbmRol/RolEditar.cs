@@ -117,29 +117,42 @@ namespace ClinicaFrba.UI.AbmRol
 
                     string q2 = @"DELETE FROM [GRUPOSA].[FuncionalidadesRol]
                                     WHERE funcRol_Rol_Codigo=@funcRol_Rol_Codigo";
-                    SqlCommand cmd3 = con.CrearComandoQuery(q2);
-                    cmd3.Parameters.Add("@funcRol_Rol_Codigo", SqlDbType.NVarChar).Value = rol.Codigo;
-                    con.ExecConsulta(cmd3);
+                    SqlCommand cmd2= con.CrearComandoQuery(q2);
+                    cmd2.Parameters.Add("@funcRol_Rol_Codigo", SqlDbType.NVarChar).Value = rol.Codigo;
+                    con.ExecConsulta(cmd2);
 
                     guardarFuncionalidadesRol(rol.Codigo);
 
 
+                    if ((checkBoxInhabilitar.Checked ? true : false))
+                    {
+                        SqlCommand cmd3 = con.CrearComandoStoreProcedure("sp_inhabilitarRol");
+                        cmd3.Parameters.Add("@rolCodigo", SqlDbType.Decimal).Value = rol.Codigo;
+                        con.ExecConsulta(cmd3);
+
+
+                    }
+                    else {
+                        SqlCommand cmd4= con.CrearComandoStoreProcedure("sp_habilitarRol");
+                        cmd4.Parameters.Add("@rolCodigo", SqlDbType.Int).Value = rol.Codigo;
+                        con.ExecConsulta(cmd4);
+
+                    }
                     string q3 = @"UPDATE GRUPOSA.Rol
-                                    SET Rol_Estado=@estado, Rol_Es_Administrador = @esAdministrador
+                                    SET Rol_Es_Administrador = @esAdministrador
                                     WHERE Rol_Nombre = @nombre";
-                    SqlCommand cmd4 = con.CrearComandoQuery(q3);
-                    cmd4.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
-                    cmd4.Parameters.Add("@estado", SqlDbType.Bit).Value = (checkBoxInhabilitar.Checked ? 1 : 0);
-                    cmd4.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
-                    con.ExecConsulta(cmd4);
+                    SqlCommand cmd5 = con.CrearComandoQuery(q3);
+                    cmd5.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
+                    cmd5.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
+                    con.ExecConsulta(cmd5);
                 }
                     else{
 
-                        SqlCommand cmd2 = con.CrearComandoStoreProcedure("sp_AltaRol");
-                        cmd2.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
-                        cmd2.Parameters.Add("@estado", SqlDbType.Bit).Value = (checkBoxInhabilitar.Checked ? 1 : 0);
-                        cmd2.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
-                        con.ExecConsulta(cmd2);
+                        SqlCommand cmd6 = con.CrearComandoStoreProcedure("sp_AltaRol");
+                        cmd6.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
+                        cmd6.Parameters.Add("@estado", SqlDbType.Bit).Value = (checkBoxInhabilitar.Checked ? 1 : 0);
+                        cmd6.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
+                        con.ExecConsulta(cmd6);
 
                         DataTable dtLlena = Rol.llenarDataTable();
                         lstRoles = Rol.MapearDataTableRol(dtLlena);

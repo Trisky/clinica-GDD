@@ -23,7 +23,12 @@ namespace ClinicaFrba.AbmRol
         private List<Rol> lstRoles;
         public ListaDeRoles()
         {
+
             InitializeComponent();
+
+            buttonLimpiar.Enabled = false;
+            buttonEliminar.Enabled = false;
+            buttonModificar.Enabled = false;
             Show();
         }
 
@@ -83,6 +88,10 @@ namespace ClinicaFrba.AbmRol
         }
         private void button_Busqueda(object sender, EventArgs e)
         {
+
+            buttonLimpiar.Enabled = true;
+            buttonEliminar.Enabled = true;
+            buttonModificar.Enabled = true;
             DataTable dt;
             Conexion con = new Conexion();
             if (nombreRol.Text == "")

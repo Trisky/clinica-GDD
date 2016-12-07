@@ -121,13 +121,13 @@
             this.Controls.Add(this.label1);
             this.Name = "RolEditar";
             this.Text = "RolEditar";
-            this.Controls.SetChildIndex(this.gcAccion, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.checkedListFuncionalidades, 0);
             this.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.Controls.SetChildIndex(this.checkBoxInhabilitar, 0);
             this.Controls.SetChildIndex(this.checkBoxAdmin, 0);
+            this.Controls.SetChildIndex(this.gcAccion, 0);
             this.gcAccion.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

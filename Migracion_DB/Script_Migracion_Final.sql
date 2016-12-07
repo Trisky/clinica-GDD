@@ -270,7 +270,7 @@ CREATE PROCEDURE [GRUPOSA].[sp_modificarAfiliado]
 	@paci_estado_civil VARCHAR(250),
 	@paci_plan_medi VARCHAR(250),
 	@motivo VARCHAR (250),
-	@fechaHoy DATETIME,
+	@fechaHoy DATETIME
 AS 
 	
 	DECLARE @viejoPlan [NUMERIC] (18,0);
@@ -1195,7 +1195,7 @@ COMMIT TRANSACTION
 	DECLARE @hora_fin TIME;
 	DECLARE @hora TIME;
 
-	SET @hora = CAST('08:00' AS TIME)
+	SET @hora = CAST('07:00' AS TIME)
 	SET @hora_fin = CAST ('20:00' AS TIME)
 
 	WHILE (@hora <= @hora_fin) 

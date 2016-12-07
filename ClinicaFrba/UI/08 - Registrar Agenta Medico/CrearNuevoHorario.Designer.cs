@@ -53,7 +53,7 @@
             // 
             this.comboBoxDia.FormattingEnabled = true;
             this.comboBoxDia.Location = new System.Drawing.Point(6, 20);
-            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxDia.Name = "comboBoxDia";
             this.comboBoxDia.Size = new System.Drawing.Size(92, 21);
             this.comboBoxDia.TabIndex = 0;
@@ -64,7 +64,7 @@
             this.buttonNuevoHorario.BackColor = System.Drawing.Color.Yellow;
             this.buttonNuevoHorario.Enabled = false;
             this.buttonNuevoHorario.Location = new System.Drawing.Point(88, 159);
-            this.buttonNuevoHorario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNuevoHorario.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNuevoHorario.Name = "buttonNuevoHorario";
             this.buttonNuevoHorario.Size = new System.Drawing.Size(91, 47);
             this.buttonNuevoHorario.TabIndex = 2;
@@ -97,7 +97,7 @@
             // 
             this.comboBoxEspecialidad.FormattingEnabled = true;
             this.comboBoxEspecialidad.Location = new System.Drawing.Point(13, 132);
-            this.comboBoxEspecialidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxEspecialidad.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxEspecialidad.Name = "comboBoxEspecialidad";
             this.comboBoxEspecialidad.Size = new System.Drawing.Size(240, 21);
             this.comboBoxEspecialidad.TabIndex = 5;
@@ -114,9 +114,9 @@
             this.groupBoxNuevoHorario.Controls.Add(this.numHoraInicio);
             this.groupBoxNuevoHorario.Controls.Add(this.label6);
             this.groupBoxNuevoHorario.Location = new System.Drawing.Point(104, 5);
-            this.groupBoxNuevoHorario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxNuevoHorario.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxNuevoHorario.Name = "groupBoxNuevoHorario";
-            this.groupBoxNuevoHorario.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxNuevoHorario.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxNuevoHorario.Size = new System.Drawing.Size(202, 74);
             this.groupBoxNuevoHorario.TabIndex = 6;
             this.groupBoxNuevoHorario.TabStop = false;
@@ -126,7 +126,7 @@
             // numMinutoFin
             // 
             this.numMinutoFin.Location = new System.Drawing.Point(128, 50);
-            this.numMinutoFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numMinutoFin.Margin = new System.Windows.Forms.Padding(2);
             this.numMinutoFin.Maximum = new decimal(new int[] {
             59,
             0,
@@ -139,7 +139,7 @@
             // numHoraFin
             // 
             this.numHoraFin.Location = new System.Drawing.Point(86, 50);
-            this.numHoraFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numHoraFin.Margin = new System.Windows.Forms.Padding(2);
             this.numHoraFin.Maximum = new decimal(new int[] {
             20,
             0,
@@ -158,6 +158,7 @@
             0,
             0,
             0});
+            this.numHoraFin.ValueChanged += new System.EventHandler(this.numHoraFin_ValueChanged_1);
             // 
             // label5
             // 
@@ -172,7 +173,7 @@
             // numMinutoInicio
             // 
             this.numMinutoInicio.Location = new System.Drawing.Point(45, 48);
-            this.numMinutoInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numMinutoInicio.Margin = new System.Windows.Forms.Padding(2);
             this.numMinutoInicio.Maximum = new decimal(new int[] {
             59,
             0,
@@ -205,7 +206,7 @@
             // numHoraInicio
             // 
             this.numHoraInicio.Location = new System.Drawing.Point(3, 48);
-            this.numHoraInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numHoraInicio.Margin = new System.Windows.Forms.Padding(2);
             this.numHoraInicio.Maximum = new decimal(new int[] {
             20,
             0,
@@ -246,7 +247,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxDia);
             this.Controls.Add(this.buttonNuevoHorario);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CrearNuevoHorario";
             this.Text = "CrearNuevoHorario";
             this.groupBoxNuevoHorario.ResumeLayout(false);

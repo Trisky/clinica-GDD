@@ -28,7 +28,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             ComboBoxManager cm = new ComboBoxManager();
             buttonNuevoHorario.Visible = true;
             comboBoxDia = cm.CrearDias(comboBoxDia);
-            comboBoxEspecialidad = cm.CrearEspecialidades(comboBoxEspecialidad);
+            comboBoxEspecialidad = cm.CrearEspecialidades(comboBoxEspecialidad,user);
         }
 
         private void numHoraFin_ValueChanged(object sender, EventArgs e)
@@ -62,6 +62,12 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             {
                 MessageBox.Show("¡error, hora de inicio debe ser anterio a la de fin!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
+            if (Convert.ToInt32(comboBoxDia.SelectedValue) == 5 && horaMilitarFin > 150)
+            {
+                MessageBox.Show("¡Los SABADOS solo esta abierto hasta las 15, su horario fin fue mayor!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+
             }
             //ahora que ya se que es valido, lo mando a la base --> TODO
             //armo la hora con los dos puntitos
@@ -124,6 +130,11 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
         private void comboBoxDia_SelectedIndexChanged(object sender, EventArgs e)
         {
             groupBoxNuevoHorario.Visible = true;
+        }
+
+        private void numHoraFin_ValueChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

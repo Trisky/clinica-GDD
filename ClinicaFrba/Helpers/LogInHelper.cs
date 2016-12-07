@@ -50,13 +50,13 @@ namespace ClinicaFrba.Logica.Entidades
             //6- mapeo la row a la clase  UsuarioLogeado
              UsuarioLogeado user = MapearDataTableLista(usuarios);
 
-            //7 me fijo si esta inhabilitado
-            if (user.Inhabilitado)
-            {
-                MessageBox.Show("este usuario esta inhabilitado para iniciar sesion", "inhabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //7 me fijo si esta inhabilitado se verifica en login
+            //if (user.Inhabilitado)
+            //{
+            //    MessageBox.Show("este usuario esta inhabilitado para iniciar sesion", "inhabilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
-                return null;
-            }
+            //    return user;
+            //}
             // 8 chequeo password
             if (user.password != passEncriptada)
             {
