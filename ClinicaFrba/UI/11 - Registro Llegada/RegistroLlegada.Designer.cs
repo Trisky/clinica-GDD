@@ -61,7 +61,9 @@
             // 
             // btnSeleccionar
             // 
+            this.btnSeleccionar.Enabled = false;
             this.btnSeleccionar.Text = "Confirmar";
+            this.btnSeleccionar.Visible = true;
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // label1

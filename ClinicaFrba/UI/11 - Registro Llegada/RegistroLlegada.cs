@@ -203,6 +203,19 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             dgListado.DataSource = dt;
             
         }
+        private void dgListado_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //selecciona toda la fila al tocar cualquier col.
+            if (e.RowIndex > -1)
+            {
+                dgListado.Rows[e.RowIndex].Selected = true;
+                btnSeleccionar.Enabled = true;
+            }
+            else
+            {
+                btnSeleccionar.Enabled = false;
+            }
+        }
     }
 }
 
