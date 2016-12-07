@@ -121,7 +121,7 @@ namespace ClinicaFrba.Pedir_Turno
 
             //si no hay medicos, le aviso al usuario.
             
-            if (dTurnos.Rows.Count == null)
+            if (dTurnos.Rows.Count == 0)
                 MessageBox.Show("No hay turnos disponibles"
                 , "Sin turnos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             

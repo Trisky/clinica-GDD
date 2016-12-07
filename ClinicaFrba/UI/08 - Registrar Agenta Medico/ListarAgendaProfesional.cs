@@ -17,12 +17,9 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
         public ListarAgendaProfesional(UsuarioLogeado user)
         {
             InitializeComponent();
-            btnModificar.Enabled = false;
-            btnBuscar.Enabled = btnEliminar.Enabled = btnLimpiar.Enabled = false;
             usuarioLogeado = user;
             labelIdMedico.Text = usuarioLogeado.MedicoMatricula;
-            btnModificar.Enabled = false;
-
+            btnBuscar.Visible = btnEliminar.Visible = btnLimpiar.Visible = btnModificar.Visible = false;
             ComboBoxManager cm = new ComboBoxManager();
             comboBoxDia = cm.CrearDias(comboBoxDia);
             Show();

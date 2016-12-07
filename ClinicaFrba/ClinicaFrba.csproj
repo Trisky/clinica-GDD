@@ -226,6 +226,12 @@
     <Compile Include="UI\FormulariosBase\FormularioListadoBase.Designer.cs">
       <DependentUpon>FormularioListadoBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MenuPrincipal\ElegirRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MenuPrincipal\ElegirRol.Designer.cs">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MenuPrincipal\PantallaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormulariosBase\FormularioListadoBase.resx">
       <DependentUpon>FormularioListadoBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MenuPrincipal\ElegirRol.resx">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MenuPrincipal\PantallaPrincipal.resx">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>

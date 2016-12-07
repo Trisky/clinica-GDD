@@ -65,7 +65,11 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
 
             DataTable dt = con.ExecConsulta(cmd);
-            if (dt != null) { MessageBox.Show("Cancelacion exitosa"); }
+            if (dt != null) 
+            { 
+                MessageBox.Show("Cancelacion exitosa");
+                return;
+            }
             cmd = con.CrearComandoStoreProcedure("sp_turnosActivosPaciente");
             PopularTabla();
 
