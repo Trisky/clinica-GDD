@@ -56,13 +56,17 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Text = "Cancelar";
+            this.btnModificar.BackColor = System.Drawing.Color.IndianRed;
+            this.btnModificar.Text = "Cancelar Atencion";
+            this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnSeleccionar
             // 
+            this.btnSeleccionar.BackColor = System.Drawing.Color.PaleGreen;
             this.btnSeleccionar.Enabled = false;
             this.btnSeleccionar.Text = "Confirmar";
+            this.btnSeleccionar.UseVisualStyleBackColor = false;
             this.btnSeleccionar.Visible = true;
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
