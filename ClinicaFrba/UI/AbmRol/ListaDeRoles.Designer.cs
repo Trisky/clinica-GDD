@@ -102,7 +102,7 @@
             this.dataGridViewRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRoles.Location = new System.Drawing.Point(12, 103);
             this.dataGridViewRoles.Name = "dataGridViewRoles";
-            this.dataGridViewRoles.Size = new System.Drawing.Size(487, 258);
+            this.dataGridViewRoles.Size = new System.Drawing.Size(487, 165);
             this.dataGridViewRoles.TabIndex = 6;
             this.dataGridViewRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 373);
+            this.ClientSize = new System.Drawing.Size(511, 282);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.dataGridViewRoles);
             this.Controls.Add(this.nombreRol);
@@ -130,7 +130,7 @@
             this.Controls.Add(this.buttonEliminar);
             this.Controls.Add(this.button1);
             this.Name = "ListaDeRoles";
-            this.Text = "Form1";
+            this.Text = "Roles";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).EndInit();
             this.ResumeLayout(false);

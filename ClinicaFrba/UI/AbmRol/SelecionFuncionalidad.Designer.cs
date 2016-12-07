@@ -193,7 +193,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SelecionFuncionalidad";
-            this.Text = "Form1";
+            this.Text = "Seleccionar Funcionalidad";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

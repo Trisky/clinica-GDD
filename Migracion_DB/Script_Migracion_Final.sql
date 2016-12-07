@@ -164,25 +164,37 @@ GO
 ------------------------------------------------------------------------------------------------
 --sp_cambiarEstadoRol: Cambia el estado de habilitado a inhabilitado y viceversa.
 GO
-CREATE PROCEDURE [GRUPOSA].[sp_cambiarEstadoRol]
+CREATE PROCEDURE [GRUPOSA].[sp_habilitarRol]
     @rolCodigo NUMERIC(18,0)
 AS   
-    DECLARE @estadoActual NUMERIC (18,0)
-		
-	SELECT  @estadoActual = Rol_Estado FROM GRUPOSA.[Rol] WHERE Rol_Codigo = @rolCodigo
-	
-	IF (@estadoActual = 1 ) 
-		BEGIN
+    BEGIN
 			UPDATE GRUPOSA.[Rol] 
 			SET Rol_Estado = 0
 			WHERE Rol_Codigo = @rolCodigo
-		END
-	ELSE
-		BEGIN
+		
+	END
+	
+GO
+------------------------------------------------------------------------------------------------
+--sp_cambiarEstadoRol: Cambia el estado de habilitado a inhabilitado y viceversa.
+GO
+CREATE PROCEDURE [GRUPOSA].[sp_inhabilitarRol]
+    @rolCodigo NUMERIC(18,0)
+AS   
+    BEGIN
 			UPDATE GRUPOSA.[Rol] 
 			SET Rol_Estado = 1
 			WHERE Rol_Codigo = @rolCodigo
-		END
+			
+			UPDATE GRUPOSA.Usuario
+			SET Usuario_Habilitado = 1
+			WHERE Usuario_Username IN (SELECT U.RolUsu_Usuario_Username FROM GRUPOSA.RolesUsuario U WHERE U.RolUsu_Rol_Codigo = @rolCodigo
+										AND NOT EXISTS (SELECT 1 FROM GRUPOSA.RolesUsuario R WHERE R.RolUsu_Usuario_Username  = U.RolUsu_Usuario_Username
+														AND R.RolUsu_Rol_Codigo <> @rolCodigo ))
+			
+			DELETE FROM GRUPOSA.RolesUsuario
+			WHERE RolUsu_Rol_Codigo = @rolCodigo;
+	END
 GO
 ------------------------------------------------------------------------------------------------
 --fnc_nombreRol: Devuelve SI EXISTE EL ROL del rol enviado.
@@ -258,7 +270,7 @@ CREATE PROCEDURE [GRUPOSA].[sp_modificarAfiliado]
 	@paci_estado_civil VARCHAR(250),
 	@paci_plan_medi VARCHAR(250),
 	@motivo VARCHAR (250),
-	@fechaHoy DATETIME
+	@fechaHoy DATETIME,
 AS 
 	
 	DECLARE @viejoPlan [NUMERIC] (18,0);
@@ -324,7 +336,8 @@ AS
 	DECLARE @tel NUMERIC(18,0);
 	DECLARE @fnac DATE;
 	DECLARE @plan NUMERIC(18,0);
-
+	DECLARE @rol NUMERIC(18,0);
+	
 	SET @hoy = CAST(@fechaHoy AS DATE)
 	SET @dni = CAST(@paci_dni AS NUMERIC(18,0))
 	SET @tel = CAST(@paci_tel AS NUMERIC(18,0))
@@ -336,7 +349,6 @@ AS
 	SET @paci_usuario = LOWER(@paci_nom) + '_' + LOWER(@paci_apell) + '_' + @paci_matricula
 	
 	BEGIN TRANSACTION
-	--Usuarios Medicos y Pacientes
 	INSERT INTO [GRUPOSA].[Usuario] ([Usuario_Username],[Usuario_Password],[Usuario_Fecha_Creacion],[Usuario_Fecha_Ultima_Modificacion], [Usuario_Intentos_Fallidos], [Usuario_Habilitado])
 	VALUES (@paci_usuario, '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4' , @hoy, NULL,0,0);
 	COMMIT TRANSACTION;
@@ -354,6 +366,18 @@ AS
 	VALUES
 	    (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @dni, @paci_direccion, @tel, @paci_mail, 
 		@fnac, @paci_sexo, @paci_estado_civil, @plan , @paci_usuario, @paci_tipoFamiliar);
+	COMMIT TRANSACTION;
+	
+	BEGIN TRANSACTION
+		
+		SELECT @rol = Rol_Codigo FROM GRUPOSA.Rol
+		WHERE Rol_Nombre = 'Afiliado Paciente'
+	
+		INSERT INTO [GRUPOSA].[RolesUsuario]
+           ([RolUsu_Rol_Codigo],[RolUsu_Usuario_Username])
+		VALUES
+           (@rol,@paci_usuario);
+	
 	COMMIT TRANSACTION;
 GO
 
