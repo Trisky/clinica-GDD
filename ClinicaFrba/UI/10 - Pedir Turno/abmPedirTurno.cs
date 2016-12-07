@@ -102,7 +102,7 @@ namespace ClinicaFrba.Pedir_Turno
             {
                 if (diaSeleccionado < StaticUtils.getDateTime() || diaSeleccionado.ToString("dddd") == "domingo")
                 {
-                    MessageBox.Show("Fecha no valida");
+                    MessageBox.Show("La fecha seleccionada no puede ser anterior a la de hoy o un domingo");
                     todoOk = false;
                 }
             }
@@ -185,12 +185,19 @@ namespace ClinicaFrba.Pedir_Turno
             //Esta comprobacion es medio dudosa
             if (ret != null)
             {
+                MessageBox.Show("Su turno se ha reservado con exito!!", "Reserva existosa!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
                 MessageBox.Show("Su turno se ha reservado con exito!", "Reserva existosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            Dispose();
         }
         private void horariosDisponibles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             horario = horariosDisponibles.SelectedCells[0].Value.ToString();
+            if (horario != null)
+                btnConfirm.Enabled = true;
         }
 
         

@@ -16,8 +16,8 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
     public partial class CrearHijo : Form
     {
         private AbmAfiliadoCrear abmAfiliadoCrear;
+        private string numeroDePlanMedico;
 
-        
         private CrearHijo(int tailNumber)
         {
             
@@ -26,9 +26,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// recibe el tail number de la matricula que corresponde y el abmafiliado para q gestion la creacion de mas hijos
         /// </summary>
         /// <param name="hijosCount"></param>
-        public CrearHijo(int tailNumber, AbmAfiliadoCrear abmAfiliadoCrear) : this(tailNumber)
+        public CrearHijo(int tailNumber,string planMedico, AbmAfiliadoCrear abmAfiliadoCrear) : this(tailNumber)
         {
-            
+            numeroDePlanMedico = planMedico;
 
             this.abmAfiliadoCrear = abmAfiliadoCrear;
             TailNumber = "0" + tailNumber.ToString();
@@ -36,7 +36,6 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
             ComboBoxManager cb = new ComboBoxManager();
             comboBoxEstadoCivil = cb.CrearEstadoCivil(comboBoxEstadoCivil);
-            comboBoxPlanMedico = cb.CrearPlanesMedicos(comboBoxPlanMedico);
             comboBoxTipoDni = cb.CrearTiposDni(comboBoxTipoDni);
             Show();
             if (tailNumber == 1)
@@ -79,7 +78,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             else
                 cmd.Parameters.Add("@paci_sexo", SqlDbType.VarChar).Value = "Femenino";
             // fin sexo
-            string a = comboBoxTipoDni.SelectedText.ToString();
+            string a = comboBoxTipoDni.SelectedValue.ToString();
             cmd.Parameters.Add("@paci_nom", SqlDbType.VarChar).Value = textBoxNombre.Text;
             cmd.Parameters.Add("@paci_apell", SqlDbType.VarChar).Value = textBoxApellido.Text;
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;
@@ -88,9 +87,10 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text;
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;
-            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;
+            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = numeroDePlanMedico;
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value = dateTimePickerFechaNacimiento.Value;
             cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = TailNumber; //le mando la matricula que va a tener + el trailing number
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             con.ExecConsulta(cmd);
         }
 

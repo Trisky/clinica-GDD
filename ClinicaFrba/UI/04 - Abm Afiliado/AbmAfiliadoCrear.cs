@@ -123,7 +123,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 if (dialogResult == DialogResult.Yes)
                 {
                     //tiene un concubino o lo q sea, entonces lo agrego:
-                    CrearHijo c = new CrearHijo(1,this); //le mando 1 porque es el trailing number
+                    CrearHijo c = new CrearHijo(1,numeroDePlanMedico,this); //le mando 1 porque es el trailing number
                     Hide();
                 }
                 #region trash
@@ -150,7 +150,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             if (cantidadHijos + 2 > numeroHijo)
             {
                 DialogResult dialogResult = MessageBox.Show("¡Te quedan " + cantFaltante + " personas a cargo por crear!", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CrearHijo c = new CrearHijo(numeroHijo,this);
+                CrearHijo c = new CrearHijo(numeroHijo,numeroDePlanMedico, this);
                 numeroHijo++;
             }
             else
@@ -160,6 +160,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             }
         }
         public int numeroHijo;//representa el tailNumber del proximoHijo
+        private string numeroDePlanMedico;
         #region funciones Auxiliares
         private bool EstaCasadoOConcubino()
         {
@@ -207,6 +208,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value =  dateTimePickerFechaNacimiento.Value;//8
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;//10
             cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value =  comboBoxPlanMedico.SelectedValue;//11 numeric?
+            numeroDePlanMedico = comboBoxPlanMedico.SelectedValue.ToString() ; //para usar en el hijo
             cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             //cmd.Parameters.Add("@paci_cant_fam", SqlDbType.NVarChar).Value = 0; // 12 pedo
             cmd.Parameters.Add("@paci_tipoFamiliar", SqlDbType.VarChar).Value = HijoConcubino;//13
