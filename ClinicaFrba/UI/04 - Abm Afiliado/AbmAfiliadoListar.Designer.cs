@@ -93,6 +93,7 @@
             this.textBoxCantidadEncontrada.ReadOnly = true;
             this.textBoxCantidadEncontrada.Size = new System.Drawing.Size(100, 20);
             this.textBoxCantidadEncontrada.TabIndex = 2;
+            this.textBoxCantidadEncontrada.TextChanged += new System.EventHandler(this.textBoxCantidadEncontrada_TextChanged);
             // 
             // label1
             // 

@@ -12,6 +12,8 @@ using ClinicaFrba.Helpers;
 using ClinicaFrba;
 using System.Data.SqlClient;
 using ClinicaFrba.UI.AbmRol;
+using ClinicaFrba.UI._04___Abm_Afiliado;
+using ClinicaFrba.Logica.Entidades;
 
 
 
@@ -137,6 +139,24 @@ namespace ClinicaFrba.AbmRol
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            BuscarUsuarioParaRol pedirTurno = new BuscarUsuarioParaRol(this);
+            Dispose();
+        }
+
+
+        public void modificarRolUsuario(UsuarioLogeado user) {
+
+
+            CambioRol cambiarRol = new CambioRol(user);
+        
+        
+        
+        }
+
+
  
     }
 }

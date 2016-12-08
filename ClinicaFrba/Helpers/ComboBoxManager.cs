@@ -147,7 +147,7 @@ namespace ClinicaFrba.Helpers
         }
 
 
-
+        //Roles del usuario
         public ComboBox cargarRoles(UsuarioLogeado user, ComboBox combo)
         {
             DataTable dtRol;
@@ -167,6 +167,26 @@ namespace ClinicaFrba.Helpers
                 combo.ValueMember = "Rol_Codigo";
                 combo.DataSource = dtRol;
             
+            return combo;
+        }
+
+        //Todos los roles
+        public ComboBox cargarRoles(ComboBox combo)
+        {
+            DataTable dtRol;
+            DataRow row;
+
+            Conexion con = new Conexion();
+            string q = @"  select * from [GD2C2016].[GRUPOSA].[Rol] ";
+            SqlCommand cmd3 = con.CrearComandoQuery(q);
+            dtRol = con.ExecConsulta(cmd3);
+
+            row = dtRol.NewRow();
+            dtRol.Rows.InsertAt(row, 0);
+            combo.DisplayMember = "Rol_Nombre";
+            combo.ValueMember = "Rol_Codigo";
+            combo.DataSource = dtRol;
+
             return combo;
         }
 

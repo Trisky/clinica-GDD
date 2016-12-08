@@ -36,6 +36,10 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// <param name="registroLlegada"></param>
         /// 
 
+
+
+
+
         public AbmAfiliadoListar(PantallaPrincipal pp,int numero)
         {
             InitializeComponent();
@@ -216,6 +220,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             }
             Hide();
             Dispose();
+        }
+
+        private void textBoxCantidadEncontrada_TextChanged(object sender, EventArgs e)
+        {
+
         }
        
     }

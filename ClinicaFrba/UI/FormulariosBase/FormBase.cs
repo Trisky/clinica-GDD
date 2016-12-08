@@ -31,5 +31,10 @@ namespace ClinicaFrba.FormulariosBase
             InitializeComponent();
             //this.StartPosition = FormStartPosition.CenterScreen;
         }
+
+        private void FormBase_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

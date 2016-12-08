@@ -60,5 +60,10 @@ namespace ClinicaFrba.UI.MenuPrincipal
             Dispose();
             PantallaPrincipal pp = new PantallaPrincipal(usuario);
         }
+
+        private void comboBoxRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

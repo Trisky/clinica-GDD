@@ -36,22 +36,23 @@
             this.nombreRol = new System.Windows.Forms.TextBox();
             this.dataGridViewRoles = new System.Windows.Forms.DataGridView();
             this.buttonLimpiar = new System.Windows.Forms.Button();
+            this.buttonRolUsuario = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(319, 72);
+            this.button1.Location = new System.Drawing.Point(87, 215);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 25);
+            this.button1.Size = new System.Drawing.Size(147, 45);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Agregar";
+            this.button1.Text = "Agregar Nuevo Rol";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button_Agregar);
             // 
             // buttonEliminar
             // 
-            this.buttonEliminar.Location = new System.Drawing.Point(226, 72);
+            this.buttonEliminar.Location = new System.Drawing.Point(456, 72);
             this.buttonEliminar.Name = "buttonEliminar";
             this.buttonEliminar.Size = new System.Drawing.Size(87, 25);
             this.buttonEliminar.TabIndex = 1;
@@ -61,7 +62,7 @@
             // 
             // buttonModificar
             // 
-            this.buttonModificar.Location = new System.Drawing.Point(412, 72);
+            this.buttonModificar.Location = new System.Drawing.Point(353, 72);
             this.buttonModificar.Name = "buttonModificar";
             this.buttonModificar.Size = new System.Drawing.Size(87, 25);
             this.buttonModificar.TabIndex = 2;
@@ -71,29 +72,29 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(412, 29);
+            this.button4.Location = new System.Drawing.Point(456, 29);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(87, 20);
             this.button4.TabIndex = 3;
-            this.button4.Text = "Buscar";
+            this.button4.Text = "Buscar Rol";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button_Busqueda);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 18);
+            this.label1.Location = new System.Drawing.Point(12, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Nombre";
+            this.label1.Text = "Nombre del Rol";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // nombreRol
             // 
             this.nombreRol.Location = new System.Drawing.Point(87, 29);
             this.nombreRol.Name = "nombreRol";
-            this.nombreRol.Size = new System.Drawing.Size(319, 20);
+            this.nombreRol.Size = new System.Drawing.Size(362, 20);
             this.nombreRol.TabIndex = 5;
             this.nombreRol.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -102,13 +103,13 @@
             this.dataGridViewRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRoles.Location = new System.Drawing.Point(12, 103);
             this.dataGridViewRoles.Name = "dataGridViewRoles";
-            this.dataGridViewRoles.Size = new System.Drawing.Size(487, 165);
+            this.dataGridViewRoles.Size = new System.Drawing.Size(546, 94);
             this.dataGridViewRoles.TabIndex = 6;
             this.dataGridViewRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // buttonLimpiar
             // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(133, 74);
+            this.buttonLimpiar.Location = new System.Drawing.Point(244, 73);
             this.buttonLimpiar.Name = "buttonLimpiar";
             this.buttonLimpiar.Size = new System.Drawing.Size(87, 23);
             this.buttonLimpiar.TabIndex = 7;
@@ -116,11 +117,22 @@
             this.buttonLimpiar.UseVisualStyleBackColor = true;
             this.buttonLimpiar.Click += new System.EventHandler(this.button5_Click);
             // 
+            // buttonRolUsuario
+            // 
+            this.buttonRolUsuario.Location = new System.Drawing.Point(399, 215);
+            this.buttonRolUsuario.Name = "buttonRolUsuario";
+            this.buttonRolUsuario.Size = new System.Drawing.Size(144, 45);
+            this.buttonRolUsuario.TabIndex = 8;
+            this.buttonRolUsuario.Text = "Modificar Rol a un Usuario";
+            this.buttonRolUsuario.UseVisualStyleBackColor = true;
+            this.buttonRolUsuario.Click += new System.EventHandler(this.button2_Click);
+            // 
             // ListaDeRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 282);
+            this.ClientSize = new System.Drawing.Size(581, 282);
+            this.Controls.Add(this.buttonRolUsuario);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.dataGridViewRoles);
             this.Controls.Add(this.nombreRol);
@@ -148,5 +160,6 @@
         private System.Windows.Forms.TextBox nombreRol;
         private System.Windows.Forms.DataGridView dataGridViewRoles;
         private System.Windows.Forms.Button buttonLimpiar;
+        private System.Windows.Forms.Button buttonRolUsuario;
     }
 }
