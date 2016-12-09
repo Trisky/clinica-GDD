@@ -51,7 +51,7 @@
             this.gbFiltros.Controls.Add(this.button3);
             this.gbFiltros.Controls.Add(this.button2);
             this.gbFiltros.Controls.Add(this.button1);
-            this.gbFiltros.Size = new System.Drawing.Size(926, 150);
+            this.gbFiltros.Size = new System.Drawing.Size(926, 105);
             this.gbFiltros.Text = "Visualizacion de estadisticas TOP 5";
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
@@ -67,15 +67,15 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(6, 111);
+            this.btnBuscar.Location = new System.Drawing.Point(289, 69);
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(132, 111);
+            this.btnLimpiar.Location = new System.Drawing.Point(415, 69);
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(958, 123);
+            this.btnEliminar.Location = new System.Drawing.Point(958, 93);
             // 
             // btnAgregar
             // 
@@ -87,13 +87,13 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(958, 123);
+            this.btnSeleccionar.Location = new System.Drawing.Point(958, 93);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(425, 14);
+            this.button1.Location = new System.Drawing.Point(265, 9);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(489, 23);
+            this.button1.Size = new System.Drawing.Size(307, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Especialidades  Mas Canceladas";
             this.button1.UseVisualStyleBackColor = true;
@@ -101,9 +101,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(425, 38);
+            this.button2.Location = new System.Drawing.Point(578, 9);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(489, 23);
+            this.button2.Size = new System.Drawing.Size(342, 23);
             this.button2.TabIndex = 3;
             this.button2.Text = "Profesionales con menos horas trabajadas por especialidad";
             this.button2.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(425, 63);
+            this.button3.Location = new System.Drawing.Point(265, 35);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(489, 23);
+            this.button3.Size = new System.Drawing.Size(307, 23);
             this.button3.TabIndex = 4;
             this.button3.Text = "Profesiones mas consultadas por plan";
             this.button3.UseVisualStyleBackColor = true;
@@ -155,9 +155,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(425, 87);
+            this.button4.Location = new System.Drawing.Point(578, 35);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(489, 23);
+            this.button4.Size = new System.Drawing.Size(342, 23);
             this.button4.TabIndex = 23;
             this.button4.Text = "Afiliados con mas bonos";
             this.button4.UseVisualStyleBackColor = true;
@@ -165,9 +165,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(425, 113);
+            this.button5.Location = new System.Drawing.Point(578, 64);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(489, 23);
+            this.button5.Size = new System.Drawing.Size(342, 23);
             this.button5.TabIndex = 9;
             this.button5.Text = "Especialidad con mas bonos utilizados";
             this.button5.UseVisualStyleBackColor = true;
@@ -177,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1090, 469);
+            this.ClientSize = new System.Drawing.Size(1090, 424);
             this.Name = "ListadoEstadistico";
             this.Text = "ListadoEstadistico";
             this.Load += new System.EventHandler(this.ListadoEstadistico_Load);
