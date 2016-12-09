@@ -220,6 +220,12 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
         private bool Validar()
         {
+            if(!StaticUtils.esNumerico(textBoxDNI.Text)||
+                !StaticUtils.esNumerico(textBoxTelefono.Text))
+            {
+                MessageBox.Show("¡Telefono y dni deben ser numericos", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             CheckearTextBoxesNoVacios();
             if(
                 !StaticUtils.CheckSelectedValueCB(comboBoxEstadoCivil)||
