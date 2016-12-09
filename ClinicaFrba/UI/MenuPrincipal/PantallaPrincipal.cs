@@ -32,7 +32,10 @@ namespace ClinicaFrba.UI.MenuPrincipal
         public UsuarioLogeado usuario { get; set; }
         public DataTable dtUsuario { get; set; }
 
-
+        protected override  void OnClosing(CancelEventArgs e)
+        {
+            Application.Exit();
+        }
         public PantallaPrincipal(UsuarioLogeado user)
         {
             usuario = user;
@@ -280,6 +283,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
             Dispose();
 
             LoginForm login = new LoginForm();
+            login.Show();
 
         }
 
