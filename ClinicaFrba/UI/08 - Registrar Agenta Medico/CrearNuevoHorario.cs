@@ -19,6 +19,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
         private List<Tuple<int, int>> lstHorariosDelDia;
 
         public string Username { get; set; }
+        
         public CrearNuevoHorario(UsuarioLogeado user)
         {
             InitializeComponent();
@@ -27,7 +28,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             
             ComboBoxManager cm = new ComboBoxManager();
             buttonNuevoHorario.Visible = true;
-            comboBoxDia = cm.CrearDias(comboBoxDia);
+            comboBoxDia = cm.CrearDias(comboBoxDia,user);
             comboBoxEspecialidad = cm.CrearEspecialidades(comboBoxEspecialidad,user);
         }
 
@@ -69,6 +70,30 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
                 return;
 
             }
+
+            Conexion con = new Conexion();
+            SqlCommand cmd1 = con.CrearComandoQuery(@"select isnull(sum(DATEDIFF(MINUTE,h.Hora_Inicio, h.Hora_Fin)),0) as horas 
+            from gruposa.HorariosAtencion h join gruposa.Medico m on h.Hora_Medico_Id_FK = m.Medi_Id
+            where m.Medi_Id =@medico ");
+            cmd1.Parameters.Add("@medico", SqlDbType.VarChar).Value = UsuarioLogueado.MedicoMatricula;
+            DataTable dt = con.ExecConsulta(cmd1);
+
+            int minutos = (Convert.ToInt32(numMinutoInicio.Value.ToString())) - Convert.ToInt32(numMinutoFin.Value.ToString());
+         
+            if(minutos < 0){
+            minutos = minutos * (-1);
+            }
+
+            int horarioAMinutos=(Convert.ToInt32(numHoraFin.Value.ToString()) - Convert.ToInt32(numHoraInicio.Value.ToString()))*(60);
+
+            int horarioDB = (int.Parse(dt.Rows[0][0].ToString()));
+
+            if (minutos+ horarioAMinutos+horarioDB > 2880)
+            {
+                MessageBox.Show("¡error, supera las 48hs semanales!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Dispose();
+                return;
+            }
             //ahora que ya se que es valido, lo mando a la base --> TODO
             //armo la hora con los dos puntitos
 
@@ -81,7 +106,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
             try
             {
-                Conexion con = new Conexion();
+               
                 SqlCommand cmd = con.CrearComandoQuery(@"INSERT INTO GRUPOSA.HorariosAtencion (Hora_Inicio, Hora_fin, Hora_Dia,Hora_Medico_Id_FK,Hora_Especialidad)
                                                                            VALUES     (@inicio,     @fin,  datename(weekday,@dia),    @id,        CAST(@especialidad AS INT))");
                 cmd.Parameters.Add(new SqlParameter("@id",      UsuarioLogueado.MedicoMatricula));

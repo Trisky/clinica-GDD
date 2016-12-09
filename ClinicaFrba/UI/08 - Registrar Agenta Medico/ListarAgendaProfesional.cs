@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 {
@@ -33,8 +34,23 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            CrearNuevoHorario nuevoHorario = new CrearNuevoHorario(usuarioLogeado);
-            nuevoHorario.Show();
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoQuery(@"select isnull(sum(DATEDIFF(MINUTE,h.Hora_Inicio, h.Hora_Fin)),0) as horas 
+            from gruposa.HorariosAtencion h join gruposa.Medico m on h.Hora_Medico_Id_FK = m.Medi_Id
+            where m.Medi_Id =@medico ");
+            cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = usuarioLogeado.MedicoMatricula;
+            DataTable dt = con.ExecConsulta(cmd);
+
+            if (int.Parse(dt.Rows[0][0].ToString()) > 2880)
+            {
+                MessageBox.Show("¡error, supera las 48hs semanales!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                CrearNuevoHorario nuevoHorario = new CrearNuevoHorario(usuarioLogeado);
+                nuevoHorario.Show();
+            }
         }
 
         private DataTable GetAgendaDeldia(int diaSeleccionado)
