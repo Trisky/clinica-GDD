@@ -12,6 +12,17 @@ namespace ClinicaFrba.Helpers
 {
     public static class StaticUtils
     {
+        public static bool esNumerico(string str)
+        {
+            foreach (char c in str)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+
+            return true;
+        }
+
         private static DateTime ObtenerFechaSistema()
         {
             try
