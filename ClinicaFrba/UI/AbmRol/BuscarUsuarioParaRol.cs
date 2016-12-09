@@ -36,24 +36,21 @@ namespace ClinicaFrba.UI.AbmRol
 
         }
 
-
-
-
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             DataTable dt;
             Conexion con = new Conexion();
-            string s = @" select RolUsu_Usuario_Username, Rol_Nombre,Rol_Estado,Rol_Codigo
-                from [GD2C2016].[GRUPOSA].[RolesUsuario] left join  [GD2C2016].[GRUPOSA].[Rol] on
-                RolUsu_Rol_Codigo = Rol_Codigo";
+            string s = @"   select Usuario_Username
+                from     [GD2C2016].[GRUPOSA].[Usuario] ";
 
             if (textBoxNombre.Text == "")
                 dt = con.SimpleQuery(s);
             else
             {
-                string q = s + @"where RolUsu_Usuario_Username like @user_nom";
+                string q = @"  select Usuario_Username
+                from     [GD2C2016].[GRUPOSA].[Usuario]  where Usuario_Username like @user_nom";
                 SqlCommand cmd = con.CrearComandoQuery(q);
+
                 cmd.Parameters.Add(new SqlParameter("@user_nom", con.ConWildCard(textBoxNombre.Text)));
                 dt = con.ExecConsulta(cmd);
             }
@@ -86,14 +83,7 @@ namespace ClinicaFrba.UI.AbmRol
             {
                 var cells = a.Cells;
                 UsuarioLogeado ua = new UsuarioLogeado();
-                Rol rol = new Rol();
-                List<Rol> Roles = new List<Rol>();
-                
-                rol.Nombre = cells[1].Value.ToString();
-                rol.Codigo = Convert.ToInt32(cells[3].Value);
                 ua.UserName = cells[0].Value.ToString();
-                Roles.Add(rol);
-                ua.Roles = Roles;
                 vlr.modificarRolUsuario(ua);
             }
             else

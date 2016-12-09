@@ -24,7 +24,7 @@ namespace ClinicaFrba.UI.AbmRol
             usuario = user;
             InitializeComponent();
             ComboBoxManager cm = new ComboBoxManager();
-            comboBox1 = cm.cargarRoles(comboBox1);
+            comboBox1 = cm.cargarRoles(comboBox1,user);
             textBox1.Text = user.UserName;
             Show();
 
@@ -33,20 +33,19 @@ namespace ClinicaFrba.UI.AbmRol
 
         private void button1Aceptar_Click(object sender, EventArgs e)
         {
-            Rol rol = new Rol();
-            rol = usuario.Roles.Find(s => s.Codigo != -1);
+
             DataTable dt;
             Conexion con = new Conexion();
-            string q = @"   UPDATE [GD2C2016].[GRUPOSA].[RolesUsuario]
-                            SET RolUsu_Rol_Codigo = @user_rolNuevo
-                            WHERE RolUsu_Usuario_Username =@user_nom and
-                            RolUsu_Rol_Codigo = @user_rolAnterior";
+            string q = @"   Insert Into [GD2C2016].[GRUPOSA].[RolesUsuario]
+                            values (@user_rolNuevo,@user_nom) ";
             SqlCommand cmd = con.CrearComandoQuery(q);
-            cmd.Parameters.Add(new SqlParameter("@user_rolAnterior", rol.Codigo));
             cmd.Parameters.Add(new SqlParameter("@user_nom", usuario.UserName));
             cmd.Parameters.Add(new SqlParameter("@user_rolNuevo", comboBox1.SelectedValue));
             dt = con.ExecConsulta(cmd);
 
+
+
+            MessageBox.Show("Se agrego el rol al usuario correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Dispose();
 
         }

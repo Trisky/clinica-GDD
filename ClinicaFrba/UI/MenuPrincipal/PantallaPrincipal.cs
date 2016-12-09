@@ -52,7 +52,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
             Rol r = Rol.rolConSusFuncionalidadesCodigo((user.Roles.Find(x => x.Codigo != 0).Codigo));
            
 
-            listadoEstadisticoToolStripMenuItem.Visible = true;
+            listadoEstadisticoToolStripMenuItem.Visible = false;
             administradorToolStripMenuItem.Visible = false;
             mediocToolStripMenuItem.Visible = false;
             afiliadosToolStripMenuItem.Visible = false;

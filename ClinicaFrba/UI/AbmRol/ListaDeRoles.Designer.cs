@@ -123,7 +123,7 @@
             this.buttonRolUsuario.Name = "buttonRolUsuario";
             this.buttonRolUsuario.Size = new System.Drawing.Size(290, 25);
             this.buttonRolUsuario.TabIndex = 8;
-            this.buttonRolUsuario.Text = "Modificar Rol a un Usuario";
+            this.buttonRolUsuario.Text = "Agregar un Rol a un Usuario";
             this.buttonRolUsuario.UseVisualStyleBackColor = true;
             this.buttonRolUsuario.Click += new System.EventHandler(this.button2_Click);
             // 

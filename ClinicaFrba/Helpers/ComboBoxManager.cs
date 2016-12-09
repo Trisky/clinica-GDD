@@ -162,7 +162,6 @@ namespace ClinicaFrba.Helpers
                 dtRol = con.ExecConsulta(cmd3);
 
                 row = dtRol.NewRow();
-                dtRol.Rows.InsertAt(row, 0);
                 combo.DisplayMember = "Rol_Nombre";
                 combo.ValueMember = "Rol_Codigo";
                 combo.DataSource = dtRol;
@@ -171,18 +170,22 @@ namespace ClinicaFrba.Helpers
         }
 
         //Todos los roles
-        public ComboBox cargarRoles(ComboBox combo)
+        public ComboBox cargarRoles(ComboBox combo,UsuarioLogeado user)
         {
             DataTable dtRol;
             DataRow row;
 
             Conexion con = new Conexion();
-            string q = @"  select * from [GD2C2016].[GRUPOSA].[Rol] ";
+            string q = @"  select Rol_Codigo, Rol_Nombre from GRUPOSA.rol r
+                           where Rol_Codigo not in (
+                                                    select RolUsu_Rol_Codigo 
+                                                    from gruposa.RolesUsuario 
+                                                    where RolUsu_Usuario_Username = @user_nom)";
             SqlCommand cmd3 = con.CrearComandoQuery(q);
+            cmd3.Parameters.Add(new SqlParameter("@user_nom", user.UserName));
             dtRol = con.ExecConsulta(cmd3);
 
             row = dtRol.NewRow();
-            dtRol.Rows.InsertAt(row, 0);
             combo.DisplayMember = "Rol_Nombre";
             combo.ValueMember = "Rol_Codigo";
             combo.DataSource = dtRol;
