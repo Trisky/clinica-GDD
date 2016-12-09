@@ -56,16 +56,33 @@ AS
 	SELECT @matricula = Paci_Matricula FROM GRUPOSA.Paciente Paci
 	WHERE Paci.Paci_Usuario = @usuario
 	
-	DELETE FROM GRUPOSA.Consultas
-	WHERE Cons_Id_Turno IN (SELECT Turn_Numero FROM GRUPOSA.Turnos
-							WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) 
-																	   FROM GRUPOSA.Paciente Paci
-																	   WHERE Paci.Paci_Usuario = @usuario))
+	IF (SUBSTRING(@matricula,7,8) = '01')
+		BEGIN
+			DELETE FROM GRUPOSA.Consultas
+			WHERE Cons_Id_Turno IN (SELECT Turn_Numero FROM GRUPOSA.Turnos
+									WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) 
+																			   FROM GRUPOSA.Paciente Paci
+																			   WHERE Paci.Paci_Usuario = @usuario))
 							   
-	DELETE FROM GRUPOSA.Turnos
-	WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) FROM GRUPOSA.Paciente Paci
-											  WHERE Paci.Paci_Usuario = @usuario)
-							   
+			DELETE FROM GRUPOSA.Turnos
+			WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) FROM GRUPOSA.Paciente Paci
+													  WHERE Paci.Paci_Usuario = @usuario)
+			
+			DELETE FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(Paci_Matricula,1,6)
+		END
+	ELSE 
+		BEGIN
+		
+			DELETE FROM GRUPOSA.Consultas
+			WHERE Cons_Id_Turno IN (SELECT Turn_Numero FROM GRUPOSA.Turnos
+									WHERE Turn_Paciente_Id = @matricula)
+									
+			DELETE FROM GRUPOSA.Turnos
+			WHERE Turn_Paciente_Id = @matricula
+			
+			DELETE FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @matricula
+		END
+		
 GO
 ------------------------------------------------------------------------------------------------
 --sp_confirmacionTurno: Confirma un turno y se añade a la base.
