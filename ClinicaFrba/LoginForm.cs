@@ -87,12 +87,12 @@ namespace ClinicaFrba
                 {
                     PantallaPrincipal pp = new PantallaPrincipal(usuarioLogeado);
                 }
+                Hide();
             }
             catch(Exception ex)
             {
 
             }
-
             
         }
 
