@@ -371,7 +371,7 @@ AS
 	BEGIN TRANSACTION
 		
 		SELECT @rol = Rol_Codigo FROM GRUPOSA.Rol
-		WHERE Rol_Nombre = 'Afiliado Paciente'
+		WHERE Rol_Nombre = 'Afiliado'
 	
 		INSERT INTO [GRUPOSA].[RolesUsuario]
            ([RolUsu_Rol_Codigo],[RolUsu_Usuario_Username])
@@ -934,11 +934,11 @@ BEGIN TRANSACTION
 	
 	--Roles 
 		INSERT INTO GRUPOSA.[Rol] ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
-		VALUES ('Administrador',0,1)
+		VALUES ('Administrativo',0,1)
 		INSERT INTO GRUPOSA.[Rol] ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
-		VALUES ('Afiliado Paciente',0,0)
+		VALUES ('Afiliado',0,0)
 		INSERT INTO GRUPOSA.[Rol] ([Rol_Nombre],[Rol_Estado],[Rol_Es_Administrador])
-		VALUES ('Profesional Medico',0,0)
+		VALUES ('Profesional',0,0)
 
 	--Tipos DNI
 		INSERT INTO [GRUPOSA].[TipoDocumento] (Tipo_Doc_Desc)
@@ -958,7 +958,7 @@ BEGIN TRANSACTION
 	
 	--Rol usuario Admin
 		INSERT INTO GRUPOSA.[RolesUsuario] ([RolUsu_Rol_Codigo],[RolUsu_Usuario_Username])
-		SELECT Rol_Codigo, 'admin' FROM GRUPOSA.[Rol] WHERE Rol_Nombre = 'Administrador';
+		SELECT Rol_Codigo, 'admin' FROM GRUPOSA.[Rol] WHERE Rol_Nombre = 'Administrativo';
 		
 		
 COMMIT TRANSACTION
@@ -1092,12 +1092,12 @@ COMMIT TRANSACTION
 		INSERT INTO [GRUPOSA].[RolesUsuario] ([RolUsu_Usuario_Username],[RolUsu_Rol_Codigo])
 		SELECT DISTINCT(med.Medi_Usuario), ro.Rol_Codigo FROM GRUPOSA.medico AS med, gruposa.rol AS ro
 		WHERE med.medi_usuario IS NOT NULL
-		AND ro.Rol_Nombre = 'Profesional Medico';
+		AND ro.Rol_Nombre = 'Profesional';
 		
 		INSERT INTO [GRUPOSA].[RolesUsuario] ([RolUsu_Usuario_Username],[RolUsu_Rol_Codigo])
 		SELECT DISTINCT(paci_usuario), ro.Rol_Codigo FROM GRUPOSA.paciente AS paci, gruposa.rol AS ro
 		WHERE paci.paci_usuario IS NOT NULL
-		AND ro.Rol_Nombre = 'Afiliado Paciente';
+		AND ro.Rol_Nombre = 'Afiliado';
 	
 	COMMIT TRANSACTION
 	
@@ -1148,6 +1148,12 @@ COMMIT TRANSACTION
 			SET Hora_Inicio = '09:00',
 				Hora_Fin = '15:00'
 			WHERE HORA_DIA = 'Sábado'
+			
+			UPDATE GRUPOSA.HorariosAtencion
+			SET Hora_Inicio = '07:00'
+			WHERE HORA_INICIO IN ('08:00', '08:30')
+			AND HORA_FIN = '16:30' OR HORA_FIN = '17:00'
+		
 		
 	COMMIT TRANSACTION
 	
@@ -1212,7 +1218,7 @@ COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
 
-	--Funcionalidades
+	/*--Funcionalidades
 		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
 		VALUES ('Crear')
 		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
@@ -1223,11 +1229,11 @@ COMMIT TRANSACTION
 		VALUES ('Solicitar Turno') 
 		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
 		VALUES ('Registrar Atencion Medica') 
-		
+		*/
 	--FuncionalidadesRol
 		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
-		VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
-			   (1,13),(1,14),(2,9),(2,8),(2,4),(2,13),(3,11),(3,12),(3,10),(2,14),(3,14),(1,15)
+		VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),
+			   (2,3),(2,4),(2,8),(3,2),(3,5),(3,6),(3,7)
 		
 		
 		INSERT INTO [GD2C2016].[GRUPOSA].[Funcionalidad]
