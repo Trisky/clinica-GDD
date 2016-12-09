@@ -44,6 +44,7 @@
             this.gbFiltros.Controls.Add(this.label1);
             this.gbFiltros.Controls.Add(this.groupBoxPacienteSeleccionado);
             this.gbFiltros.Location = new System.Drawing.Point(12, 9);
+            this.gbFiltros.Size = new System.Drawing.Size(930, 108);
             this.gbFiltros.Controls.SetChildIndex(this.groupBoxPacienteSeleccionado, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
@@ -106,7 +107,7 @@
             this.groupBoxPacienteSeleccionado.Controls.Add(this.idPacienteLabel);
             this.groupBoxPacienteSeleccionado.Controls.Add(this.pacienteNombreLabel);
             this.groupBoxPacienteSeleccionado.Controls.Add(this.pacienteApellidoLabel);
-            this.groupBoxPacienteSeleccionado.Location = new System.Drawing.Point(631, 12);
+            this.groupBoxPacienteSeleccionado.Location = new System.Drawing.Point(587, 17);
             this.groupBoxPacienteSeleccionado.Margin = new System.Windows.Forms.Padding(1);
             this.groupBoxPacienteSeleccionado.Name = "groupBoxPacienteSeleccionado";
             this.groupBoxPacienteSeleccionado.Padding = new System.Windows.Forms.Padding(1);

@@ -20,6 +20,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
     {
         private AbmAfiliadoListar abmAfiliado;
         private PedirTurno pedidorTurnos;
+        private string idMedicoBuscado;
+
         public RegistroLlegada()
         {
             InitializeComponent();
@@ -63,8 +65,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             cmd.Parameters.Add("@paci_usuario", SqlDbType.VarChar).Value = idPacienteLabel.Text;
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
+            dgListado.Columns[2].Visible = false;
 
-            
 
             //ahora filtro los que no son de hoy
             DateTime hoy = StaticUtils.getDateTime().Date;
@@ -77,6 +79,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                     row.Delete(); //escondo la datarow si no es de hoy.
                 }
             }
+            
         }
 
         public void TurnoSeleccionado(string nombreMedico, string hora)
@@ -102,19 +105,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             Hide();
         }
 
-        internal void MostrarTurnosProfesional(string matriculaProfesional)
-        {
-            throw new NotImplementedException();
 
-
-            Show();
-            
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
@@ -130,6 +121,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                           FROM [GD2C2016].[GRUPOSA].[Bonos]
                           where SUBSTRING(@id,1,6)=SUBSTRING(Bono_Paci_Id,1,6) and
                           Bono_expirado = 0";
+
+            
             SqlCommand cmd = con.CrearComandoQuery(s);
             cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
             DataTable dt = con.ExecConsulta(cmd);
@@ -149,6 +142,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                     , "Tiene bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             BorrarBono();
+            elMedicoEs(idMedicoBuscado); //actualizo la tabla
 
         }
 
@@ -166,8 +160,21 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                             WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P ON B.Bono_Paci_Id = P.Paci_Matricula
 								                            AND P.Paci_Usuario = '@id'
 								                            AND bono_fecha_compra_usado IS NULL)";
+            string q2 = @"UPDATE GRUPOSA.Bonos
+                        SET bono_expirado = 1
+                        WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P ON B.Bono_Paci_Id = P.Paci_Matricula
+	                        AND SUBSTRING(P.Paci_Usuario,1,6) = SUBSTRING('@id',1,6)
+	                        AND bono_fecha_compra_usado IS NULL";
+
+            throw new NotImplementedException();
+            string q3 = @" UPDATE GRUPOSA.Bonos
+ SET bono_expirado = 1
+WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
+		ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
+	   AND P.Paci_Usuario = '@id'
+	   AND bono_fecha_compra_usado IS NULL";
             Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoQuery(q);
+            SqlCommand cmd = con.CrearComandoQuery(q3);
             cmd.Parameters.Add(new SqlParameter("@id", idPacienteLabel.Text));
             con.ExecConsulta(cmd);
         }
@@ -195,7 +202,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         internal void elMedicoEs(string idMedico)
         {
-
+            idMedicoBuscado = idMedico;
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosOcupadosDelDia");
             cmd.Parameters.Add("@idMedico", SqlDbType.VarChar).Value = idMedico;
@@ -216,6 +223,16 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             {
                 btnSeleccionar.Enabled = false;
             }
+        }
+        internal void MostrarTurnosProfesional(string matriculaProfesional)
+        {
+            throw new NotImplementedException();
+            Show();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
