@@ -226,6 +226,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
 
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
        
     }
 }

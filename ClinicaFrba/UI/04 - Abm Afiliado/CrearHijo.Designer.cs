@@ -302,11 +302,11 @@
             // 
             // buttonCrearHijo
             // 
-            this.buttonCrearHijo.Location = new System.Drawing.Point(146, 294);
+            this.buttonCrearHijo.Location = new System.Drawing.Point(103, 294);
             this.buttonCrearHijo.Margin = new System.Windows.Forms.Padding(1);
             this.buttonCrearHijo.Name = "buttonCrearHijo";
             this.buttonCrearHijo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonCrearHijo.Size = new System.Drawing.Size(115, 19);
+            this.buttonCrearHijo.Size = new System.Drawing.Size(176, 19);
             this.buttonCrearHijo.TabIndex = 32;
             this.buttonCrearHijo.Text = "Adherir";
             this.buttonCrearHijo.UseVisualStyleBackColor = true;
