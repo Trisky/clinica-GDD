@@ -180,9 +180,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             }
             var dr = dgListado.SelectedRows[0];
             var cells = dr.Cells;
-            string usuario = cells[13].Value.ToString();
+            string usuario = cells[7].Value.ToString();
             ExecBajaLogica(usuario);
-            MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
 
