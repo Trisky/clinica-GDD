@@ -209,7 +209,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         }
         private void aBMRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaDeRoles listaRoles = new ListaDeRoles();
+            ListaDeRoles listaRoles = new ListaDeRoles(usuario);
         }
         private void registroDeLlegadaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -224,7 +224,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
         }
         private void rolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaDeRoles rol = new ListaDeRoles();
+            ListaDeRoles rol = new ListaDeRoles(usuario);
         }
         private void afiliadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
