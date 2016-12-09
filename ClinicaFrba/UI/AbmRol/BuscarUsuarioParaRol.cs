@@ -19,6 +19,7 @@ namespace ClinicaFrba.UI.AbmRol
     public partial class BuscarUsuarioParaRol : FormularioListadoBase
     {
         private ListaDeRoles vlr;
+        
         public BuscarUsuarioParaRol(ListaDeRoles vistaListaRoles)
         {
             vlr = vistaListaRoles;
@@ -56,7 +57,8 @@ namespace ClinicaFrba.UI.AbmRol
                 cmd.Parameters.Add(new SqlParameter("@user_nom", con.ConWildCard(textBoxNombre.Text)));
                 dt = con.ExecConsulta(cmd);
             }
-            dgListado.DataSource = dt;    
+            dgListado.DataSource = dt;
+
         }
 
 
@@ -100,6 +102,11 @@ namespace ClinicaFrba.UI.AbmRol
             }
             Hide();
             Dispose();
+
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
 
         }
     }

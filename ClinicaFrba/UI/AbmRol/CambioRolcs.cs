@@ -78,6 +78,11 @@ namespace ClinicaFrba.UI.AbmRol
 
         }
 
+        private void CambioRol_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 

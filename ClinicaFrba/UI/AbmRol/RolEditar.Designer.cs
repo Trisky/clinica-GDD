@@ -47,14 +47,14 @@
             // 
             // gcAccion
             // 
-            this.gcAccion.Location = new System.Drawing.Point(12, 291);
-            this.gcAccion.Size = new System.Drawing.Size(510, 84);
+            this.gcAccion.Location = new System.Drawing.Point(12, 224);
+            this.gcAccion.Size = new System.Drawing.Size(510, 56);
             this.gcAccion.Enter += new System.EventHandler(this.gcAccion_Enter);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 32);
+            this.label1.Location = new System.Drawing.Point(31, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 5;
@@ -63,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 74);
+            this.label2.Location = new System.Drawing.Point(31, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 13);
             this.label2.TabIndex = 6;
@@ -72,7 +72,7 @@
             // checkedListFuncionalidades
             // 
             this.checkedListFuncionalidades.FormattingEnabled = true;
-            this.checkedListFuncionalidades.Location = new System.Drawing.Point(130, 79);
+            this.checkedListFuncionalidades.Location = new System.Drawing.Point(131, 41);
             this.checkedListFuncionalidades.Name = "checkedListFuncionalidades";
             this.checkedListFuncionalidades.Size = new System.Drawing.Size(385, 154);
             this.checkedListFuncionalidades.TabIndex = 7;
@@ -80,7 +80,7 @@
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(130, 25);
+            this.textBoxNombre.Location = new System.Drawing.Point(130, 12);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(385, 20);
             this.textBoxNombre.TabIndex = 8;
@@ -89,18 +89,18 @@
             // checkBoxInhabilitar
             // 
             this.checkBoxInhabilitar.AutoSize = true;
-            this.checkBoxInhabilitar.Location = new System.Drawing.Point(130, 240);
+            this.checkBoxInhabilitar.Location = new System.Drawing.Point(131, 201);
             this.checkBoxInhabilitar.Name = "checkBoxInhabilitar";
-            this.checkBoxInhabilitar.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxInhabilitar.Size = new System.Drawing.Size(114, 17);
             this.checkBoxInhabilitar.TabIndex = 9;
-            this.checkBoxInhabilitar.Text = "Inhabilitar";
+            this.checkBoxInhabilitar.Text = "Inhabilitar/Habilitar";
             this.checkBoxInhabilitar.UseVisualStyleBackColor = true;
             this.checkBoxInhabilitar.CheckedChanged += new System.EventHandler(this.checkBoxInhabilitar_CheckedChanged);
             // 
             // checkBoxAdmin
             // 
             this.checkBoxAdmin.AutoSize = true;
-            this.checkBoxAdmin.Location = new System.Drawing.Point(416, 240);
+            this.checkBoxAdmin.Location = new System.Drawing.Point(427, 201);
             this.checkBoxAdmin.Name = "checkBoxAdmin";
             this.checkBoxAdmin.Size = new System.Drawing.Size(89, 17);
             this.checkBoxAdmin.TabIndex = 10;
@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 380);
+            this.ClientSize = new System.Drawing.Size(532, 287);
             this.Controls.Add(this.checkBoxAdmin);
             this.Controls.Add(this.checkBoxInhabilitar);
             this.Controls.Add(this.textBoxNombre);
@@ -120,7 +120,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "RolEditar";
-            this.Text = "RolEditar";
+            this.Text = "Edicion Rol";
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.checkedListFuncionalidades, 0);

@@ -48,7 +48,7 @@
             this.gbFiltros.Controls.Add(this.btnBuscar);
             this.gbFiltros.Location = new System.Drawing.Point(12, 12);
             this.gbFiltros.Name = "gbFiltros";
-            this.gbFiltros.Size = new System.Drawing.Size(930, 150);
+            this.gbFiltros.Size = new System.Drawing.Size(930, 75);
             this.gbFiltros.TabIndex = 0;
             this.gbFiltros.TabStop = false;
             this.gbFiltros.Text = "Filtros de búsqueda";
@@ -56,7 +56,7 @@
             // btnLimpiar
             // 
             this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiar.Location = new System.Drawing.Point(805, 111);
+            this.btnLimpiar.Location = new System.Drawing.Point(809, 19);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Padding = new System.Windows.Forms.Padding(4);
             this.btnLimpiar.Size = new System.Drawing.Size(120, 30);
@@ -68,7 +68,7 @@
             // btnBuscar
             // 
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(679, 111);
+            this.btnBuscar.Location = new System.Drawing.Point(683, 19);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Padding = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Size = new System.Drawing.Size(120, 30);
@@ -95,7 +95,7 @@
             this.dgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgListado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dgListado.EnableHeadersVisualStyles = false;
-            this.dgListado.Location = new System.Drawing.Point(12, 165);
+            this.dgListado.Location = new System.Drawing.Point(12, 123);
             this.dgListado.MultiSelect = false;
             this.dgListado.Name = "dgListado";
             this.dgListado.ReadOnly = true;
@@ -121,7 +121,7 @@
             // 
             this.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregar.Location = new System.Drawing.Point(961, 21);
+            this.btnAgregar.Location = new System.Drawing.Point(961, 12);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Padding = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Size = new System.Drawing.Size(120, 30);
@@ -134,7 +134,7 @@
             this.btnModificar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificar.Enabled = false;
             this.btnModificar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificar.Location = new System.Drawing.Point(961, 57);
+            this.btnModificar.Location = new System.Drawing.Point(961, 48);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Padding = new System.Windows.Forms.Padding(4);
             this.btnModificar.Size = new System.Drawing.Size(120, 30);
@@ -147,7 +147,7 @@
             this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminar.Enabled = false;
             this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEliminar.Location = new System.Drawing.Point(961, 123);
+            this.btnEliminar.Location = new System.Drawing.Point(961, 87);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Padding = new System.Windows.Forms.Padding(4);
             this.btnEliminar.Size = new System.Drawing.Size(120, 30);
@@ -158,7 +158,7 @@
             // btnSeleccionar
             // 
             this.btnSeleccionar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSeleccionar.Location = new System.Drawing.Point(961, 123);
+            this.btnSeleccionar.Location = new System.Drawing.Point(961, 87);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.btnSeleccionar.Size = new System.Drawing.Size(120, 30);
