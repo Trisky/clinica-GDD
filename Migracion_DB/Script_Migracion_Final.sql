@@ -418,9 +418,10 @@ CREATE PROCEDURE [GRUPOSA].[sp_turnosOcupadosDelDia] (@idMedico VARCHAR(250), @f
 AS
 BEGIN
 	
-	SELECT T.Turn_Numero AS Turno,
+	SELECT T.Turn_Numero AS Turno, 
 		   SUBSTRING(CAST(CAST(T.Turn_Fecha AS TIME) AS varchar),1,5) AS Hora,
-		   (SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente
+		   (SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente,
+		   (SELECT p.Paci_Matricula FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS idPaciente
 	FROM GRUPOSA.Turnos t
 	WHERE Turn_Medico_Id = @IdMedico
 	AND CAST(Turn_Fecha AS DATE) = CAST(@fecha AS DATE)

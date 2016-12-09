@@ -118,7 +118,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
-            VerificarSiTieneBonos(idPacienteLabel.Text);
+            string idPaciente = dgListado.SelectedRows[0].Cells[3].Value.ToString() ;
+            VerificarSiTieneBonos(idPaciente);
         }
 
         
@@ -134,7 +135,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             DataTable dt = con.ExecConsulta(cmd);
             if (dt.Rows.Count == 0)
                 UstedNoTieneBonos();
-            int c = dt.Rows[0].Field<int>(0);
+            int c = Convert.ToInt32(dt.Rows[0].Field<int>(0));
 
             if (c < 1)
             {
