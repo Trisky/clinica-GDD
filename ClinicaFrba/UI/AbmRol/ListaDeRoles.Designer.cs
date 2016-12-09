@@ -42,9 +42,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(87, 215);
+            this.button1.Location = new System.Drawing.Point(25, 203);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 45);
+            this.button1.Size = new System.Drawing.Size(237, 25);
             this.button1.TabIndex = 0;
             this.button1.Text = "Agregar Nuevo Rol";
             this.button1.UseVisualStyleBackColor = true;
@@ -119,9 +119,9 @@
             // 
             // buttonRolUsuario
             // 
-            this.buttonRolUsuario.Location = new System.Drawing.Point(399, 215);
+            this.buttonRolUsuario.Location = new System.Drawing.Point(268, 203);
             this.buttonRolUsuario.Name = "buttonRolUsuario";
-            this.buttonRolUsuario.Size = new System.Drawing.Size(144, 45);
+            this.buttonRolUsuario.Size = new System.Drawing.Size(290, 25);
             this.buttonRolUsuario.TabIndex = 8;
             this.buttonRolUsuario.Text = "Modificar Rol a un Usuario";
             this.buttonRolUsuario.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 282);
+            this.ClientSize = new System.Drawing.Size(578, 244);
             this.Controls.Add(this.buttonRolUsuario);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.dataGridViewRoles);
