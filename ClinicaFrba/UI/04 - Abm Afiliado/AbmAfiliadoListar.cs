@@ -155,6 +155,29 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         }
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
+            LlamadaBotonElimiarAfiliado();
+        }
+        private void dgListado_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //selecciona toda la fila al tocar cualquier col.
+            if (e.RowIndex > -1)
+            {
+                dgListado.Rows[e.RowIndex].Selected = true;
+                btnBajaAfiliado.Enabled = true;
+            }
+            else
+            {
+                btnBajaAfiliado.Enabled = false;
+            }
+        }
+
+        private void LlamadaBotonElimiarAfiliado()
+        {
+            if (dgListado.SelectedRows[0] == null)
+            {
+                MessageBox.Show("Primero debe seleccionar un afiliado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var dr = dgListado.SelectedRows[0];
             var cells = dr.Cells;
             string usuario = cells[13].Value.ToString();
@@ -162,6 +185,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
+
         private void ExecBajaLogica(string usuario)
         {
             Conexion con = new Conexion();
@@ -231,6 +255,10 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
 
         }
-       
+
+        private void btnBajaAfiliado_Click(object sender, EventArgs e)
+        {
+            LlamadaBotonElimiarAfiliado();
+        }
     }
 }
