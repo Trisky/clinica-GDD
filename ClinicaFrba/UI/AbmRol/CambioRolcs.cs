@@ -44,6 +44,14 @@ namespace ClinicaFrba.UI.AbmRol
             dt = con.ExecConsulta(cmd);
 
 
+            string s = @"   UPDATE [GD2C2016].[GRUPOSA].[Usuario]
+                            SET Usuario_Habilitado = 0
+                            WHERE Usuario_Username =@user_nom ";
+            SqlCommand cmd1 = con.CrearComandoQuery(s);
+            cmd1.Parameters.Add(new SqlParameter("@user_nom", usuario.UserName));
+            con.ExecConsulta(cmd1);
+
+
 
             MessageBox.Show("Se agrego el rol al usuario correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Dispose();
