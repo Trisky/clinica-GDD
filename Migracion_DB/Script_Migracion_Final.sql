@@ -365,7 +365,7 @@ AS
 		[Paci_Plan_Med_Cod_FK], [Paci_Usuario], [Paci_Grupo_Fliar])
 	VALUES
 	    (@paci_matricula, @paci_nom, @paci_apell, @paci_tipodni, @dni, @paci_direccion, @tel, @paci_mail, 
-		@fnac, @paci_sexo, @paci_estado_civil, @plan , @paci_usuario, @paci_tipoFamiliar);
+		@fnac, @paci_sexo, @paci_estado_civil, @plan , @paci_usuario, SUBSTRING(@paci_matricula,1,6));
 	COMMIT TRANSACTION;
 	
 	BEGIN TRANSACTION
@@ -1008,7 +1008,7 @@ BEGIN TRANSACTION
 						[Paci_Plan_Med_Cod_FK], [Paci_Usuario], [Paci_Grupo_Fliar])
 					VALUES
 					   (@paci_matricula, @paci_nom, @paci_apell, 'DNI', @paci_dni, 
-						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, @paci_usuario, '01');
+						@paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, 'Soltero', @paci_plan_medi, @paci_usuario, SUBSTRING(@paci_matricula,1,6));
 
 				FETCH NEXT FROM Cur_Pacientes INTO @paci_nom, @paci_apell, @paci_dni, @paci_direccion, @paci_tel, @paci_mail, @paci_fecha_nac, @paci_plan_medi
 			END
