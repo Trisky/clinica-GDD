@@ -60,19 +60,22 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaTurnoPaciente");
             cmd.Parameters.Add("@id_turno", SqlDbType.Decimal).Value = turno;
             cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = textBoxMotivo.Text;
+
+
             cmd.Parameters.Add("@tipo", SqlDbType.NVarChar).Value = 1;//TODO cambiar por un string
             //cmd.Parameters.Add("@tipo", SqlDbType.VarChar).Value = motivoRound;
-            cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
+            MessageBox.Show("Esto deberia ser un string pero estoy mandando un int xq asi esta en la base");
 
+
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
+            
             DataTable dt = con.ExecConsulta(cmd);
             if (dt != null) 
             { 
                 MessageBox.Show("Cancelacion exitosa");
                 return;
             }
-            cmd = con.CrearComandoStoreProcedure("sp_turnosActivosPaciente");
             PopularTabla();
-
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
