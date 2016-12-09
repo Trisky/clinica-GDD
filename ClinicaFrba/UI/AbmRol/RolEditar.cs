@@ -1,6 +1,7 @@
 ﻿using ClinicaFrba.AbmRol;
 using ClinicaFrba.FormulariosBase;
 using ClinicaFrba.Helpers;
+using ClinicaFrba.Logica.Entidades;
 using ClinicaFrba.Logica.Roles;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace ClinicaFrba.UI.AbmRol
         private Rol rol;
         public List<Funcionalidad> lstFuncionalidades;
         public List<Rol> lstRoles;
+        public UsuarioLogeado usuario;
 
         public RolEditar()
         {
@@ -29,8 +31,10 @@ namespace ClinicaFrba.UI.AbmRol
             CargarCheckListFuncionalidades(ref checkedListFuncionalidades);
             Show();
         }
-        public RolEditar(Rol rol)
+
+        public RolEditar(Rol rol, UsuarioLogeado userr)
         {
+            usuario = userr;
             InitializeComponent();
             CargarFormulario(rol);
             Show();
@@ -145,6 +149,14 @@ namespace ClinicaFrba.UI.AbmRol
                     cmd5.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
                     cmd5.Parameters.Add("@esAdministrador", SqlDbType.Bit).Value = (checkBoxAdmin.Checked ? 1 : 0);
                     con.ExecConsulta(cmd5);
+                    if (usuario.Roles.Exists(x => x.Codigo == rol.Codigo))
+                    {
+                     MessageBox.Show(@"Modifico el Rol que posee el usuario con el que se logueo actualmente, debe cerrar secion y logearse nuevamente para notar los cambios
+                        ", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
+                    }
+
+
                 }
                     else{
 

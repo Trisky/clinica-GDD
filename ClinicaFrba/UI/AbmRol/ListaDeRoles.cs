@@ -23,11 +23,12 @@ namespace ClinicaFrba.AbmRol
     {
 
         private List<Rol> lstRoles;
-        public ListaDeRoles()
+        UsuarioLogeado usuario;
+        public ListaDeRoles(UsuarioLogeado user)
         {
 
             InitializeComponent();
-
+            usuario = user;
             buttonLimpiar.Enabled = false;
             buttonEliminar.Enabled = false;
             buttonModificar.Enabled = false;
@@ -44,7 +45,7 @@ namespace ClinicaFrba.AbmRol
                 DataGridViewRow miFilaSeleccionada = dataGridViewRoles.SelectedRows[0];
                 string nomRol = Convert.ToString(miFilaSeleccionada.Cells[1].Value);
                 Rol rol = Rol.rolConSusFuncionalidades(nomRol);
-                RolEditar rolEditar = new RolEditar(rol);
+                RolEditar rolEditar = new RolEditar(rol,usuario);
             }
             else {
                 MessageBox.Show("No se selecciono ningun Rol se dara de alta uno nuevo", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -61,17 +62,11 @@ namespace ClinicaFrba.AbmRol
             DataTable dt;
             Conexion con = new Conexion();
 
-            Rol miRol = new Rol();
-
             DataGridViewRow miFilaSeleccionada = dataGridViewRoles.SelectedRows[0];
             int codigoRol = Convert.ToInt32(miFilaSeleccionada.Cells[0].Value);
 
-            string q = @"UPDATE [GD2C2016].[GRUPOSA].[Rol]
-                         SET Rol_Estado = 1
-                         WHERE Rol_Codigo = @codigoRol";
-
-            SqlCommand cmd = con.CrearComandoQuery(q);
-            cmd.Parameters.Add(new SqlParameter("@codigoRol", codigoRol));
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_inhabilitarRol");
+            cmd.Parameters.Add("@rolCodigo", SqlDbType.Decimal).Value = codigoRol;
             dt = con.ExecConsulta(cmd);
 
                 MessageBox.Show("Se realizo baja logica correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
