@@ -41,11 +41,11 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.comboBoxRol);
-            this.groupBox1.Location = new System.Drawing.Point(13, 65);
+            this.groupBox1.Location = new System.Drawing.Point(13, 35);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(260, 81);
+            this.groupBox1.Size = new System.Drawing.Size(340, 62);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Elija el rol que quiere tener hoy";
@@ -53,10 +53,10 @@
             // comboBoxRol
             // 
             this.comboBoxRol.FormattingEnabled = true;
-            this.comboBoxRol.Location = new System.Drawing.Point(34, 48);
+            this.comboBoxRol.Location = new System.Drawing.Point(6, 27);
             this.comboBoxRol.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxRol.Name = "comboBoxRol";
-            this.comboBoxRol.Size = new System.Drawing.Size(206, 21);
+            this.comboBoxRol.Size = new System.Drawing.Size(329, 21);
             this.comboBoxRol.TabIndex = 1;
             this.comboBoxRol.SelectedIndexChanged += new System.EventHandler(this.comboBoxRol_SelectedIndexChanged);
             // 
@@ -72,7 +72,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(279, 211);
+            this.linkLabel1.Location = new System.Drawing.Point(375, 17);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(55, 13);
             this.linkLabel1.TabIndex = 13;
@@ -83,18 +83,18 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 9);
+            this.label2.Location = new System.Drawing.Point(76, 6);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(203, 24);
+            this.label2.Size = new System.Drawing.Size(224, 24);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Ahora ya esta logeado.";
+            this.label2.Text = "Ud. posee mas de un Rol";
             // 
             // aceptarRolBoton
             // 
-            this.aceptarRolBoton.Location = new System.Drawing.Point(140, 198);
+            this.aceptarRolBoton.Location = new System.Drawing.Point(13, 102);
             this.aceptarRolBoton.Name = "aceptarRolBoton";
-            this.aceptarRolBoton.Size = new System.Drawing.Size(113, 26);
+            this.aceptarRolBoton.Size = new System.Drawing.Size(155, 26);
             this.aceptarRolBoton.TabIndex = 16;
             this.aceptarRolBoton.Text = "Aceptar";
             this.aceptarRolBoton.UseVisualStyleBackColor = true;
@@ -102,9 +102,9 @@
             // 
             // cancelarBoton
             // 
-            this.cancelarBoton.Location = new System.Drawing.Point(13, 198);
+            this.cancelarBoton.Location = new System.Drawing.Point(195, 102);
             this.cancelarBoton.Name = "cancelarBoton";
-            this.cancelarBoton.Size = new System.Drawing.Size(113, 26);
+            this.cancelarBoton.Size = new System.Drawing.Size(158, 26);
             this.cancelarBoton.TabIndex = 17;
             this.cancelarBoton.Text = "Cancelar";
             this.cancelarBoton.UseVisualStyleBackColor = true;
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(368, 144);
             this.Controls.Add(this.cancelarBoton);
             this.Controls.Add(this.aceptarRolBoton);
             this.Controls.Add(this.label2);
