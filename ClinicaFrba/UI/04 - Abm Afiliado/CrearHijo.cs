@@ -48,9 +48,26 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         public string Matricula { get; private set; }
         public string TailNumber { get;  set; }
 
+
+        private bool Validar()
+        {
+            if (
+                !StaticUtils.CheckSelectedValueCB(comboBoxEstadoCivil) ||
+                !StaticUtils.CheckSelectedValueCB(comboBoxTipoDni) ||
+                !StaticUtils.checkControls(groupBoxCrear.Controls) ||
+                !CheckearTextBoxesNoVacios()
+              )
+            {
+                MessageBox.Show("¡Debe seleccionar todas las opciones y completar todos los campos", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            else
+                return true;
+        }
+
         private void buttonCrearHijo_Click(object sender, EventArgs e)
         {
-            if (!CheckearTextBoxesNoVacios())
+            if (!Validar())
                 return;
             //primero obtengo el numero de matricula
             string getMat = @"select substring(max(Paci_Matricula),1,6) from gruposa.Paciente";

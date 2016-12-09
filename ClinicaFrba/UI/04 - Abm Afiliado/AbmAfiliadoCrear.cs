@@ -36,7 +36,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             Motivolabel13.Visible = false;
             
             Text = "Crear Afiliado";
-            numeroHijo = 2;
+            numeroHijo = 3; //es el tail number en el ID
             radioButtonFemenino.Checked = true;
             HijoConcubino = "01";
         }
@@ -123,21 +123,9 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 if (dialogResult == DialogResult.Yes)
                 {
                     //tiene un concubino o lo q sea, entonces lo agrego:
-                    CrearHijo c = new CrearHijo(1,numeroDePlanMedico,this); //le mando 1 porque es el trailing number
+                    CrearHijo c = new CrearHijo(2,numeroDePlanMedico,this); //le mando 1 porque es el trailing number del esposo
                     Hide();
                 }
-                #region trash
-                //else if (dialogResult == DialogResult.No)
-                //{
-                //    MessageBox.Show("Creacion de afiliado finalizada", "pariente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    this.Dispose();
-                //}
-                //DialogResult dialogResult2 = MessageBox.Show("Afiliado creado, quiere agregar hijos o personas a cargo?", "pariente", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                //if (dialogResult == DialogResult.Yes)
-                //{
-                //    new AbmAfiliadoCrear(true, comboBoxPlanMedico.SelectedValue, IDAfiliado, "03");
-                //}
-                #endregion
             }
             else
             consultarPorMasHijos();
@@ -145,9 +133,9 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public void consultarPorMasHijos()
         {
             int cantidadHijos = Convert.ToInt32(UpDownCantidadHijos.Value);
-            int cantFaltante = cantidadHijos + 2 - numeroHijo; //la cantidad de forms que le falta completar
+            int cantFaltante = cantidadHijos + 3 - numeroHijo; //la cantidad de forms que le falta completar
             
-            if (cantidadHijos + 2 > numeroHijo)
+            if (cantidadHijos + 3 > numeroHijo)
             {
                 DialogResult dialogResult = MessageBox.Show("¡Te quedan " + cantFaltante + " personas a cargo por crear!", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CrearHijo c = new CrearHijo(numeroHijo,numeroDePlanMedico, this);
