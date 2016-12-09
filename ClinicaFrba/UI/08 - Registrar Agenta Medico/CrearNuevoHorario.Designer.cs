@@ -125,10 +125,15 @@
             // 
             // numMinutoFin
             // 
+            this.numMinutoFin.Increment = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             this.numMinutoFin.Location = new System.Drawing.Point(128, 50);
             this.numMinutoFin.Margin = new System.Windows.Forms.Padding(2);
             this.numMinutoFin.Maximum = new decimal(new int[] {
-            59,
+            30,
             0,
             0,
             0});
@@ -172,10 +177,15 @@
             // 
             // numMinutoInicio
             // 
+            this.numMinutoInicio.Increment = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             this.numMinutoInicio.Location = new System.Drawing.Point(45, 48);
             this.numMinutoInicio.Margin = new System.Windows.Forms.Padding(2);
             this.numMinutoInicio.Maximum = new decimal(new int[] {
-            59,
+            30,
             0,
             0,
             0});

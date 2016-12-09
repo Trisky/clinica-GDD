@@ -96,7 +96,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             {
                 MessageBox.Show("¡Error al intentar crear el horario pedido!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            MessageBox.Show("¡Horario nuevo creado con exito!", "Operación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             //por ultimo, escondo el grupo de crear horario y muestro el inicial
             Close();
