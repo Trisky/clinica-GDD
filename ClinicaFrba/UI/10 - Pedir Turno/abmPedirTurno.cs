@@ -147,6 +147,10 @@ namespace ClinicaFrba.Pedir_Turno
             calendarDoctors.UpdateBoldedDates();
             horariosDisponibles.DataSource = null;
             horariosDisponibles.Refresh();
+            if(cmbMedicos.SelectedIndex != 0)
+            {
+                buttonRegistroLlegada.Enabled = true;
+            }
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {

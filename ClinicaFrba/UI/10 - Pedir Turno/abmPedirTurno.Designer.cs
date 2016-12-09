@@ -180,6 +180,7 @@
             // 
             // buttonRegistroLlegada
             // 
+            this.buttonRegistroLlegada.Enabled = false;
             this.buttonRegistroLlegada.Location = new System.Drawing.Point(272, 141);
             this.buttonRegistroLlegada.Name = "buttonRegistroLlegada";
             this.buttonRegistroLlegada.Size = new System.Drawing.Size(128, 42);
