@@ -60,6 +60,7 @@
             // 
             // btnSeleccionar
             // 
+            this.btnSeleccionar.Location = new System.Drawing.Point(961, 66);
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // textBoxUsername

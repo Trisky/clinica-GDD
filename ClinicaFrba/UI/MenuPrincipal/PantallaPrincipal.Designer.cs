@@ -44,6 +44,7 @@
             this.registroDeLlegadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listadoEstadisticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSecionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialCambioPlanesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +65,8 @@
             this.afiliadosToolStripMenuItem,
             this.mediocToolStripMenuItem,
             this.administradorToolStripMenuItem,
-            this.listadoEstadisticoToolStripMenuItem});
+            this.listadoEstadisticoToolStripMenuItem,
+            this.historialCambioPlanesToolStripMenuItem});
             this.inicioToolStripMenuItem.Name = "inicioToolStripMenuItem";
             this.inicioToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.inicioToolStripMenuItem.Text = "Inicio";
@@ -77,7 +79,7 @@
             this.comprarBonoToolStripMenuItem,
             this.cancelarTurnoToolStripMenuItem1});
             this.afiliadosToolStripMenuItem.Name = "afiliadosToolStripMenuItem";
-            this.afiliadosToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.afiliadosToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.afiliadosToolStripMenuItem.Text = "Afiliados";
             this.afiliadosToolStripMenuItem.Click += new System.EventHandler(this.afiliadosToolStripMenuItem_Click_1);
             // 
@@ -109,7 +111,7 @@
             this.registrarResultadoToolStripMenuItem,
             this.cancelarTurnoToolStripMenuItem});
             this.mediocToolStripMenuItem.Name = "mediocToolStripMenuItem";
-            this.mediocToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.mediocToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.mediocToolStripMenuItem.Text = "Medico";
             this.mediocToolStripMenuItem.Click += new System.EventHandler(this.mediocToolStripMenuItem_Click_1);
             // 
@@ -141,7 +143,7 @@
             this.aBMRolToolStripMenuItem,
             this.registroDeLlegadaToolStripMenuItem});
             this.administradorToolStripMenuItem.Name = "administradorToolStripMenuItem";
-            this.administradorToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.administradorToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.administradorToolStripMenuItem.Text = "Administrador";
             this.administradorToolStripMenuItem.Click += new System.EventHandler(this.administradorToolStripMenuItem_Click);
             // 
@@ -169,7 +171,7 @@
             // listadoEstadisticoToolStripMenuItem
             // 
             this.listadoEstadisticoToolStripMenuItem.Name = "listadoEstadisticoToolStripMenuItem";
-            this.listadoEstadisticoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.listadoEstadisticoToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.listadoEstadisticoToolStripMenuItem.Text = "Listado Estadistico";
             this.listadoEstadisticoToolStripMenuItem.Click += new System.EventHandler(this.listadoEstadisticoToolStripMenuItem_Click);
             // 
@@ -181,6 +183,13 @@
             this.cerrarSecionToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.cerrarSecionToolStripMenuItem.Text = "Cerrar Sesion";
             this.cerrarSecionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSecionToolStripMenuItem_Click);
+            // 
+            // historialCambioPlanesToolStripMenuItem
+            // 
+            this.historialCambioPlanesToolStripMenuItem.Name = "historialCambioPlanesToolStripMenuItem";
+            this.historialCambioPlanesToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.historialCambioPlanesToolStripMenuItem.Text = "Historial Cambio Planes";
+            this.historialCambioPlanesToolStripMenuItem.Click += new System.EventHandler(this.historialCambioPlanesToolStripMenuItem_Click);
             // 
             // PantallaPrincipal
             // 
@@ -219,5 +228,6 @@
         private System.Windows.Forms.ToolStripMenuItem cancelarTurnoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listadoEstadisticoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSecionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialCambioPlanesToolStripMenuItem;
     }
 }

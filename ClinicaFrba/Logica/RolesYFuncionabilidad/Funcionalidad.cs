@@ -26,6 +26,7 @@ namespace ClinicaFrba.Logica.Roles
             if (fun.Descripcion == "Registro Resultado") return Funcionalidades.RegistroResultado;
             if (fun.Descripcion == "Cancelar Turno") return Funcionalidades.CancerlarTurno;
             if (fun.Descripcion == "Listados") return Funcionalidades.Listados;
+            if (fun.Descripcion == "Historial Cambio de planes") return Funcionalidades.HistorialCambioDePlanes;
             return null;
         }
 
@@ -45,6 +46,7 @@ namespace ClinicaFrba.Logica.Roles
         RegistroResultado,
         CancelarAtencion,
 
+        HistorialCambioDePlanes,
         Listados,
     }
     }

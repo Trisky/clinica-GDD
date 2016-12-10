@@ -20,6 +20,7 @@ namespace ClinicaFrba.UI._14___Listados
         {
 
             InitializeComponent();
+            btnEliminar.Visible = false;
             PopularTabla();
             Show();
         }

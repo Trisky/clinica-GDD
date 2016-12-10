@@ -68,6 +68,7 @@ namespace ClinicaFrba.UI.MenuPrincipal
             aBMAfiliadoToolStripMenuItem.Visible = false;
             aBMRolToolStripMenuItem.Visible = false;
             registroDeLlegadaToolStripMenuItem.Visible = false;
+            historialCambioPlanesToolStripMenuItem.Visible = false;
 
             foreach (Funcionalidad unaFunc in r.Funcionalidades)
             {
@@ -115,6 +116,11 @@ namespace ClinicaFrba.UI.MenuPrincipal
                     case Funcionalidades.Listados:
                         listadoEstadisticoToolStripMenuItem.Visible = true;
                         break;
+
+                    case Funcionalidades.HistorialCambioDePlanes:
+                        historialCambioPlanesToolStripMenuItem.Visible = true;
+                        break;
+
                 }
             }
         }
@@ -124,18 +130,11 @@ namespace ClinicaFrba.UI.MenuPrincipal
         {
             ListadoEstadistico listado = new ListadoEstadistico();
         }
-        private void administradorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void historialCambioPlanesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            HistorialCambiosDePlan regPlanes = new HistorialCambiosDePlan();
         }
-        private void mediocToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
 
-        }
-        private void afiliadosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void pedirTurnoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -220,34 +219,6 @@ namespace ClinicaFrba.UI.MenuPrincipal
         }
 
 
-        private void inicioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-
-        }
-        private void rolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ListaDeRoles rol = new ListaDeRoles(usuario);
-        }
-        private void afiliadosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void mediocToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void PantallaPrincipal_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void rolToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-
-
         /// <summary>
         /// este metodo es el utilizado por AbmAfiliadoListar cuando el administrador 
         /// desea seleccionar una afiliado para realizar una accion en su nombre
@@ -288,11 +259,6 @@ namespace ClinicaFrba.UI.MenuPrincipal
         }
 
 
-
-
-
-
-
         private void comboBoxRol_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -306,6 +272,44 @@ namespace ClinicaFrba.UI.MenuPrincipal
 
         }
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inicioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+        }
+        private void rolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaDeRoles rol = new ListaDeRoles(usuario);
+        }
+        private void afiliadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void mediocToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void PantallaPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void rolToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void administradorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void mediocToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void afiliadosToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
         }
