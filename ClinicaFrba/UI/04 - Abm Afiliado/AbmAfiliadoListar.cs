@@ -48,7 +48,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             groupBoxAccion.Visible = true;
             numeroAccionAdmin = numero;
             buttonParaAccion.Enabled = false;
-            
+            btnBajaAfiliado.Visible = false;
             Text = "Buscar Afiliado para realizar esta accion";
             btnAgregar.Visible = false;
             btnEliminar.Visible = false;
@@ -196,9 +196,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                 cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
                 con.ExecConsulta(cmd);
 
-                /*SqlCommand bajaTurnos = con.CrearComandoStoreProcedure("sp_turnosUsuarioBaja");
+                SqlCommand bajaTurnos = con.CrearComandoStoreProcedure("sp_turnosUsuarioBaja");
                 bajaTurnos.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
-                con.ExecConsulta(bajaTurnos);*/
+                con.ExecConsulta(bajaTurnos);
                 
                 MessageBox.Show("Afiliado eliminado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
