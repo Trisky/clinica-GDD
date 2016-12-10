@@ -98,6 +98,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                                 paci_Dni as DNI,
 	                            Paci_Direccion as DIRECCION,
                                 Paci_Telefono as TELEFONO,
+                                Paci_Mail as Mail,
                                 Paci_Usuario as USUARIO,
                                 Paci_Fecha_Nac as F_NACIMIENTO,
                                 Paci_plan_Med_Cod_FK as PLAN_MEDICO,
@@ -182,7 +183,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             }
             var dr = dgListado.SelectedRows[0];
             var cells = dr.Cells;
-            string usuario = cells[7].Value.ToString();
+            string usuario = cells[8].Value.ToString();
             ExecBajaLogica(usuario);
             //MessageBox.Show("afiliado dado de baja", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
@@ -193,7 +194,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Conexion con = new Conexion();
             try
             {
-                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaAfiliado");
+                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaLogica");
                 cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
                 cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
                 con.ExecConsulta(cmd);
@@ -241,7 +242,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
                 var cells = a.Cells;
                 UsuarioLogeado ua = new UsuarioLogeado();
                 ua.PacienteMatricula = cells[0].Value.ToString();
-                ua.UserName = cells[7].Value.ToString();
+                ua.UserName = cells[8].Value.ToString();
                 LogInHelper helper = new LogInHelper();
                 ua = helper.GetUsuario(ua.UserName);
                 pantallaPP.afiliadoSeleccionado(ua,numeroAccionAdmin);

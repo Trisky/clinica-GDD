@@ -99,13 +99,13 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             textBoxDireccion.Text = cells[5].Value.ToString();
             textBoxTelefono.Text = cells[6].Value.ToString();
             textBoxMail.Text = cells[7].Value.ToString();
-            dateTimePickerFechaNacimiento.Value = Convert.ToDateTime(cells[8].Value.ToString()) ;
-            comboBoxPlanMedico.SelectedValue = cells[9].Value.ToString();
-            string sexoDb = cells[10].Value.ToString();
+            dateTimePickerFechaNacimiento.Value = Convert.ToDateTime(cells[9].Value.ToString()) ;
+            comboBoxPlanMedico.SelectedValue = cells[10].Value.ToString();
+            string sexoDb = cells[11].Value.ToString();
             if (sexoDb == "Masculino")
                 radioButtonMasculino.Checked = true;
             else radioButtonFemenino.Checked = true;
-            comboBoxEstadoCivil.SelectedValue = cells[11].Value.ToString();
+            comboBoxEstadoCivil.SelectedValue = cells[12].Value.ToString();
         }
 #endregion
         
