@@ -91,25 +91,27 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             DataTable dt;
             Conexion con = new Conexion();
-            string s = @"SELECT Paci_Matricula as matricula, 
-                                paci_nombre as nombre, 
-                                paci_apellido as apellido,
-                                Paci_TipoDocumento as tipoDoc,
-                                paci_Dni as dni,
-	                            Paci_Direccion as direccion,
-                                Paci_Telefono as telefono,
-                                Paci_Usuario as usuario,
-                                Paci_Fecha_Nac as Namcimiento,
-                                Paci_plan_Med_Cod_FK as planMedico,
-                                Paci_sexo as sexo,
-                                Paci_Estado_civil as estadoCivil
-                            FROM [GD2C2016].[GRUPOSA].[Paciente]";
+            string s = @"SELECT Paci_Matricula as MATRICULA, 
+                                paci_nombre as NOMBRE, 
+                                paci_apellido as APELLIDO,
+                                Paci_TipoDocumento as TIPO_DNI,
+                                paci_Dni as DNI,
+	                            Paci_Direccion as DIRECCION,
+                                Paci_Telefono as TELEFONO,
+                                Paci_Usuario as USUARIO,
+                                Paci_Fecha_Nac as F_NACIMIENTO,
+                                Paci_plan_Med_Cod_FK as PLAN_MEDICO,
+                                Paci_sexo as SEXO,
+                                Paci_Estado_civil as ESTADO_CIVIL
+                               
+                            FROM [GD2C2016].[GRUPOSA].[Paciente]
+                            WHERE Paci_estado = 0 ";
             if (textBoxApellido.Text == "" && textBoxNombre.Text == "")
                 dt = con.SimpleQuery(s);
             else
             {
                 string q = s +
-                             @"where paci_nombre like @paci_nom or
+                             @"and paci_nombre like @paci_nom or
                                    paci_apellido like @paci_ape";
                 SqlCommand cmd = con.CrearComandoQuery(q);
                 cmd.Parameters.Add(new SqlParameter("@paci_nom", con.ConWildCard(textBoxNombre.Text)));
