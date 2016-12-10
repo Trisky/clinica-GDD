@@ -26,7 +26,7 @@ AS
 			UPDATE GRUPOSA.[Paciente]
 			SET Paci_estado = 0
 			WHERE paci_usuario = @usuario
-			AND Paci_Fecha_Baja = @fechaHoy; --GETDATE();
+			AND Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy');
 			
 		
 		END
@@ -40,7 +40,7 @@ AS
 			UPDATE GRUPOSA.[Paciente]
 			SET Paci_estado = 1
 			WHERE paci_usuario = @usuario
-			AND Paci_Fecha_Baja = @fechaHoy; --GETDATE();
+			AND Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy'); --GETDATE();
 			
 		END
 GO
@@ -312,16 +312,16 @@ BEGIN
 	SELECT @viejoPlan = Paci_Plan_Med_Cod_FK FROM GRUPOSA.Paciente Paci
 	WHERE Paci.Paci_Matricula = @afiliadoId
 	
-	IF @plan <> @viejoPlan
+	IF ISNULL(@plan,0) <> @viejoPlan
 		BEGIN
 		
 		INSERT INTO [GRUPOSA].[Auditoria_Plan] ([Auditoria_Usuario],[Auditoria_Plan_Antiguo],[Auditoria_Plan_Nuevo],[Auditoria_Motivo],[Auditoria_Fecha] )
 		VALUES (@afiliadoId, @viejoPlan, @plan, @motivo, @fechaHoy);
 		
 		UPDATE GRUPOSA.Paciente 
-		SET Paci_Plan_Med_Cod_FK = ISNULL(@plan,Paci_Plan_Med_Cod_FK)
-		WHERE SUBSTRING(Paci_Matricula,1,6) IN (SUBSTRING(Paci_Matricula,1,6)) ;
-			
+		SET Paci_Plan_Med_Cod_FK = @plan
+		WHERE @afiliadoId = Paci_Matricula;	
+					
 		END
 		
 END;
@@ -358,7 +358,7 @@ AS
 	SET @hoy = CAST(@fechaHoy AS DATE)
 	SET @dni = CAST(@paci_dni AS NUMERIC(18,0))
 	SET @tel = CAST(@paci_tel AS NUMERIC(18,0))
-	SET @fnac = CAST(@paci_fecha_nac AS DATE)
+	SET @fnac = FORMAT(CAST(@paci_fecha_nac AS DATE),'dd/MM/yyyy')
 	SET @plan = CAST(@paci_plan_medi AS NUMERIC(18,0))
 	
 	SET @var1 = NEXT VALUE FOR GRUPOSA.SQ_ID_PACIENTE
@@ -1157,7 +1157,7 @@ COMMIT TRANSACTION
 	BEGIN TRANSACTION
 		
 			UPDATE GRUPOSA.HorariosAtencion
-			SET HORA_DIA = 'Miercoles',
+			SET HORA_DIA = 'Miércoles',
 			    HORA_INICIO = '18:00',
 				HORA_FIN = '20:00'
 			WHERE HORA_DIA = 'Domingo'
