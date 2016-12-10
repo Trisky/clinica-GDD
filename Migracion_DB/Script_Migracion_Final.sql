@@ -1286,27 +1286,16 @@ COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
 
-	/*--Funcionalidades
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Crear')
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Modificar')
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Borrar') 
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Solicitar Turno') 
-		INSERT INTO [GRUPOSA].[Funcionalidad]([Func_Desc])
-		VALUES ('Registrar Atencion Medica') 
-		*/
+
 	--FuncionalidadesRol
 		INSERT INTO [GRUPOSA].[FuncionalidadesRol] ([FuncRol_Rol_Codigo] ,[FuncRol_Func_Codigo])
 		VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),
-			   (2,3),(2,4),(2,8),(3,2),(3,5),(3,6),(3,7)
+			   (2,3),(2,4),(2,8),(3,2),(3,5),(3,6),(3,7), (1,11)
 		
 		
 		INSERT INTO [GD2C2016].[GRUPOSA].[Funcionalidad]
 		VALUES ('ABM de Afiliado',0),('Registro Llegada',0),('Pedir Turno',0),('Compra Bono',0),('Cancelar Atencion',0),
-			   ('Registro Agenda',0),('Registro Resultado',0),('Cancelar Turno',0),('Listados',0), ('ABM de Rol',0)
+			   ('Registro Agenda',0),('Registro Resultado',0),('Cancelar Turno',0),('Listados',0), ('ABM de Rol',0), ('Historial Cambio de planes',0)
  
 	COMMIT TRANSACTION
 	
