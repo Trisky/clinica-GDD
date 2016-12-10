@@ -191,10 +191,15 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Conexion con = new Conexion();
             try
             {
-                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaLogica");
+                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaAfiliado");
                 cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
                 cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
                 con.ExecConsulta(cmd);
+
+                /*SqlCommand bajaTurnos = con.CrearComandoStoreProcedure("sp_turnosUsuarioBaja");
+                bajaTurnos.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
+                con.ExecConsulta(bajaTurnos);*/
+                
                 MessageBox.Show("Afiliado eliminado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch

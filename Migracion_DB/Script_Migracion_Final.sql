@@ -11,6 +11,57 @@ GO
 ------------------------------------------------------------------------------------------------
 --sp_bajaLogica: Realiza una baja logica sobre el usuario 
 GO
+CREATE PROCEDURE [GRUPOSA].[sp_bajaAfiliado] (@usuario VARCHAR(250), @fechaHoy DATETIME)
+AS   
+	
+	DECLARE @matricula VARCHAR(250);
+
+	SELECT @matricula = Paci_Matricula FROM GRUPOSA.Paciente Paci
+	WHERE Paci.Paci_Usuario = @usuario
+
+	
+    BEGIN
+		UPDATE GRUPOSA.[Usuario] 
+		SET Usuario_Habilitado = 1
+		WHERE Usuario_Username = @usuario
+		
+		UPDATE GRUPOSA.[Paciente]
+		SET Paci_estado = 1,
+			Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy')
+		WHERE paci_usuario = @usuario;
+	END
+
+	IF (SUBSTRING(@matricula,7,8) = '01')
+		BEGIN
+			DELETE FROM GRUPOSA.Consultas
+			WHERE Cons_Id_Turno IN (SELECT Turn_Numero FROM GRUPOSA.Turnos
+									WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) 
+																			   FROM GRUPOSA.Paciente Paci
+																			   WHERE Paci.Paci_Usuario = @usuario))
+							   
+			DELETE FROM GRUPOSA.Turnos
+			WHERE SUBSTRING(Turn_Paciente_Id,1,6) IN (SELECT SUBSTRING(Paci_Matricula,1,6) FROM GRUPOSA.Paciente Paci
+													  WHERE Paci.Paci_Usuario = @usuario)
+			
+			DELETE FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@matricula,1,6)
+		END
+	ELSE 
+		BEGIN
+		
+			DELETE FROM GRUPOSA.Consultas
+			WHERE Cons_Id_Turno IN (SELECT Turn_Numero FROM GRUPOSA.Turnos
+									WHERE Turn_Paciente_Id = @matricula)
+									
+			DELETE FROM GRUPOSA.Turnos
+			WHERE Turn_Paciente_Id = @matricula
+			
+			DELETE FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @matricula
+		END
+	
+GO
+------------------------------------------------------------------------------------------------
+--sp_bajaLogica: Realiza una baja logica sobre el usuario 
+GO
 CREATE PROCEDURE [GRUPOSA].[sp_bajaLogica] (@usuario VARCHAR(250), @fechaHoy DATETIME)
 AS   
     DECLARE @estadoActual BIT
@@ -24,9 +75,9 @@ AS
 			WHERE Usuario_Username = @usuario
 			
 			UPDATE GRUPOSA.[Paciente]
-			SET Paci_estado = 0
-			WHERE paci_usuario = @usuario
-			AND Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy');
+			SET Paci_estado = 0,
+				Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy')
+			WHERE paci_usuario = @usuario;
 			
 		
 		END
@@ -38,10 +89,9 @@ AS
 			WHERE Usuario_Username = @usuario
 			
 			UPDATE GRUPOSA.[Paciente]
-			SET Paci_estado = 1
-			WHERE paci_usuario = @usuario
-			AND Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy'); --GETDATE();
-			
+			SET Paci_estado = 1,
+				Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy')
+			WHERE paci_usuario = @usuario;
 		END
 GO
 ------------------------------------------------------------------------------------------------
