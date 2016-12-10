@@ -21,8 +21,8 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             usuarioLogeado = user;
             labelIdMedico.Text = usuarioLogeado.MedicoMatricula;
             btnBuscar.Visible = btnEliminar.Visible = btnLimpiar.Visible = btnModificar.Visible = false;
-            ComboBoxManager cm = new ComboBoxManager();
-            comboBoxDia = cm.CrearDias(comboBoxDia);
+            //ComboBoxManager cm = new ComboBoxManager();
+            //comboBoxDia = cm.CrearDias(comboBoxDia);
             Show();
 
         }
@@ -53,26 +53,39 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             }
         }
 
-        private DataTable GetAgendaDeldia(int diaSeleccionado)
-        {
-            Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoQuery(@"SELECT *
-                                                         FROM [GD2C2016].[GRUPOSA].[HorariosAtencion]
-                                                            where Hora_dia = datename(weekday,@dia)
-                                                            and Hora_Medico_Id_FK = @medico");
-            cmd.Parameters.Add("@dia", SqlDbType.Int).Value = diaSeleccionado;
-            cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = usuarioLogeado.MedicoMatricula;
-            DataTable dt = con.ExecConsulta(cmd);
-            return dt;
-        }
+//        private DataTable GetAgendaDeldia(int diaSeleccionado)
+//        {
+//            Conexion con = new Conexion();
+//            SqlCommand cmd = con.CrearComandoQuery(@"SELECT *
+//                                                         FROM [GD2C2016].[GRUPOSA].[HorariosAtencion]
+//                                                            where Hora_dia = datename(weekday,@dia)
+//                                                            and Hora_Medico_Id_FK = @medico");
+//            cmd.Parameters.Add("@dia", SqlDbType.Int).Value = diaSeleccionado;
+//            cmd.Parameters.Add("@medico", SqlDbType.VarChar).Value = usuarioLogeado.MedicoMatricula;
+//            DataTable dt = con.ExecConsulta(cmd);
+//            return dt;
+//        }
 
         private void buttonVerDia_Click(object sender, EventArgs e)
         {
-            TipoUsuarioEnum.DiaSemana s = (TipoUsuarioEnum.DiaSemana)comboBoxDia.SelectedValue;
-            int dia = (int)s;
 
-            DataTable dt = GetAgendaDeldia(dia);
-            dgListado.DataSource = dt;
+
+            //TipoUsuarioEnum.DiaSemana s = (TipoUsuarioEnum.DiaSemana)comboBoxDia.SelectedValue;
+            //int dia = (int)s;
+
+            //DataTable dt = GetAgendaDeldia(dia);
+            //dgListado.DataSource = dt;
+            Conexion con = new Conexion();
+            SqlCommand cmd = con.CrearComandoQuery(@"SELECT h.hora_dia, h.Hora_Inicio, h.Hora_Fin, 
+(SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = h.Hora_Especialidad) AS Especialidad,  
+(SELECT 'Dr. ' + UPPER(SUBSTRING(M.Medi_Apellido,1,1))+(SUBSTRING(M.Medi_Apellido,2,50))+' '+UPPER(SUBSTRING(M.Medi_Nombre,1,1))+LOWER(SUBSTRING(M.Medi_Nombre,2,50)) FROM GRUPOSA.Medico M WHERE M.Medi_Id = h.Hora_Medico_Id_FK) AS Profesional
+ from GRUPOSA.HorariosAtencion h where h.Hora_Medico_Id_FK =@matricula");
+     
+                        cmd.Parameters.Add("@matricula", SqlDbType.VarChar).Value = usuarioLogeado.MedicoMatricula;
+                        DataTable dt = con.ExecConsulta(cmd);
+                        dgListado.DataSource = dt;
+
+
         }
 
         private void label3_Click(object sender, EventArgs e)

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxDia = new System.Windows.Forms.ComboBox();
             this.buttonVerDia = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.labelIdMedico = new System.Windows.Forms.Label();
@@ -41,12 +39,8 @@
             this.gbFiltros.Controls.Add(this.labelIdMedico);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Controls.Add(this.buttonVerDia);
-            this.gbFiltros.Controls.Add(this.label1);
-            this.gbFiltros.Controls.Add(this.comboBoxDia);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.comboBoxDia, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             this.gbFiltros.Controls.SetChildIndex(this.buttonVerDia, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.labelIdMedico, 0);
@@ -59,34 +53,14 @@
             // 
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 25);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Seleccione Dia";
-            // 
-            // comboBoxDia
-            // 
-            this.comboBoxDia.FormattingEnabled = true;
-            this.comboBoxDia.Location = new System.Drawing.Point(92, 24);
-            this.comboBoxDia.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxDia.Name = "comboBoxDia";
-            this.comboBoxDia.Size = new System.Drawing.Size(219, 21);
-            this.comboBoxDia.TabIndex = 4;
-            this.comboBoxDia.SelectedIndexChanged += new System.EventHandler(this.comboBoxDia_SelectedIndexChanged);
-            // 
             // buttonVerDia
             // 
-            this.buttonVerDia.Location = new System.Drawing.Point(27, 45);
+            this.buttonVerDia.Location = new System.Drawing.Point(136, 29);
             this.buttonVerDia.Margin = new System.Windows.Forms.Padding(2);
             this.buttonVerDia.Name = "buttonVerDia";
-            this.buttonVerDia.Size = new System.Drawing.Size(89, 20);
+            this.buttonVerDia.Size = new System.Drawing.Size(188, 37);
             this.buttonVerDia.TabIndex = 6;
-            this.buttonVerDia.Text = "VerDia";
+            this.buttonVerDia.Text = "Ver agenda del medico";
             this.buttonVerDia.UseVisualStyleBackColor = true;
             this.buttonVerDia.Click += new System.EventHandler(this.buttonVerDia_Click);
             // 
@@ -127,8 +101,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxDia;
         private System.Windows.Forms.Button buttonVerDia;
         private System.Windows.Forms.Label labelIdMedico;
         private System.Windows.Forms.Label label2;
