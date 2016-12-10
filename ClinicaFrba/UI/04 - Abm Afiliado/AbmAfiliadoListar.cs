@@ -191,8 +191,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             Conexion con = new Conexion();
             try
             {
-                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaAfiliado");
+                SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaLogica");
                 cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
+                cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
                 con.ExecConsulta(cmd);
                 MessageBox.Show("Afiliado eliminado", "Afiliado ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
