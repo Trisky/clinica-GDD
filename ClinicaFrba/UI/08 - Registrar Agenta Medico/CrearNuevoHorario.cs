@@ -28,7 +28,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             
             ComboBoxManager cm = new ComboBoxManager();
             buttonNuevoHorario.Visible = true;
-            comboBoxDia = cm.CrearDias(comboBoxDia,user);
+            comboBoxDia = cm.CrearDias(comboBoxDia);
             comboBoxEspecialidad = cm.CrearEspecialidades(comboBoxEspecialidad,user);
         }
 
