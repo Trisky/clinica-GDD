@@ -509,7 +509,7 @@ BEGIN
 SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
 WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
 							WHERE TU.Turn_Medico_Id = @id_medico
-							AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C)
+							AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C WHERE Cancelacion_Tipo <> 2)
 							AND TU.Turn_Especialidad = @especialidad
 							AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
 							AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
