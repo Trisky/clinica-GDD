@@ -537,7 +537,7 @@ BEGIN
 	SET Bono_expirado = 1
 	WHERE Bono_Consulta_Numero IS NULL
 	AND Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6)
-	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6))
+	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6) AND Bono_expirado = 0)
 	
 END
 GO
@@ -545,24 +545,32 @@ GO
 --------------------------------------------------------------------------------------------------------------------
 CREATE PROCEDURE [GRUPOSA].[sp_cerrarConsulta] (@turnoId NUMERIC(18,0), @diagnostico VARCHAR(255), @enfermedad VARCHAR(255), @sintomas VARCHAR(250), @idPaciente VARCHAR(255), @fechaHoy DATETIME)
 AS
+DECLARE @consultaNumero NUMERIC(18,0);
+DECLARE @bonoMarcado NUMERIC(18,0);
 BEGIN
 	
 	UPDATE GRUPOSA.Consultas
 	SET Cons_Diagnostico = @diagnostico,
 		Cons_Sintomas = @sintomas,
 		Cons_Enfermedades = @enfermedad,
-		Cons_Id_Bono = (SELECT TOP 1 Bono_Id FROM GRUPOSA.Bonos WHERE Bono_Consulta_Numero IS NULL AND Bono_Paci_Id = @idPaciente),
+		Cons_Id_Bono = (SELECT TOP 1 Bono_Id FROM GRUPOSA.Bonos WHERE Bono_Consulta_Numero IS NULL AND Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6)),
 		Cons_Bono_Fecha = @fechaHoy,
 		Cons_Realizada = 1
 	WHERE Cons_Id_Turno = @turnoId
 	
+	SELECT @bonoMarcado = MAX(Bono_ID) FROM GRUPOSA.Bonos 
+	WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6) 
+	AND Bono_expirado = 1 
+	AND Bono_Consulta_Numero IS NULL;
+	
+	SELECT @consultaNumero = (ISNULL(MAX(Bono_Consulta_Numero),0) + 1) FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6);
+	
 	UPDATE GRUPOSA.Bonos
 	SET Bono_Fecha_Impresion = @fechaHoy,
-		Bono_expirado = 1,
-		Bono_Consulta_Numero = (SELECT (MAX(Bono_Consulta_Numero) + 1) FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @idPaciente)
+		Bono_Consulta_Numero = @consultaNumero
 	WHERE Bono_Consulta_Numero IS NULL
 	AND Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6)
-	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6))
+	AND Bono_id = @bonoMarcado
 	
 END
 GO
@@ -671,7 +679,7 @@ AS
 
 BEGIN
 
-	SET @hoy = DATEADD(DAY,92,CAST(@fechaHoy AS DATETIME));
+	SET @hoy = CAST(@fechaHoy AS DATETIME);
 	SET @cant = CAST (@cantidadBonos AS NUMERIC(18,0));
 	SET @forTime = 0;
 	
@@ -751,12 +759,13 @@ CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@fechaInicio  VARCHAR(2
 AS
 BEGIN
 SELECT TOP 5 (SELECT UPPER(Paci_Apellido + ' ' + Paci_Nombre) FROM GRUPOSA.Paciente WHERE Paci_Matricula =  Bono_Paci_Id) AS Afiliado, 
-			 (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No Es Grupo Familiar' ELSE 'Grupo Familiar' END) AS Grupo_Fliar, 
-			 COUNT(*) AS Cantidad_de_Bonos 
-FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
-WHERE CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
+	   (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No es grupo familiar' ELSE 'Es grupo familiar' END) AS Grupo_Fliar, 
+	   COUNT(*) AS Cantidad_de_Bonos 
+FROM GRUPOSA.Bonos
+WHERE CAST(Bono_Compra_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 GROUP BY Bono_Paci_Id, Bono_Numero_GrupoFamiliar
 ORDER BY 3 DESC, 2 ASC
+
 END
 GO
 
