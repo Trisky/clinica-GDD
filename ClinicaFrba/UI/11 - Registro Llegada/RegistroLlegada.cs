@@ -31,6 +31,9 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             EsconderBotones();
             Show();
             groupBoxPacienteSeleccionado.Visible = false;
+
+            ComboBoxManager cbm = new ComboBoxManager();
+            cbm.CrearEspecialidades(comboEspecialidades);
         }
 
         private void EsconderBotones()
@@ -39,7 +42,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             btnLimpiar.Visible = btnBuscar.Visible = false;
             btnModificar.Enabled = false;
             btnSeleccionar.Enabled = false;
-            button1.Visible = false;
+
         }
 
 
@@ -189,10 +192,14 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         internal void elMedicoEs(string idMedico)
         {
-            idMedicoBuscado = idMedico;
+            throw new NotImplementedException();
+        }
+
+        private void MostrarEspecialidad(string idEspecialidad)
+        {
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_turnosOcupadosDelDia");
-            cmd.Parameters.Add("@idMedico", SqlDbType.VarChar).Value = idMedico;
+            cmd.Parameters.Add("@idEspecialidad", SqlDbType.VarChar).Value = idEspecialidad;
             cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = StaticUtils.getDate();
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
@@ -213,8 +220,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
         }
         internal void MostrarTurnosProfesional(string matriculaProfesional)
         {
-            throw new NotImplementedException();
-            Show();
+            throw new NotImplementedException(); //ahora lo hacemos con mostrar especialidad
+
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -234,6 +241,13 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
            // CompraBono CompraBono = new CompraBono(user);
             
             // comprar bonos
+
+        }
+
+        private void comboEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           string especialidadSeleccionada = comboEspecialidades.SelectedValue.ToString();
+            MostrarEspecialidad(especialidadSeleccionada);
 
         }
     }

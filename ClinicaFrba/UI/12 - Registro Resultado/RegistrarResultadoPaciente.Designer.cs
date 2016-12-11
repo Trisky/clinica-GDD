@@ -62,6 +62,10 @@
             this.btnModificar.Location = new System.Drawing.Point(961, 52);
             this.btnModificar.Visible = false;
             // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.SkyBlue;

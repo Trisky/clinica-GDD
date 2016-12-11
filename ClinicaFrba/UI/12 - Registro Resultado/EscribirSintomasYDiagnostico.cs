@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaFrba.UI._12___Registro_Resultado;
 
 namespace ClinicaFrba.Registro_Resultado
 {
@@ -18,9 +19,13 @@ namespace ClinicaFrba.Registro_Resultado
     {
         private string IdTurno;
         private string idPaciente;
+        private RegistrarResultadoPaciente registrarResultadoPaciente;
 
-        public EscribirSintomasYDiagnostico(string turnoID,string pacienteID)
+        private RegistrarResultadoPaciente FormRegistroResultados { get;  set; }
+
+        public EscribirSintomasYDiagnostico(string turnoID, string pacienteID, RegistrarResultadoPaciente registrarResultadoPaciente)
         {
+            FormRegistroResultados = registrarResultadoPaciente;
             idPaciente = pacienteID;
             InitializeComponent();
             IdTurno = turnoID;
@@ -28,6 +33,8 @@ namespace ClinicaFrba.Registro_Resultado
             groupBoxSintomaDiagnostico.Visible = true;
             Show();
         }
+
+       
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
@@ -47,6 +54,8 @@ namespace ClinicaFrba.Registro_Resultado
             cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
 
             con.ExecConsulta(cmd);
+            FormRegistroResultados.MostrarTurnosDeHoy();
+            FormRegistroResultados.Show();
             Dispose();
         }
 

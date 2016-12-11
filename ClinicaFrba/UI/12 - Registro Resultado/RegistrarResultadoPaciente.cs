@@ -44,11 +44,12 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
             var cells = dr.Cells;
             string turnoID = cells[0].Value.ToString();
             string pacienteID = cells[3].Value.ToString();
-            EscribirSintomasYDiagnostico escribir = new EscribirSintomasYDiagnostico(turnoID, pacienteID);
+            EscribirSintomasYDiagnostico escribir = new EscribirSintomasYDiagnostico(turnoID, pacienteID,this);
+            Hide();
 
         }
 
-        private void MostrarTurnosDeHoy()
+        public void MostrarTurnosDeHoy()
         {
             string q2 = 
                 @"SELECT Turn_Numero AS 'Turno Nro', Turn_Paciente_Id AS 'Id Paciente',
@@ -71,6 +72,11 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
             cmd.Parameters["@fecha"].Value = StaticUtils.getDate();
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
+
+        }
+
+        private void btnSeleccionar_Click_1(object sender, EventArgs e)
+        {
 
         }
     }

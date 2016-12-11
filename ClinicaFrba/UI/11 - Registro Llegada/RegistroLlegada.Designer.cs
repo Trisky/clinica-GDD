@@ -33,24 +33,22 @@
             this.groupBoxPacienteSeleccionado = new System.Windows.Forms.GroupBox();
             this.idPacienteLabel = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.comboEspecialidades = new System.Windows.Forms.ComboBox();
             this.gbFiltros.SuspendLayout();
             this.groupBoxPacienteSeleccionado.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
             // 
-            this.gbFiltros.Controls.Add(this.button1);
-            this.gbFiltros.Controls.Add(this.button2);
+            this.gbFiltros.Controls.Add(this.comboEspecialidades);
             this.gbFiltros.Controls.Add(this.groupBoxPacienteSeleccionado);
             this.gbFiltros.Location = new System.Drawing.Point(12, 9);
             this.gbFiltros.Size = new System.Drawing.Size(930, 108);
-            this.gbFiltros.Text = "Seleccione medico y especialidad. Luego seleccione el turno a confirmar";
+            this.gbFiltros.Text = "Seleccione  especialidad y luego seleccione el turno a confirmar";
             this.gbFiltros.Controls.SetChildIndex(this.groupBoxPacienteSeleccionado, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.button2, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.button1, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.comboEspecialidades, 0);
             // 
             // btnBuscar
             // 
@@ -134,32 +132,39 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 19);
+            this.button2.Location = new System.Drawing.Point(38, 161);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(351, 30);
             this.button2.TabIndex = 7;
             this.button2.Text = "Buscar Medico Por Especialidad";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // comboEspecialidades
             // 
-            this.button1.Location = new System.Drawing.Point(6, 55);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(351, 31);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "ComprarBonos";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.comboEspecialidades.FormattingEnabled = true;
+            this.comboEspecialidades.Location = new System.Drawing.Point(26, 26);
+            this.comboEspecialidades.Name = "comboEspecialidades";
+            this.comboEspecialidades.Size = new System.Drawing.Size(331, 21);
+            this.comboEspecialidades.TabIndex = 9;
+            this.comboEspecialidades.SelectedIndexChanged += new System.EventHandler(this.comboEspecialidades_SelectedIndexChanged);
             // 
             // RegistroLlegada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 422);
+            this.Controls.Add(this.button2);
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "RegistroLlegada";
             this.Text = "RegistroLlegada";
+            this.Controls.SetChildIndex(this.gbFiltros, 0);
+            this.Controls.SetChildIndex(this.btnAgregar, 0);
+            this.Controls.SetChildIndex(this.btnModificar, 0);
+            this.Controls.SetChildIndex(this.btnEliminar, 0);
+            this.Controls.SetChildIndex(this.button2, 0);
+            this.Controls.SetChildIndex(this.btnSeleccionar, 0);
             this.gbFiltros.ResumeLayout(false);
             this.groupBoxPacienteSeleccionado.ResumeLayout(false);
             this.groupBoxPacienteSeleccionado.PerformLayout();
@@ -174,6 +179,6 @@
         private System.Windows.Forms.GroupBox groupBoxPacienteSeleccionado;
         private System.Windows.Forms.Label idPacienteLabel;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboEspecialidades;
     }
 }
