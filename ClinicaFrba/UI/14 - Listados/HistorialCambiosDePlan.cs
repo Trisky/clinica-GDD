@@ -27,11 +27,25 @@ namespace ClinicaFrba.UI._14___Listados
 
         private void PopularTabla()
         {
-            string q = @"select * from GRUPOSA.Auditoria_Plan";
+            string q = @"select 
+
+                          (SELECT concat(Paci_nombre,' ',Paci_Apellido)
+                          FROM [GD2C2016].[GRUPOSA].[Paciente]
+                          where Paci_Matricula = [Auditoria_Usuario])     as usuario
+
+                          ,(SELECT[Plan_Descripcion] FROM [GD2C2016].[GRUPOSA].[PlanesMedicos] where Plan_Codigo = [Auditoria_Plan_Antiguo]) as antiguo
+
+                          ,(SELECT[Plan_Descripcion] FROM [GD2C2016].[GRUPOSA].[PlanesMedicos] where Plan_Codigo = [Auditoria_Plan_Nuevo])   as nuevo
+
+                          ,[Auditoria_Motivo]       as motivo
+
+                          ,[Auditoria_Fecha]        as fecha
+
+                    from GRUPOSA.Auditoria_Plan";
             if (textBoxUsername.Text != "")
             {
-                 q = @"select * from GRUPOSA.Auditoria_Plan
-                        where Auditoria_Usuario like '@usuario' ";
+                 q =q+ @"where Auditoria_Usuario like '@usuario' ";
+
             }
             
 
