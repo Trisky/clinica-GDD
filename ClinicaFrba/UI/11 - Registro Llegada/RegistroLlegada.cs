@@ -32,8 +32,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void EsconderBotones()
         {
-            btnAgregar.Visible = btnEliminar.Visible =  false;
-            btnLimpiar.Visible = btnBuscar.Visible =  false;
+            btnAgregar.Visible = btnEliminar.Visible = false;
+            btnLimpiar.Visible = btnBuscar.Visible = false;
             btnModificar.Enabled = false;
             btnSeleccionar.Enabled = false;
         }
@@ -72,14 +72,14 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             DateTime hoy = StaticUtils.getDateTime().Date;
             foreach (DataRow row in dt.Rows)
             {
-                DateTime fechaTurno= row.Field<DateTime>("Fecha").Date; ;
+                DateTime fechaTurno = row.Field<DateTime>("Fecha").Date; ;
                 //DateTime fechaTurno = (Convert.ToDateTime(cells[3].Value.ToString())).Date;
                 if (fechaTurno != hoy)
                 {
                     row.Delete(); //escondo la datarow si no es de hoy.
                 }
             }
-            
+
         }
 
         public void TurnoSeleccionado(string nombreMedico, string hora)
@@ -88,7 +88,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                 , "Operación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        
+
         private void btnMedicoHora_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -109,12 +109,13 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
-            string idPaciente = dgListado.SelectedRows[0].Cells[3].Value.ToString() ;
-            VerificarSiTieneBonos(idPaciente);
+            string idPaciente = dgListado.SelectedRows[0].Cells[3].Value.ToString();
+            string idTurno = dgListado.SelectedRows[0].Cells[0].Value.ToString();
+            VerificarSiTieneBonos(idPaciente, idTurno);
         }
 
-        
-        private void VerificarSiTieneBonos(string idPaciente)
+
+        private void VerificarSiTieneBonos(string idPaciente, string idTurno)
         {
             Conexion con = new Conexion();
             string s = @" SELECT count( [Bono_Id])
@@ -122,9 +123,9 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                           where SUBSTRING(@id,1,6)=SUBSTRING(Bono_Paci_Id,1,6) and
                           Bono_expirado = 0";
 
-            
             SqlCommand cmd = con.CrearComandoQuery(s);
             cmd.Parameters.Add(new SqlParameter("@id", idPaciente));
+
             DataTable dt = con.ExecConsulta(cmd);
             if (dt.Rows.Count == 0)
                 UstedNoTieneBonos();
@@ -138,12 +139,11 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
             else
             {
-                MessageBox.Show("A este paciente ahora le queda una cantidad de bonos de: " + (c-1).ToString()
+                MessageBox.Show("A este paciente ahora le queda una cantidad de bonos de: " + (c - 1).ToString()
                     , "Tiene bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            BorrarBono();
+            BorrarBono(idTurno, idPaciente);
             elMedicoEs(idMedicoBuscado); //actualizo la tabla
-
         }
 
         private static void UstedNoTieneBonos()
@@ -153,30 +153,12 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             return;
         }
 
-        private void BorrarBono()
+        private void BorrarBono(string idTurno, string idPaciente)
         {
-         /*   string q = @" UPDATE GRUPOSA.Bonos
-                            SET bono_expirado = 1
-                            WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P ON B.Bono_Paci_Id = P.Paci_Matricula
-								                            AND P.Paci_Usuario = '@id'
-								                            AND bono_fecha_compra_usado IS NULL)";
-            string q2 = @"UPDATE GRUPOSA.Bonos
-                          SET bono_expirado = 1
-                          WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
-		                           ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
-	                               AND P.Paci_Usuario = '@id'
-	                               AND Bono_Consulta_Numero IS NULL)"; */
-
-            //throw new NotImplementedException();
-            string q3 = @"UPDATE GRUPOSA.Bonos
-                            SET bono_expirado = 1
-                            WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
-		                            ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
-	                               AND P.Paci_Usuario = '@id'
-	                               AND Bono_Consulta_Numero IS NULL)";
             Conexion con = new Conexion();
-            SqlCommand cmd = con.CrearComandoQuery(q3);
-            cmd.Parameters.Add(new SqlParameter("@id", idPacienteLabel.Text));
+            SqlCommand cmd = con.CrearComandoStoreProcedure("sp_borraBonoYConfirmarLlegada");
+            cmd.Parameters.Add(new SqlParameter("@idPaciente", idPaciente));
+            cmd.Parameters.Add(new SqlParameter("@turnoId", idTurno));
             con.ExecConsulta(cmd);
         }
 
@@ -210,7 +192,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = StaticUtils.getDate();
             DataTable dt = con.ExecConsulta(cmd);
             dgListado.DataSource = dt;
-            
+
         }
         private void dgListado_CellClick(object sender, DataGridViewCellEventArgs e)
         {

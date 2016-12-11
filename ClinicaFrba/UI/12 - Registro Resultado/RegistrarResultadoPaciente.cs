@@ -50,20 +50,16 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
 
         private void MostrarTurnosDeHoy()
         {
-            string q2 = @"SELECT
-	                        [turn_numero] as IDTurno,
-	                        (select concat([Paci_Nombre]
-		                          ,' ',[Paci_Apellido]) as paciente
-		                        from [GD2C2016].[GRUPOSA].[Paciente]
-	                         where [Paci_Matricula] = [turn_Paciente_Id]
-	                         ) as 'nombre del paciente'
-	                        ,cast([Turn_fecha] as date) as 'fecha del turno'
-							,Turn_Paciente_Id as idPaciente
-                        
-
-                        FROM [GD2C2016].[GRUPOSA].[Turnos]
-                         where Turn_medico_id = @id and
-	                           cast(turn_fecha as date) between @fecha  and @fecha";
+            string q2 = 
+                @"SELECT Turn_Numero AS 'Turno Nro', Turn_Paciente_Id AS 'Id Paciente',
+	            (SELECT (Paci_Nombre + ' ' + upper(Paci_Apellido)) FROM GRUPOSA.Paciente WHERE Paci_Matricula = Turn_Paciente_Id) AS 'Paciente',
+                CAST(Turn_fecha AS DATE) AS 'Fecha del Turno',
+	             C.Cons_Realizada
+                FROM [GRUPOSA].[Turnos] JOIN GRUPOSA.Consultas C ON Turn_Numero = C.Cons_Id_Turno
+                WHERE Turn_medico_id = @id
+                AND CAST(Turn_fecha AS DATE) = CAST(@fecha AS DATE)
+                AND Turn_Numero = C.Cons_Id_Turno 
+                AND Cons_Enfermedades IS NULL";
            //00000101 '2015-02-02'
 
             Conexion con = new Conexion();
