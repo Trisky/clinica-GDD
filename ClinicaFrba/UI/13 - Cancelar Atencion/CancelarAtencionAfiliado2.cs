@@ -107,5 +107,10 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
         {
 
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

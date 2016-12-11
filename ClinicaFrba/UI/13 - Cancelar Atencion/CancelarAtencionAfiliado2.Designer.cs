@@ -59,6 +59,10 @@
             // 
             this.btnEliminar.Location = new System.Drawing.Point(961, 94);
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // btnSeleccionar
             // 
             this.btnSeleccionar.Location = new System.Drawing.Point(961, 93);
