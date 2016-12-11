@@ -155,24 +155,25 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void BorrarBono()
         {
-            string q = @" UPDATE GRUPOSA.Bonos
+         /*   string q = @" UPDATE GRUPOSA.Bonos
                             SET bono_expirado = 1
                             WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P ON B.Bono_Paci_Id = P.Paci_Matricula
 								                            AND P.Paci_Usuario = '@id'
 								                            AND bono_fecha_compra_usado IS NULL)";
             string q2 = @"UPDATE GRUPOSA.Bonos
-                        SET bono_expirado = 1
-                        WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P ON B.Bono_Paci_Id = P.Paci_Matricula
-	                        AND SUBSTRING(P.Paci_Usuario,1,6) = SUBSTRING('@id',1,6)
-	                        AND bono_fecha_compra_usado IS NULL";
+                          SET bono_expirado = 1
+                          WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
+		                           ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
+	                               AND P.Paci_Usuario = '@id'
+	                               AND Bono_Consulta_Numero IS NULL)"; */
 
-            throw new NotImplementedException();
-            string q3 = @" UPDATE GRUPOSA.Bonos
+            //throw new NotImplementedException();
+            string q3 = @"UPDATE GRUPOSA.Bonos
                             SET bono_expirado = 1
-                        WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
-		ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
-	   AND P.Paci_Usuario = '@id'
-	   AND bono_fecha_compra_usado IS NULL";
+                            WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
+		                            ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
+	                               AND P.Paci_Usuario = '@id'
+	                               AND Bono_Consulta_Numero IS NULL)";
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoQuery(q3);
             cmd.Parameters.Add(new SqlParameter("@id", idPacienteLabel.Text));

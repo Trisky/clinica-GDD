@@ -490,10 +490,10 @@ BEGIN
 		   (SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente,
 		   (SELECT p.Paci_Matricula FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS idPaciente
 	FROM GRUPOSA.Turnos t
-	WHERE Turn_Medico_Id = @IdMedico
-	AND CAST(Turn_Fecha AS DATE) = CAST(@fecha AS DATE)
-	AND Turn_Numero NOT IN (SELECT TC.Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion TC);
-	
+	WHERE Turn_Medico_Id = '00000601'
+	AND CAST(Turn_Fecha AS DATE) = CAST('2016-01-01 07:30:00.000' AS DATE)
+	AND Turn_Numero NOT IN (SELECT TC.Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion TC)
+	--AND NOT EXISTS (SELECT 1 FROM GRUPOSA.Bonos b WHERE B.Bono_Paci_id = Turn_Paciente_Id and Bono_Fecha_Impresion IS NULL AND Bono_expirado = 1);
 END
 GO 
 
@@ -542,6 +542,7 @@ BEGIN
 		Bono_Consulta_Numero = (SELECT (MAX(Bono_Consulta_Numero) + 1) FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @idPaciente)
 	WHERE Bono_Consulta_Numero IS NULL
 	AND Bono_Paci_Id = @idPaciente
+	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @idPaciente)
 	
 END
 GO
@@ -931,6 +932,7 @@ CREATE TABLE [GRUPOSA].[Consultas]
 		[Cons_Sintomas] 	[VARCHAR](255),
 		[Cons_Enfermedades] [VARCHAR](255),
 		[Cons_Diagnostico]	[VARCHAR](255),
+		[Cons_Llegada_Registrada] [BIT] DEFAULT 0, -- 0 F, 1 V
 		
 		CONSTRAINT [PK_Consultas] PRIMARY KEY CLUSTERED ( [Cons_ID] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -1276,6 +1278,7 @@ COMMIT TRANSACTION
 		SELECT DISTINCT P.Paci_Matricula, M.Plan_Med_Codigo, M.Compra_Bono_Fecha, M.Bono_Consulta_Fecha_Impresion, Bono_Consulta_Numero, SUBSTRING(P.Paci_Matricula,1,6)
 		FROM GRUPOSA.Paciente P JOIN gd_esquema.Maestra M ON (P.Paci_Dni = M.Paciente_Dni)
 		WHERE Bono_Consulta_Numero IS NOT NULL
+		AND Compra_Bono_Fecha IS NOT NULL
 
 		UPDATE GRUPOSA.Bonos
 		SET bono_expirado = 1
