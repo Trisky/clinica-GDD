@@ -479,23 +479,23 @@ BEGIN
 END
 GO 
 
----------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------
 --sp_medicosEspecialidad: Devuelve el nombre de los medicos de la especialidad recibida.
-CREATE PROCEDURE [GRUPOSA].[sp_turnosOcupadosDelDia] (@idMedico VARCHAR(250), @fecha VARCHAR(250))
+CREATE PROCEDURE [GRUPOSA].[sp_turnosOcupadosDelDia] (@idEspecialidad VARCHAR(250), @fecha VARCHAR(250))
 AS
 BEGIN
-	
+
 	SELECT T.Turn_Numero AS Turno, 
-		   SUBSTRING(CAST(CAST(T.Turn_Fecha AS TIME) AS varchar),1,5) AS Hora,
-		   (SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente,
-		   (SELECT p.Paci_Matricula FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS idPaciente
+			SUBSTRING(CAST(CAST(T.Turn_Fecha AS TIME) AS varchar),1,5) AS Hora,
+			(SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente,
+			(SELECT p.Paci_Matricula FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS idPaciente
 	FROM GRUPOSA.Turnos t
-	WHERE Turn_Medico_Id = @idMedico
+	WHERE Turn_Especialidad = @idEspecialidad
 	AND CAST(Turn_Fecha AS DATE) = CAST(@fecha AS DATE)
 	AND Turn_Numero NOT IN (SELECT Cons_Id_Turno FROM GRUPOSA.Consultas 
 							WHERE cons_Llegada_Registrada = 1 
 							AND CAST(Cons_Fecha_Turno AS DATE) = CAST(@fecha AS DATE))
-	
+
 END
 GO 
 
