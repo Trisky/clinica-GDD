@@ -99,6 +99,7 @@ namespace ClinicaFrba.Compra_Bono
             cmd.Parameters.Add("@PaciPlan", SqlDbType.VarChar).Value = usuarioLogeado.planMedico;
             cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             cmd.Parameters.Add("@cantidadBonos", SqlDbType.VarChar).Value = numericUpDownCantidad.Value.ToString();
+            cmd.Parameters.Add("@total", SqlDbType.VarChar).Value = textBoxPrecio.Text;
             //TODO cmd.Parameters.Add("fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
             //4- ejecuto el storeprocedure
             DataTable respuesta = con.ExecConsulta(cmd);
