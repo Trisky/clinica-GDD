@@ -536,8 +536,8 @@ BEGIN
 	UPDATE GRUPOSA.Bonos
 	SET Bono_expirado = 1
 	WHERE Bono_Consulta_Numero IS NULL
-	AND Bono_Paci_Id = @idPaciente
-	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @idPaciente)
+	AND Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6)
+	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6))
 	
 END
 GO
