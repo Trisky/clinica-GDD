@@ -490,10 +490,12 @@ BEGIN
 		   (SELECT UPPER(P.Paci_Apellido) + ' ' + UPPER(P.paci_nombre) FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS Paciente,
 		   (SELECT p.Paci_Matricula FROM GRUPOSA.Paciente P WHERE P.Paci_Matricula = t.Turn_Paciente_Id ) AS idPaciente
 	FROM GRUPOSA.Turnos t
-	WHERE Turn_Medico_Id = '00000601'
-	AND CAST(Turn_Fecha AS DATE) = CAST('2016-01-01 07:30:00.000' AS DATE)
-	AND Turn_Numero NOT IN (SELECT TC.Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion TC)
-	--AND NOT EXISTS (SELECT 1 FROM GRUPOSA.Bonos b WHERE B.Bono_Paci_id = Turn_Paciente_Id and Bono_Fecha_Impresion IS NULL AND Bono_expirado = 1);
+	WHERE Turn_Medico_Id = @idMedico
+	AND CAST(Turn_Fecha AS DATE) = CAST(@fecha AS DATE)
+	AND Turn_Numero NOT IN (SELECT Cons_Id_Turno FROM GRUPOSA.Consultas 
+							WHERE cons_Llegada_Registrada = 1 
+							AND CAST(Cons_Fecha_Turno AS DATE) = CAST(@fecha AS DATE))
+	
 END
 GO 
 
@@ -519,6 +521,25 @@ BEGIN
 								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
 	END
 		
+END
+GO
+--------------------------------------------------------------------------------------------------------------------
+--sp_borraBonoYConfirmarLlegada
+CREATE PROCEDURE [GRUPOSA].[sp_borraBonoYConfirmarLlegada] (@turnoId NUMERIC(18,0), @idPaciente VARCHAR(255), @usuario VARCHAR(255))
+AS
+BEGIN
+	
+	UPDATE GRUPOSA.Consultas
+    SET cons_Llegada_Registrada = 1 
+    WHERE Cons_Id_Turno = @turnoId 
+    AND turn_paciente_id = (SELECT paci_matricula FROM GRUPOSA.Paciente WHERE paci_usuario = @usuario))
+	
+	UPDATE GRUPOSA.Bonos
+	SET Bono_expirado = 1
+	WHERE Bono_Consulta_Numero IS NULL
+	AND Bono_Paci_Id = @idPaciente
+	AND Bono_id = (SELECT MAX(Bono_ID) FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @idPaciente)
+	
 END
 GO
 --------------------------------------------------------------------------------------------------------------------
