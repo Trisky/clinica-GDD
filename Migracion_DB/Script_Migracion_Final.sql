@@ -671,7 +671,7 @@ AS
 
 BEGIN
 
-	SET @hoy = DATEADD(DAY,92,CAST(@fechaHoy AS DATETIME));
+	SET @hoy = CAST(@fechaHoy AS DATETIME);
 	SET @cant = CAST (@cantidadBonos AS NUMERIC(18,0));
 	SET @forTime = 0;
 	
@@ -751,12 +751,13 @@ CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@fechaInicio  VARCHAR(2
 AS
 BEGIN
 SELECT TOP 5 (SELECT UPPER(Paci_Apellido + ' ' + Paci_Nombre) FROM GRUPOSA.Paciente WHERE Paci_Matricula =  Bono_Paci_Id) AS Afiliado, 
-			 (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No Es Grupo Familiar' ELSE 'Grupo Familiar' END) AS Grupo_Fliar, 
-			 COUNT(*) AS Cantidad_de_Bonos 
-FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
-WHERE CAST(T.Turn_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
+	   (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No es grupo familiar' ELSE 'Es grupo familiar' END) AS Grupo_Fliar, 
+	   COUNT(*) AS Cantidad_de_Bonos 
+FROM GRUPOSA.Bonos
+WHERE CAST(Bono_Compra_Fecha AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFinal AS DATE)
 GROUP BY Bono_Paci_Id, Bono_Numero_GrupoFamiliar
 ORDER BY 3 DESC, 2 ASC
+
 END
 GO
 
