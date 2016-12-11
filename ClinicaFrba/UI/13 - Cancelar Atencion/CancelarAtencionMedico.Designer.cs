@@ -39,7 +39,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selectionDates)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -62,12 +61,13 @@
             this.groupBox1.Controls.Add(this.diaryDoctor);
             this.groupBox1.Controls.Add(this.txtInitDate);
             this.groupBox1.Controls.Add(this.selectionDates);
-            this.groupBox1.Location = new System.Drawing.Point(12, 62);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(304, 278);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleccione el/los dia/s a cancelar turnos";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label2
             // 
@@ -121,7 +121,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtReason);
-            this.groupBox2.Location = new System.Drawing.Point(12, 346);
+            this.groupBox2.Location = new System.Drawing.Point(12, 296);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(304, 53);
             this.groupBox2.TabIndex = 3;
@@ -131,7 +131,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(12, 405);
+            this.btnConfirm.Location = new System.Drawing.Point(12, 355);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(147, 23);
             this.btnConfirm.TabIndex = 4;
@@ -141,7 +141,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(166, 405);
+            this.btnCancel.Location = new System.Drawing.Point(166, 355);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(152, 23);
             this.btnCancel.TabIndex = 5;
@@ -149,23 +149,11 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 5);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(365, 54);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Seleccione el dia desde el cual quiere cancelar \r\nsu atencion y mientras apreta s" +
-    "hift, seleccione\r\n el dia que quiere reanuadar su atención";
-            // 
             // CancelarAtencionMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 441);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(331, 386);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox2);
@@ -179,7 +167,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -196,6 +183,5 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label3;
     }
 }

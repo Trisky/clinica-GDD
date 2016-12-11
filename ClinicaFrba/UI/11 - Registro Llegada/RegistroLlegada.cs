@@ -235,6 +235,11 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
         {
 
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

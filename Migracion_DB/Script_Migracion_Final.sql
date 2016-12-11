@@ -525,14 +525,13 @@ END
 GO
 --------------------------------------------------------------------------------------------------------------------
 --sp_borraBonoYConfirmarLlegada
-CREATE PROCEDURE [GRUPOSA].[sp_borraBonoYConfirmarLlegada] (@turnoId NUMERIC(18,0), @idPaciente VARCHAR(255), @usuario VARCHAR(255))
+CREATE PROCEDURE [GRUPOSA].[sp_borraBonoYConfirmarLlegada] (@turnoId VARCHAR(255), @idPaciente VARCHAR(255))
 AS
 BEGIN
 	
 	UPDATE GRUPOSA.Consultas
     SET cons_Llegada_Registrada = 1 
     WHERE Cons_Id_Turno = @turnoId 
-    AND turn_paciente_id = @idPaciente
 	
 	UPDATE GRUPOSA.Bonos
 	SET Bono_expirado = 1

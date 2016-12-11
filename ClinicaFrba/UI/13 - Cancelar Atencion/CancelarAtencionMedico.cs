@@ -94,6 +94,11 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
 
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
         
     }
 

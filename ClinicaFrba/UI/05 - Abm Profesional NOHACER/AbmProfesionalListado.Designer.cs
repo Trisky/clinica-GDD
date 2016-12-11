@@ -38,32 +38,41 @@
             // 
             // gbFiltros
             // 
+            this.gbFiltros.Controls.Add(this.buttonRegistroLlegada);
             this.gbFiltros.Controls.Add(this.textBoxApellido);
             this.gbFiltros.Controls.Add(this.textBoxNombre);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Controls.Add(this.label1);
+            this.gbFiltros.Location = new System.Drawing.Point(12, 1);
+            this.gbFiltros.Size = new System.Drawing.Size(930, 116);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxNombre, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxApellido, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.buttonRegistroLlegada, 0);
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Location = new System.Drawing.Point(772, 47);
+            this.btnBuscar.Size = new System.Drawing.Size(152, 35);
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnLimpiar
             // 
+            this.btnLimpiar.Location = new System.Drawing.Point(772, 83);
+            this.btnLimpiar.Size = new System.Drawing.Size(152, 30);
             this.btnLimpiar.Visible = false;
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(961, 129);
+            this.btnEliminar.Location = new System.Drawing.Point(961, 84);
             this.btnEliminar.Visible = false;
             // 
             // btnAgregar
             // 
+            this.btnAgregar.Location = new System.Drawing.Point(961, 18);
             this.btnAgregar.Visible = false;
             // 
             // btnModificar
@@ -72,13 +81,13 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(961, 91);
+            this.btnSeleccionar.Location = new System.Drawing.Point(961, 84);
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(675, 54);
+            this.label1.Location = new System.Drawing.Point(15, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 2;
@@ -88,7 +97,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(675, 79);
+            this.label2.Location = new System.Drawing.Point(15, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 3;
@@ -96,28 +105,28 @@
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(724, 51);
+            this.textBoxNombre.Location = new System.Drawing.Point(65, 19);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(200, 20);
             this.textBoxNombre.TabIndex = 4;
             // 
             // textBoxApellido
             // 
-            this.textBoxApellido.Location = new System.Drawing.Point(724, 76);
+            this.textBoxApellido.Location = new System.Drawing.Point(65, 42);
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(200, 20);
             this.textBoxApellido.TabIndex = 5;
             // 
             // buttonRegistroLlegada
             // 
-            this.buttonRegistroLlegada.BackColor = System.Drawing.Color.Yellow;
+            this.buttonRegistroLlegada.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonRegistroLlegada.Enabled = false;
             this.buttonRegistroLlegada.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonRegistroLlegada.Location = new System.Drawing.Point(961, 12);
+            this.buttonRegistroLlegada.Location = new System.Drawing.Point(772, 8);
             this.buttonRegistroLlegada.Name = "buttonRegistroLlegada";
-            this.buttonRegistroLlegada.Size = new System.Drawing.Size(120, 60);
+            this.buttonRegistroLlegada.Size = new System.Drawing.Size(152, 37);
             this.buttonRegistroLlegada.TabIndex = 6;
-            this.buttonRegistroLlegada.Text = "Mostrar Turnos de este medico para hoy";
+            this.buttonRegistroLlegada.Text = "Mostrar Turnos de Hoy";
             this.buttonRegistroLlegada.UseVisualStyleBackColor = false;
             this.buttonRegistroLlegada.Visible = false;
             this.buttonRegistroLlegada.Click += new System.EventHandler(this.button1_Click);
@@ -127,15 +136,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 469);
-            this.Controls.Add(this.buttonRegistroLlegada);
             this.Name = "AbmProfesionalListado";
             this.Text = "AbmProfesionalListado";
-            this.Controls.SetChildIndex(this.gbFiltros, 0);
-            this.Controls.SetChildIndex(this.btnAgregar, 0);
-            this.Controls.SetChildIndex(this.btnModificar, 0);
-            this.Controls.SetChildIndex(this.btnEliminar, 0);
-            this.Controls.SetChildIndex(this.btnSeleccionar, 0);
-            this.Controls.SetChildIndex(this.buttonRegistroLlegada, 0);
             this.gbFiltros.ResumeLayout(false);
             this.gbFiltros.PerformLayout();
             this.ResumeLayout(false);

@@ -39,6 +39,8 @@
             this.gbFiltros.Controls.Add(this.labelIdMedico);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Controls.Add(this.buttonVerDia);
+            this.gbFiltros.Location = new System.Drawing.Point(12, 3);
+            this.gbFiltros.Size = new System.Drawing.Size(943, 114);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.buttonVerDia, 0);
@@ -47,18 +49,30 @@
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Location = new System.Drawing.Point(791, 45);
+            this.btnBuscar.Size = new System.Drawing.Size(146, 30);
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(791, 81);
+            this.btnLimpiar.Size = new System.Drawing.Size(146, 30);
             // 
             // btnAgregar
             // 
+            this.btnAgregar.Location = new System.Drawing.Point(961, 14);
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Location = new System.Drawing.Point(961, 84);
             // 
             // buttonVerDia
             // 
-            this.buttonVerDia.Location = new System.Drawing.Point(136, 29);
+            this.buttonVerDia.Location = new System.Drawing.Point(791, 11);
             this.buttonVerDia.Margin = new System.Windows.Forms.Padding(2);
             this.buttonVerDia.Name = "buttonVerDia";
-            this.buttonVerDia.Size = new System.Drawing.Size(188, 37);
+            this.buttonVerDia.Size = new System.Drawing.Size(147, 30);
             this.buttonVerDia.TabIndex = 6;
             this.buttonVerDia.Text = "Ver agenda del medico";
             this.buttonVerDia.UseVisualStyleBackColor = true;
@@ -67,17 +81,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(487, 9);
+            this.label2.Location = new System.Drawing.Point(14, 19);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 13);
+            this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "su ID de medico es: ";
+            this.label2.Text = "Id Medico:";
             // 
             // labelIdMedico
             // 
             this.labelIdMedico.AutoSize = true;
-            this.labelIdMedico.Location = new System.Drawing.Point(587, 9);
+            this.labelIdMedico.Location = new System.Drawing.Point(70, 19);
             this.labelIdMedico.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIdMedico.Name = "labelIdMedico";
             this.labelIdMedico.Size = new System.Drawing.Size(35, 13);
@@ -89,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1086, 469);
+            this.ClientSize = new System.Drawing.Size(1086, 422);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ListarAgendaProfesional";
             this.Text = "ListarAgendaProfesional";

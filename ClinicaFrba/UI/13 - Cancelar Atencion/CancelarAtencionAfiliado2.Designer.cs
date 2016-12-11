@@ -45,7 +45,7 @@
             this.gbFiltros.Controls.Add(this.radioButton1);
             this.gbFiltros.Controls.Add(this.textBoxMotivo);
             this.gbFiltros.Controls.Add(this.label2);
-            this.gbFiltros.Size = new System.Drawing.Size(930, 147);
+            this.gbFiltros.Size = new System.Drawing.Size(930, 105);
             this.gbFiltros.Controls.SetChildIndex(this.btnBuscar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
@@ -55,9 +55,17 @@
             this.gbFiltros.Controls.SetChildIndex(this.radioButton3, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(669, 19);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(795, 19);
+            // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(961, 94);
+            this.btnEliminar.Location = new System.Drawing.Point(961, 84);
             // 
             // btnAgregar
             // 
@@ -65,7 +73,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(961, 93);
+            this.btnSeleccionar.Location = new System.Drawing.Point(961, 84);
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
             // label2
@@ -80,10 +88,10 @@
             // 
             // textBoxMotivo
             // 
-            this.textBoxMotivo.Location = new System.Drawing.Point(9, 70);
+            this.textBoxMotivo.Location = new System.Drawing.Point(8, 62);
             this.textBoxMotivo.Multiline = true;
             this.textBoxMotivo.Name = "textBoxMotivo";
-            this.textBoxMotivo.Size = new System.Drawing.Size(916, 71);
+            this.textBoxMotivo.Size = new System.Drawing.Size(916, 35);
             this.textBoxMotivo.TabIndex = 4;
             this.textBoxMotivo.TextChanged += new System.EventHandler(this.textBoxMotivo_TextChanged);
             // 
@@ -126,7 +134,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 54);
+            this.label1.Location = new System.Drawing.Point(6, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(137, 13);
             this.label1.TabIndex = 8;

@@ -34,33 +34,31 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonCerrarConsulta = new System.Windows.Forms.Button();
             this.groupBoxPasoDos = new System.Windows.Forms.GroupBox();
-            this.groupBoxSintomaDiagnostico = new System.Windows.Forms.GroupBox();
             this.groupBoxPasoDos.SuspendLayout();
-            this.groupBoxSintomaDiagnostico.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxSintomas
             // 
-            this.textBoxSintomas.Location = new System.Drawing.Point(5, 34);
-            this.textBoxSintomas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxSintomas.Location = new System.Drawing.Point(84, 17);
+            this.textBoxSintomas.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSintomas.Multiline = true;
             this.textBoxSintomas.Name = "textBoxSintomas";
-            this.textBoxSintomas.Size = new System.Drawing.Size(477, 73);
+            this.textBoxSintomas.Size = new System.Drawing.Size(549, 48);
             this.textBoxSintomas.TabIndex = 3;
             // 
             // textBoxDiagnostico
             // 
-            this.textBoxDiagnostico.Location = new System.Drawing.Point(5, 139);
-            this.textBoxDiagnostico.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxDiagnostico.Location = new System.Drawing.Point(84, 81);
+            this.textBoxDiagnostico.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDiagnostico.Multiline = true;
             this.textBoxDiagnostico.Name = "textBoxDiagnostico";
-            this.textBoxDiagnostico.Size = new System.Drawing.Size(477, 73);
+            this.textBoxDiagnostico.Size = new System.Drawing.Size(549, 55);
             this.textBoxDiagnostico.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 19);
+            this.label1.Location = new System.Drawing.Point(13, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
@@ -70,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 124);
+            this.label2.Location = new System.Drawing.Point(13, 81);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
@@ -80,10 +78,10 @@
             // buttonCerrarConsulta
             // 
             this.buttonCerrarConsulta.ForeColor = System.Drawing.Color.Red;
-            this.buttonCerrarConsulta.Location = new System.Drawing.Point(514, 206);
-            this.buttonCerrarConsulta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCerrarConsulta.Location = new System.Drawing.Point(16, 152);
+            this.buttonCerrarConsulta.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCerrarConsulta.Name = "buttonCerrarConsulta";
-            this.buttonCerrarConsulta.Size = new System.Drawing.Size(129, 36);
+            this.buttonCerrarConsulta.Size = new System.Drawing.Size(617, 24);
             this.buttonCerrarConsulta.TabIndex = 7;
             this.buttonCerrarConsulta.Text = "Cerra consulta";
             this.buttonCerrarConsulta.UseVisualStyleBackColor = true;
@@ -91,44 +89,33 @@
             // 
             // groupBoxPasoDos
             // 
-            this.groupBoxPasoDos.Controls.Add(this.groupBoxSintomaDiagnostico);
+            this.groupBoxPasoDos.Controls.Add(this.textBoxDiagnostico);
+            this.groupBoxPasoDos.Controls.Add(this.textBoxSintomas);
+            this.groupBoxPasoDos.Controls.Add(this.label2);
             this.groupBoxPasoDos.Controls.Add(this.buttonCerrarConsulta);
+            this.groupBoxPasoDos.Controls.Add(this.label1);
             this.groupBoxPasoDos.Enabled = false;
-            this.groupBoxPasoDos.Location = new System.Drawing.Point(7, 7);
-            this.groupBoxPasoDos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxPasoDos.Location = new System.Drawing.Point(11, 3);
+            this.groupBoxPasoDos.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxPasoDos.Name = "groupBoxPasoDos";
-            this.groupBoxPasoDos.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBoxPasoDos.Size = new System.Drawing.Size(648, 329);
+            this.groupBoxPasoDos.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBoxPasoDos.Size = new System.Drawing.Size(650, 190);
             this.groupBoxPasoDos.TabIndex = 8;
             this.groupBoxPasoDos.TabStop = false;
-            this.groupBoxPasoDos.Text = "Paso Dos";
-            // 
-            // groupBoxSintomaDiagnostico
-            // 
-            this.groupBoxSintomaDiagnostico.Controls.Add(this.textBoxSintomas);
-            this.groupBoxSintomaDiagnostico.Controls.Add(this.textBoxDiagnostico);
-            this.groupBoxSintomaDiagnostico.Controls.Add(this.label2);
-            this.groupBoxSintomaDiagnostico.Controls.Add(this.label1);
-            this.groupBoxSintomaDiagnostico.Location = new System.Drawing.Point(5, 18);
-            this.groupBoxSintomaDiagnostico.Name = "groupBoxSintomaDiagnostico";
-            this.groupBoxSintomaDiagnostico.Size = new System.Drawing.Size(492, 224);
-            this.groupBoxSintomaDiagnostico.TabIndex = 8;
-            this.groupBoxSintomaDiagnostico.TabStop = false;
-            this.groupBoxSintomaDiagnostico.Text = "Ingrese datos";
+            this.groupBoxPasoDos.Text = "Ingrese Datos";
             // 
             // EscribirSintomasYDiagnostico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 261);
+            this.ClientSize = new System.Drawing.Size(672, 203);
             this.Controls.Add(this.groupBoxPasoDos);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EscribirSintomasYDiagnostico";
-            this.Text = "Form1";
+            this.Text = "Diagnostico";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxPasoDos.ResumeLayout(false);
-            this.groupBoxSintomaDiagnostico.ResumeLayout(false);
-            this.groupBoxSintomaDiagnostico.PerformLayout();
+            this.groupBoxPasoDos.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -140,6 +127,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonCerrarConsulta;
         private System.Windows.Forms.GroupBox groupBoxPasoDos;
-        private System.Windows.Forms.GroupBox groupBoxSintomaDiagnostico;
     }
 }

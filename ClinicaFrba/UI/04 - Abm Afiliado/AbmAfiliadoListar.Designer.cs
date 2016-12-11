@@ -75,7 +75,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(915, 229);
+            this.btnEliminar.Location = new System.Drawing.Point(956, 176);
             this.btnEliminar.Visible = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
@@ -89,7 +89,7 @@
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(915, 179);
+            this.btnSeleccionar.Location = new System.Drawing.Point(956, 176);
             this.btnSeleccionar.Text = "eliminar";
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click_1);
             // 
@@ -154,11 +154,11 @@
             this.groupBoxLlegada.Controls.Add(this.buttonTurnoHoy);
             this.groupBoxLlegada.Controls.Add(this.buttonSeleccionParaTurno);
             this.groupBoxLlegada.Enabled = false;
-            this.groupBoxLlegada.Location = new System.Drawing.Point(589, 12);
+            this.groupBoxLlegada.Location = new System.Drawing.Point(570, 14);
             this.groupBoxLlegada.Margin = new System.Windows.Forms.Padding(1);
             this.groupBoxLlegada.Name = "groupBoxLlegada";
             this.groupBoxLlegada.Padding = new System.Windows.Forms.Padding(1);
-            this.groupBoxLlegada.Size = new System.Drawing.Size(275, 66);
+            this.groupBoxLlegada.Size = new System.Drawing.Size(275, 56);
             this.groupBoxLlegada.TabIndex = 23;
             this.groupBoxLlegada.TabStop = false;
             this.groupBoxLlegada.Text = "Seleccione afiliado para turnos";
@@ -167,7 +167,7 @@
             // 
             this.buttonTurnoHoy.BackColor = System.Drawing.Color.Aqua;
             this.buttonTurnoHoy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonTurnoHoy.Location = new System.Drawing.Point(45, 27);
+            this.buttonTurnoHoy.Location = new System.Drawing.Point(34, 14);
             this.buttonTurnoHoy.Margin = new System.Windows.Forms.Padding(1);
             this.buttonTurnoHoy.Name = "buttonTurnoHoy";
             this.buttonTurnoHoy.Size = new System.Drawing.Size(211, 36);
@@ -190,9 +190,9 @@
             // groupBoxAccion
             // 
             this.groupBoxAccion.Controls.Add(this.buttonParaAccion);
-            this.groupBoxAccion.Location = new System.Drawing.Point(326, 12);
+            this.groupBoxAccion.Location = new System.Drawing.Point(307, 10);
             this.groupBoxAccion.Name = "groupBoxAccion";
-            this.groupBoxAccion.Size = new System.Drawing.Size(259, 66);
+            this.groupBoxAccion.Size = new System.Drawing.Size(259, 58);
             this.groupBoxAccion.TabIndex = 24;
             this.groupBoxAccion.TabStop = false;
             this.groupBoxAccion.Text = "Seleccion de afiliado para una accion";
