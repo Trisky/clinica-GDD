@@ -57,8 +57,17 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void buttonNuevoHorario_Click(object sender, EventArgs e)
         {
-            int horaMilitarInicio = Convert.ToInt32(numHoraInicio.Value.ToString() + numMinutoInicio.Value.ToString());
-            int horaMilitarFin = Convert.ToInt32(numHoraFin.Value.ToString() + numMinutoFin.Value.ToString());
+            int horaInicio =( Convert.ToInt32(numHoraInicio.Value.ToString())) * 100;
+            int horaFin = (Convert.ToInt32(numHoraFin.Value.ToString())) * 100;
+            int minutosInicio =Convert.ToInt32(numMinutoInicio.Value.ToString());
+            int minutosFin = Convert.ToInt32(numMinutoFin.Value.ToString());
+
+            int horaMilitarInicio = horaInicio + minutosInicio;
+            int horaMilitarFin = horaFin + minutosFin;
+
+
+
+
             if (horaMilitarInicio > horaMilitarFin)
             {
                 MessageBox.Show("¡error, hora de inicio debe ser anterio a la de fin!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);

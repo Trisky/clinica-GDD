@@ -339,6 +339,8 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
            cmd.Parameters.Add("@paci_plan_medi", SqlDbType.VarChar).Value = comboBoxPlanMedico.SelectedValue;//11 numeric?
 
             con.ExecConsulta(cmd);
+            MessageBox.Show("Se modifico correctamente", "Operacion correcta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
             Close();
             AbmAfiliadoListar abmAfil = new AbmAfiliadoListar();
