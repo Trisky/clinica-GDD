@@ -41,7 +41,7 @@ namespace ClinicaFrba.Registro_Resultado
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_cerrarConsulta");
             cmd.Parameters.Add("@turnoId", SqlDbType.VarChar).Value = IdTurno;//1
             cmd.Parameters.Add("@diagnostico", SqlDbType.VarChar).Value = textBoxDiagnostico.Text;//2
-            cmd.Parameters.Add("@enfermedad", SqlDbType.VarChar).Value = "enfermedad"; //y bueno q se yo, ale me dijo que le mande siempre esto
+            cmd.Parameters.Add("@enfermedad", SqlDbType.VarChar).Value = "Enfermedad"; //y bueno q se yo, ale me dijo que le mande siempre esto
             cmd.Parameters.Add("@sintomas", SqlDbType.VarChar).Value = textBoxSintomas.Text;
             cmd.Parameters.Add("@idPaciente", SqlDbType.VarChar).Value = idPaciente;
             cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
