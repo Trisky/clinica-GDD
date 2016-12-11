@@ -1287,9 +1287,10 @@ COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Enfermedades],[Cons_Sintomas])
-		SELECT M.Turno_Numero, M.Bono_Consulta_Numero, M.Bono_Consulta_Fecha_Impresion, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
+		SELECT DISTINCT M.Turno_Numero, M.Bono_Consulta_Numero, M.Bono_Consulta_Fecha_Impresion, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
 		FROM gd_esquema.Maestra M
 		WHERE M.Turno_Numero IS NOT NULL
+		AND EXISTS (SELECT 1 FROM  gd_esquema.Maestra M2 WHERE M.Turno_Numero = M2.Turno_Numero AND M.Bono_Consulta_Numero IS NOT NULL )
 	COMMIT TRANSACTION
 
 	BEGIN TRANSACTION
