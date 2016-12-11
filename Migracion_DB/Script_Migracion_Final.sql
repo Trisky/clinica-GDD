@@ -560,8 +560,8 @@ BEGIN
 	
 	SELECT @bonoMarcado = MAX(Bono_ID) FROM GRUPOSA.Bonos 
 	WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6) 
-	AND B.Bono_expirado = 1 
-	AND B.Bono_Consulta_Numero IS NULL;
+	AND Bono_expirado = 1 
+	AND Bono_Consulta_Numero IS NULL;
 	
 	SELECT @consultaNumero = (ISNULL(MAX(Bono_Consulta_Numero),0) + 1) FROM GRUPOSA.Bonos WHERE Bono_Numero_GrupoFamiliar = SUBSTRING(@idPaciente,1,6);
 	

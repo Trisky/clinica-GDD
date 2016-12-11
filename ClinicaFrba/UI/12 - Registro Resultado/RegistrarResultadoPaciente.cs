@@ -59,7 +59,8 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
                 WHERE Turn_medico_id = @id
                 AND CAST(Turn_fecha AS DATE) = CAST(@fecha AS DATE)
                 AND Turn_Numero = C.Cons_Id_Turno 
-                AND cons_Llegada_Registrada = 1 ";
+                AND cons_Llegada_Registrada = 1
+                AND Cons_realizada <> 1";
            //00000101 '2015-02-02'
 
             Conexion con = new Conexion();

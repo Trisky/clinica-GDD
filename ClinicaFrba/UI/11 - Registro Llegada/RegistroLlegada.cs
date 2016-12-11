@@ -3,6 +3,8 @@ using ClinicaFrba.Helpers;
 using ClinicaFrba.Pedir_Turno;
 using ClinicaFrba.UI._04___Abm_Afiliado;
 using ClinicaFrba.UI._05___Abm_Profesional;
+using ClinicaFrba.Compra_Bono;
+//using ClinicaFrba.Logica.Entidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +23,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
         private AbmAfiliadoListar abmAfiliado;
         private PedirTurno pedidorTurnos;
         private string idMedicoBuscado;
+  //      public UsuarioLogeado usuarioLogeado { get; set; }
 
         public RegistroLlegada()
         {
@@ -36,6 +39,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             btnLimpiar.Visible = btnBuscar.Visible = false;
             btnModificar.Enabled = false;
             btnSeleccionar.Enabled = false;
+            button1.Visible = false;
         }
 
 
@@ -220,6 +224,16 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+            //UsuarioLogeado user = UsuarioLogueado;
+           // CompraBono CompraBono = new CompraBono(user);
+            
+            // comprar bonos
 
         }
     }
