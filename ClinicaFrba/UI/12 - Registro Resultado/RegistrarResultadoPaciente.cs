@@ -42,8 +42,9 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
         {
             var dr = dgListado.SelectedRows[0];
             var cells = dr.Cells;
-            string turnoID = cells[1].Value.ToString();
-            EscribirSintomasYDiagnostico escribir = new EscribirSintomasYDiagnostico(turnoID);
+            string turnoID = cells[0].Value.ToString();
+            string pacienteID = cells[3].Value.ToString();
+            EscribirSintomasYDiagnostico escribir = new EscribirSintomasYDiagnostico(turnoID, pacienteID);
 
         }
 
@@ -57,6 +58,8 @@ namespace ClinicaFrba.UI._12___Registro_Resultado
 	                         where [Paci_Matricula] = [turn_Paciente_Id]
 	                         ) as 'nombre del paciente'
 	                        ,cast([Turn_fecha] as date) as 'fecha del turno'
+							,Turn_Paciente_Id as idPaciente
+                        
 
                         FROM [GD2C2016].[GRUPOSA].[Turnos]
                          where Turn_medico_id = @id and

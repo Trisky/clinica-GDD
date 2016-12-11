@@ -17,32 +17,34 @@ namespace ClinicaFrba.Registro_Resultado
     public partial class EscribirSintomasYDiagnostico : FormBase
     {
         private string IdTurno;
+        private string idPaciente;
 
-        public EscribirSintomasYDiagnostico(string turnoID)
+        public EscribirSintomasYDiagnostico(string turnoID,string pacienteID)
         {
+            idPaciente = pacienteID;
             InitializeComponent();
             IdTurno = turnoID;
-            radioButtonAtendidoNo.Checked = true;
+
+            groupBoxSintomaDiagnostico.Visible = true;
             Show();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+            groupBoxSintomaDiagnostico.Visible = true;
         }
 
 
         private void buttonCerrarConsulta_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure("sp_cerrarConsulta");
+            cmd.Parameters.Add("@turnoId", SqlDbType.VarChar).Value = IdTurno;//1
+            cmd.Parameters.Add("@diagnostico", SqlDbType.VarChar).Value = textBoxDiagnostico.Text;//2
+            cmd.Parameters.Add("@enfermedad", SqlDbType.VarChar).Value = "enfermedad"; //y bueno q se yo, ale me dijo que le mande siempre esto
             cmd.Parameters.Add("@sintomas", SqlDbType.VarChar).Value = textBoxSintomas.Text;
-            cmd.Parameters.Add("@diagnostico", SqlDbType.VarChar).Value = textBoxDiagnostico.Text;
-            cmd.Parameters.Add("@idTurno", SqlDbType.VarChar).Value = IdTurno;
-            cmd.Parameters.Add("@fechaHora", SqlDbType.VarChar).Value = StaticUtils.getDate();
-
-            if (radioButtonAtendidoSi.Checked) cmd.Parameters.Add("@asistio", SqlDbType.NVarChar).Value = 1;
-            else  cmd.Parameters.Add("@asistio", SqlDbType.NVarChar).Value = 0;
+            cmd.Parameters.Add("@idPaciente", SqlDbType.VarChar).Value = idPaciente;
+            cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
 
             con.ExecConsulta(cmd);
             Dispose();
@@ -54,6 +56,9 @@ namespace ClinicaFrba.Registro_Resultado
             groupBoxPasoDos.Enabled = true;
         }
 
-       
+        private void radioButtonAtendidoNo_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxSintomaDiagnostico.Visible = false;
+        }
     }
 }

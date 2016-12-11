@@ -168,8 +168,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
             throw new NotImplementedException();
             string q3 = @" UPDATE GRUPOSA.Bonos
- SET bono_expirado = 1
-WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
+                            SET bono_expirado = 1
+                        WHERE Bono_Consulta_Numero IN (SELECT TOP 1 Bono_Consulta_Numero FROM GRUPOSA.Bonos B JOIN GRUPOSA.Paciente P 
 		ON SUBSTRING(B.Bono_Paci_Id,1,6) = SUBSTRING(P.Paci_Matricula,1,6)
 	   AND P.Paci_Usuario = '@id'
 	   AND bono_fecha_compra_usado IS NULL";
