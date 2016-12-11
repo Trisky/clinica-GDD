@@ -93,6 +93,7 @@
             // nombreRol
             // 
             this.nombreRol.Location = new System.Drawing.Point(87, 29);
+            this.nombreRol.MaxLength = 240;
             this.nombreRol.Name = "nombreRol";
             this.nombreRol.Size = new System.Drawing.Size(362, 20);
             this.nombreRol.TabIndex = 5;

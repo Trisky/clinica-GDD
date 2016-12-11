@@ -89,6 +89,7 @@
             // textBoxMotivo
             // 
             this.textBoxMotivo.Location = new System.Drawing.Point(8, 62);
+            this.textBoxMotivo.MaxLength = 254;
             this.textBoxMotivo.Multiline = true;
             this.textBoxMotivo.Name = "textBoxMotivo";
             this.textBoxMotivo.Size = new System.Drawing.Size(916, 35);

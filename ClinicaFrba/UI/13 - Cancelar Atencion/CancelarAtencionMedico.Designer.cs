@@ -113,8 +113,10 @@
             // txtReason
             // 
             this.txtReason.Location = new System.Drawing.Point(6, 19);
+            this.txtReason.MaxLength = 244;
+            this.txtReason.Multiline = true;
             this.txtReason.Name = "txtReason";
-            this.txtReason.Size = new System.Drawing.Size(292, 20);
+            this.txtReason.Size = new System.Drawing.Size(292, 76);
             this.txtReason.TabIndex = 2;
             this.txtReason.TextChanged += new System.EventHandler(this.txtReason_TextChanged);
             // 
@@ -123,7 +125,7 @@
             this.groupBox2.Controls.Add(this.txtReason);
             this.groupBox2.Location = new System.Drawing.Point(12, 296);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(304, 53);
+            this.groupBox2.Size = new System.Drawing.Size(304, 101);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Motivo de la cancelacion";
@@ -131,7 +133,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(12, 355);
+            this.btnConfirm.Location = new System.Drawing.Point(12, 403);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(147, 23);
             this.btnConfirm.TabIndex = 4;
@@ -141,7 +143,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(166, 355);
+            this.btnCancel.Location = new System.Drawing.Point(164, 403);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(152, 23);
             this.btnCancel.TabIndex = 5;
@@ -153,7 +155,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 386);
+            this.ClientSize = new System.Drawing.Size(331, 438);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox2);

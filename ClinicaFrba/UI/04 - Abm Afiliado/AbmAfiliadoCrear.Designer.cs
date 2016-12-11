@@ -58,9 +58,9 @@
             this.buttonCrearFamiliar = new System.Windows.Forms.Button();
             this.buttonGuardarModificacion = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.MotivotextBox1 = new System.Windows.Forms.TextBox();
             this.Motivolabel13 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBoxCrear.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UpDownCantidadHijos)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -401,6 +401,27 @@
             this.groupBox1.Text = "Datos Familiares";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
             // 
+            // MotivotextBox1
+            // 
+            this.MotivotextBox1.Location = new System.Drawing.Point(92, 119);
+            this.MotivotextBox1.MaxLength = 250;
+            this.MotivotextBox1.Multiline = true;
+            this.MotivotextBox1.Name = "MotivotextBox1";
+            this.MotivotextBox1.Size = new System.Drawing.Size(240, 29);
+            this.MotivotextBox1.TabIndex = 36;
+            this.MotivotextBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Motivolabel13
+            // 
+            this.Motivolabel13.AutoSize = true;
+            this.Motivolabel13.Location = new System.Drawing.Point(4, 119);
+            this.Motivolabel13.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.Motivolabel13.Name = "Motivolabel13";
+            this.Motivolabel13.Size = new System.Drawing.Size(39, 13);
+            this.Motivolabel13.TabIndex = 36;
+            this.Motivolabel13.Text = "Motivo";
+            this.Motivolabel13.Click += new System.EventHandler(this.label13_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label6);
@@ -416,25 +437,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Contacto";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
-            // 
-            // MotivotextBox1
-            // 
-            this.MotivotextBox1.Location = new System.Drawing.Point(92, 119);
-            this.MotivotextBox1.Name = "MotivotextBox1";
-            this.MotivotextBox1.Size = new System.Drawing.Size(240, 20);
-            this.MotivotextBox1.TabIndex = 36;
-            this.MotivotextBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // Motivolabel13
-            // 
-            this.Motivolabel13.AutoSize = true;
-            this.Motivolabel13.Location = new System.Drawing.Point(4, 119);
-            this.Motivolabel13.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.Motivolabel13.Name = "Motivolabel13";
-            this.Motivolabel13.Size = new System.Drawing.Size(39, 13);
-            this.Motivolabel13.TabIndex = 36;
-            this.Motivolabel13.Text = "Motivo";
-            this.Motivolabel13.Click += new System.EventHandler(this.label13_Click);
             // 
             // AbmAfiliadoCrear
             // 

@@ -137,6 +137,7 @@
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(63, 21);
             this.textBoxNombre.Margin = new System.Windows.Forms.Padding(1);
+            this.textBoxNombre.MaxLength = 255;
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(167, 20);
             this.textBoxNombre.TabIndex = 4;
@@ -145,6 +146,7 @@
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(63, 48);
             this.textBoxApellido.Margin = new System.Windows.Forms.Padding(1);
+            this.textBoxApellido.MaxLength = 255;
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(167, 20);
             this.textBoxApellido.TabIndex = 5;

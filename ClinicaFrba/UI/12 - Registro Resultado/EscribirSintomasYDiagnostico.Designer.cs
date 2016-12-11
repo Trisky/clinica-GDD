@@ -43,6 +43,7 @@
             // 
             this.textBoxSintomas.Location = new System.Drawing.Point(85, 18);
             this.textBoxSintomas.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxSintomas.MaxLength = 255;
             this.textBoxSintomas.Multiline = true;
             this.textBoxSintomas.Name = "textBoxSintomas";
             this.textBoxSintomas.Size = new System.Drawing.Size(549, 48);
@@ -52,6 +53,7 @@
             // 
             this.textBoxDiagnostico.Location = new System.Drawing.Point(85, 82);
             this.textBoxDiagnostico.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxDiagnostico.MaxLength = 255;
             this.textBoxDiagnostico.Multiline = true;
             this.textBoxDiagnostico.Name = "textBoxDiagnostico";
             this.textBoxDiagnostico.Size = new System.Drawing.Size(549, 55);
