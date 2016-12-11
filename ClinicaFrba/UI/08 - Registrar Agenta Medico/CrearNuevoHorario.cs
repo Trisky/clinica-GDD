@@ -17,11 +17,14 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
     public partial class CrearNuevoHorario : FormBase
     {
         private List<Tuple<int, int>> lstHorariosDelDia;
+        private ListarAgendaProfesional listarAgendaProfesional;
 
         public string Username { get; set; }
         
-        public CrearNuevoHorario(UsuarioLogeado user)
+        public CrearNuevoHorario(UsuarioLogeado user, ListarAgendaProfesional listarAgendaProfesional)
+
         {
+            ListarAgendaProfesional agendaProfesional = listarAgendaProfesional;
             InitializeComponent();
             UsuarioLogueado = user;
             Username = UsuarioLogueado.UserName;
@@ -31,6 +34,8 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             comboBoxDia = cm.CrearDias(comboBoxDia);
             comboBoxEspecialidad = cm.CrearEspecialidades(comboBoxEspecialidad,user);
         }
+
+        
 
         private void numHoraFin_ValueChanged(object sender, EventArgs e)
         {
@@ -134,6 +139,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
             //por ultimo, escondo el grupo de crear horario y muestro el inicial
             Close();
+            listarAgendaProfesional.RefrescarLista();
             Dispose();
         }
 

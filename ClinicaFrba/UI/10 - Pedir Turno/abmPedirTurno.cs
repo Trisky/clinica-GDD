@@ -46,7 +46,7 @@ namespace ClinicaFrba.Pedir_Turno
             calendarDoctors.MaxSelectionCount = 1;
             ComboBoxManager listaEspecialidades = new ComboBoxManager();
             cmbBoxListadoEspecialidades = listaEspecialidades.CrearEspecialidades(cmbBoxListadoEspecialidades);
-            
+            //calendarDoctors.SelectionStart = StaticUtils.getDateTime();
             calendarDoctors.TodayDate = StaticUtils.getDateTime();
             calendarDoctors.MinDate = StaticUtils.getDateTime();
             Show();
