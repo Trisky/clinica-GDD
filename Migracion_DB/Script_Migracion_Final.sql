@@ -160,9 +160,9 @@ AS
     VALUES(@turno, @fecha_confirmada, @paciente_id, @medico, @especialidad)
 	
 	INSERT INTO [GRUPOSA].[Consultas]
-           ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Realizada],[Cons_Sintomas],[Cons_Enfermedades],[Cons_Diagnostico])
+           ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Realizada],[Cons_Sintomas],[Cons_Enfermedades],[Cons_Diagnostico],[Cons_Llegada_Registrada])
      VALUES
-		   (@turno, NULL, NULL, @fecha_confirmada, 0, NULL, NULL, NULL)
+		   (@turno, NULL, NULL, @fecha_confirmada, 0, NULL, NULL, NULL, 0)
 		   
 /*	UPDATE GRUPOSA.Bonos
 	SET Bono_Compra_Fecha = @fecha_confirmada
@@ -1289,8 +1289,8 @@ COMMIT TRANSACTION
 	COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
-		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Enfermedades],[Cons_Sintomas])
-		SELECT DISTINCT M.Turno_Numero, M.Bono_Consulta_Numero, M.Bono_Consulta_Fecha_Impresion, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
+		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Enfermedades],[Cons_Sintomas], [Cons_Llegada_Registrada])
+		SELECT DISTINCT M.Turno_Numero, M.Bono_Consulta_Numero, M.Bono_Consulta_Fecha_Impresion, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas,1
 		FROM gd_esquema.Maestra M
 		WHERE M.Turno_Numero IS NOT NULL
 		AND EXISTS (SELECT 1 FROM  gd_esquema.Maestra M2 WHERE M.Turno_Numero = M2.Turno_Numero AND M.Bono_Consulta_Numero IS NOT NULL )
