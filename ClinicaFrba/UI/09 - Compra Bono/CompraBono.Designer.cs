@@ -32,7 +32,6 @@
             this.textBoxPrecio = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownCantidad = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.idPlanMedicoLabel = new System.Windows.Forms.Label();
@@ -43,14 +42,16 @@
             this.radioButtonFarmacia = new System.Windows.Forms.RadioButton();
             this.radioButtonAtencion = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonComprar
             // 
             this.buttonComprar.Enabled = false;
-            this.buttonComprar.Location = new System.Drawing.Point(42, 148);
+            this.buttonComprar.Location = new System.Drawing.Point(314, 123);
             this.buttonComprar.Margin = new System.Windows.Forms.Padding(1);
             this.buttonComprar.Name = "buttonComprar";
             this.buttonComprar.Size = new System.Drawing.Size(161, 31);
@@ -61,7 +62,7 @@
             // 
             // textBoxPrecio
             // 
-            this.textBoxPrecio.Location = new System.Drawing.Point(21, 35);
+            this.textBoxPrecio.Location = new System.Drawing.Point(120, 17);
             this.textBoxPrecio.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxPrecio.Name = "textBoxPrecio";
             this.textBoxPrecio.Size = new System.Drawing.Size(99, 20);
@@ -70,7 +71,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 50);
+            this.label1.Location = new System.Drawing.Point(15, 25);
             this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
@@ -81,27 +82,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 21);
+            this.label2.Location = new System.Drawing.Point(45, 20);
             this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Precio total";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(56, 19);
-            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(135, 20);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Compra de bonos";
+            this.label2.Text = "Precio Total: $";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // numericUpDownCantidad
             // 
-            this.numericUpDownCantidad.Location = new System.Drawing.Point(108, 48);
+            this.numericUpDownCantidad.Location = new System.Drawing.Point(68, 22);
             this.numericUpDownCantidad.Margin = new System.Windows.Forms.Padding(1);
             this.numericUpDownCantidad.Name = "numericUpDownCantidad";
             this.numericUpDownCantidad.Size = new System.Drawing.Size(95, 20);
@@ -111,17 +102,17 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 231);
+            this.label5.Location = new System.Drawing.Point(27, 132);
             this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 13);
+            this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 10;
-            this.label5.Text = "id planMedico =";
+            this.label5.Text = "Su Plan Medico es:";
             // 
             // idPlanMedicoLabel
             // 
             this.idPlanMedicoLabel.AutoSize = true;
-            this.idPlanMedicoLabel.Location = new System.Drawing.Point(90, 231);
+            this.idPlanMedicoLabel.Location = new System.Drawing.Point(128, 132);
             this.idPlanMedicoLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.idPlanMedicoLabel.Name = "idPlanMedicoLabel";
             this.idPlanMedicoLabel.Size = new System.Drawing.Size(35, 13);
@@ -132,27 +123,27 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 78);
+            this.label6.Location = new System.Drawing.Point(18, 52);
             this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 13);
+            this.label6.Size = new System.Drawing.Size(123, 13);
             this.label6.TabIndex = 12;
-            this.label6.Text = "precio bono farmacia:";
+            this.label6.Text = "Precio Bono Farmacia: $";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 93);
+            this.label7.Location = new System.Drawing.Point(19, 72);
             this.label7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(110, 13);
+            this.label7.Size = new System.Drawing.Size(122, 13);
             this.label7.TabIndex = 13;
-            this.label7.Text = "precio bono atencion;";
+            this.label7.Text = "Precio Bono Atencion; $";
             // 
             // precioFarmaciaLabel
             // 
             this.precioFarmaciaLabel.AutoSize = true;
-            this.precioFarmaciaLabel.Location = new System.Drawing.Point(137, 78);
+            this.precioFarmaciaLabel.Location = new System.Drawing.Point(138, 51);
             this.precioFarmaciaLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.precioFarmaciaLabel.Name = "precioFarmaciaLabel";
             this.precioFarmaciaLabel.Size = new System.Drawing.Size(39, 13);
@@ -163,7 +154,7 @@
             // precioAtencionLabel
             // 
             this.precioAtencionLabel.AutoSize = true;
-            this.precioAtencionLabel.Location = new System.Drawing.Point(137, 93);
+            this.precioAtencionLabel.Location = new System.Drawing.Point(138, 72);
             this.precioAtencionLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.precioAtencionLabel.Name = "precioAtencionLabel";
             this.precioAtencionLabel.Size = new System.Drawing.Size(40, 13);
@@ -173,7 +164,7 @@
             // radioButtonFarmacia
             // 
             this.radioButtonFarmacia.AutoSize = true;
-            this.radioButtonFarmacia.Location = new System.Drawing.Point(59, 81);
+            this.radioButtonFarmacia.Location = new System.Drawing.Point(18, 53);
             this.radioButtonFarmacia.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonFarmacia.Name = "radioButtonFarmacia";
             this.radioButtonFarmacia.Size = new System.Drawing.Size(93, 17);
@@ -186,7 +177,7 @@
             // radioButtonAtencion
             // 
             this.radioButtonAtencion.AutoSize = true;
-            this.radioButtonAtencion.Location = new System.Drawing.Point(59, 100);
+            this.radioButtonAtencion.Location = new System.Drawing.Point(18, 77);
             this.radioButtonAtencion.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonAtencion.Name = "radioButtonAtencion";
             this.radioButtonAtencion.Size = new System.Drawing.Size(95, 17);
@@ -204,33 +195,44 @@
             this.groupBox1.Controls.Add(this.precioAtencionLabel);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxPrecio);
-            this.groupBox1.Location = new System.Drawing.Point(302, 64);
+            this.groupBox1.Location = new System.Drawing.Point(276, 20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 115);
+            this.groupBox1.Size = new System.Drawing.Size(233, 99);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Precios";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.radioButtonAtencion);
+            this.groupBox2.Controls.Add(this.numericUpDownCantidad);
+            this.groupBox2.Controls.Add(this.radioButtonFarmacia);
+            this.groupBox2.Location = new System.Drawing.Point(12, 19);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(257, 100);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Seleccione la cantidad de bonos a comprar";
             // 
             // CompraBono
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 253);
+            this.ClientSize = new System.Drawing.Size(521, 170);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.radioButtonAtencion);
-            this.Controls.Add(this.radioButtonFarmacia);
             this.Controls.Add(this.idPlanMedicoLabel);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDownCantidad);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonComprar);
+            this.Controls.Add(this.groupBox2);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "CompraBono";
-            this.Text = "Form1";
+            this.Text = "Compra de Bonos";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,7 +244,6 @@
         private System.Windows.Forms.TextBox textBoxPrecio;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownCantidad;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label idPlanMedicoLabel;
@@ -253,5 +254,6 @@
         private System.Windows.Forms.RadioButton radioButtonFarmacia;
         private System.Windows.Forms.RadioButton radioButtonAtencion;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

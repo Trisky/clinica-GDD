@@ -164,11 +164,11 @@ AS
      VALUES
 		   (@turno, NULL, NULL, @fecha_confirmada, 0, NULL, NULL, NULL)
 		   
-	UPDATE GRUPOSA.Bonos
-	SET Bono_Fecha_Compra_Usado = @fecha_confirmada
+/*	UPDATE GRUPOSA.Bonos
+	SET Bono_Compra_Fecha = @fecha_confirmada
 	WHERE Bono_Id = (SELECT MAX(Bono_Id) FROM GRUPOSA.bonos 
 					 WHERE Bono_Paci_Id = @paciente_id 
-					 AND Bono_Fecha_Compra_Usado IS NULL)
+					 AND Bono_Compra_Fecha IS NULL) */
 
 	END 
 GO
@@ -501,17 +501,9 @@ GO
 --sp_turnosMedicosDisponibles: Devuelve los turnos disponibles del dia.
 CREATE PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR(255), @especialidad VARCHAR(255),@id_medico VARCHAR(255))
 AS
-DECLARE @mediId VARCHAR(255);
-DECLARE @mediEspecialidad VARCHAR(255);
-DECLARE @existeUnRegistro NUMERIC(18,0);
-
 BEGIN
 	
-	SELECT @existeUnRegistro = COUNT(*) FROM GRUPOSA.CancelacionesMedicas CM
-	WHERE CM.Canc_Medico = @id_medico
-	
-	IF (@existeUnRegistro > 0)
-		BEGIN
+	BEGIN 
 
 			SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
 			WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
@@ -525,34 +517,13 @@ BEGIN
 								 WHERE HI.Hora_Medico_Id_FK = @id_medico
 								 AND HI.Hora_Especialidad = @especialidad
 								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
-			AND CAST(@diaConsultado AS DATE) NOT BETWEEN CAST(CM.Canc_Desde AS DATE) AND CAST(CM.Canc_Hasta AS DATE)
-		
-		
-		END
-	
-	ELSE
-	
-		BEGIN 
-
-			SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
-			WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
-										WHERE TU.Turn_Medico_Id = @id_medico
-										AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C)
-										AND TU.Turn_Especialidad = @especialidad
-										AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
-										AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
-										AND TU.Turn_Especialidad = HA.Hora_Especialidad)
-			AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
-								 WHERE HI.Hora_Medico_Id_FK = @id_medico
-								 AND HI.Hora_Especialidad = @especialidad
-								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
-		END
+	END
 		
 END
 GO
 --------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------
-CREATE PROCEDURE [GRUPOSA].[sp_cerrarConsulta] (@turnoId NUMERIC(18,0), @diagnostico VARCHAR(255), @enfermedad VARCHAR(255), @sintomas VARCHAR(250), @idBono NUMERIC (18,0), @fechaHoy DATETIME)
+CREATE PROCEDURE [GRUPOSA].[sp_cerrarConsulta] (@turnoId NUMERIC(18,0), @diagnostico VARCHAR(255), @enfermedad VARCHAR(255), @sintomas VARCHAR(250), @idPaciente VARCHAR(255), @fechaHoy DATETIME)
 AS
 BEGIN
 	
@@ -560,10 +531,17 @@ BEGIN
 	SET Cons_Diagnostico = @diagnostico,
 		Cons_Sintomas = @sintomas,
 		Cons_Enfermedades = @enfermedad,
-		Cons_Id_Bono = @idBono,
+		Cons_Id_Bono = (SELECT TOP 1 Bono_Id FROM GRUPOSA.Bonos WHERE Bono_Consulta_Numero IS NULL AND Bono_Paci_Id = @idPaciente),
 		Cons_Bono_Fecha = @fechaHoy,
 		Cons_Realizada = 1
 	WHERE Cons_Id_Turno = @turnoId
+	
+	UPDATE GRUPOSA.Bonos
+	SET Bono_Fecha_Impresion = @fechaHoy,
+		Bono_expirado = 1,
+		Bono_Consulta_Numero = (SELECT (MAX(Bono_Consulta_Numero) + 1) FROM GRUPOSA.Bonos WHERE Bono_Paci_Id = @idPaciente)
+	WHERE Bono_Consulta_Numero IS NULL
+	AND Bono_Paci_Id = @idPaciente
 	
 END
 GO
@@ -663,11 +641,11 @@ CREATE PROCEDURE [GRUPOSA].[sp_comprarBono]
 	@PaciId			VARCHAR(250),
 	@PaciPlan 		VARCHAR(255),
 	@fechaHoy 		VARCHAR(250),
-	@cantidadBonos	VARCHAR(250)
+	@cantidadBonos	VARCHAR(250),
+	@total			VARCHAR(250)
 AS 
 	DECLARE @cant 		NUMERIC(18,0);
 	DECLARE @hoy  		DATETIME;
-	DECLARE @bonoNumero NUMERIC(18,0);
 	DECLARE @forTime	NUMERIC(18,0);
 
 BEGIN
@@ -676,23 +654,19 @@ BEGIN
 	SET @cant = CAST (@cantidadBonos AS NUMERIC(18,0));
 	SET @forTime = 0;
 	
+	INSERT INTO [GRUPOSA].[CompraBonos]
+           ([Comp_Cantidad],[Comp_Total],[Comp_Usuario],[Comp_Fecha])
+    VALUES(@cantidadBonos, @total , @PaciId, @hoy);
+
 	WHILE @forTime < @cant
 	BEGIN
 
-		SELECT @bonoNumero = MAX(Bono_Consulta_Numero)+ 1 
-		FROM GRUPOSA.Bonos
-
 		BEGIN TRANSACTION
 			INSERT INTO [GRUPOSA].[Bonos]
-			([Bono_Paci_Id],[Bono_Plan],[Bono_Fecha_Impresion],[Bono_Fecha_Compra_Usado],
-			 [Bono_Consulta_Numero],[Bono_expirado],[Bono_Numero_GrupoFamiliar])
+			([Bono_Paci_Id],[Bono_Plan],[Bono_Compra_Fecha],[Bono_expirado],[Bono_Numero_GrupoFamiliar])
 			VALUES
-			(@PaciId, @PaciPlan, @hoy, NULL, @bonoNumero, 0, SUBSTRING(@PaciId,1,6))
-		
-			UPDATE GRUPOSA.Bonos
-			SET bono_expirado = 1
-			WHERE Bono_Fecha_Impresion < @fechaHoy
-			
+			(@PaciId, @PaciPlan, @hoy, 0, SUBSTRING(@PaciId,1,6))
+				
 		COMMIT TRANSACTION
 
 		SET @forTime = @forTime + 1;
@@ -1005,12 +979,12 @@ CREATE TABLE [GRUPOSA].[Bonos]
 	(
 		[Bono_Id] NUMERIC(18,0) IDENTITY(1,1) NOT NULL,
 		[Bono_Paci_Id] [VARCHAR](255) NOT NULL,
-		[Bono_Plan] [NUMERIC](18, 0) NULL,
-		[Bono_Fecha_Impresion] [DATETIME] NULL,		
-		[Bono_Fecha_Compra_Usado] [DATETIME] NULL,
-		[Bono_Consulta_Numero] [NUMERIC](18, 0) NOT NULL,
-		[Bono_expirado] [BIT] DEFAULT 0,
 		[Bono_Numero_GrupoFamiliar] [VARCHAR](255) NOT NULL,
+		[Bono_Plan] [NUMERIC](18, 0) NOT NULL,
+		[Bono_Consulta_Numero] [NUMERIC](18, 0) NULL,
+		[Bono_Fecha_Impresion] [DATETIME] NULL,		
+		[Bono_Compra_Fecha] [DATETIME] NULL,
+		[Bono_expirado] [BIT] DEFAULT 0,
 		
 		CONSTRAINT [PK_Bonos] PRIMARY KEY CLUSTERED ( [Bono_Id] ASC )
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -1031,6 +1005,19 @@ CREATE TABLE [GRUPOSA].[CancelacionesMedicas]
 		CONSTRAINT [PK_Canc_Med_Id] PRIMARY KEY CLUSTERED ([Canc_Id] ASC)
 		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 	) ON [PRIMARY]
+
+CREATE TABLE [GRUPOSA].[CompraBonos]
+	(
+		[Comp_Id] 					[NUMERIC](18, 0) IDENTITY(1,1),
+		[Comp_Cantidad] 			[VARCHAR](255),
+		[Comp_Total]		 		[VARCHAR](255),
+		[Comp_Usuario] 				[VARCHAR](255),
+		[Comp_Fecha]				[DATETIME],
+					
+		CONSTRAINT [PK_Comp_Id] PRIMARY KEY CLUSTERED ([Comp_Id] ASC)
+		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
+
 	
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1285,14 +1272,14 @@ COMMIT TRANSACTION
 	BEGIN TRANSACTION
 	
 		INSERT INTO [GRUPOSA].[Bonos] 
-		([Bono_Paci_Id],[Bono_Plan],[Bono_Fecha_Compra_Usado],[Bono_Fecha_Impresion],[Bono_Consulta_Numero],[Bono_Numero_GrupoFamiliar])
+		([Bono_Paci_Id],[Bono_Plan],[Bono_Compra_Fecha],[Bono_Fecha_Impresion],[Bono_Consulta_Numero],[Bono_Numero_GrupoFamiliar])
 		SELECT DISTINCT P.Paci_Matricula, M.Plan_Med_Codigo, M.Compra_Bono_Fecha, M.Bono_Consulta_Fecha_Impresion, Bono_Consulta_Numero, SUBSTRING(P.Paci_Matricula,1,6)
 		FROM GRUPOSA.Paciente P JOIN gd_esquema.Maestra M ON (P.Paci_Dni = M.Paciente_Dni)
 		WHERE Bono_Consulta_Numero IS NOT NULL
 
 		UPDATE GRUPOSA.Bonos
 		SET bono_expirado = 1
-		WHERE bono_fecha_compra_usado IS NOT NULL
+		WHERE Bono_Fecha_Impresion IS NOT NULL
 		OR Bono_Consulta_Numero IN (SELECT Bono_Consulta_Numero FROM gd_esquema.Maestra M 
 									WHERE M.Bono_Consulta_Fecha_Impresion < Turno_Fecha);	
 	
@@ -1300,7 +1287,7 @@ COMMIT TRANSACTION
 	
 	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[Consultas] ([Cons_Id_Turno],[Cons_Id_Bono],[Cons_Bono_Fecha],[Cons_Fecha_Turno],[Cons_Enfermedades],[Cons_Sintomas])
-		SELECT M.Turno_Numero, M.Bono_Consulta_Numero, M.Compra_Bono_Fecha, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
+		SELECT M.Turno_Numero, M.Bono_Consulta_Numero, M.Bono_Consulta_Fecha_Impresion, M.Turno_Fecha, M.Consulta_Enfermedades, M.Consulta_Sintomas
 		FROM gd_esquema.Maestra M
 		WHERE M.Turno_Numero IS NOT NULL
 	COMMIT TRANSACTION
@@ -1308,7 +1295,7 @@ COMMIT TRANSACTION
 	BEGIN TRANSACTION
 		INSERT INTO [GRUPOSA].[TurnosCancelacion] 
 		([Cancelacion_Tipo],[Cancelacion_Turno_Id],[Cancelacion_Motivo],[Cancelacion_Fecha])
-		SELECT 1, M.Turno_Numero, 'Cancelada por vencimiento de Bono', M.Turno_Fecha - 2
+		SELECT 1, M.Turno_Numero, 'Cancelacion telefonica. Se toma como consulta realizada y se marca fecha de impresion Bono', M.Turno_Fecha - 2
 		FROM gd_esquema.Maestra M 
 		WHERE M.Bono_Consulta_Fecha_Impresion < Turno_Fecha
 
@@ -1424,5 +1411,9 @@ BEGIN TRANSACTION
 	ALTER TABLE GRUPOSA.CancelacionesMedicas ADD CONSTRAINT FK_Medicos FOREIGN KEY
 	(Canc_Medico) REFERENCES GRUPOSA.Medico (Medi_id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
+	ALTER TABLE GRUPOSA.CompraBonos ADD CONSTRAINT FK_Compra_Usuario FOREIGN KEY
+	(Comp_Usuario) REFERENCES GRUPOSA.Paciente (Paci_Matricula) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	
 	
 COMMIT TRANSACTION
