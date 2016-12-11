@@ -532,7 +532,7 @@ BEGIN
 	UPDATE GRUPOSA.Consultas
     SET cons_Llegada_Registrada = 1 
     WHERE Cons_Id_Turno = @turnoId 
-    AND turn_paciente_id = (SELECT paci_matricula FROM GRUPOSA.Paciente WHERE paci_usuario = @usuario))
+    AND turn_paciente_id = @idPaciente
 	
 	UPDATE GRUPOSA.Bonos
 	SET Bono_expirado = 1
