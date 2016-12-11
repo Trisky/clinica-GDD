@@ -88,7 +88,7 @@
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Precio Total: $";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+//            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // numericUpDownCantidad
             // 
