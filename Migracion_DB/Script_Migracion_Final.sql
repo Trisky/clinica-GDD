@@ -501,11 +501,22 @@ GO
 
 ---------------------------------------------------------------------------------------------
 --sp_turnosMedicosDisponibles: Devuelve los turnos disponibles del dia.
-CREATE PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR(255), @especialidad VARCHAR(255),@id_medico VARCHAR(255))
+CREATE  PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR(255), @especialidad VARCHAR(255),@id_medico VARCHAR(255))
 AS
+DECLARE @existeUnRegistro NUMERIC(18,0);
+DECLARE @desde DATE;
+DECLARE @hasta DATE;
 BEGIN
 	
-	BEGIN 
+	SELECT @existeUnRegistro = COUNT(*) FROM GRUPOSA.CancelacionesMedicas CM
+	WHERE CM.Canc_Medico = @id_medico
+	
+	IF (@existeUnRegistro > 0)
+		BEGIN
+			
+			SELECT @desde = CM.Canc_Desde , @hasta = CM.Canc_Hasta FROM GRUPOSA.CancelacionesMedicas CM
+			WHERE CM.Canc_Medico = @id_medico
+
 
 			SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
 			WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
@@ -519,7 +530,28 @@ BEGIN
 								 WHERE HI.Hora_Medico_Id_FK = @id_medico
 								 AND HI.Hora_Especialidad = @especialidad
 								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
-	END
+			AND CAST(@diaConsultado AS DATE) NOT BETWEEN CAST(@desde AS DATE) AND CAST(@hasta AS DATE)
+		
+		
+		END
+	
+	ELSE
+	
+		BEGIN 
+
+			SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
+			WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
+										WHERE TU.Turn_Medico_Id = @id_medico
+										AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C)
+										AND TU.Turn_Especialidad = @especialidad
+										AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
+										AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
+										AND TU.Turn_Especialidad = HA.Hora_Especialidad)
+			AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
+								 WHERE HI.Hora_Medico_Id_FK = @id_medico
+								 AND HI.Hora_Especialidad = @especialidad
+								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
+		END
 		
 END
 GO
@@ -1028,7 +1060,7 @@ GO
 
 CREATE TABLE [GRUPOSA].[CancelacionesMedicas]
 	(
-		[Canc_Id] 					[NUMERIC](18, 0),
+		[Canc_Id] 					[NUMERIC](18, 0) IDENTITY(1,1),
 		[Canc_Desde] 				[DATE] NOT NULL,
 		[Canc_Hasta]		 		[DATE] NOT NULL,
 		[Canc_Medico] 				[VARCHAR](255),
