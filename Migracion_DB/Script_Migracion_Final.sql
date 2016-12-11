@@ -503,23 +503,51 @@ CREATE PROCEDURE [GRUPOSA].[sp_turnosMedicosDisponibles] (@diaConsultado VARCHAR
 AS
 DECLARE @mediId VARCHAR(255);
 DECLARE @mediEspecialidad VARCHAR(255);
+DECLARE @existeUnRegistro NUMERIC(18,0);
 
 BEGIN
+	
+	SELECT @existeUnRegistro = COUNT(*) FROM GRUPOSA.CancelacionesMedicas CM
+	WHERE CM.Canc_Medico = @id_medico
+	
+	IF (@existeUnRegistro > 0)
+		BEGIN
 
-SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
-WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
-							WHERE TU.Turn_Medico_Id = @id_medico
-							AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C WHERE Cancelacion_Tipo <> 2)
-							AND TU.Turn_Especialidad = @especialidad
-							AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
-							AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
-							AND TU.Turn_Especialidad = HA.Hora_Especialidad)
+			SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
+			WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
+										WHERE TU.Turn_Medico_Id = @id_medico
+										AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C)
+										AND TU.Turn_Especialidad = @especialidad
+										AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
+										AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
+										AND TU.Turn_Especialidad = HA.Hora_Especialidad)
+			AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
+								 WHERE HI.Hora_Medico_Id_FK = @id_medico
+								 AND HI.Hora_Especialidad = @especialidad
+								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
+			AND CAST(@diaConsultado AS DATE) NOT BETWEEN CAST(CM.Canc_Desde AS DATE) AND CAST(CM.Canc_Hasta AS DATE)
+		
+		
+		END
+	
+	ELSE
+	
+		BEGIN 
 
-AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
-					 WHERE HI.Hora_Medico_Id_FK = @id_medico
-					 AND HI.Hora_Especialidad = @especialidad
-					 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
-
+			SELECT HT.hora_turno FROM GRUPOSA.TurnosDisponible HT
+			WHERE HT.hora_turno NOT IN (SELECT CAST(TU.turn_fecha AS TIME) FROM GRUPOSA.Turnos TU, GRUPOSA.HorariosAtencion HA 
+										WHERE TU.Turn_Medico_Id = @id_medico
+										AND TU.turn_numero NOT IN (SELECT Cancelacion_Turno_Id FROM GRUPOSA.TurnosCancelacion C)
+										AND TU.Turn_Especialidad = @especialidad
+										AND CAST(TU.turn_fecha AS DATE) = CAST(@diaConsultado AS DATE)
+										AND TU.Turn_Medico_Id = HA.Hora_Medico_Id_FK
+										AND TU.Turn_Especialidad = HA.Hora_Especialidad)
+			AND HT.hora_turno < (SELECT CAST(HI.Hora_Fin AS TIME) FROM GRUPOSA.HorariosAtencion HI
+								 WHERE HI.Hora_Medico_Id_FK = @id_medico
+								 AND HI.Hora_Especialidad = @especialidad
+								 AND HI.Hora_Dia = DATENAME(WEEKDAY, @diaConsultado))
+		END
+		
 END
 GO
 --------------------------------------------------------------------------------------------------------------------
@@ -582,6 +610,7 @@ CREATE PROCEDURE [GRUPOSA].[sp_bajaTurnosMedico]
 	@motivo 	VARCHAR(255)
 AS
 DECLARE @fecha DATETIME;
+DECLARE @existeUnRegistro NUMERIC(18,0);
 BEGIN
 
 	SET @fecha = CAST(@fechaHoy AS DATE);
@@ -592,6 +621,23 @@ BEGIN
 	WHERE Turn_Medico_Id = @idMedico
 	AND CAST(Turn_Fecha AS DATE) BETWEEN CAST(@fechaDesde AS DATE) AND CAST(@fechaHasta AS DATE)
 	
+	
+	SELECT @existeUnRegistro = COUNT(*) FROM GRUPOSA.CancelacionesMedicas CM
+	WHERE CM.Canc_Medico = @idMedico
+	
+	IF (@existeUnRegistro > 0)
+		BEGIN
+			UPDATE GRUPOSA.CancelacionesMedicas
+			SET Canc_Desde = @fechaDesde,
+				Canc_Hasta = @fechaHasta
+			WHERE Canc_Medico = @idMedico
+		END
+	ELSE
+		BEGIN
+			INSERT INTO [GRUPOSA].[CancelacionesMedicas]([Canc_Desde],[Canc_Hasta],[Canc_Medico])
+			VALUES (@fechaDesde, @fechaHasta, @idMedico)
+		END
+		   
 END	   
 GO
 
@@ -974,6 +1020,17 @@ CREATE TABLE [GRUPOSA].[TurnosDisponible](
 	[HORA_TURNO] [time](7) NULL
 ) ON [PRIMARY]
 GO
+
+CREATE TABLE [GRUPOSA].[CancelacionesMedicas]
+	(
+		[Canc_Id] 					[NUMERIC](18, 0),
+		[Canc_Desde] 				[DATE] NOT NULL,
+		[Canc_Hasta]		 		[DATE] NOT NULL,
+		[Canc_Medico] 				[VARCHAR](255),
+					
+		CONSTRAINT [PK_Canc_Med_Id] PRIMARY KEY CLUSTERED ([Canc_Id] ASC)
+		WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]
 	
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1364,4 +1421,8 @@ BEGIN TRANSACTION
 	ALTER TABLE GRUPOSA.Consultas ADD CONSTRAINT FK_Consultas_Turnos FOREIGN KEY
 	(Cons_Id_Turno) REFERENCES GRUPOSA.Turnos (Turn_Numero) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
 
+	ALTER TABLE GRUPOSA.CancelacionesMedicas ADD CONSTRAINT FK_Medicos FOREIGN KEY
+	(Canc_Medico) REFERENCES GRUPOSA.Medico (Medi_id) ON UPDATE  NO ACTION ON DELETE  NO ACTION 
+
+	
 COMMIT TRANSACTION
