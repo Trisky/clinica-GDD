@@ -62,6 +62,25 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void buttonNuevoHorario_Click(object sender, EventArgs e)
         {
+
+            TipoUsuarioEnum.DiaSemana s = (TipoUsuarioEnum.DiaSemana)comboBoxDia.SelectedValue;
+            int dia = (int)s;
+            Conexion con = new Conexion();
+            SqlCommand cmd2 = con.CrearComandoQuery(@"  select 1 from [GD2C2016].[GRUPOSA].[HorariosAtencion] 
+            where Hora_Medico_Id_FK = @medico and Hora_Dia = datename(weekday,@dia)");
+            cmd2.Parameters.Add("@medico", SqlDbType.VarChar).Value = UsuarioLogueado.MedicoMatricula;
+            cmd2.Parameters.Add("@dia", SqlDbType.Decimal).Value = dia;
+            DataTable dt2 = con.ExecConsulta(cmd2);
+
+            if (dt2.Rows.Count > 0) {
+                MessageBox.Show("Ya posee una agenda abierta este día", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+
+
+
             int horaInicio =( Convert.ToInt32(numHoraInicio.Value.ToString())) * 100;
             int horaFin = (Convert.ToInt32(numHoraFin.Value.ToString())) * 100;
             int minutosInicio =Convert.ToInt32(numMinutoInicio.Value.ToString());
@@ -69,9 +88,6 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
             int horaMilitarInicio = horaInicio + minutosInicio;
             int horaMilitarFin = horaFin + minutosFin;
-
-
-
 
             if (horaMilitarInicio > horaMilitarFin)
             {
@@ -85,7 +101,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
             }
 
-            Conexion con = new Conexion();
+
             SqlCommand cmd1 = con.CrearComandoQuery(@"select isnull(sum(DATEDIFF(MINUTE,h.Hora_Inicio, h.Hora_Fin)),0) as horas 
             from gruposa.HorariosAtencion h join gruposa.Medico m on h.Hora_Medico_Id_FK = m.Medi_Id
             where m.Medi_Id =@medico ");
@@ -115,8 +131,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             string inicio = checkEntre0y9(numHoraInicio.Value.ToString()) + ":" + checkEntre0y9( numMinutoInicio.Value.ToString());
             string fin = checkEntre0y9(numHoraFin.Value.ToString()) + ":" + checkEntre0y9(numMinutoFin.Value.ToString());
 
-            TipoUsuarioEnum.DiaSemana s = (TipoUsuarioEnum.DiaSemana)comboBoxDia.SelectedValue;
-            int dia = (int)s;
+            
 
             try
             {

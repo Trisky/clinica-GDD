@@ -25,6 +25,9 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             //comboBoxDia = cm.CrearDias(comboBoxDia);
 
             int horas  = CheckIfMasDe48hs();
+            //No me salia el modulo
+            if (horas < 0) {horas = horas * (-1);}
+
             double horarioMuestra = (Double)horas / (Double)60;
 
             label3.Text = Convert.ToString(horarioMuestra) + "Hs.";
