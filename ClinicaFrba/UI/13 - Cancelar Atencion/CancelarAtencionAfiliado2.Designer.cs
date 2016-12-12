@@ -30,9 +30,6 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxMotivo = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.gbFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -40,9 +37,6 @@
             // gbFiltros
             // 
             this.gbFiltros.Controls.Add(this.label1);
-            this.gbFiltros.Controls.Add(this.radioButton3);
-            this.gbFiltros.Controls.Add(this.radioButton2);
-            this.gbFiltros.Controls.Add(this.radioButton1);
             this.gbFiltros.Controls.Add(this.textBoxMotivo);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Size = new System.Drawing.Size(930, 105);
@@ -50,9 +44,6 @@
             this.gbFiltros.Controls.SetChildIndex(this.btnLimpiar, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.textBoxMotivo, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.radioButton1, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.radioButton2, 0);
-            this.gbFiltros.Controls.SetChildIndex(this.radioButton3, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
             // 
             // btnBuscar
@@ -96,42 +87,6 @@
             this.textBoxMotivo.TabIndex = 4;
             this.textBoxMotivo.TextChanged += new System.EventHandler(this.textBoxMotivo_TextChanged);
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(235, 26);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(94, 17);
-            this.radioButton1.TabIndex = 5;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Motivo medico";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(138, 26);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(91, 17);
-            this.radioButton2.TabIndex = 6;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Motivo laboral";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(335, 26);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(101, 17);
-            this.radioButton3.TabIndex = 7;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Motivo Personal";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -159,8 +114,5 @@
         private System.Windows.Forms.TextBox textBoxMotivo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

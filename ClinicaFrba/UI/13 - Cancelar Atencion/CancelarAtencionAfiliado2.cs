@@ -25,7 +25,6 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
             btnLimpiar.Visible = btnBuscar.Visible = false;
             UsuarioLogueado = user;
             PopularTabla();
-            radioButton1.Checked = true;
             btnSeleccionar.Text = "Cancelar turno seleccionado";
             btnSeleccionar.Visible = true;
             Show();
@@ -64,7 +63,6 @@ namespace ClinicaFrba.UI._13___Cancelar_Atencion
 
             cmd.Parameters.Add("@tipo", SqlDbType.NVarChar).Value = 1;//TODO cambiar por un string
             //cmd.Parameters.Add("@tipo", SqlDbType.VarChar).Value = motivoRound;
-            MessageBox.Show("Esto deberia ser un string pero estoy mandando un int xq asi esta en la base");
 
 
             cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
