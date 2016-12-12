@@ -246,6 +246,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
 
         private void comboEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboEspecialidades.SelectedIndex == 0)
+                return;
            string especialidadSeleccionada = comboEspecialidades.SelectedValue.ToString();
             MostrarEspecialidad(especialidadSeleccionada);
 
