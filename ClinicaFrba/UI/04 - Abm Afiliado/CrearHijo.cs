@@ -42,6 +42,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             {
                 groupBoxCrear.Text = buttonCrearHijo.Text = "crear concubino";
             }
+            radioButtonFemenino.Checked = true;
 
         }
 
