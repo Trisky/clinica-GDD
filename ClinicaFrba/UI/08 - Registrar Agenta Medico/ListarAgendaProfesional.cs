@@ -24,15 +24,20 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             //ComboBoxManager cm = new ComboBoxManager();
             //comboBoxDia = cm.CrearDias(comboBoxDia);
 
-            int horas  = CheckIfMasDe48hs();
+            MostrarHorasTrabajadas();
+            Show();
+
+        }
+
+        private void MostrarHorasTrabajadas()
+        {
+            int horas = CheckIfMasDe48hs();
             //No me salia el modulo
-            if (horas < 0) {horas = horas * (-1);}
+            if (horas < 0) { horas = horas * (-1); }
 
             double horarioMuestra = (Double)horas / (Double)60;
 
             label3.Text = Convert.ToString(horarioMuestra) + "Hs.";
-            Show();
-
         }
 
         private void comboBoxDia_SelectedIndexChanged(object sender, EventArgs e)
