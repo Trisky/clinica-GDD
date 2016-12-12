@@ -14,13 +14,16 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.UI._14___Listados
 {
-    public partial class HistorialCambiosDePlan : FormularioListadoBase
+    public partial class 
+        HistorialCambiosDePlan : FormularioListadoBase
     {
         public HistorialCambiosDePlan( )
         {
-
+            
             InitializeComponent();
             btnEliminar.Visible = false;
+            label1.Visible = false;
+            textBoxUsername.Visible = false;
             PopularTabla();
             Show();
         }
@@ -44,7 +47,8 @@ namespace ClinicaFrba.UI._14___Listados
                     from GRUPOSA.Auditoria_Plan";
             if (textBoxUsername.Text != "")
             {
-                 q =q+ @"where Auditoria_Usuario like '@usuario' ";
+                q = q + @"where upper((SELECT concat(Paci_nombre,' ',Paci_Apellido) FROM [GD2C2016].[GRUPOSA].[Paciente]
+                          where Paci_Matricula = [Auditoria_Usuario])) like upper('%@paci_usuario%') ";
 
             }
             
