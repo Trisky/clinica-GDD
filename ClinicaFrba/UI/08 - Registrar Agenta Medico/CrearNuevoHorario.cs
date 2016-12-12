@@ -78,7 +78,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
                 MessageBox.Show("¡error, hora de inicio debe ser anterio a la de fin!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (Convert.ToInt32(comboBoxDia.SelectedValue) == 5 && horaMilitarFin > 150)
+            if (Convert.ToInt32(comboBoxDia.SelectedValue) == 5 && horaMilitarFin > 1500)
             {
                 MessageBox.Show("¡Los SABADOS solo esta abierto hasta las 15, su horario fin fue mayor!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -139,7 +139,7 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
             //por ultimo, escondo el grupo de crear horario y muestro el inicial
             Close();
-            listarAgendaProfesional.RefrescarLista();
+            //listarAgendaProfesional.RefrescarLista();
             Dispose();
         }
 

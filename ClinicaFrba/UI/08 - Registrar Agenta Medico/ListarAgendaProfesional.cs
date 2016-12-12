@@ -23,7 +23,11 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             btnBuscar.Visible = btnEliminar.Visible = btnLimpiar.Visible = btnModificar.Visible = false;
             //ComboBoxManager cm = new ComboBoxManager();
             //comboBoxDia = cm.CrearDias(comboBoxDia);
-            CheckIfMasDe48hs();
+
+            int horas  = CheckIfMasDe48hs();
+            double horarioMuestra = (Double)horas / (Double)60;
+
+            label3.Text = Convert.ToString(horarioMuestra) + "Hs.";
             Show();
 
         }
@@ -35,12 +39,13 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            
+            Dispose();
             CrearNuevoHorario nuevoHorario = new CrearNuevoHorario(usuarioLogeado,this);
+       
             nuevoHorario.Show();
         }
 
-        private void CheckIfMasDe48hs()
+        private int CheckIfMasDe48hs()
         {
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoQuery(@"select isnull(sum(DATEDIFF(MINUTE,h.Hora_Inicio, h.Hora_Fin)),0) as horas 
@@ -53,8 +58,8 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
             {
                 MessageBox.Show("¡error, supera las 48hs semanales, no puede agregar mas!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnAgregar.Enabled = false;
-
             }
+            return int.Parse(dt.Rows[0][0].ToString());
         }
 
         //        private DataTable GetAgendaDeldia(int diaSeleccionado)
@@ -94,6 +99,11 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
         {
 
         }

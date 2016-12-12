@@ -31,11 +31,15 @@
             this.buttonVerDia = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.labelIdMedico = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.gbFiltros.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbFiltros
             // 
+            this.gbFiltros.Controls.Add(this.label3);
+            this.gbFiltros.Controls.Add(this.label1);
             this.gbFiltros.Controls.Add(this.labelIdMedico);
             this.gbFiltros.Controls.Add(this.label2);
             this.gbFiltros.Controls.Add(this.buttonVerDia);
@@ -46,6 +50,8 @@
             this.gbFiltros.Controls.SetChildIndex(this.buttonVerDia, 0);
             this.gbFiltros.Controls.SetChildIndex(this.label2, 0);
             this.gbFiltros.Controls.SetChildIndex(this.labelIdMedico, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.label1, 0);
+            this.gbFiltros.Controls.SetChildIndex(this.label3, 0);
             // 
             // btnBuscar
             // 
@@ -99,6 +105,25 @@
             this.labelIdMedico.Text = "label3";
             this.labelIdMedico.Click += new System.EventHandler(this.label3_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(178, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Posee horas semanales  de trabajo: ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(199, 45);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "label3";
+            this.label3.Click += new System.EventHandler(this.label3_Click_1);
+            // 
             // ListarAgendaProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,5 +143,7 @@
         private System.Windows.Forms.Button buttonVerDia;
         private System.Windows.Forms.Label labelIdMedico;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
     }
 }
