@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.groupBoxCrear = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBoxEstadoCivil = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxTipoDni = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDNI = new System.Windows.Forms.TextBox();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxEstadoCivil = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.radioButtonFemenino = new System.Windows.Forms.RadioButton();
-            this.label7 = new System.Windows.Forms.Label();
             this.radioButtonMasculino = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.dateTimePickerFechaNacimiento = new System.Windows.Forms.DateTimePicker();
-            this.textBoxTelefono = new System.Windows.Forms.TextBox();
             this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxTelefono = new System.Windows.Forms.TextBox();
             this.textBoxMail = new System.Windows.Forms.TextBox();
             this.textBoxDireccion = new System.Windows.Forms.TextBox();
             this.buttonCrearHijo = new System.Windows.Forms.Button();
@@ -83,6 +83,35 @@
             this.groupBoxCrear.TabIndex = 33;
             this.groupBoxCrear.TabStop = false;
             this.groupBoxCrear.Text = "Adherir Familiar";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(207, -1);
+            this.label9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(185, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Plan Medico: Mismo que el adherente";
+            // 
+            // comboBoxEstadoCivil
+            // 
+            this.comboBoxEstadoCivil.FormattingEnabled = true;
+            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(80, 146);
+            this.comboBoxEstadoCivil.Margin = new System.Windows.Forms.Padding(1);
+            this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
+            this.comboBoxEstadoCivil.Size = new System.Drawing.Size(290, 21);
+            this.comboBoxEstadoCivil.TabIndex = 26;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 149);
+            this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Estado Civil";
             // 
             // label10
             // 
@@ -141,16 +170,6 @@
             this.textBoxNombre.Size = new System.Drawing.Size(291, 20);
             this.textBoxNombre.TabIndex = 14;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(207, -1);
-            this.label9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(185, 13);
-            this.label9.TabIndex = 28;
-            this.label9.Text = "Plan Medico: Mismo que el adherente";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -161,25 +180,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Apellido";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 72);
-            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Mail";
-            // 
-            // comboBoxEstadoCivil
-            // 
-            this.comboBoxEstadoCivil.FormattingEnabled = true;
-            this.comboBoxEstadoCivil.Location = new System.Drawing.Point(80, 146);
-            this.comboBoxEstadoCivil.Margin = new System.Windows.Forms.Padding(1);
-            this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
-            this.comboBoxEstadoCivil.Size = new System.Drawing.Size(290, 21);
-            this.comboBoxEstadoCivil.TabIndex = 26;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -189,26 +189,6 @@
             this.label4.Size = new System.Drawing.Size(108, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Fecha de Nacimiento";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 149);
-            this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 13);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "Estado Civil";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 21);
-            this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Direccion";
             // 
             // radioButtonFemenino
             // 
@@ -221,16 +201,6 @@
             this.radioButtonFemenino.TabStop = true;
             this.radioButtonFemenino.Text = "Fememino";
             this.radioButtonFemenino.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 48);
-            this.label7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 13);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Telefono";
             // 
             // radioButtonMasculino
             // 
@@ -262,16 +232,6 @@
             this.dateTimePickerFechaNacimiento.Size = new System.Drawing.Size(244, 20);
             this.dateTimePickerFechaNacimiento.TabIndex = 22;
             // 
-            // textBoxTelefono
-            // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(62, 45);
-            this.textBoxTelefono.Margin = new System.Windows.Forms.Padding(1);
-            this.textBoxTelefono.MaxLength = 244;
-            this.textBoxTelefono.Name = "textBoxTelefono";
-            this.textBoxTelefono.Size = new System.Drawing.Size(308, 20);
-            this.textBoxTelefono.TabIndex = 18;
-            this.textBoxTelefono.Text = "44554444";
-            // 
             // textBoxApellido
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(79, 44);
@@ -281,6 +241,45 @@
             this.textBoxApellido.Size = new System.Drawing.Size(291, 20);
             this.textBoxApellido.TabIndex = 15;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(31, 72);
+            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Mail";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 21);
+            this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Direccion";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 48);
+            this.label7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(49, 13);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Telefono";
+            // 
+            // textBoxTelefono
+            // 
+            this.textBoxTelefono.Location = new System.Drawing.Point(62, 45);
+            this.textBoxTelefono.Margin = new System.Windows.Forms.Padding(1);
+            this.textBoxTelefono.MaxLength = 244;
+            this.textBoxTelefono.Name = "textBoxTelefono";
+            this.textBoxTelefono.Size = new System.Drawing.Size(308, 20);
+            this.textBoxTelefono.TabIndex = 18;
+            // 
             // textBoxMail
             // 
             this.textBoxMail.Location = new System.Drawing.Point(62, 69);
@@ -289,7 +288,6 @@
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(308, 20);
             this.textBoxMail.TabIndex = 17;
-            this.textBoxMail.Text = "mail@mail.com";
             // 
             // textBoxDireccion
             // 

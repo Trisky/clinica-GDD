@@ -185,7 +185,6 @@
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(232, 20);
             this.textBoxMail.TabIndex = 17;
-            this.textBoxMail.Text = "mail@mail.com";
             // 
             // textBoxTelefono
             // 
@@ -195,7 +194,6 @@
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(231, 20);
             this.textBoxTelefono.TabIndex = 18;
-            this.textBoxTelefono.Text = "44554444";
             // 
             // dateTimePickerFechaNacimiento
             // 
