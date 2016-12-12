@@ -159,6 +159,11 @@ namespace ClinicaFrba.UI.AbmRol
 
                 }
                     else{
+                        if (textBoxNombre.Text == "") {
+                            MessageBox.Show("Debe ingresar un nombre de rol", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
 
                         SqlCommand cmd6 = con.CrearComandoStoreProcedure("sp_AltaRol");
                         cmd6.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textBoxNombre.Text;
@@ -180,7 +185,7 @@ namespace ClinicaFrba.UI.AbmRol
             }
             catch
             {
-                MessageBox.Show("No se guardo el rol correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se guardo el rol correctamente, ya existe un rol con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
