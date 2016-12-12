@@ -179,7 +179,10 @@ namespace ClinicaFrba.UI._08___Registrar_Agenta_Medico
 
         private void comboBoxEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonNuevoHorario.Enabled = true;
+            if (comboBoxEspecialidad.SelectedIndex == 0)
+                buttonNuevoHorario.Enabled = false;
+            else
+                buttonNuevoHorario.Enabled = true;
         }
 
         private void comboBoxDia_SelectedIndexChanged(object sender, EventArgs e)
