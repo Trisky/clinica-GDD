@@ -17,6 +17,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
     {
         private AbmAfiliadoCrear abmAfiliadoCrear;
         private string numeroDePlanMedico;
+        private string dniConyuge;
 
         private CrearHijo(int tailNumber)
         {
@@ -27,6 +28,12 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         /// </summary>
         /// <param name="hijosCount"></param>
         public CrearHijo(int tailNumber,string planMedico, AbmAfiliadoCrear abmAfiliadoCrear) : this(tailNumber)
+        {
+            
+
+        }
+
+        public CrearHijo(int tailNumber, string planMedico, AbmAfiliadoCrear abmAfiliadoCrear, string dniConyugee) : this(tailNumber, planMedico, abmAfiliadoCrear)
         {
             numeroDePlanMedico = planMedico;
 
@@ -44,6 +51,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             }
             radioButtonFemenino.Checked = true;
 
+            dniConyuge = dniConyugee; //se usa para saber si el DNI del afiliado padre se repite entre los hijos/conyuge
         }
 
         public string Matricula { get; private set; }
@@ -52,6 +60,11 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         private bool Validar()
         {
+            if(dniConyuge == textBoxDNI.Text)
+            {
+                MessageBox.Show("¡El DNI no puede repetirse en la familia", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             if (!StaticUtils.esNumerico(textBoxDNI.Text) ||
                 !StaticUtils.esNumerico(textBoxTelefono.Text))
             {

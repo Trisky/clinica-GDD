@@ -123,7 +123,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 if (dialogResult == DialogResult.Yes)
                 {
                     //tiene un concubino o lo q sea, entonces lo agrego:
-                    CrearHijo c = new CrearHijo(2,numeroDePlanMedico,this); //le mando 1 porque es el trailing number del esposo
+                    CrearHijo c = new CrearHijo(2,numeroDePlanMedico,this,textBoxDNI.Text); //le mando 1 porque es el trailing number del esposo
                     Hide();
                 }
             }
@@ -138,7 +138,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             if (cantidadHijos + 3 > numeroHijo)
             {
                 DialogResult dialogResult = MessageBox.Show("¡Te quedan " + cantFaltante + " personas a cargo por crear!", "...", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CrearHijo c = new CrearHijo(numeroHijo,numeroDePlanMedico, this);
+                CrearHijo c = new CrearHijo(numeroHijo,numeroDePlanMedico, this,textBoxDNI.Text);
                 numeroHijo++;
             }
             else
@@ -220,6 +220,11 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
         private bool Validar()
         {
+            if (comboBoxPlanMedico.SelectedValue.ToString() == "-1")
+            {
+                MessageBox.Show("¡Debe seleccionar un plan medico", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             if(!StaticUtils.esNumerico(textBoxDNI.Text)||
                 !StaticUtils.esNumerico(textBoxTelefono.Text))
             {
