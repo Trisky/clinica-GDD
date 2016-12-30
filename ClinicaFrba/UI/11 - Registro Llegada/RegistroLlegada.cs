@@ -150,7 +150,7 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
                     , "Tiene bonos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             BorrarBono(idTurno, idPaciente);
-            elMedicoEs(idMedicoBuscado); //actualizo la tabla
+            //elMedicoEs(idMedicoBuscado); //actualizo la tabla
         }
 
         private static void UstedNoTieneBonos()
