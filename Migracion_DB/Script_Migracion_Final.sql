@@ -27,7 +27,7 @@ AS
 		
 		UPDATE GRUPOSA.[Paciente]
 		SET Paci_estado = 1,
-			Paci_Fecha_Baja = FORMAT(CAST(@fechaHoy AS DATE),'dd/MM/yyyy')
+			Paci_Fecha_Baja = CAST(@fechaHoy AS DATE)
 		WHERE paci_usuario = @usuario;
 	END
 
