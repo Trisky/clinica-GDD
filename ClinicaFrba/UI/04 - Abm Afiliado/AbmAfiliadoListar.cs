@@ -112,8 +112,8 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             else
             {
                 string q = s +
-                             @"and paci_nombre like @paci_nom or
-                                   paci_apellido like @paci_ape";
+                             @"and (paci_nombre like @paci_nom or
+                                   paci_apellido like @paci_ape)";
                 SqlCommand cmd = con.CrearComandoQuery(q);
                 cmd.Parameters.Add(new SqlParameter("@paci_nom", con.ConWildCard(textBoxNombre.Text)));
                 cmd.Parameters.Add(new SqlParameter("@paci_ape", con.ConWildCard(textBoxApellido.Text)));
@@ -196,7 +196,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             {
                 SqlCommand cmd = con.CrearComandoStoreProcedure("sp_bajaAfiliado");
                 cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
-                cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime();
+                cmd.Parameters.Add("@fechaHoy", SqlDbType.DateTime).Value = StaticUtils.getDateTime().Date;
                 con.ExecConsulta(cmd);
 
                 //SqlCommand bajaTurnos = con.CrearComandoStoreProcedure("sp_turnosUsuarioBaja");
