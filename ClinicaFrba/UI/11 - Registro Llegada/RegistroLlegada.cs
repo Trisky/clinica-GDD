@@ -119,6 +119,8 @@ namespace ClinicaFrba.UI._11___Registro_Llegada
             string idPaciente = dgListado.SelectedRows[0].Cells[3].Value.ToString();
             string idTurno = dgListado.SelectedRows[0].Cells[0].Value.ToString();
             VerificarSiTieneBonos(idPaciente, idTurno);
+            Close();
+            Dispose();
         }
 
 
