@@ -754,7 +754,7 @@ AS
 BEGIN
 	SELECT TOP 5 (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.turn_especialidad) AS Especialidad, COUNT(*) Cantidad_de_Cancelaciones 
 	FROM GRUPOSA.TurnosCancelacion c JOIN GRUPOSA.Turnos t ON c.Cancelacion_Turno_Id = t.Turn_Numero
-	WHERE MONTH(CAST(T.Turn_Fecha AS DATE)) BETWEEN MONTH(CAST(@fechaInicio AS DATE)) AND MONTH(CAST(@fechaFinal AS DATE))
+	WHERE MONTH(CAST(T.Turn_Fecha AS DATE)) BETWEEN @fechaInicio AND @fechaFinal
 	AND YEAR(CAST(T.Turn_Fecha AS DATE)) = @anio 
 	GROUP BY T.Turn_Especialidad
     ORDER BY COUNT(*) DESC
@@ -768,7 +768,7 @@ BEGIN
 		(SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = t.Turn_Especialidad) AS Especialidad,  
 		(SELECT UPPER(M.Medi_Apellido+' '+M.Medi_Nombre) FROM GRUPOSA.Medico M WHERE M.Medi_Id = t.Turn_Medico_Id) AS Profesional
 	FROM GRUPOSA.TURNOS T JOIN GRUPOSA.Paciente P ON T.Turn_Paciente_Id = P.Paci_Matricula
-	WHERE MONTH(CAST(T.Turn_Fecha AS DATE)) BETWEEN MONTH(CAST(@fechaInicio AS DATE)) AND MONTH(CAST(@fechaFinal AS DATE))
+	WHERE MONTH(CAST(T.Turn_Fecha AS DATE)) BETWEEN @fechaInicio AND @fechaFinal
 	AND YEAR(CAST(T.Turn_Fecha AS DATE)) = @anio
 	GROUP BY Turn_Medico_Id, p.Paci_Plan_Med_Cod_FK,t.Turn_Especialidad
 	ORDER BY 1 DESC
@@ -793,20 +793,20 @@ BEGIN
 		COUNT(*) AS Cantidad_de_Bonos_Utilizados 
 		FROM GRUPOSA.Bonos JOIN GRUPOSA.Turnos T ON Bono_Consulta_Numero = T.Turn_Numero
 	WHERE Bono_expirado <> 0
-	AND MONTH(CAST(T.Turn_Fecha AS DATE)) BETWEEN MONTH(CAST(@fechaInicio AS DATE)) AND MONTH(CAST(@fechaFinal AS DATE))
+	AND MONTH(CAST(T.Turn_Fecha AS DATE)) BETWEEN @fechaInicio AND @fechaFinal
 	AND YEAR(CAST(T.Turn_Fecha AS DATE)) = @anio
 	GROUP BY Turn_Especialidad
 	ORDER BY 2 DESC
 END
 GO
-CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
+CREATE PROCEDURE [GRUPOSA].[sp_top5AfiliadosConMasBonos](@anio VARCHAR(250), @fechaInicio VARCHAR(255), @fechaFinal VARCHAR(255))
 AS
 BEGIN
 SELECT TOP 5 (SELECT UPPER(Paci_Apellido + ' ' + Paci_Nombre) FROM GRUPOSA.Paciente WHERE Paci_Matricula =  Bono_Paci_Id) AS Afiliado, 
 	   (CASE WHEN SUBSTRING(Bono_Paci_Id,7,8) = '01' THEN 'No es grupo familiar' ELSE 'Es grupo familiar' END) AS Grupo_Fliar, 
 	   COUNT(*) AS Cantidad_de_Bonos 
 FROM GRUPOSA.Bonos
-WHERE MONTH(CAST(Bono_Compra_Fecha AS DATE)) BETWEEN MONTH(CAST(@fechaInicio AS DATE)) AND MONTH(CAST(@fechaFinal AS DATE))
+WHERE MONTH(CAST(Bono_Compra_Fecha AS DATE)) BETWEEN @fechaInicio AND @fechaFinal
 AND YEAR(CAST(Bono_Compra_Fecha AS DATE)) = @anio
 GROUP BY Bono_Paci_Id, Bono_Numero_GrupoFamiliar
 ORDER BY 3 DESC, 2 ASC
