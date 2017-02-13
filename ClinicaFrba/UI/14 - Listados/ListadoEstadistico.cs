@@ -26,21 +26,7 @@ namespace ClinicaFrba.UI._14___Listados
 
         #region auxiliares
 
-        public Boolean ValidarFechaMenorA6Meses(){
 
-            int cantidadMesesEntreFechas=((dateDesde.Value.Year - dateHasta.Value.Year) * 12) + dateDesde.Value.Month - dateHasta.Value.Month;
-
-            cantidadMesesEntreFechas=cantidadMesesEntreFechas*(-1);
-
-            if (cantidadMesesEntreFechas > 6)
-            {
-                MessageBox.Show("La fecha debe ser menor a 6 meses.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
         private void DesactivarBotonesQueNoSeUsan()
         {
             btnAgregar.Visible = false;
@@ -49,7 +35,7 @@ namespace ClinicaFrba.UI._14___Listados
             btnSeleccionar.Visible = false;
             btnBuscar.Visible = false;
             btnLimpiar.Visible = false;
-            toggleBotones(false);
+            toggleBotones(true);
         }
         public void toggleBotones(bool valor)
         {
@@ -62,10 +48,19 @@ namespace ClinicaFrba.UI._14___Listados
 
         private bool MostrarEsteSP(string SP)
         {
+            int mesDesde = 1;
+            int mesHasta = 6;
+
+            if(numericSemestre.Value == 2)
+            {
+                mesDesde = 7;
+                mesHasta = 12;
+            }
             Conexion con = new Conexion();
             SqlCommand cmd = con.CrearComandoStoreProcedure(SP);
-            cmd.Parameters.Add("@fechaInicio", SqlDbType.VarChar).Value = dateDesde.Value.Date.ToString();
-            cmd.Parameters.Add("@fechaFinal", SqlDbType.VarChar).Value =  dateHasta.Value.Date.ToString();
+            cmd.Parameters.Add("@anio", SqlDbType.VarChar).Value = numericAnio.Value.ToString();
+            cmd.Parameters.Add("@fechaInicio", SqlDbType.VarChar).Value = '0'+mesDesde.ToString();
+            cmd.Parameters.Add("@fechaFinal", SqlDbType.VarChar).Value = '0' + mesHasta.ToString();
             DataTable dt = con.ExecConsulta(cmd);
             try
             {
@@ -77,10 +72,11 @@ namespace ClinicaFrba.UI._14___Listados
             }
             catch(Exception ex) {
                 MessageBox.Show("Error Al obtener" + ex, "No hay datos ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                
             }
                 
             dgListado.DataSource = dt;
+            toggleBotones(false);
             return true;
         }
         #endregion
@@ -97,6 +93,14 @@ namespace ClinicaFrba.UI._14___Listados
                 }
             }
             
+        }
+        /// <summary>
+        /// paja programar bien ya
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidarFechaMenorA6Meses()
+        {
+            return true;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -145,7 +149,7 @@ namespace ClinicaFrba.UI._14___Listados
         {
             if (ValidarFechaMenorA6Meses())
             {
-                if (MostrarEsteSP("sp_top5ProfConMenosHsTrabPorEsp"))
+                if (MostrarEsteSP("sp_top5EspConMasBonosUtil"))
                 {
                     //dgListado.Columns[0].Width = 500;
                     //dgListado.Columns[1].Width = 500;
@@ -153,26 +157,16 @@ namespace ClinicaFrba.UI._14___Listados
             }
         }
 
-        private void dateDesde_ValueChanged(object sender, EventArgs e)
-        {
-            if (dateDesde.Value < dateHasta.Value)
-                toggleBotones(true);
-            else
-                toggleBotones(false);
-        }
 
-        private void dateHasta_ValueChanged(object sender, EventArgs e)
-        {
-            if (dateDesde.Value < dateHasta.Value)
-                toggleBotones(true);
-            else
-                toggleBotones(false);
-        }
 
         private void ListadoEstadistico_Load(object sender, EventArgs e)
         {
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
