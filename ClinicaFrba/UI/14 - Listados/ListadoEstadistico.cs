@@ -76,7 +76,8 @@ namespace ClinicaFrba.UI._14___Listados
             }
                 
             dgListado.DataSource = dt;
-            toggleBotones(false);
+            //toggleBotones(false);
+
             return true;
         }
         #endregion
