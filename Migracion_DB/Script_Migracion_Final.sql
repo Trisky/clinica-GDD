@@ -777,7 +777,7 @@ GO
 CREATE PROCEDURE [GRUPOSA].[sp_top5ProfConMenosHsTrabPorEsp](@anio VARCHAR(250), @fechaInicio  VARCHAR(250), @fechaFinal  VARCHAR(250))
 AS
 BEGIN
-	SELECT SUM(DATEDIFF(MINUTE, Hora_Inicio, Hora_Fin)/60) AS Cantidad_Horas,
+	SELECT TOP 5 SUM(DATEDIFF(MINUTE, Hora_Inicio, Hora_Fin)/60) AS Cantidad_Horas,
 		   (SELECT UPPER(M.Medi_Apellido+' '+M.Medi_Nombre) FROM GRUPOSA.Medico M WHERE M.Medi_Id =  h.Hora_Medico_Id_FK) AS Medico, 
 		   (SELECT e.Espe_Desc FROM GRUPOSA.Especialidades e WHERE e.Espe_Cod = h.Hora_Especialidad) AS Especialidad 
 	FROM GRUPOSA.HorariosAtencion H
