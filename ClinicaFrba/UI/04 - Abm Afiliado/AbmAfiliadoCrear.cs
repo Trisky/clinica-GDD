@@ -74,6 +74,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
         public AbmAfiliadoCrear(DataGridViewRow dr)
         {
             Inicializar();
+            estaModificando = true;
             buttonCrearAfiliado.Visible = false;
             buttonGuardarModificacion.Visible = true;
             label12.Visible = false;
@@ -230,24 +231,39 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 MessageBox.Show("¡Debe seleccionar un plan medico", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            if(!StaticUtils.esNumerico(textBoxDNI.Text)||
+            if (!StaticUtils.esNumerico(textBoxDNI.Text) ||
                 !StaticUtils.esNumerico(textBoxTelefono.Text))
             {
                 MessageBox.Show("¡Telefono y dni deben ser numericos", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             CheckearTextBoxesNoVacios();
-            if(
-                !StaticUtils.CheckSelectedValueCB(comboBoxEstadoCivil)||
-                !StaticUtils.CheckSelectedValueCB(comboBoxPlanMedico)||
-                !StaticUtils.CheckSelectedValueCB(comboBoxTipoDni)||
+            if (
+                !StaticUtils.CheckSelectedValueCB(comboBoxEstadoCivil) ||
+                !StaticUtils.CheckSelectedValueCB(comboBoxPlanMedico) ||
+                !StaticUtils.CheckSelectedValueCB(comboBoxTipoDni) ||
                 !StaticUtils.checkControls(groupBoxCrear.Controls)
               )
             {
                 MessageBox.Show("¡Debe seleccionar todas las opciones y completar todos los campos", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
+            if (!estaModificando) //para que no aparezca en la pantalla de modificacion
+            {
+                if (!DniEsUnico()) return false;
+            }
+            
+            return true;
 
+        }
+
+        /// <summary>
+        /// chequea si el dni esta repetido en la DB
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool DniEsUnico()
+        {
             DataTable dt;
             Conexion con1 = new Conexion();
             string q = @" select 1 FROM [GD2C2016].[GRUPOSA].[Paciente] where
@@ -262,12 +278,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 MessageBox.Show("¡El DNI no puede repetirse!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-
-
-
-
             return true;
-
         }
 
         private void buttonCrearFamiliar_Click(object sender, EventArgs e)
