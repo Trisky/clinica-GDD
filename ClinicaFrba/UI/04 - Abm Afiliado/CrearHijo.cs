@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaFrba.UI._05___Abm_Profesional;
+using ClinicaFrba.Helpers;
 
 namespace ClinicaFrba.UI._04___Abm_Afiliado
 {
@@ -60,12 +61,17 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
 
         private bool Validar()
         {
-            if(dniConyuge == textBoxDNI.Text)
-            {
+                DataTable dt;
+                Conexion con = new Conexion();
+                string q = @" select 1 FROM [GD2C2016].[GRUPOSA].[Paciente] where
+                             @dni_user= [Paci_Dni] and [Paci_estado] <> 1";
+                SqlCommand cmd = con.CrearComandoQuery(q);
+                cmd.Parameters.Add(new SqlParameter("@dni_user", textBoxDNI.Text));
+                dt = con.ExecConsulta(cmd);
 
-
-
-                MessageBox.Show("¡El DNI no puede repetirse en la familia", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dt.Rows.Count >= 1)
+           {
+                MessageBox.Show("¡El DNI no puede repetirse", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
             if (!StaticUtils.esNumerico(textBoxDNI.Text) ||

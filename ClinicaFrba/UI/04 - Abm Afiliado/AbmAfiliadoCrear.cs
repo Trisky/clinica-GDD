@@ -130,6 +130,9 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             else
             consultarPorMasHijos();
         }
+
+
+
         public void consultarPorMasHijos()
         {
             int cantidadHijos = Convert.ToInt32(UpDownCantidadHijos.Value);
@@ -174,6 +177,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
 
         private void ExecSQL()
         {
+
             Conexion con = new Conexion();
             SqlCommand cmd;
             cmd = con.CrearComandoStoreProcedure("sp_crearAfiliado");
@@ -191,7 +195,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd.Parameters.Add("@paci_dni", SqlDbType.VarChar).Value = textBoxDNI.Text;//4
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value =  textBoxDireccion.Text;//5
 
-            //if (textBoxTelefono.Text.Equals("")){textBoxTelefono.Text = "0";}
+            if (textBoxTelefono.Text.Equals("")){textBoxTelefono.Text = "0";}
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text; // Convert.ToInt32(textBoxTelefono.Text);//6
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value =  textBoxMail.Text;//7
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value =  dateTimePickerFechaNacimiento.Value;//8
@@ -243,6 +247,23 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
                 MessageBox.Show("¡Debe seleccionar todas las opciones y completar todos los campos", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
+
+            DataTable dt;
+            Conexion con1 = new Conexion();
+            string q = @" select 1 FROM [GD2C2016].[GRUPOSA].[Paciente] where
+                             @dni_user= [Paci_Dni] and [Paci_estado] <> 1";
+            SqlCommand cmd1 = con1.CrearComandoQuery(q);
+            cmd1.Parameters.Add(new SqlParameter("@dni_user", textBoxDNI.Text));
+            dt = con1.ExecConsulta(cmd1);
+
+            if (dt.Rows.Count >= 1)
+            {
+                MessageBox.Show("¡El DNI no puede repetirse!", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+
+
 
             return true;
 
