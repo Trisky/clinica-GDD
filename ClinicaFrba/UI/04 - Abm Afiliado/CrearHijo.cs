@@ -62,6 +62,9 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
         {
             if(dniConyuge == textBoxDNI.Text)
             {
+
+
+
                 MessageBox.Show("¡El DNI no puede repetirse en la familia", "Operación fallida", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
@@ -121,6 +124,7 @@ namespace ClinicaFrba.UI._04___Abm_Afiliado
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;
             cmd.Parameters.Add("@paci_tipodni", SqlDbType.VarChar).Value = a;
             cmd.Parameters.Add("@paci_dni", SqlDbType.VarChar).Value = textBoxDNI.Text;
+            if (textBoxTelefono.Text.Equals("")) { textBoxTelefono.Text = "0"; };
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text;
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;
             cmd.Parameters.Add("@paci_estado_civil", SqlDbType.VarChar).Value = comboBoxEstadoCivil.SelectedValue;

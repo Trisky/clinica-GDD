@@ -191,7 +191,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd.Parameters.Add("@paci_dni", SqlDbType.VarChar).Value = textBoxDNI.Text;//4
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value =  textBoxDireccion.Text;//5
 
-            if (textBoxTelefono.Text.Equals("")){textBoxTelefono.Text = "0";}
+            //if (textBoxTelefono.Text.Equals("")){textBoxTelefono.Text = "0";}
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text; // Convert.ToInt32(textBoxTelefono.Text);//6
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value =  textBoxMail.Text;//7
             cmd.Parameters.Add("@paci_fecha_nac", SqlDbType.VarChar).Value =  dateTimePickerFechaNacimiento.Value;//8
@@ -332,6 +332,7 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             cmd.Parameters.Add("@afiliadoId", SqlDbType.VarChar).Value = IDAfiliado;//5
             cmd.Parameters.Add("@paci_tipodni", SqlDbType.VarChar).Value = a;//3
             cmd.Parameters.Add("@paci_direccion", SqlDbType.VarChar).Value = textBoxDireccion.Text;//5
+            if (textBoxTelefono.Text.Equals("")) { textBoxTelefono.Text = "0"; };
             cmd.Parameters.Add("@paci_tel", SqlDbType.VarChar).Value = textBoxTelefono.Text; // Convert.ToInt32(textBoxTelefono.Text);//6
             cmd.Parameters.Add("@paci_mail", SqlDbType.VarChar).Value = textBoxMail.Text;//7
             cmd.Parameters.Add("@fechaHoy", SqlDbType.VarChar).Value = StaticUtils.getDate();
