@@ -251,9 +251,10 @@ namespace ClinicaFrba.UI._05___Abm_Profesional
             DataTable dt;
             Conexion con1 = new Conexion();
             string q = @" select 1 FROM [GD2C2016].[GRUPOSA].[Paciente] where
-                             @dni_user= [Paci_Dni] and [Paci_estado] <> 1";
+                             @dni_user= [Paci_Dni] and [Paci_estado] <> 1 and @tipo_dni = [Paci_TipoDocumento] ";
             SqlCommand cmd1 = con1.CrearComandoQuery(q);
             cmd1.Parameters.Add(new SqlParameter("@dni_user", textBoxDNI.Text));
+            cmd1.Parameters.Add(new SqlParameter("@tipo_dni", comboBoxTipoDni.Text));
             dt = con1.ExecConsulta(cmd1);
 
             if (dt.Rows.Count >= 1)
